@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
+import 'package:medical_servey_app/widgets/common.dart';
 
 class LoginPage extends StatefulWidget {
-  static String tag = 'login-page';
   @override
   _LoginPageState createState() => new _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  var width, height;
+
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     final logo = Hero(
       tag: 'hero',
       child: Container(
@@ -22,41 +27,26 @@ class _LoginPageState extends State<LoginPage> {
     final email = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      initialValue: 'alucard@gmail.com',
-      decoration: InputDecoration(
-        hintText: 'Email',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-      ),
+      decoration: Common.textFormFieldInputDecoration(labelText: "Email"),
+
     );
 
     final password = TextFormField(
       autofocus: false,
-      initialValue: 'some password',
       obscureText: true,
-      decoration: InputDecoration(
-        hintText: 'Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-      ),
+      decoration: Common.textFormFieldInputDecoration(labelText: "Password"),
     );
 
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        onPressed: () {
-          print("press");
-        },
-        padding: EdgeInsets.all(12),
-        color: Colors.lightBlueAccent,
-        child: Text('Log In', style: TextStyle(color: Colors.white)),
+      child: OutlinedButton(
+        style: Common.buttonStyle(),
+        onPressed: () {  },
+        child: Text('Log In', style: TextStyle(color: Colors.blue)),
       ),
     );
 
-    final forgotLabel = FlatButton(
+    final forgotLabel = TextButton(
       child: Text(
         'Forgot password?',
         style: TextStyle(color: Colors.black54),
@@ -64,12 +54,15 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {},
     );
 
+
+
     return Scaffold(
+
       backgroundColor: Colors.white,
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: Common.leftRightPadding(mHeight: height),
           children: <Widget>[
             logo,
             SizedBox(height: 48.0),

@@ -10,8 +10,8 @@ ThemeData lightTheme() {
 //    primarySwatch: primaryColor,
     brightness: brightness,
     textTheme: new TextTheme(
-      body1: new TextStyle(color: Colors.red),
-      display4: new TextStyle(fontSize: 78),
+      bodyText1: new TextStyle(color: Colors.red),
+      headline1: new TextStyle(fontSize: 78),
       button: new TextStyle(color: Colors.green),
     ),
     // tabBarTheme:
@@ -38,10 +38,9 @@ ThemeData lightTheme() {
     // primaryTextTheme:
     // sliderTheme:
     primaryColor: primaryColor,
-    accentColor: primaryColor,
     fontFamily: 'Montserrat',
     buttonColor: Color(0xFF00C569),
     // scaffoldBackgroundColor: backgroundColor,
-    cardColor: Colors.white,
+    cardColor: Colors.white, colorScheme: ColorScheme.fromSwatch().copyWith(secondary: primaryColor),
   );
 }
