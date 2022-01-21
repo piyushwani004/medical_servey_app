@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
 class AddDiseases extends StatefulWidget {
@@ -54,7 +55,9 @@ class _AddDiseasesState extends State<AddDiseases> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          inputDialog(context, inputText: 'Disease Name');
+        },
         child: Icon(
           Icons.add_circle,
           color: Colors.white,
@@ -90,7 +93,6 @@ class _AddDiseasesState extends State<AddDiseases> {
           print('You Click on po up menu item $value');
         },
       ),
-      // </Add>
     );
   }
 }
