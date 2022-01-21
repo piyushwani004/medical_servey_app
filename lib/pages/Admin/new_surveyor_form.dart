@@ -13,6 +13,8 @@ class NewSurveyorForm extends StatefulWidget {
 }
 
 class _NewSurveyorFormState extends State<NewSurveyorForm> {
+  String selectedDate = 'Select Date';
+
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
 
   DropDownButtonWidget? ageDropDown;
@@ -122,6 +124,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     );
     final aadhaarNo = TextFormField(
       keyboardType: TextInputType.number,
+      validator: (aadhaarNo) => aadhaarNumberValidator(aadhaarNo!),
       autofocus: false,
       onSaved: (aadhaarNo) {
         surveyorForm["aadhaarNo"] = aadhaarNo!;
@@ -131,11 +134,13 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
           Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
     );
 
-    final submitBtn = OutlinedButton(onPressed: () {
-      if(formKeyNewSurveyorForm.currentState!.validate()){
-        formKeyNewSurveyorForm.currentState!.save();
-      }
-    }, child: Text('Submit'));
+    final submitBtn = OutlinedButton(
+        onPressed: () {
+          if (formKeyNewSurveyorForm.currentState!.validate()) {
+            formKeyNewSurveyorForm.currentState!.save();
+          }
+        },
+        child: Text('Submit'));
     return Form(
         key: formKey,
         child: Column(
@@ -160,9 +165,28 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
                 )),
               ],
             ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: qualificationDropDown!,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: qualificationDropDown!,
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                      padding: Common.allPadding(mHeight: height),
+                      child: Container(
+                        child: TextButton(
+                            onPressed: () async {
+                              selectedDate = await selectDate(context);
+                              setState(() {});
+                            },
+                            child: Text(selectedDate)),
+                      )),
+                ),
+              ],
             ),
             Padding(
               padding: Common.allPadding(mHeight: height),
@@ -175,10 +199,6 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
             Padding(
               padding: Common.allPadding(mHeight: height),
               child: email,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: Text('Date widget'),
             ),
             Padding(
               padding: Common.allPadding(mHeight: height),

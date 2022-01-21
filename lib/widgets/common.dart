@@ -77,6 +77,7 @@ class Common {
   static InputDecoration textFormFieldInputDecoration(
       {required String labelText}) {
     return InputDecoration(
+      labelText: labelText,
       hintText: labelText,
       contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
@@ -86,8 +87,8 @@ class Common {
   static BoxDecoration gradientBoxDecoration({borderRadius}) {
     return BoxDecoration(
         borderRadius:
-        borderRadius ?? const BorderRadius.all(Radius.circular(10)),
+        borderRadius ?? const BorderRadius.all(Radius.circular(10),),
         gradient: LinearGradient(
-            colors: [Colors.blue.shade600, const Color(0xFF3F5AA6)]));
+            colors: [Colors.grey, Colors.black26]));
   }
 }
