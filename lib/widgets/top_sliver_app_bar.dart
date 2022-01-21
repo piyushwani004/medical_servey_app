@@ -19,13 +19,7 @@ class TopSliverAppBar extends StatelessWidget {
       floating: true,
       centerTitle: true,
       title: Text(text,style: Common.headerTextStyle(),),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(15),
-        ),
-      ),
-      elevation: 20,
-      backgroundColor: Colors.black26,
+      elevation: 5,
       expandedHeight: mHeight * 0.08,
       forceElevated: true,
       actions: onPressedLogout != null
