@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/utils/functions.dart';
+import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
 class AddDiseases extends StatefulWidget {
@@ -23,17 +24,6 @@ class _AddDiseasesState extends State<AddDiseases> {
     'Mason',
     'Ethan',
     'Alexander',
-    'Liam',
-    'Noah',
-    'Oliver',
-    'William',
-    'Elijah',
-    'James',
-    'Benjamin',
-    'Lucas',
-    'Mason',
-    'Ethan',
-    'Alexander'
   ];
 
   @override
@@ -93,6 +83,44 @@ class _AddDiseasesState extends State<AddDiseases> {
           print('You Click on po up menu item $value');
         },
       ),
+    );
+  }
+
+  inputDialog(BuildContext context, {required String inputText}) {
+    String diseaseName = "";
+    return showDialog(
+      context: context,
+      barrierDismissible:
+          false, // dialog is dismissible with a tap on the barrier
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(inputText),
+          content: new Row(
+            children: [
+              Expanded(
+                  child: TextField(
+                autofocus: false,
+                decoration: Common.textFormFieldInputDecoration(
+                    labelText: "Disease Name"),
+                onChanged: (value) {
+                  diseaseName = value;
+                },
+              ))
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text('Save'),
+              onPressed: () {
+                setState(() {
+                  _names.add(diseaseName);
+                });
+                Navigator.of(context).pop(inputText);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

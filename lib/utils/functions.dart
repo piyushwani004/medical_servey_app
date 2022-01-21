@@ -65,36 +65,3 @@ String formatDate(oldFormat) {
   return _date;
 }
 
-Future inputDialog(BuildContext context, {required String inputText}) async {
-  return showDialog(
-    context: context,
-    barrierDismissible:
-        false, // dialog is dismissible with a tap on the barrier
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(inputText),
-        content: new Row(
-          children: [
-            Expanded(
-                child: TextField(
-              autofocus: true,
-              decoration: Common.textFormFieldInputDecoration(
-                  labelText: "Disease Name"),
-              onChanged: (value) {
-                inputText = value;
-              },
-            ))
-          ],
-        ),
-        actions: [
-          TextButton(
-            child: Text('Save'),
-            onPressed: () {
-              Navigator.of(context).pop(inputText);
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
