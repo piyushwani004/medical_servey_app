@@ -22,6 +22,17 @@ class _AddDiseasesState extends State<AddDiseases> {
     'Lucas',
     'Mason',
     'Ethan',
+    'Alexander',
+    'Liam',
+    'Noah',
+    'Oliver',
+    'William',
+    'Elijah',
+    'James',
+    'Benjamin',
+    'Lucas',
+    'Mason',
+    'Ethan',
     'Alexander'
   ];
 
@@ -33,49 +44,43 @@ class _AddDiseasesState extends State<AddDiseases> {
       body: CustomScrollView(
         slivers: [
           TopSliverAppBar(mHeight: height, text: "Add Disease Form"),
-          CustomScrollViewBody(bodyWidget: body())
+          SliverList(
+              delegate: SliverChildBuilderDelegate(
+            (_, i) {
+              String name = _names[i];
+              return body(_, i, name);
+            },
+            childCount: _names.length,
+          )),
         ],
       ),
     );
   }
 
-  Widget body() {
-    return Column(
-      children: [
-        Flexible(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (_, i) {
-              String name = _names[i];
-              return ListTile(
-                leading: CircleAvatar(
-                  child: Text('${name[0]}'),
-                ),
-                title: Text('$name'),
-                trailing: PopupMenuButton(
-                  itemBuilder: (context) {
-                    return [
-                      PopupMenuItem(
-                        value: 'edit',
-                        child: Text('Edit'),
-                      ),
-                      PopupMenuItem(
-                        value: 'delete',
-                        child: Text('Delete'),
-                      )
-                    ];
-                  },
-                  onSelected: (String value) {
-                    print('You Click on po up menu item');
-                  },
-                ),
-                // </Add>
-              );
-            },
-            itemCount: _names.length,
-          ),
-        ),
-      ],
+  Widget body(_, i, name) {
+    return ListTile(
+      leading: CircleAvatar(
+        child: Text('${name[0]}'),
+      ),
+      title: Text('$name'),
+      trailing: PopupMenuButton(
+        itemBuilder: (context) {
+          return [
+            PopupMenuItem(
+              value: 'edit',
+              child: Text('Edit'),
+            ),
+            PopupMenuItem(
+              value: 'delete',
+              child: Text('Delete'),
+            )
+          ];
+        },
+        onSelected: (String value) {
+          print('You Click on po up menu item');
+        },
+      ),
+      // </Add>
     );
   }
 }
