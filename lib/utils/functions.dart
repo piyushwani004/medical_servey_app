@@ -1,19 +1,43 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-
- String? emailValidator(String text){
-   bool validEmail = RegExp(r'^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$').hasMatch(text);
-   if (validEmail) {
-     return null;
-   } else {
-     return "Enter a valid Email";
-   }
+String? emailValidator(String text) {
+  bool validEmail = RegExp(r'^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$').hasMatch(text);
+  if (validEmail) {
+    return null;
+  } else {
+    return "Enter a valid Email";
+  }
 }
 
-String? passwordValidator(String text){
-  bool validPassword = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$').hasMatch(text);
+String? passwordValidator(String text) {
+  bool validPassword = RegExp(
+          r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$')
+      .hasMatch(text);
   if (validPassword) {
     return null;
   } else {
     return "*Password must contain a uppercase character and a symbol.\n*Must be 8 characters long";
   }
+}
+
+Future<String> selectDate(BuildContext context) async {
+  DateTime selectedDate = DateTime.now();
+  final DateTime? picked = await showDatePicker(
+    context: context,
+    initialDate: selectedDate,
+    firstDate: DateTime(2020),
+    lastDate: DateTime.now(),
+  );
+  if (picked != null && picked != selectedDate) {
+    selectedDate = picked;
+  }
+
+  return formatDate(selectedDate.toString());
+}
+
+String formatDate(oldFormat) {
+  DateTime dt = DateTime.parse(oldFormat);
+  String _date = DateFormat('yyyy-MM-dd').format(dt).toString().split(" ")[0];
+  return _date;
 }
