@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:medical_servey_app/utils/functions.dart';
+import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
 import 'package:medical_servey_app/widgets/common.dart';
@@ -13,13 +14,14 @@ class NewSurveyorForm extends StatefulWidget {
 }
 
 class _NewSurveyorFormState extends State<NewSurveyorForm> {
-  String selectedDate = 'Select Date';
+  String selectedDate = 'Select Joining Date';
 
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? qualificationDropDown;
+  DropDownButtonWidget? villageToAssign;
 
   // List of items in our dropdown menu
   var items = [
@@ -28,6 +30,13 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     '3',
     '4',
     '5',
+  ];
+  var villages = [
+    'Bhusawal',
+    'Jalgao',
+    'Yavatmal',
+    'Pune',
+    'Wardha',
   ];
   var genders = [
     'M',
@@ -55,6 +64,10 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     qualificationDropDown = DropDownButtonWidget(
       items: qualifications,
       name: 'Qualification',
+    );
+    villageToAssign = DropDownButtonWidget(
+      items: villages,
+      name: 'Village To Assign',
     );
     super.initState();
   }
@@ -146,7 +159,30 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            fullName,
+            SizedBox(
+              width: width,
+              height: height * 0.3,
+              child: Container(
+                margin: EdgeInsets.all(height * 0.01),
+                decoration:
+                Common.containerBoxDecoration(
+                    borderRadius:
+                    const BorderRadius.all(
+                        Radius.circular(10))),
+                child: ClipRRect(
+                  borderRadius:
+                  BorderRadius.circular(10.0),
+                  child: Image.asset(
+                    NEW_SURVEY_PATH,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: Common.allPadding(mHeight: height),
+              child: fullName,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -195,6 +231,10 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
             Padding(
               padding: Common.allPadding(mHeight: height),
               child: mobileNo,
+            ),
+            Padding(
+              padding: Common.allPadding(mHeight: height),
+              child: villageToAssign,
             ),
             Padding(
               padding: Common.allPadding(mHeight: height),

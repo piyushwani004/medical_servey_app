@@ -28,13 +28,12 @@ class Common {
   }
 
   // // container decoration
-  // static containerBoxDecoration(
-  //     {Color? backColor, BorderRadius? borderRadius}) {
-  //   return BoxDecoration(
-  //       color: backColor ?? foregroundColor,
-  //       borderRadius:
-  //       borderRadius ?? const BorderRadius.all(Radius.circular(5)));
-  // }
+  static containerBoxDecoration(
+      {Color? backColor, BorderRadius? borderRadius}) {
+    return BoxDecoration(
+        borderRadius:
+        borderRadius ?? const BorderRadius.all(Radius.circular(5)));
+  }
 
   // // AppBar
   // static appBar({required String title, BackButton? bckBtn}) {
