@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import 'common.dart';
 
 class CustomScrollViewBody extends StatefulWidget {
-  final  bodyWidget;
+  final Widget bodyWidget;
   const CustomScrollViewBody({Key? key,required this.bodyWidget}) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class _CustomScrollViewBodyState extends State<CustomScrollViewBody> {
         [
           Padding(
             padding: Common.leftRightPadding(mHeight: height),
-            child: widget.bodyWidget(),
+            child: widget.bodyWidget,
           )
         ],
       ),

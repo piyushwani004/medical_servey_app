@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/pages/Admin/new_surveyor_form.dart';
 import 'package:medical_servey_app/pages/auth/login.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: NewSurveyorForm(),
     );
   }
 }
