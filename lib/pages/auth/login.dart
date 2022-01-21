@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
