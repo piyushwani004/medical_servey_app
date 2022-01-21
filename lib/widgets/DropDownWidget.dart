@@ -11,7 +11,11 @@ class DropDownButtonWidget extends StatefulWidget {
 }
 
 class _DropDownButtonWidgetState extends State<DropDownButtonWidget> {
-   String? initValue;
+
+  String get selectedItem => _selected;
+  String _selected='';
+
+  String? initValue;
    List<String>? items;
   @override
   void initState() {
@@ -32,7 +36,7 @@ class _DropDownButtonWidgetState extends State<DropDownButtonWidget> {
       ),
       onChanged: (String? newValue) {
         setState(() {
-          widget.callback();
+          _selected = newValue!;
         });
       },
       items: items!
