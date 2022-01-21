@@ -22,6 +22,17 @@ String? passwordValidator(String text) {
   }
 }
 
+String? mobileNumberValidator(String text) {
+  bool validPassword = RegExp(
+      r'^(\+\d{1,3}[- ]?)?\d{10}$')
+      .hasMatch(text);
+  if (validPassword) {
+    return null;
+  } else {
+    return "*10 Digit Mobile Number\n*With country code ex- +91 ";
+  }
+}
+
 Future<String> selectDate(BuildContext context) async {
   DateTime selectedDate = DateTime.now();
   final DateTime? picked = await showDatePicker(
