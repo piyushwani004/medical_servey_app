@@ -118,6 +118,12 @@ class _AddDiseasesState extends State<AddDiseases> {
                 Navigator.of(context).pop(inputText);
               },
             ),
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
           ],
         );
       },
