@@ -88,6 +88,6 @@ class Common {
         borderRadius:
         borderRadius ?? const BorderRadius.all(Radius.circular(10),),
         gradient: LinearGradient(
-            colors: [Colors.grey, Colors.black26]));
+            colors: [Colors.purple, Colors.deepPurpleAccent]));
   }
 }
