@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medical_servey_app/utils/constants.dart';
+import 'package:medical_servey_app/widgets/common.dart';
+import 'package:medical_servey_app/widgets/curve_clipper.dart';
 
 class SurveyorHomePage extends StatefulWidget {
   const SurveyorHomePage({Key? key}) : super(key: key);
@@ -9,24 +10,37 @@ class SurveyorHomePage extends StatefulWidget {
 }
 
 class _SurveyorHomePageState extends State<SurveyorHomePage> {
-  var width, height;
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
     return Scaffold(
-        appBar: AppBar(
-          title: Text(TRUST_NAME),
-          centerTitle: true,
-          actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Icon(Icons.logout),
-                )),
-          ],
-        ),
-        body: Container());
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+
+          Column(
+            children: [
+              Flexible(
+                  flex: 2,
+                  child: ClipPath(
+                    clipper: CurveClipper(),
+                    child: Container(
+                      decoration: Common.gradientBoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(0),
+                            topLeft: Radius.circular(0)),
+                      ),
+                    ),
+                  )),
+              Flexible(
+                flex: 5,
+                child: Container(
+                  color: Colors.white,
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
