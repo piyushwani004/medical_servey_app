@@ -3,6 +3,7 @@ import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
+import 'package:medical_servey_app/widgets/MultiSelect_Dialog.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
@@ -18,6 +19,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
   var width, height;
 
   Map<String, String> patientForm = {};
+  List<String> flavours = [];
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -70,6 +72,26 @@ class _AddPatientFormState extends State<AddPatientForm> {
       name: 'Disease',
     );
     super.initState();
+  }
+
+  void _showMultiSelect(BuildContext context) async {
+    final items = <MultiSelectDialogItem<int>>[
+      MultiSelectDialogItem(1, 'Dog'),
+      MultiSelectDialogItem(2, 'Cat'),
+      MultiSelectDialogItem(3, 'Mouse'),
+    ];
+
+    final selectedValues = await showDialog<Set<int>>(
+      context: context,
+      builder: (BuildContext context) {
+        return MultiSelectDialog(
+          items: items,
+          initialSelectedValues: [1, 3].toSet(),
+        );
+      },
+    );
+
+    print(selectedValues);
   }
 
   @override
@@ -135,6 +157,15 @@ class _AddPatientFormState extends State<AddPatientForm> {
       decoration:
           Common.textFormFieldInputDecoration(labelText: "Mobile Number"),
     );
+    final otherDisease = TextFormField(
+      keyboardType: TextInputType.text,
+      autofocus: false,
+      onSaved: (othDisease) {
+        patientForm["Disease"] = othDisease!;
+      },
+      // validator: (email) => emailValidator(email!),
+      decoration: Common.textFormFieldInputDecoration(labelText: "Disease"),
+    );
 
     final submitBtn = OutlinedButton(
         onPressed: () {
@@ -143,6 +174,13 @@ class _AddPatientFormState extends State<AddPatientForm> {
           }
         },
         child: Text('Submit'));
+
+    final diseaseBtn = ElevatedButton(
+        onPressed: () async {
+          _showMultiSelect(context);
+        },
+        child: Text('Other'));
+
     return Form(
         key: formKey,
         child: Column(
@@ -218,7 +256,18 @@ class _AddPatientFormState extends State<AddPatientForm> {
                     child: diseasesDropdown!,
                   ),
                 ),
+                Flexible(
+                  child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: diseaseBtn,
+                  ),
+                )
+                //Visibility(visible: false, child: otherDisease)
               ],
+            ),
+            Padding(
+              padding: Common.allPadding(mHeight: height),
+              child: submitBtn,
             ),
           ],
         ));
