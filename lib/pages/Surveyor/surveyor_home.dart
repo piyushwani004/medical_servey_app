@@ -10,13 +10,16 @@ class SurveyorHomePage extends StatefulWidget {
 }
 
 class _SurveyorHomePageState extends State<SurveyorHomePage> {
+  var width, height;
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-
+          // background design
           Column(
             children: [
               Flexible(
@@ -38,7 +41,38 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                 ),
               )
             ],
-          )
+          ),
+
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: Common.allPadding(mHeight: height),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: Common.allPadding(mHeight: height),
+                        child: CircleAvatar(
+                          //first letter of name
+                          child: Text('N'),
+                        ),
+                      ),
+                      Padding(
+                        padding: Common.allPadding(mHeight: height),
+                        child: Column(
+                          children: [
+                            Text('Name'),
+                            Text('more Info')
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
