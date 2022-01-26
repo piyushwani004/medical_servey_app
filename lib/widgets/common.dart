@@ -31,6 +31,7 @@ class Common {
   static containerBoxDecoration(
       {Color? backColor, BorderRadius? borderRadius}) {
     return BoxDecoration(
+      color: Colors.deepPurple,
         borderRadius:
         borderRadius ?? const BorderRadius.all(Radius.circular(5)));
   }
