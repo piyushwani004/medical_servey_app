@@ -43,7 +43,6 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
               )
             ],
           ),
-
           ListView(
             children: [
               Align(
@@ -65,7 +64,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                           Padding(
                             padding: Common.allPadding(mHeight: height),
                             child: Column(
-                              children: [Text('Name'), Text('more Info')],
+                              children: [Text('Name',style: Common.normalTextStyle(color: Colors.white),), Text('more Info',style: Common.normalTextStyle(color: Colors.white),)],
                             ),
                           )
                         ],
