@@ -1,92 +1,51 @@
+//provider code
 
-// class FirebaseAuthService {
-//   static FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+import 'package:firebase_auth/firebase_auth.dart';
 
-//   static Stream<FirebaseUser> firebaseListner =
-//       _firebaseAuth.onAuthStateChanged;
+class FirebaseAuthService{
+  final FirebaseAuth _firebaseAuth;
 
-//   static void firebaseSignIn(String email, String password) async {
-//     try {
-//       final _authResult = await _firebaseAuth.signInWithEmailAndPassword(
-//           email: email, password: password);
-//       print(_authResult.user.email);
-//       print(_authResult.user);
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
+  FirebaseAuthService(this._firebaseAuth);
 
-//   static void firebaseRegistration(String email, String password) async {
-//     try {
-//       final _authResult = await _firebaseAuth.createUserWithEmailAndPassword(
-//           email: email, password: password);
-//       print(_authResult);
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
+  /// Changed to idTokenChanges as it updates depending on more cases.
+  Stream<User?> get authStateChanges => _firebaseAuth.idTokenChanges();
 
-//   static Future<FirebaseUser> firebaseUserDetail() async =>
-//       await _firebaseAuth.currentUser();
+  /// This won't pop routes so you could do something like
+  /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+  /// after you called this method if you want to pop all routes.
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
+  }
 
-//   static void firebaseLogout() async {
-//     try {
-//       await _firebaseAuth.signOut();
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
-// }
+  /// There are a lot of different ways on how you can do exception handling.
+  /// This is to make it as easy as possible but a better way would be to
+  /// use your own custom class that would take the exception and return better
+  /// error messages. That way you can throw, return or whatever you prefer with that instead.
+  Future signIn({required String email, required String password}) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      return 'SignIn';
+    } on FirebaseAuthException catch (e) {
+      print("ERROR :::"+e.code);
+      return e.code;
+    }
+  }
+
+  /// There are a lot of different ways on how you can do exception handling.
+  /// This is to make it as easy as possible but a better way would be to
+  /// use your own custom class that would take the exception and return better
+  /// error messages. That way you can throw, return or whatever you prefer with that instead.
+  Future<String?> signUp({required String email, required String password}) async {
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      return "Signed up";
+    } on FirebaseAuthException catch (e) {
+      return e.message;
+    }
+  }
+}
 
 
-// //provider code
-//
-// import 'package:firebase_auth/firebase_auth.dart';
-//
-// class FirebaseAuthService{
-//   final FirebaseAuth _firebaseAuth;
-//
-//   FirebaseAuthService(this._firebaseAuth);
-//
-//   /// Changed to idTokenChanges as it updates depending on more cases.
-//   Stream<User?> get authStateChanges => _firebaseAuth.idTokenChanges();
-//
-//   /// This won't pop routes so you could do something like
-//   /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
-//   /// after you called this method if you want to pop all routes.
-//   Future<void> signOut() async {
-//     await _firebaseAuth.signOut();
-//   }
-//
-//   /// There are a lot of different ways on how you can do exception handling.
-//   /// This is to make it as easy as possible but a better way would be to
-//   /// use your own custom class that would take the exception and return better
-//   /// error messages. That way you can throw, return or whatever you prefer with that instead.
-//   Future signIn({required String email, required String password}) async {
-//     try {
-//       await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-//       return 'SignIn';
-//     } on FirebaseAuthException catch (e) {
-//       print("ERROR :::"+e.code);
-//       return e.code;
-//     }
-//   }
-//
-//   /// There are a lot of different ways on how you can do exception handling.
-//   /// This is to make it as easy as possible but a better way would be to
-//   /// use your own custom class that would take the exception and return better
-//   /// error messages. That way you can throw, return or whatever you prefer with that instead.
-//   Future<String?> signUp({required String email, required String password}) async {
-//     try {
-//       await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-//       return "Signed up";
-//     } on FirebaseAuthException catch (e) {
-//       return e.message;
-//     }
-//   }
-// }
-//
-//
 
 //errors to handle
 // static bool getMessageFromErrorCode(errorCode) {

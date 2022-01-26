@@ -1,7 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/pages/Surveyor/surveyor_home.dart';
+import 'package:medical_servey_app/pages/auth/login.dart';
+import 'package:provider/provider.dart';
+
+import 'Services/Common/auth_service.dart';
+import 'Services/Common/authenication_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +40,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SurveyorHomePage(),
+      home: MultiProvider(providers: [
+        Provider<FirebaseAuthService>(
+            create: (_) => FirebaseAuthService(FirebaseAuth.instance)),
+        StreamProvider(
+          create: (context) =>
+              context.read<FirebaseAuthService>().authStateChanges,
+          initialData: null,
+        )
+      ], child: const AuthenticationWrapper()),
     );
   }
 }

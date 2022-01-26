@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/Services/Common/auth_service.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/widgets/common.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,9 +16,18 @@ class _LoginPageState extends State<LoginPage> {
   Map<String ,String> emailPassword = {};
 
 
-  onLoginPressed(){
+  onLoginPressed()async{
     if(formKeyEmailPass.currentState!.validate()){
       formKeyEmailPass.currentState!.save();
+
+      String isSignedIn = await context.read<FirebaseAuthService>().signIn(
+          email: emailPassword['email'] ?? '',
+          password: emailPassword['password'] ?? '');
+
+      print(isSignedIn);
+
+
+
     }
   }
 
@@ -45,7 +56,6 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final password = TextFormField(
-      validator: (password) => passwordValidator(password!),
       onSaved: (password){
         emailPassword["password"] = password!;
       },

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/Services/Common/auth_service.dart';
 import 'package:medical_servey_app/utils/constants.dart';
+import 'package:provider/src/provider.dart';
 
 class AdminHomePage extends StatefulWidget {
   const AdminHomePage({Key? key}) : super(key: key);
@@ -10,6 +12,12 @@ class AdminHomePage extends StatefulWidget {
 
 class _AdminHomePageState extends State<AdminHomePage> {
   var width, height;
+
+  Future onLogOutPressed()async {
+    print("log out called");
+    context.read<FirebaseAuthService>().signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -27,7 +35,9 @@ class _AdminHomePageState extends State<AdminHomePage> {
             Padding(
                 padding: EdgeInsets.only(right: 20.0),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    onLogOutPressed();
+                  },
                   child: Icon(Icons.logout),
                 )),
           ],
