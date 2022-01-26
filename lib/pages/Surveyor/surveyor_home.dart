@@ -67,12 +67,12 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                               children: [
                                 Text(
                                   'Name',
-                                  style: Common.normalTextStyle(
+                                  style: TextStyle(
                                       color: Colors.white),
                                 ),
                                 Text(
                                   'more Info',
-                                  style: Common.normalTextStyle(
+                                  style: TextStyle(
                                       color: Colors.white),
                                 )
                               ],

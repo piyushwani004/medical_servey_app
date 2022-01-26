@@ -18,7 +18,7 @@ class TopSliverAppBar extends StatelessWidget {
     return SliverAppBar(
       floating: true,
       centerTitle: true,
-      title: Text(text,style: Common.headerTextStyle(),),
+      title: Text(text,style: TextStyle(color: Colors.white),),
       elevation: 5,
       expandedHeight: mHeight * 0.08,
       forceElevated: true,

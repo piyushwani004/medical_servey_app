@@ -1,19 +1,18 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 
 
 
 class Common {
-  // header text
-  static headerTextStyle({Color? color, double? size}) {
-    return GoogleFonts.varelaRound(
-      color: color,
-      fontSize: size ?? 19,
-      fontWeight: FontWeight.bold,
-    );
-  }
+  // // header text
+  // static headerTextStyle({Color? color, double? size}) {
+  //   return GoogleFonts.varelaRound(
+  //     color: color,
+  //     fontSize: size ?? 19,
+  //     fontWeight: FontWeight.bold,
+  //   );
+  // }
 
   static buttonStyle({Color? backClr, Color? foreClr}) {
     return ButtonStyle(
@@ -22,10 +21,10 @@ class Common {
     );
   }
 
-  static normalTextStyle({Color? color, double? fs}) {
-    return GoogleFonts.varelaRound(
-        color: color, fontSize: fs ?? 15);
-  }
+  // static normalTextStyle({Color? color, double? fs}) {
+  //   return GoogleFonts.varelaRound(
+  //       color: color, fontSize: fs ?? 15);
+  // }
 
   // // container decoration
   static containerBoxDecoration(
