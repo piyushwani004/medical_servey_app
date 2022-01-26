@@ -1,10 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:medical_servey_app/pages/Admin/add_diseases.dart';
-import 'package:medical_servey_app/pages/Admin/new_surveyor_form.dart';
-import 'package:medical_servey_app/pages/Surveyor/add_patient.dart';
 import 'package:medical_servey_app/pages/Surveyor/surveyor_home.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
