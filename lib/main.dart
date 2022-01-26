@@ -4,7 +4,15 @@ import 'package:medical_servey_app/pages/Surveyor/surveyor_home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: "AIzaSyAuX_K_41nxsW4R-zuTJXqurNY4qdIuBQc",
+          authDomain: "medicalsurvey-171ca.firebaseapp.com",
+          projectId: "medicalsurvey-171ca",
+          storageBucket: "medicalsurvey-171ca.appspot.com",
+          messagingSenderId: "566586934466",
+          appId: "1:566586934466:web:48fab48e87e92718b5e75b",
+          measurementId: "G-HDG71K05K2"));
   runApp(MyApp());
 }
 
