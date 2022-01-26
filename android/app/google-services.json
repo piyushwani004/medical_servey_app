@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "566586934466",
+    "project_id": "medicalsurvey-171ca",
+    "storage_bucket": "medicalsurvey-171ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566586934466:android:f7207d89de9c871eb5e75b",
+        "android_client_info": {
+          "package_name": "com.example.medical_servey_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566586934466-7mpca9gh40562idc2o0fkrrtbibck9b4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsjLJHbHk71v1Mz5A8Cb4GEUvNJRLleGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566586934466-7mpca9gh40562idc2o0fkrrtbibck9b4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
