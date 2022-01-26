@@ -1,34 +1,33 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_firebase_auth/screen/home_screen.dart';
-// import 'package:flutter_firebase_auth/screen/login_screen.dart';
-// import 'package:flutter_firebase_auth/screen/registration_screen.dart';
-// import 'package:page_transition/page_transition.dart';
+import 'package:flutter/material.dart';
+import 'package:medical_servey_app/pages/Surveyor/add_patient.dart';
+import 'package:medical_servey_app/pages/Surveyor/patient_List.dart';
+import 'package:medical_servey_app/pages/Surveyor/surveyor_home.dart';
+import 'package:medical_servey_app/pages/auth/login.dart';
+import 'package:page_transition/page_transition.dart';
 
-// const routeLogin = '/login';
-// const routeRegister = '/Register';
-// const routeHome = '/home';
+const routeLogin = '/login';
+const routeHome = '/home';
+const routeAddpatient = '/AddPatient';
+const routeUpdatepatient = '/UpdatePatient';
 
-// class Routes {
-//   static Route<dynamic> generateRoute(RouteSettings settings) {
-//     switch (settings.name) {
-//       case routeLogin:
-//         return PageTransition(
-//             type: PageTransitionType.rightToLeft, child: LoginScreen());
-//         break;
-//       case routeRegister:
-//         //Map mapData = settings.arguments;
-//         return PageTransition(
-//             type: PageTransitionType.rightToLeft, child: RegistrationScreen());
-//         break;
-//       case routeHome:
-//         //Map mapData = settings.arguments;
-//         return PageTransition(
-//             type: PageTransitionType.rightToLeft, child: HomeScreen());
-//         break;
-//       default:
-//         return PageTransition(
-//             type: PageTransitionType.rightToLeft, child: LoginScreen());
-//         break;
-//     }
-//   }
-// }
+class SurveyorRoutes {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case routeLogin:
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: LoginPage());
+      case routeHome:
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: SurveyorHomePage());
+      case routeAddpatient:
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: AddPatientForm());
+      case routeUpdatepatient:
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: PatientList());
+      default:
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: LoginPage());
+    }
+  }
+}

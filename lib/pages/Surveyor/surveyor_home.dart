@@ -64,7 +64,18 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                           Padding(
                             padding: Common.allPadding(mHeight: height),
                             child: Column(
-                              children: [Text('Name',style: Common.normalTextStyle(color: Colors.white),), Text('more Info',style: Common.normalTextStyle(color: Colors.white),)],
+                              children: [
+                                Text(
+                                  'Name',
+                                  style: Common.normalTextStyle(
+                                      color: Colors.white),
+                                ),
+                                Text(
+                                  'more Info',
+                                  style: Common.normalTextStyle(
+                                      color: Colors.white),
+                                )
+                              ],
                             ),
                           )
                         ],
@@ -94,7 +105,10 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.holiday_village_rounded, size: height*0.09,),
+                                    Icon(
+                                      Icons.holiday_village_rounded,
+                                      size: height * 0.09,
+                                    ),
                                     Text("Select Village")
                                   ],
                                 ),
@@ -102,36 +116,50 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                             ),
                             Padding(
                               padding: Common.allPadding(mHeight: height * 0.9),
-                              child: Container(
-                                decoration: Common.containerBoxDecoration(),
-                                height: 200,
-                                width: 100,
-                                child:  Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.person_add_rounded, size: height*0.09,),
-                                    Text("Add Patient")
-                                  ],
+                              child: InkWell(
+                                child: Container(
+                                  decoration: Common.containerBoxDecoration(),
+                                  height: 200,
+                                  width: 100,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.person_add_rounded,
+                                        size: height * 0.09,
+                                      ),
+                                      Text("Add Patient")
+                                    ],
+                                  ),
                                 ),
+                                onTap: () {},
                               ),
                             ),
                           ]),
                           TableRow(children: [
                             Padding(
                               padding: Common.allPadding(mHeight: height * 0.9),
-                              child: Container(
-                                decoration: Common.containerBoxDecoration(),
-                                height: 200,
-                                width: 100,
-                                child:  Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.edit, size: height*0.09,),
-                                    Text("Update Patient")
-                                  ],
+                              child: InkWell(
+                                child: Container(
+                                  decoration: Common.containerBoxDecoration(),
+                                  height: 200,
+                                  width: 100,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.edit,
+                                        size: height * 0.09,
+                                      ),
+                                      Text("Update Patient")
+                                    ],
+                                  ),
                                 ),
+                                onTap: () {},
                               ),
                             ),
                             Padding(
@@ -140,11 +168,14 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                 decoration: Common.containerBoxDecoration(),
                                 height: 200,
                                 width: 100,
-                                child:  Column(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.person_outline_rounded, size: height*0.09,),
+                                    Icon(
+                                      Icons.person_outline_rounded,
+                                      size: height * 0.09,
+                                    ),
                                     Text("Surveyor Profile")
                                   ],
                                 ),
