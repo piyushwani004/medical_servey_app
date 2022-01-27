@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medical_servey_app/Services/Common/MenuController.dart';
 import 'package:medical_servey_app/pages/Admin/dashboard/dashboard_screen.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
-import 'package:provider/provider.dart';
 import 'components/side_menu.dart';
 
 class AdminHome extends StatefulWidget {

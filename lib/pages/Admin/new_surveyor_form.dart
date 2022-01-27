@@ -5,6 +5,7 @@ import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
 import 'package:medical_servey_app/widgets/common.dart';
+import 'package:medical_servey_app/widgets/form_container.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -81,7 +82,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      drawer: !Responsive.isDesktop(context)?SideMenu():null,
+      drawer: !Responsive.isDesktop(context) ? SideMenu() : null,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -101,7 +102,8 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
                     bodyWidget: Padding(
                   padding: Common.allPadding(mHeight: height),
                   child: body(
-                      surveyorForm: surveyorForm, formKey: formKeyNewSurveyorForm),
+                      surveyorForm: surveyorForm,
+                      formKey: formKeyNewSurveyorForm),
                 ))
               ],
             ),
@@ -175,97 +177,85 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
           }
         },
         child: Text('Submit'));
-    return Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: width,
-              height: height * 0.3,
-              child: Container(
-                margin: EdgeInsets.all(height * 0.01),
-                decoration: Common.containerBoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10))),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.asset(
-                    NEW_SURVEY_PATH,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+    return FormContainer(
+      mHeight: height,
+      mWidth: width,
+      form: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: fullName,
               ),
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: fullName,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                    child: Padding(
-                  padding: Common.allPadding(mHeight: height),
-                  child: ageDropDown!,
-                )),
-                SizedBox(
-                  width: width * 0.01,
-                ),
-                Expanded(
-                    child: Padding(
-                  padding: Common.allPadding(mHeight: height),
-                  child: genderDropDown!,
-                )),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Padding(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                      child: Padding(
                     padding: Common.allPadding(mHeight: height),
-                    child: qualificationDropDown!,
+                    child: ageDropDown!,
+                  )),
+                  SizedBox(
+                    width: width * 0.01,
                   ),
-                ),
-                Expanded(
-                  child: Padding(
+                  Expanded(
+                      child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: genderDropDown!,
+                  )),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Padding(
                       padding: Common.allPadding(mHeight: height),
-                      child: Container(
-                        child: TextButton(
-                            onPressed: () async {
-                              selectedDate = await selectDate(context);
-                              setState(() {});
-                            },
-                            child: Text(selectedDate)),
-                      )),
-                ),
-              ],
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: address,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: mobileNo,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: villageToAssign,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: email,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: aadhaarNo,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: submitBtn,
-            ),
-          ],
-        ));
+                      child: qualificationDropDown!,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                        padding: Common.allPadding(mHeight: height),
+                        child: Container(
+                          child: TextButton(
+                              onPressed: () async {
+                                selectedDate = await selectDate(context);
+                                setState(() {});
+                              },
+                              child: Text(selectedDate)),
+                        )),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: address,
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: mobileNo,
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: villageToAssign,
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: email,
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: aadhaarNo,
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: submitBtn,
+              ),
+            ],
+          )),
+    );
   }
 }
