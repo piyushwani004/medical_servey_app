@@ -1,10 +1,14 @@
 import "package:flutter/material.dart";
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
+import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
+import 'package:provider/provider.dart';
+
+import 'main/components/side_menu.dart';
 
 class NewSurveyorForm extends StatefulWidget {
   const NewSurveyorForm({Key? key}) : super(key: key);
@@ -77,15 +81,31 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          TopSliverAppBar(mHeight: height, text: "New Surveyor Form"),
-          CustomScrollViewBody(
-              bodyWidget: Padding(
-            padding: Common.allPadding(mHeight: height),
-            child: body(
-                surveyorForm: surveyorForm, formKey: formKeyNewSurveyorForm),
-          ))
+      drawer: !Responsive.isDesktop(context)?SideMenu():null,
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // We want this side menu only for large screen
+          if (Responsive.isDesktop(context))
+            Expanded(
+              // default flex = 1
+              // and it takes 1/6 part of the screen
+              child: SideMenu(),
+            ),
+          Expanded(
+            flex: 5,
+            child: CustomScrollView(
+              slivers: [
+                TopSliverAppBar(mHeight: height, text: "New Surveyor Form"),
+                CustomScrollViewBody(
+                    bodyWidget: Padding(
+                  padding: Common.allPadding(mHeight: height),
+                  child: body(
+                      surveyorForm: surveyorForm, formKey: formKeyNewSurveyorForm),
+                ))
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -151,6 +171,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
         onPressed: () {
           if (formKeyNewSurveyorForm.currentState!.validate()) {
             formKeyNewSurveyorForm.currentState!.save();
+            print("surveyorForm");
           }
         },
         child: Text('Submit'));
@@ -164,14 +185,10 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
               height: height * 0.3,
               child: Container(
                 margin: EdgeInsets.all(height * 0.01),
-                decoration:
-                Common.containerBoxDecoration(
-                    borderRadius:
-                    const BorderRadius.all(
-                        Radius.circular(10))),
+                decoration: Common.containerBoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
                 child: ClipRRect(
-                  borderRadius:
-                  BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(10.0),
                   child: Image.asset(
                     NEW_SURVEY_PATH,
                     fit: BoxFit.cover,

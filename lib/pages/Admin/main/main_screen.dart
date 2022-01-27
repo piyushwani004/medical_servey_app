@@ -11,6 +11,7 @@ class AdminHome extends StatefulWidget {
 }
 
 class _AdminHomeState extends State<AdminHome> {
+
   List _navigatorRoutes = [
 
   ];
@@ -20,8 +21,7 @@ class _AdminHomeState extends State<AdminHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: context.read<MenuController>().scaffoldKey,
-      drawer: SideMenu(),
+      drawer: !Responsive.isDesktop(context)?SideMenu():null,
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,3 +44,7 @@ class _AdminHomeState extends State<AdminHome> {
     );
   }
 }
+
+
+
+

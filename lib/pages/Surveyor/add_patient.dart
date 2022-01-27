@@ -102,15 +102,14 @@ class _AddPatientFormState extends State<AddPatientForm> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    return
-      Scaffold(
+    return Scaffold(
         key: context.read<MenuController>().scaffoldKey,
         drawer: SideMenu(),
         body: SafeArea(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // We want this side menu only for large screen
+              //We want this side menu only for large screen
               if (Responsive.isDesktop(context))
                 Expanded(
                   // default flex = 1
@@ -129,6 +128,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
                           child:
                           body(patientForm: patientForm, formKey: formKeyNewSurveyorForm),
                         ))
+
                   ],
                 ),
               ),
@@ -145,19 +145,19 @@ class _AddPatientFormState extends State<AddPatientForm> {
 
 
 
-      Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          TopSliverAppBar(mHeight: height, text: "New Patient Form"),
-          CustomScrollViewBody(
-              bodyWidget: Padding(
-            padding: Common.allPadding(mHeight: height),
-            child:
-                body(patientForm: patientForm, formKey: formKeyNewSurveyorForm),
-          ))
-        ],
-      ),
-    );
+    //   Scaffold(
+    //   body: CustomScrollView(
+    //     slivers: [
+    //       TopSliverAppBar(mHeight: height, text: "New Patient Form"),
+    //       CustomScrollViewBody(
+    //           bodyWidget: Padding(
+    //         padding: Common.allPadding(mHeight: height),
+    //         child:
+    //             body(patientForm: patientForm, formKey: formKeyNewSurveyorForm),
+    //       ))
+    //     ],
+    //   ),
+    // );
   }
 
   Widget body({required Map<String, String> patientForm, required formKey}) {
