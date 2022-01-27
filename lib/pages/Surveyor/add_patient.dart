@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/Services/Common/MenuController.dart';
+import 'package:medical_servey_app/pages/Admin/main/components/side_menu.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
+import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
 import 'package:medical_servey_app/widgets/MultiSelect_Dialog.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
+import 'package:provider/provider.dart';
 
 class AddPatientForm extends StatefulWidget {
   const AddPatientForm({Key? key}) : super(key: key);
@@ -98,7 +102,50 @@ class _AddPatientFormState extends State<AddPatientForm> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return
+      Scaffold(
+        key: context.read<MenuController>().scaffoldKey,
+        drawer: SideMenu(),
+        body: SafeArea(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // We want this side menu only for large screen
+              if (Responsive.isDesktop(context))
+                Expanded(
+                  // default flex = 1
+                  // and it takes 1/6 part of the screen
+                  child: SideMenu(),
+                ),
+              Expanded(
+                // It takes 5/6 part of the screen
+                flex: 5,
+                child: CustomScrollView(
+                  slivers: [
+                    TopSliverAppBar(mHeight: height, text: "New Patient Form"),
+                    CustomScrollViewBody(
+                        bodyWidget: Padding(
+                          padding: Common.allPadding(mHeight: height),
+                          child:
+                          body(patientForm: patientForm, formKey: formKeyNewSurveyorForm),
+                        ))
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
+
+
+
+
+
+
+
+
+      Scaffold(
       body: CustomScrollView(
         slivers: [
           TopSliverAppBar(mHeight: height, text: "New Patient Form"),
