@@ -32,13 +32,13 @@ class FileInfoCard extends StatelessWidget {
                   color: bgColor,
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),
-                child: Container(child: Text("123"),)
+                child: Container(child: Text("123", style: TextStyle(color: Colors.white)),)
               ),
-              Icon(Icons.more_vert, color: Colors.white54)
             ],
           ),
+          Divider(),
           Text(
-            "info.title!",
+            "Village Count :",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -49,13 +49,6 @@ class FileInfoCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                " Files",
-                style: Theme.of(context)
-                    .textTheme
-                    .caption!
-                    .copyWith(color: Colors.white70),
-              ),
               Text(
                " info.totalStorage!",
                 style: Theme.of(context)

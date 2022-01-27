@@ -67,14 +67,14 @@ class FileInfoCardGridView extends StatelessWidget {
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: 10,
+      itemCount: 3,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
         crossAxisSpacing: defaultPadding,
         mainAxisSpacing: defaultPadding,
         childAspectRatio: childAspectRatio,
       ),
-      itemBuilder: (context, index) => Container(child: Text("$index"),),
+      itemBuilder: (context, index) => FileInfoCard(),
     );
   }
 }
