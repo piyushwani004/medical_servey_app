@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/Services/Common/auth_service.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/curve_clipper.dart';
+import 'package:provider/provider.dart';
 
 class SurveyorHomePage extends StatefulWidget {
   const SurveyorHomePage({Key? key}) : super(key: key);
@@ -11,6 +13,11 @@ class SurveyorHomePage extends StatefulWidget {
 
 class _SurveyorHomePageState extends State<SurveyorHomePage> {
   var width, height;
+
+
+  onLogoutPressed(){
+    context.read<FirebaseAuthService>().signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,31 +60,39 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                   child: Column(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: Common.allPadding(mHeight: height),
-                            child: CircleAvatar(
-                              //first letter of name
-                              child: Text('N'),
-                            ),
-                          ),
-                          Padding(
-                            padding: Common.allPadding(mHeight: height),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Name',
-                                  style: TextStyle(
-                                      color: Colors.white),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: Common.allPadding(mHeight: height),
+                                child: CircleAvatar(
+                                  //first letter of name
+                                  child: Text('N'),
                                 ),
-                                Text(
-                                  'more Info',
-                                  style: TextStyle(
-                                      color: Colors.white),
-                                )
-                              ],
-                            ),
-                          )
+                              ),
+                              Padding(
+                                padding: Common.allPadding(mHeight: height),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Name',
+                                      style: TextStyle(
+                                          color: Colors.white),
+                                    ),
+                                    Text(
+                                      'more Info',
+                                      style: TextStyle(
+                                          color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          IconButton(onPressed: (){
+                            onLogoutPressed();
+                          }, icon: Icon(Icons.logout_rounded))
                         ],
                       ),
                     ],
