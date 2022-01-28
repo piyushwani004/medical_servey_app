@@ -44,9 +44,26 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       print("surveyorForm");
       Surveyor surveyor = Surveyor.fromMap(surveyorForm);
       print(surveyor);
+      //creating account for surveyor
+      Response responseForCreatingAcc = await _firebaseService.createSurveyorAccount(surveyor);
+      print("Firestore Response for  ::" + responseForCreatingAcc.message.toString());
 
-      Response response = await _firebaseService.saveNewSurveyor(surveyor);
-      print("Firestore Responce ::" + response.message.toString());
+      //if successfully created then try to push details to fire store
+      if(responseForCreatingAcc.isSuccessful){
+        Response response = await _firebaseService.saveNewSurveyor(surveyor);
+        if(response.isSuccessful){
+          // if successfully return  a message that process is complete
+          Common.showAlert(context: context, title: 'Surveyor Registration', content: response.message, isError: false);
+        }else{
+          //if failed while creating an account
+          Common.showAlert(context: context, title: 'Failed in Creating Account', content: response.message, isError: true);
+        }
+        print("Firestore Response ::" + response.message.toString());
+      }else{
+        //if failed while creating an account
+        Common.showAlert(context: context, title: 'Failed in Creating Account', content: responseForCreatingAcc.message, isError: true);
+        print(responseForCreatingAcc.message);
+      }
     }
   }
 

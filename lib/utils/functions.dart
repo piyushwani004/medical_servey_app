@@ -70,3 +70,8 @@ String generateRandomString(int len) {
   String randomString =String.fromCharCodes(List.generate(len, (index)=> r.nextInt(33) + 89));
   return randomString;
 }
+
+void showSnackBar(BuildContext context, String text) {
+  final snackBar = SnackBar(content: Text(text));
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}

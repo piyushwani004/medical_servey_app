@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
+import 'package:medical_servey_app/utils/constants.dart';
 import '../../utils/functions.dart';
 
 class AdminFirebaseService {
@@ -28,16 +29,18 @@ class AdminFirebaseService {
       isSuccessful = false;
       message = e.toString();
     }
-    return Response(isSuccessful, message);
+    return Response(isSuccessful: isSuccessful,message:  message);
   }
 
 
   Future<Response> createSurveyorAccount(Surveyor surveyor) async {
+
+    //creating the surveyor account with random password
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(email: surveyor.email, password:generateRandomString(6) );
-      return Response(true, 'Created Successfully');
+      await firebaseAuth.createUserWithEmailAndPassword(email: surveyor.email, password: DEF_SEC_FB );
+      return Response(isSuccessful: true, message: 'Created Successfully');
     } on FirebaseAuthException catch (e) {
-      return Response(false,e.message);
+      return Response(isSuccessful: false,message: e.message.toString());
     }
   }
 

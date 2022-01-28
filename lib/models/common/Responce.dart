@@ -1,6 +1,8 @@
 class Response<T> {
-  bool? isSuccessful;
-  String? message;
+  bool isSuccessful;
+  String message;
 
-  Response(this.isSuccessful, this.message);
+  Response({required this.isSuccessful, required this.message});
+
+
 }

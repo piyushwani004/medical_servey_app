@@ -1,8 +1,9 @@
 //provider code
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:medical_servey_app/models/common/Responce.dart';
 
-class FirebaseAuthService{
+class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth;
 
   FirebaseAuthService(this._firebaseAuth);
@@ -23,10 +24,11 @@ class FirebaseAuthService{
   /// error messages. That way you can throw, return or whatever you prefer with that instead.
   Future signIn({required String email, required String password}) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
       return 'SignIn';
     } on FirebaseAuthException catch (e) {
-      print("ERROR :::"+e.code);
+      print("ERROR :::" + e.code);
       return e.code;
     }
   }
@@ -35,16 +37,27 @@ class FirebaseAuthService{
   /// This is to make it as easy as possible but a better way would be to
   /// use your own custom class that would take the exception and return better
   /// error messages. That way you can throw, return or whatever you prefer with that instead.
-  Future<String?> signUp({required String email, required String password}) async {
+  Future<String?> signUp(
+      {required String email, required String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
       return "Signed up";
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
   }
-}
 
+  Future<Response> sendPasswordResetEmail(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      return Response(
+          isSuccessful: true, message: "Successfully sent email to $email");
+    } on FirebaseAuthException catch (e) {
+      return Response(isSuccessful: false, message: e.message.toString());
+    }
+  }
+}
 
 
 //errors to handle

@@ -7,3 +7,6 @@ const bgColor = Color(0xFF212332);
 const kPrimaryColor = Color(0xFFFE4350);
 
 const defaultPadding = 16.0;
+
+
+const DEF_SEC_FB = '123456789!@#&*()';

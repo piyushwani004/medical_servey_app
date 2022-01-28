@@ -14,6 +14,40 @@ class Common {
   //   );
   // }
 
+
+  static Future<bool?> showAlert({required BuildContext context, required String title,required String content , required isError}) async {
+    Widget submitButton = TextButton(
+        child: Text('Continue'),
+        onPressed: () {
+          Navigator.of(context).pop(true);
+        });
+
+    Widget cancelButton = TextButton(
+        child: Text('Cancel'),
+        onPressed: () {
+          Navigator.of(context).pop(false);
+        });
+
+    AlertDialog dialog = AlertDialog(
+        title: Text(title),
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            !isError?Icon(Icons.done_outline_rounded):Icon(Icons.error_outline_rounded),
+            Text(content),
+          ],
+        ),
+        actions: [submitButton]);
+
+    return showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return dialog;
+        });
+  }
+
+
   static buttonStyle({Color? backClr, Color? foreClr}) {
     return ButtonStyle(
       backgroundColor: MaterialStateProperty.all(backClr),

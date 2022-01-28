@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
+import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
@@ -12,6 +13,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final TextEditingController _textController = TextEditingController();
   final formKeyEmailPass = GlobalKey<FormState>();
   var width, height;
   Map<String, String> emailPassword = {};
@@ -28,8 +31,38 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  onForgotPressed() async {
+    bool isEmailValid = emailValidator(_textController.text) == null? true:false;
+    if(isEmailValid){
+      Response emailSent = await context
+          .read<FirebaseAuthService>()
+          .sendPasswordResetEmail(emailPassword['email'] ?? '');
+      if (emailSent.isSuccessful) {
+        Common.showAlert(
+            context: context,
+            title: "Forget Password",
+            content: emailSent.message,
+            isError: false);
+      } else {
+        Common.showAlert(
+            context: context,
+            title: "Forget Password",
+            content: emailSent.message,
+            isError: true);
+      }
+    }else{
+      showSnackBar(context, "Invalid Email");
+
+    }
+  }
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
     final logo = Hero(
       tag: 'hero',
@@ -42,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
     final email = TextFormField(
+      controller: _textController,
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       onSaved: (email) {
@@ -76,7 +110,11 @@ class _LoginPageState extends State<LoginPage> {
         'Forgot password?',
         style: TextStyle(color: Colors.black54),
       ),
-      onPressed: () {},
+      onPressed: () {
+
+        onForgotPressed();
+
+      },
     );
 
     return Scaffold(
