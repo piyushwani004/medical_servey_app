@@ -1,14 +1,12 @@
 import "package:flutter/material.dart";
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/utils/functions.dart';
-import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/form_container.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
-import 'package:provider/provider.dart';
 
 import 'main/components/side_menu.dart';
 
@@ -20,7 +18,7 @@ class NewSurveyorForm extends StatefulWidget {
 }
 
 class _NewSurveyorFormState extends State<NewSurveyorForm> {
-  String selectedDate = DateTime.now().toString();
+  String selectedDate = formatDate(DateTime.now().toString());
 
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
 
@@ -32,7 +30,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   onPressedSubmit() {
     print("surveyorStart");
     if (formKeyNewSurveyorForm.currentState!.validate()) {
-      surveyorForm['joiningDate']=selectedDate;
+      surveyorForm['joiningDate'] = selectedDate;
       surveyorForm['age'] = ageDropDown!.selectedItem!;
       surveyorForm['gender'] = genderDropDown!.selectedItem!;
       surveyorForm['profession'] = qualificationDropDown!.selectedItem!;
@@ -134,17 +132,16 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      validator:(name){
+      validator: (name) {
         print("in valid full name");
         String fullName = name!.trim();
         // print();
-        if (fullName.split(" ").length==3) {
+        if (fullName.split(" ").length == 3) {
           return null;
         } else {
           return "*Enter a valid Name";
         }
-
-      } ,
+      },
       onSaved: (name) {
         String fullName = name!.trim();
         List<String> splitName = fullName.split(" ");
@@ -251,7 +248,16 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
                                 selectedDate = await selectDate(context);
                                 setState(() {});
                               },
-                              child: Text(selectedDate == (DateTime.now().toString())?'Today':selectedDate)),
+                              child: Text(
+                                selectedDate ==
+                                        formatDate(DateTime.now().toString())
+                                    ? "Today"
+                                    : selectedDate.toString(),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 5),
+                              )),
                         )),
                   ),
                 ],

@@ -23,9 +23,7 @@ String? passwordValidator(String text) {
 }
 
 String? mobileNumberValidator(String text) {
-  bool validPassword = RegExp(
-      r'^(\+\d{1,3}[- ]?)?\d{10}$')
-      .hasMatch(text);
+  bool validPassword = RegExp(r'^(\+\d{1,3}[- ]?)?\d{10}$').hasMatch(text);
   if (validPassword) {
     return null;
   } else {
@@ -34,9 +32,8 @@ String? mobileNumberValidator(String text) {
 }
 
 String? aadhaarNumberValidator(String text) {
-  bool validPassword = RegExp(
-      r'^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$')
-      .hasMatch(text);
+  bool validPassword =
+      RegExp(r'^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$').hasMatch(text);
   if (validPassword) {
     return null;
   } else {
@@ -49,8 +46,8 @@ Future<String> selectDate(BuildContext context) async {
   final DateTime? picked = await showDatePicker(
     context: context,
     initialDate: selectedDate,
-    firstDate: DateTime(2020),
-    lastDate: DateTime.now(),
+    firstDate: DateTime.now(),
+    lastDate: DateTime(2050),
   );
   if (picked != null && picked != selectedDate) {
     selectedDate = picked;
@@ -64,4 +61,3 @@ String formatDate(oldFormat) {
   String _date = DateFormat('yyyy-MM-dd').format(dt).toString().split(" ")[0];
   return _date;
 }
-
