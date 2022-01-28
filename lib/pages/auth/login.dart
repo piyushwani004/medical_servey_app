@@ -23,11 +23,18 @@ class _LoginPageState extends State<LoginPage> {
     if (formKeyEmailPass.currentState!.validate()) {
       formKeyEmailPass.currentState!.save();
 
-      String isSignedIn = await context.read<FirebaseAuthService>().signIn(
+      Response isSignedIn = await context.read<FirebaseAuthService>().signIn(
           email: emailPassword['email'] ?? '',
           password: emailPassword['password'] ?? '');
 
-      print(isSignedIn);
+      if(isSignedIn.isSuccessful){
+        showSnackBar(context, isSignedIn.message);
+      }
+      else{
+        showSnackBar(context, isSignedIn.message);
+      }
+
+
     }
   }
 
@@ -36,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     if(isEmailValid){
       Response emailSent = await context
           .read<FirebaseAuthService>()
-          .sendPasswordResetEmail(emailPassword['email'] ?? '');
+          .sendPasswordResetEmail(_textController.text);
       if (emailSent.isSuccessful) {
         Common.showAlert(
             context: context,
@@ -111,9 +118,7 @@ class _LoginPageState extends State<LoginPage> {
         style: TextStyle(color: Colors.black54),
       ),
       onPressed: () {
-
         onForgotPressed();
-
       },
     );
 

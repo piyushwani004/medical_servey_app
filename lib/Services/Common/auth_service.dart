@@ -22,14 +22,14 @@ class FirebaseAuthService {
   /// This is to make it as easy as possible but a better way would be to
   /// use your own custom class that would take the exception and return better
   /// error messages. That way you can throw, return or whatever you prefer with that instead.
-  Future signIn({required String email, required String password}) async {
+  Future<Response> signIn({required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      return 'SignIn';
+      return Response(isSuccessful: true,message: "Signed In Successfully");
     } on FirebaseAuthException catch (e) {
-      print("ERROR :::" + e.code);
-      return e.code;
+      // print("ERROR :::" + e.code);
+      return Response(isSuccessful: false,message: "${e.code}");
     }
   }
 
