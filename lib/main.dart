@@ -49,9 +49,6 @@ class MyApp extends StatelessWidget {
               context.read<FirebaseAuthService>().authStateChanges,
           initialData: null,
         ),
-        ChangeNotifierProvider(
-          create: (context) => MenuController(),
-        ),
       ], child: const AuthenticationWrapper()),
     );
   }
