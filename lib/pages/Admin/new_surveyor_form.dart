@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
@@ -23,7 +24,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   String selectedDate = formatDate(DateTime.now().toString());
 
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
-  SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
+  AdminFirebaseService _firebaseService = AdminFirebaseService();
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -44,8 +45,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       Surveyor surveyor = Surveyor.fromMap(surveyorForm);
       print(surveyor);
 
-      Response response =
-          await _firebaseService.saveNewSurveyor(surveyor);
+      Response response = await _firebaseService.saveNewSurveyor(surveyor);
       print("Firestore Responce ::" + response.message.toString());
     }
   }
