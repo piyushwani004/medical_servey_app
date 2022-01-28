@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:medical_servey_app/widgets/common.dart';
+import 'dart:math';
 
 String? emailValidator(String text) {
   bool validEmail = RegExp(r'^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$').hasMatch(text);
@@ -60,4 +60,13 @@ String formatDate(oldFormat) {
   DateTime dt = DateTime.parse(oldFormat);
   String _date = DateFormat('yyyy-MM-dd').format(dt).toString().split(" ")[0];
   return _date;
+}
+
+
+
+
+String generateRandomString(int len) {
+  var r = Random();
+  String randomString =String.fromCharCodes(List.generate(len, (index)=> r.nextInt(33) + 89));
+  return randomString;
 }
