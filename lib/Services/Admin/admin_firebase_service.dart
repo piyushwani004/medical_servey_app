@@ -10,17 +10,17 @@ class AdminFirebaseService {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   Future<Response> saveNewSurveyor(Surveyor surveyor) async {
-    
     //saving the surveyor details first
     CollectionReference surveyorCollection = instance!.collection('Surveyor');
     String message = "";
     bool isSuccessful = false;
     try {
-      await surveyorCollection.doc().set(surveyor.toMap()).whenComplete(() async {
+      await surveyorCollection
+          .doc()
+          .set(surveyor.toMap())
+          .whenComplete(() async {
         isSuccessful = true;
         message = "Added New Surveyor";
-
-
       }).onError((error, stackTrace) {
         isSuccessful = false;
         message = error.toString();
@@ -29,25 +29,30 @@ class AdminFirebaseService {
       isSuccessful = false;
       message = e.toString();
     }
-    return Response(isSuccessful: isSuccessful,message:  message);
+    return Response(isSuccessful: isSuccessful, message: message);
   }
 
-
   Future<Response> createSurveyorAccount(Surveyor surveyor) async {
-
     //creating the surveyor account with random password
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(email: surveyor.email, password: DEF_SEC_FB );
+      await firebaseAuth.createUserWithEmailAndPassword(
+          email: surveyor.email, password: DEF_SEC_FB);
       return Response(isSuccessful: true, message: 'Created Successfully');
     } on FirebaseAuthException catch (e) {
-      return Response(isSuccessful: false,message: e.message.toString());
+      return Response(isSuccessful: false, message: e.message.toString());
     }
   }
 
-
-  getAdminDetails(){
-    
+  Future<String> getAdminEmail() async {
+    String email = "";
+    CollectionReference categories = instance!.collection('Users');
+    DocumentSnapshot snapshot = await categories.doc('Admin').get();
+    if (snapshot.exists) {
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      if (data.containsKey("Email")) {
+        email = data['Email'].toString();
+      }
+    }
+    return email;
   }
-
-
 }
