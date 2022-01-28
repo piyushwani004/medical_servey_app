@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
@@ -19,7 +20,7 @@ class NewSurveyorForm extends StatefulWidget {
 }
 
 class _NewSurveyorFormState extends State<NewSurveyorForm> {
-  String selectedDate = 'Select Joining Date';
+  String selectedDate = DateTime.now().toString();
 
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
 
@@ -27,6 +28,22 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? qualificationDropDown;
   DropDownButtonWidget? villageToAssign;
+
+  onPressedSubmit() {
+    print("surveyorStart");
+    if (formKeyNewSurveyorForm.currentState!.validate()) {
+      surveyorForm['joiningDate']=selectedDate;
+      surveyorForm['age'] = ageDropDown!.selectedItem!;
+      surveyorForm['gender'] = genderDropDown!.selectedItem!;
+      surveyorForm['profession'] = qualificationDropDown!.selectedItem!;
+      surveyorForm['villageToAssign'] = villageToAssign!.selectedItem!;
+      formKeyNewSurveyorForm.currentState!.save();
+
+      print("surveyorForm");
+      Surveyor surveyor = Surveyor.fromMap(surveyorForm);
+      print(surveyor);
+    }
+  }
 
   // List of items in our dropdown menu
   var items = [
@@ -117,11 +134,23 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      onSaved: (email) {
-        List<String> splitEmail = email!.split(" ");
-        surveyorForm["firstName"] = splitEmail[0];
-        surveyorForm["middleName"] = splitEmail[1];
-        surveyorForm["lastName"] = splitEmail[2];
+      validator:(name){
+        print("in valid full name");
+        String fullName = name!.trim();
+        // print();
+        if (fullName.split(" ").length==3) {
+          return null;
+        } else {
+          return "*Enter a valid Name";
+        }
+
+      } ,
+      onSaved: (name) {
+        String fullName = name!.trim();
+        List<String> splitName = fullName.split(" ");
+        surveyorForm["firstName"] = splitName[0];
+        surveyorForm["middleName"] = splitName[1];
+        surveyorForm["lastName"] = splitName[2];
       },
       // validator: (email) => emailValidator(email!),
       decoration: Common.textFormFieldInputDecoration(labelText: "Full Name"),
@@ -151,7 +180,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       autofocus: false,
       validator: (mobileNo) => mobileNumberValidator(mobileNo!),
       onSaved: (mobileNo) {
-        surveyorForm["mobileNo"] = mobileNo!;
+        surveyorForm["mobileNumber"] = mobileNo!;
       },
       // validator: (email) => emailValidator(email!),
       decoration:
@@ -159,7 +188,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     );
     final aadhaarNo = TextFormField(
       keyboardType: TextInputType.number,
-      validator: (aadhaarNo) => aadhaarNumberValidator(aadhaarNo!),
+      // validator: (aadhaarNo) => aadhaarNumberValidator(aadhaarNo!),
       autofocus: false,
       onSaved: (aadhaarNo) {
         surveyorForm["aadhaarNo"] = aadhaarNo!;
@@ -171,10 +200,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
 
     final submitBtn = OutlinedButton(
         onPressed: () {
-          if (formKeyNewSurveyorForm.currentState!.validate()) {
-            formKeyNewSurveyorForm.currentState!.save();
-            print("surveyorForm");
-          }
+          onPressedSubmit();
         },
         child: Text('Submit'));
     return FormContainer(
@@ -225,7 +251,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
                                 selectedDate = await selectDate(context);
                                 setState(() {});
                               },
-                              child: Text(selectedDate)),
+                              child: Text(selectedDate == (DateTime.now().toString())?'Today':selectedDate)),
                         )),
                   ),
                 ],
