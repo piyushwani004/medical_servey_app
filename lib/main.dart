@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:medical_servey_app/routes/routes.dart';
 import 'package:provider/provider.dart';
 
+import 'Services/Admin/admin_firebase_service.dart';
 import 'Services/Common/MenuController.dart';
 import 'Services/Common/auth_service.dart';
 import 'Services/Common/authenication_wrapper.dart';
@@ -28,10 +29,19 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
-  runApp(MyApp());
+  AdminFirebaseService _adminFirebaseService = AdminFirebaseService();
+  String adminEmail = await _adminFirebaseService.getAdminEmail();
+  runApp(MyApp(adminEmail));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  final String adminEmail;
+  MyApp(this.adminEmail);
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -49,7 +59,7 @@ class MyApp extends StatelessWidget {
               context.read<FirebaseAuthService>().authStateChanges,
           initialData: null,
         ),
-      ], child: const AuthenticationWrapper()),
+      ], child: AuthenticationWrapper(adminEmail: widget.adminEmail,)),
     );
   }
 }
