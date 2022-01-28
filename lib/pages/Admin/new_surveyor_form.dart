@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
+import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
+import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
@@ -21,13 +23,14 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   String selectedDate = formatDate(DateTime.now().toString());
 
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
+  SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? qualificationDropDown;
   DropDownButtonWidget? villageToAssign;
 
-  onPressedSubmit() {
+  onPressedSubmit() async {
     print("surveyorStart");
     if (formKeyNewSurveyorForm.currentState!.validate()) {
       surveyorForm['joiningDate'] = selectedDate;
@@ -40,6 +43,10 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       print("surveyorForm");
       Surveyor surveyor = Surveyor.fromMap(surveyorForm);
       print(surveyor);
+
+      Response response =
+          await _firebaseService.saveNewSurveyor(surveyor);
+      print("Firestore Responce ::" + response.message.toString());
     }
   }
 

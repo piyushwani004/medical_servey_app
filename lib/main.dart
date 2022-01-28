@@ -2,8 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:medical_servey_app/pages/Surveyor/surveyor_home.dart';
-import 'package:medical_servey_app/pages/auth/login.dart';
 import 'package:medical_servey_app/routes/routes.dart';
 import 'package:provider/provider.dart';
 
