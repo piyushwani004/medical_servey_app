@@ -54,4 +54,26 @@ class AdminFirebaseService {
     }
     return email;
   }
+
+  Future<Response?> getSurveyors() async {
+    Response? _surveyorsResponse;
+    List<Surveyor> _surveyors = [];
+    CollectionReference surveyorCollection = instance!.collection('Surveyor');
+    var allSurveyorsSnapshots = await surveyorCollection.get();
+
+    // for(var surveyor in allSurveyorsSnapshots.docs){
+    //   _surveyors.add(Surveyor.fromMap(surveyor.data() as Map<String,dynamic>));
+    // }
+
+    _surveyors.addAll(allSurveyorsSnapshots.docs
+        .map((surveyor) => Surveyor.fromMap(surveyor.data() as Map<String, dynamic>)));
+
+    print(_surveyors);
+    // allSurveyorsSnapshots.docs.forEach((element) {
+    //   element.data();
+    //   print(element.data().toString());
+    // });
+
+    return _surveyorsResponse;
+  }
 }

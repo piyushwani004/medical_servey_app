@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 
+import 'common.dart';
+
 class DataTableWithGivenColumn extends StatefulWidget {
   final List<String> columns;
   final List<Surveyor> records;
@@ -17,7 +19,7 @@ class DataTableWithGivenColumn extends StatefulWidget {
 
 class _DataTableWithGivenColumnState extends State<DataTableWithGivenColumn> {
   List<DataColumn> getColumns(List<String> columns) =>
-      columns.map((String column) => DataColumn(label: Text(column))).toList();
+      columns.map((String column) => DataColumn(label: Text(column,style: TextStyle(fontWeight: FontWeight.bold),))).toList();
 
   List<DataRow> getRows(List<Surveyor> records) => records
       .map((Surveyor row) => DataRow(

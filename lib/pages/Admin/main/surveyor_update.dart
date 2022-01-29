@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
@@ -17,6 +18,47 @@ class SurveyorListForUpdate extends StatefulWidget {
 
 class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   var width, height;
+  DataTableWithGivenColumn? dataTableWithGivenColumn;
+  List<Surveyor>? listOfSurveyor;
+  AdminFirebaseService _firebaseService = AdminFirebaseService();
+
+  getSurveyorsList() async {}
+
+  @override
+  void initState() {
+
+    listOfSurveyor = [
+      Surveyor(
+        firstName: 'a',
+        address: 'at ',
+        age: 123,
+        email: 'rahil@gmail.com',
+        gender: 'm',
+        joiningDate: 'nhi',
+        lastName: 'Qureshi',
+        middleName: 'Nisar',
+        mobileNumber: '123456789456',
+        profession: 'kuchBhi',
+        villageToAssign: 'nhi pata',
+      ),
+      Surveyor(
+        firstName: 'g',
+        address: 'at ',
+        age: 123,
+        email: 'rahil@gmail.com',
+        gender: 'm',
+        joiningDate: 'nhi',
+        lastName: 'Qureshi',
+        middleName: 'Nisar',
+        mobileNumber: '123456789456',
+        profession: 'kuchBhi',
+        villageToAssign: 'nhi pata',
+      )
+    ];
+
+    super.initState();
+    _firebaseService.getSurveyors();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +84,11 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                 CustomScrollViewBody(
                     bodyWidget: Padding(
                   padding: Common.allPadding(mHeight: height),
-                  child: body(),
+                  child: listOfSurveyor != null
+                      ? body()
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        ),
                 ))
               ],
             ),
@@ -53,27 +99,12 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   }
 
   Widget body() {
+    dataTableWithGivenColumn = DataTableWithGivenColumn(
+      columns: ['Email', 'First Name', 'Middle Name', 'Last Name'],
+      records: listOfSurveyor ?? [],
+    );
     return Column(
-      children: [
-        DataTableWithGivenColumn(
-          columns: ['Email','First', 'middle', 'Last'],
-          records: [
-            Surveyor(
-                firstName: 'faf',
-                address: 'faf',
-                age: 8,
-                email: 'rahil@gmail.com',
-                gender: '',
-                joiningDate: '',
-                lastName: 'Qureshi',
-                middleName: 'Nisar',
-              mobileNumber: '',
-              profession: '',
-              villageToAssign: '',
-            )
-          ],
-        ),
-      ],
+      children: [dataTableWithGivenColumn!],
     );
   }
 }

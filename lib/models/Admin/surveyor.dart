@@ -88,7 +88,7 @@ class Surveyor {
       gender: map['gender'] ?? '',
       joiningDate: map['joiningDate'] ?? '',
       villageToAssign: map['villageToAssign'] ?? '',
-      age: int.parse(map['age']),
+      age: int.parse(map['age'].toString()),
     );
   }
 
