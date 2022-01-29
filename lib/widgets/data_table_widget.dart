@@ -18,6 +18,8 @@ class DataTableWithGivenColumn extends StatefulWidget {
 class _DataTableWithGivenColumnState extends State<DataTableWithGivenColumn> {
   int? sortColumnIndex;
   bool isAscending = false;
+  List<Surveyor>? filteredRecords;
+
 
   int compareString(bool ascending, String val1, String val2) =>
       ascending ? val1.compareTo(val2) : val2.compareTo(val1);

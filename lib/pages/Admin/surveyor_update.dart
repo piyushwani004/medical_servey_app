@@ -5,6 +5,8 @@ import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/data_table_widget.dart';
+import 'package:medical_servey_app/widgets/loading.dart';
+import 'package:medical_servey_app/widgets/search_field.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
 import 'main/components/side_menu.dart';
@@ -20,20 +22,49 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   var width, height;
   DataTableWithGivenColumn? dataTableWithGivenColumn;
   List<Surveyor>? listOfSurveyor;
+  List<Surveyor>? listOfFilteredSurveyor;
   AdminFirebaseService _firebaseService = AdminFirebaseService();
-
-  List<String> columnsOfDataTable = ['Email', 'First Name', 'Middle Name', 'Last Name'];
+  TextEditingController _textEditingController = TextEditingController();
+  final GlobalKey<State> surveyorListKey = GlobalKey<State>();
+  Loading? _loading;
+  List<String> columnsOfDataTable = [
+    'Email',
+    'First Name',
+    'Middle Name',
+    'Last Name'
+  ];
 
   getSurveyorsList() async {
     listOfSurveyor = await _firebaseService.getSurveyors();
     setState(() {});
   }
 
+  onSearchBtnPressed() {
+    // _loading?.on();
+    print(_textEditingController.text);
+    String searchText = _textEditingController.text;
+    listOfFilteredSurveyor = listOfSurveyor
+        ?.where((Surveyor sur) =>
+            sur.firstName.contains(searchText.toLowerCase()) ||
+            sur.middleName.contains(searchText) ||
+            sur.lastName.contains(searchText) ||
+            sur.email.contains(searchText))
+        .toList();
+    // _loading?.off();
+    setState(() {});
+
+  }
+
+  onSearchCrossBtnPressed(){
+    listOfFilteredSurveyor = null;
+    setState(() {});
+  }
+
   @override
   void initState() {
+    _loading = Loading(context: context,key: surveyorListKey);
     super.initState();
     getSurveyorsList();
-
   }
 
   @override
@@ -76,11 +107,23 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
 
   Widget body() {
     dataTableWithGivenColumn = DataTableWithGivenColumn(
-      columns: columnsOfDataTable ,
-      records: listOfSurveyor ?? [],
+      columns: columnsOfDataTable,
+      records: listOfFilteredSurveyor ?? listOfSurveyor!,
     );
     return Column(
-      children: [dataTableWithGivenColumn!],
+      children: [
+        SearchField(
+          controller: _textEditingController,
+          onSearchTap: () {
+            onSearchBtnPressed();
+          },
+          onCrossTap: (){
+            onSearchCrossBtnPressed();
+          },
+          isCrossVisible: listOfFilteredSurveyor!=null,
+        ),
+        dataTableWithGivenColumn!
+      ],
     );
   }
 }
