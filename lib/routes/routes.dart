@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/pages/Admin/add_diseases.dart';
 import 'package:medical_servey_app/pages/Admin/main/main_screen.dart';
 import 'package:medical_servey_app/pages/Admin/surveyor_update.dart';
 import 'package:medical_servey_app/pages/Admin/new_surveyor_form.dart';
@@ -15,6 +16,7 @@ const routeHome = '/home';
 
 const routeAddPatient = '/AddPatient';
 const routeUpdatePatient = '/UpdatePatient';
+const routeAddDiseases = '/AddDisease';
 const routeSurveyorListForUpdate = '/SurveyorListForUpdate';
 
 class Routes {
@@ -30,14 +32,18 @@ class Routes {
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: AdminHome());
       case routeAdminAddSurveyor:
-      //Map mapData = settings.arguments;
+        //Map mapData = settings.arguments;
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: NewSurveyorForm());
       case routeSurveyorListForUpdate:
-      //Map mapData = settings.arguments;
+        //Map mapData = settings.arguments;
         return PageTransition(
-            type: PageTransitionType.rightToLeft, child: SurveyorListForUpdate());
-
+            type: PageTransitionType.rightToLeft,
+            child: SurveyorListForUpdate());
+      case routeAddDiseases:
+        //Map mapData = settings.arguments;
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: AddDiseases());
 
       //Surveyor
       case routeHome:
@@ -54,7 +60,4 @@ class Routes {
             type: PageTransitionType.rightToLeft, child: LoginPage());
     }
   }
-
-
-
 }

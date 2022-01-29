@@ -51,7 +51,9 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "Disease",
             svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
+            press: () {
+              Navigator.pushReplacementNamed(context,routeAddDiseases);
+            },
           ),
           DrawerListTile(
             title: "Admin Profile",
