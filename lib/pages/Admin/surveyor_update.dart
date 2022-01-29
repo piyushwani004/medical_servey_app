@@ -7,7 +7,7 @@ import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/data_table_widget.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
-import 'components/side_menu.dart';
+import 'main/components/side_menu.dart';
 
 class SurveyorListForUpdate extends StatefulWidget {
   const SurveyorListForUpdate({Key? key}) : super(key: key);
@@ -22,42 +22,18 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   List<Surveyor>? listOfSurveyor;
   AdminFirebaseService _firebaseService = AdminFirebaseService();
 
-  getSurveyorsList() async {}
+  List<String> columnsOfDataTable = ['Email', 'First Name', 'Middle Name', 'Last Name'];
+
+  getSurveyorsList() async {
+    listOfSurveyor = await _firebaseService.getSurveyors();
+    setState(() {});
+  }
 
   @override
   void initState() {
-
-    listOfSurveyor = [
-      Surveyor(
-        firstName: 'a',
-        address: 'at ',
-        age: 123,
-        email: 'rahil@gmail.com',
-        gender: 'm',
-        joiningDate: 'nhi',
-        lastName: 'Qureshi',
-        middleName: 'Nisar',
-        mobileNumber: '123456789456',
-        profession: 'kuchBhi',
-        villageToAssign: 'nhi pata',
-      ),
-      Surveyor(
-        firstName: 'g',
-        address: 'at ',
-        age: 123,
-        email: 'rahil@gmail.com',
-        gender: 'm',
-        joiningDate: 'nhi',
-        lastName: 'Qureshi',
-        middleName: 'Nisar',
-        mobileNumber: '123456789456',
-        profession: 'kuchBhi',
-        villageToAssign: 'nhi pata',
-      )
-    ];
-
     super.initState();
-    _firebaseService.getSurveyors();
+    getSurveyorsList();
+
   }
 
   @override
@@ -100,7 +76,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
 
   Widget body() {
     dataTableWithGivenColumn = DataTableWithGivenColumn(
-      columns: ['Email', 'First Name', 'Middle Name', 'Last Name'],
+      columns: columnsOfDataTable ,
       records: listOfSurveyor ?? [],
     );
     return Column(

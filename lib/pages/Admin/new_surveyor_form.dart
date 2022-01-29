@@ -21,18 +21,22 @@ class NewSurveyorForm extends StatefulWidget {
 
 class _NewSurveyorFormState extends State<NewSurveyorForm> {
   String selectedDate = formatDate(DateTime.now().toString());
-
+  Map<String, String> surveyorForm = {};
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
   AdminFirebaseService _firebaseService = AdminFirebaseService();
-
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? qualificationDropDown;
   DropDownButtonWidget? villageToAssign;
 
+
+
   onPressedSubmit() async {
     print("surveyorStart");
     if (formKeyNewSurveyorForm.currentState!.validate()) {
+      //turning loading on
+      showLoadingDialog(context, _keyLoader);//invoking login
       surveyorForm['joiningDate'] = selectedDate;
       surveyorForm['age'] = ageDropDown!.selectedItem!;
       surveyorForm['gender'] = genderDropDown!.selectedItem!;
@@ -52,28 +56,29 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
         Response response = await _firebaseService.saveNewSurveyor(surveyor);
         if(response.isSuccessful){
           // if successfully return  a message that process is complete
+          Navigator.of(_keyLoader.currentContext!,rootNavigator: true).pop(); // popping loading
           Common.showAlert(context: context, title: 'Surveyor Registration', content: response.message, isError: false);
+          // isLoading = false;
+
         }else{
           //if failed while creating an account
+          Navigator.of(_keyLoader.currentContext!,rootNavigator: true).pop(); // popping loading
           Common.showAlert(context: context, title: 'Failed in Creating Account', content: response.message, isError: true);
+          // isLoading = false;
         }
         print("Firestore Response ::" + response.message.toString());
       }else{
         //if failed while creating an account
+        Navigator.of(_keyLoader.currentContext!,rootNavigator: true).pop(); // popping loading
         Common.showAlert(context: context, title: 'Failed in Creating Account', content: responseForCreatingAcc.message, isError: true);
+        // isLoading = false;
         print(responseForCreatingAcc.message);
       }
     }
   }
 
   // List of items in our dropdown menu
-  var items = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-  ];
+  List<int> ageList = generateN2MList(15,100);
   var villages = [
     'Bhusawal',
     'Jalgao',
@@ -92,12 +97,12 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     'None',
   ];
   var width, height;
-  Map<String, String> surveyorForm = {};
+
 
   @override
   void initState() {
     ageDropDown = DropDownButtonWidget(
-      items: items,
+      items: ageList.map((age) => age.toString()).toList(),
       name: 'Age',
     );
     genderDropDown = DropDownButtonWidget(

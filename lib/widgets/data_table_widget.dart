@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 
-import 'common.dart';
-
 class DataTableWithGivenColumn extends StatefulWidget {
   final List<String> columns;
   final List<Surveyor> records;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/pages/Admin/main/main_screen.dart';
-import 'package:medical_servey_app/pages/Admin/main/surveyor_update.dart';
+import 'package:medical_servey_app/pages/Admin/surveyor_update.dart';
 import 'package:medical_servey_app/pages/Admin/new_surveyor_form.dart';
 import 'package:medical_servey_app/pages/Surveyor/add_patient.dart';
 import 'package:medical_servey_app/pages/Surveyor/patient_List.dart';

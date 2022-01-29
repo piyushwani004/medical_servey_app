@@ -55,8 +55,7 @@ class AdminFirebaseService {
     return email;
   }
 
-  Future<Response?> getSurveyors() async {
-    Response? _surveyorsResponse;
+  Future<List<Surveyor>> getSurveyors() async {
     List<Surveyor> _surveyors = [];
     CollectionReference surveyorCollection = instance!.collection('Surveyor');
     var allSurveyorsSnapshots = await surveyorCollection.get();
@@ -74,6 +73,6 @@ class AdminFirebaseService {
     //   print(element.data().toString());
     // });
 
-    return _surveyorsResponse;
+    return _surveyors;
   }
 }
