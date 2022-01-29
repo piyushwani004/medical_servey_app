@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 

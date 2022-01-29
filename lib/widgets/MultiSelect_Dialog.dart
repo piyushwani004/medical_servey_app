@@ -59,11 +59,11 @@ class _MultiSelectDialogState<V> extends State<MultiSelectDialog<V>> {
         ),
       ),
       actions: <Widget>[
-        FlatButton(
+        ElevatedButton(
           child: Text('CANCEL'),
           onPressed: _onCancelTap,
         ),
-        FlatButton(
+        ElevatedButton(
           child: Text('OK'),
           onPressed: _onSubmitTap,
         )

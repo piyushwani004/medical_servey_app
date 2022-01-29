@@ -10,12 +10,6 @@ class AdminHome extends StatefulWidget {
 
 class _AdminHomeState extends State<AdminHome> {
 
-  List _navigatorRoutes = [
-
-  ];
-
-  int _selectedIndex= 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

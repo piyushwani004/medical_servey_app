@@ -4,22 +4,24 @@ class DropDownButtonWidget extends StatefulWidget {
   String? selectedItem;
   final String name;
   final List<String> items;
-  DropDownButtonWidget({Key? key,required this.items,required this.name,}) : super(key: key);
+  DropDownButtonWidget({
+    Key? key,
+    required this.items,
+    required this.name,
+  }) : super(key: key);
 
   @override
   DropDownButtonWidgetState createState() => DropDownButtonWidgetState();
 }
 
 class DropDownButtonWidgetState extends State<DropDownButtonWidget> {
-
-
-  String? _selected;
-   List<String>? items;
+  List<String>? items;
   @override
   void initState() {
-    items =widget.items;
+    items = widget.items;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
@@ -34,9 +36,7 @@ class DropDownButtonWidgetState extends State<DropDownButtonWidget> {
           widget.selectedItem = newValue!;
         });
       },
-
-      items: items!
-          .map<DropdownMenuItem<String>>((String value) {
+      items: items!.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),

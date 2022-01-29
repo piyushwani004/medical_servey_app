@@ -39,8 +39,8 @@ ThemeData darkTheme() {
     // sliderTheme:
     primaryColor: primaryColor,
     fontFamily: 'Montserrat',
-    buttonColor: Color(0xFF00C569),
     // scaffoldBackgroundColor: backgroundColor,
-    cardColor: Colors.white, colorScheme: ColorScheme.fromSwatch().copyWith(secondary: primaryColor),
+    cardColor: Colors.white,
+    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: primaryColor),
   );
 }

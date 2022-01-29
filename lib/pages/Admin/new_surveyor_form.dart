@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
-import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/functions.dart';
