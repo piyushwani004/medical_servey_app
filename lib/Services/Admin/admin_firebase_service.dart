@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:medical_servey_app/models/Admin/Disease.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/constants.dart';
@@ -64,8 +65,8 @@ class AdminFirebaseService {
     //   _surveyors.add(Surveyor.fromMap(surveyor.data() as Map<String,dynamic>));
     // }
 
-    _surveyors.addAll(allSurveyorsSnapshots.docs
-        .map((surveyor) => Surveyor.fromMap(surveyor.data() as Map<String, dynamic>)));
+    _surveyors.addAll(allSurveyorsSnapshots.docs.map((surveyor) =>
+        Surveyor.fromMap(surveyor.data() as Map<String, dynamic>)));
 
     // print(_surveyors);
     // allSurveyorsSnapshots.docs.forEach((element) {
@@ -74,5 +75,40 @@ class AdminFirebaseService {
     // });
 
     return _surveyors;
+  }
+
+  Future<Response> saveNewDiseases(Disease disease) async {
+    //saving the surveyor details first
+    CollectionReference surveyorCollection = instance!.collection('Diseases');
+    String message = "";
+    bool isSuccessful = false;
+    try {
+      await surveyorCollection
+          .doc(disease.id)
+          .set(disease.toMap())
+          .whenComplete(() async {
+        isSuccessful = true;
+        message = "Added New Disease";
+      }).onError((error, stackTrace) {
+        isSuccessful = false;
+        message = error.toString();
+      });
+    } catch (e) {
+      isSuccessful = false;
+      message = e.toString();
+    }
+    return Response(isSuccessful: isSuccessful, message: message);
+  }
+
+  Future<bool> checkExist(String path, String docID) async {
+    bool exist = false;
+    try {
+      await instance!.doc("$path/$docID").get().then((doc) {
+        exist = doc.exists;
+      });
+      return exist;
+    } catch (e) {
+      return false;
+    }
   }
 }
