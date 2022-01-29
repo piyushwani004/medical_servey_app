@@ -5,6 +5,7 @@ import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/widgets/common.dart';
+import 'package:medical_servey_app/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,9 +19,12 @@ class _LoginPageState extends State<LoginPage> {
   final formKeyEmailPass = GlobalKey<FormState>();
   var width, height;
   Map<String, String> emailPassword = {};
+  final GlobalKey<State> _keyLoader = GlobalKey<State>();
+  Loading? _loading;
 
   onLoginPressed() async {
     if (formKeyEmailPass.currentState!.validate()) {
+      _loading?.on();
       formKeyEmailPass.currentState!.save();
 
       Response isSignedIn = await context.read<FirebaseAuthService>().signIn(
@@ -28,9 +32,11 @@ class _LoginPageState extends State<LoginPage> {
           password: emailPassword['password'] ?? '');
 
       if(isSignedIn.isSuccessful){
+        _loading?.off();
         showSnackBar(context, isSignedIn.message);
       }
       else{
+        _loading?.off();
         showSnackBar(context, isSignedIn.message);
       }
 
@@ -62,6 +68,13 @@ class _LoginPageState extends State<LoginPage> {
 
     }
   }
+
+  @override
+  void initState() {
+    _loading = Loading(context: context,key: _keyLoader);
+    super.initState();
+  }
+
   @override
   void dispose() {
     _textController.dispose();
