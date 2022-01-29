@@ -24,7 +24,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   String selectedDate = formatDate(DateTime.now().toString());
   Map<String, String> surveyorForm = {};
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
-  final GlobalKey<State> _keyLoader = GlobalKey<State>();
+  final GlobalKey<State> newSurveyorKey = GlobalKey<State>();
   Loading? _loading;
   AdminFirebaseService _firebaseService = AdminFirebaseService();
   DropDownButtonWidget? ageDropDown;
@@ -38,8 +38,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     print("surveyorStart");
     if (formKeyNewSurveyorForm.currentState!.validate()) {
       //turning loading on
-      _loading!.on();
-      showLoadingDialog(context, _keyLoader);//invoking login
+      _loading!.on(); //invoking login
       surveyorForm['joiningDate'] = selectedDate;
       surveyorForm['age'] = ageDropDown!.selectedItem!;
       surveyorForm['gender'] = genderDropDown!.selectedItem!;
@@ -121,7 +120,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       name: 'Village To Assign',
     );
 
-    _loading = Loading(context: context,key: _keyLoader);
+    _loading = Loading(context: context,key: newSurveyorKey);
 
     super.initState();
   }
