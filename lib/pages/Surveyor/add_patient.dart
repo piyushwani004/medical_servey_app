@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:medical_servey_app/Services/Common/MenuController.dart';
-import 'package:medical_servey_app/pages/Admin/main/components/side_menu.dart';
+import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
-import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
 import 'package:medical_servey_app/widgets/MultiSelect_Dialog.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
-import 'package:provider/provider.dart';
 
 class AddPatientForm extends StatefulWidget {
   const AddPatientForm({Key? key}) : super(key: key);
@@ -21,7 +18,7 @@ class AddPatientForm extends StatefulWidget {
 class _AddPatientFormState extends State<AddPatientForm> {
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
   var width, height;
-
+  String _selectedDate = formatDate(DateTime.now().toString());
   Map<String, String> patientForm = {};
   List<String> flavours = [];
 
@@ -56,6 +53,21 @@ class _AddPatientFormState extends State<AddPatientForm> {
     'diseases 3',
     'Other',
   ];
+
+  onPressedSubmit() async {
+    print("surveyorStart");
+    if (formKeyNewSurveyorForm.currentState!.validate()) {
+      patientForm['id'] = "1234";
+      patientForm['date'] = _selectedDate;
+      patientForm['age'] = ageDropDown!.selectedItem!;
+      patientForm['gender'] = genderDropDown!.selectedItem!;
+      patientForm['profession'] = professionDropDown!.selectedItem!;
+      formKeyNewSurveyorForm.currentState!.save();
+
+      Patient surveyor = Patient.fromMap(patientForm);
+      print("surveyor $surveyor");
+    }
+  }
 
   @override
   void initState() {
@@ -103,72 +115,52 @@ class _AddPatientFormState extends State<AddPatientForm> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-        key: context.read<MenuController>().scaffoldKey,
-        drawer: SideMenu(),
-        body: SafeArea(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //We want this side menu only for large screen
-              if (Responsive.isDesktop(context))
-                Expanded(
-                  // default flex = 1
-                  // and it takes 1/6 part of the screen
-                  child: SideMenu(),
-                ),
-              Expanded(
-                // It takes 5/6 part of the screen
-                flex: 5,
-                child: CustomScrollView(
-                  slivers: [
-                    TopSliverAppBar(mHeight: height, text: "New Patient Form"),
-                    CustomScrollViewBody(
-                        bodyWidget: Padding(
-                          padding: Common.allPadding(mHeight: height),
-                          child:
-                          body(patientForm: patientForm, formKey: formKeyNewSurveyorForm),
-                        ))
-
-                  ],
-                ),
+      body: SafeArea(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              // It takes 5/6 part of the screen
+              flex: 5,
+              child: CustomScrollView(
+                slivers: [
+                  TopSliverAppBar(mHeight: height, text: "New Patient Form"),
+                  CustomScrollViewBody(
+                      bodyWidget: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: body(
+                        patientForm: patientForm,
+                        formKey: formKeyNewSurveyorForm),
+                  ))
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
-
-
-
-
-
-
-
-
-
-    //   Scaffold(
-    //   body: CustomScrollView(
-    //     slivers: [
-    //       TopSliverAppBar(mHeight: height, text: "New Patient Form"),
-    //       CustomScrollViewBody(
-    //           bodyWidget: Padding(
-    //         padding: Common.allPadding(mHeight: height),
-    //         child:
-    //             body(patientForm: patientForm, formKey: formKeyNewSurveyorForm),
-    //       ))
-    //     ],
-    //   ),
-    // );
+      ),
+    );
   }
 
   Widget body({required Map<String, String> patientForm, required formKey}) {
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      onSaved: (email) {
-        List<String> splitFullName = email!.split(" ");
-        patientForm["firstName"] = splitFullName[0];
-        patientForm["middleName"] = splitFullName[1];
-        patientForm["lastName"] = splitFullName[2];
+      validator: (name) {
+        print("in valid full name");
+        String fullName = name!.trim();
+        // print();
+        if (fullName.split(" ").length == 3) {
+          return null;
+        } else {
+          return "*Enter a valid Name";
+        }
+      },
+      onSaved: (name) {
+        String fullName = name!.trim();
+        List<String> splitName = fullName.split(" ");
+        patientForm["firstName"] = splitName[0];
+        patientForm["middleName"] = splitName[1];
+        patientForm["lastName"] = splitName[2];
       },
       // validator: (email) => emailValidator(email!),
       decoration: Common.textFormFieldInputDecoration(labelText: "Full Name"),
@@ -198,7 +190,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       autofocus: false,
       validator: (mobileNo) => mobileNumberValidator(mobileNo!),
       onSaved: (mobileNo) {
-        patientForm["mobileNo"] = mobileNo!;
+        patientForm["mobileNumber"] = mobileNo!;
       },
       // validator: (email) => emailValidator(email!),
       decoration:
@@ -208,7 +200,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       keyboardType: TextInputType.text,
       autofocus: false,
       onSaved: (othDisease) {
-        patientForm["Disease"] = othDisease!;
+        patientForm["diseases"] = othDisease!;
       },
       // validator: (email) => emailValidator(email!),
       decoration: Common.textFormFieldInputDecoration(labelText: "Disease"),
@@ -216,9 +208,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
 
     final submitBtn = OutlinedButton(
         onPressed: () {
-          if (formKeyNewSurveyorForm.currentState!.validate()) {
-            formKeyNewSurveyorForm.currentState!.save();
-          }
+          onPressedSubmit();
         },
         child: Text('Submit'));
 
