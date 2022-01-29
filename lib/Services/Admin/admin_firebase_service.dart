@@ -67,7 +67,7 @@ class AdminFirebaseService {
     _surveyors.addAll(allSurveyorsSnapshots.docs
         .map((surveyor) => Surveyor.fromMap(surveyor.data() as Map<String, dynamic>)));
 
-    print(_surveyors);
+    // print(_surveyors);
     // allSurveyorsSnapshots.docs.forEach((element) {
     //   element.data();
     //   print(element.data().toString());
