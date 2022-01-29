@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
+import 'package:medical_servey_app/routes/routes.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/curve_clipper.dart';
 import 'package:provider/provider.dart';
@@ -149,7 +150,9 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                     ],
                                   ),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushNamed(context,routeAddpatient);
+                                },
                               ),
                             ),
                           ]),
@@ -174,7 +177,9 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                     ],
                                   ),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushNamed(context,routeUpdatepatient);
+                                },
                               ),
                             ),
                             Padding(

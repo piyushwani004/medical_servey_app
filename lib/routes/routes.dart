@@ -11,6 +11,7 @@ const routeLogin = '/login';
 const routeAdminHome = '/adminHome';
 const routeAdminAddSurveyor = '/adminAddSurveyor';
 const routeHome = '/home';
+
 const routeAddpatient = '/AddPatient';
 const routeUpdatepatient = '/UpdatePatient';
 
