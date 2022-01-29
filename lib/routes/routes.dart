@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/pages/Admin/main/main_screen.dart';
+import 'package:medical_servey_app/pages/Admin/main/surveyor_update.dart';
 import 'package:medical_servey_app/pages/Admin/new_surveyor_form.dart';
 import 'package:medical_servey_app/pages/Surveyor/add_patient.dart';
 import 'package:medical_servey_app/pages/Surveyor/patient_List.dart';
@@ -12,8 +13,9 @@ const routeAdminHome = '/adminHome';
 const routeAdminAddSurveyor = '/adminAddSurveyor';
 const routeHome = '/home';
 
-const routeAddpatient = '/AddPatient';
-const routeUpdatepatient = '/UpdatePatient';
+const routeAddPatient = '/AddPatient';
+const routeUpdatePatient = '/UpdatePatient';
+const routeSurveyorListForUpdate = '/SurveyorListForUpdate';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -31,16 +33,20 @@ class Routes {
       //Map mapData = settings.arguments;
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: NewSurveyorForm());
+      case routeSurveyorListForUpdate:
+      //Map mapData = settings.arguments;
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: SurveyorListForUpdate());
 
 
       //Surveyor
       case routeHome:
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: SurveyorHomePage());
-      case routeAddpatient:
+      case routeAddPatient:
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: AddPatientForm());
-      case routeUpdatepatient:
+      case routeUpdatePatient:
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: PatientList());
       default:

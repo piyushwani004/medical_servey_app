@@ -162,7 +162,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                   ),
                                 ),
                                 onTap: () {
-                                  Navigator.pushNamed(context, routeAddpatient);
+                                  Navigator.pushNamed(context, routeAddPatient);
                                 },
                               ),
                             ),
@@ -190,7 +190,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                 ),
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, routeUpdatepatient);
+                                      context, routeUpdatePatient);
                                 },
                               ),
                             ),

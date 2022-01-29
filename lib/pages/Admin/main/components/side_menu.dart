@@ -45,7 +45,7 @@ class SideMenu extends StatelessWidget {
             title: "Update Surveyor ",
             svgSrc: "assets/icons/menu_doc.svg",
             press: () {
-              Navigator.pushReplacementNamed(context,routeAdminAddSurveyor);
+              Navigator.pushReplacementNamed(context,routeSurveyorListForUpdate);
             },
           ),
           DrawerListTile(

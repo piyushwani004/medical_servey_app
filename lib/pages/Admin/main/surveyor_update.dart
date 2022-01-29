@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
+import 'package:medical_servey_app/widgets/data_table_widget.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
 import 'components/side_menu.dart';
@@ -15,6 +17,7 @@ class SurveyorListForUpdate extends StatefulWidget {
 
 class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   var width, height;
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -38,9 +41,9 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                 TopSliverAppBar(mHeight: height, text: "Surveyor List"),
                 CustomScrollViewBody(
                     bodyWidget: Padding(
-                      padding: Common.allPadding(mHeight: height),
-                      child: body(),
-                    ))
+                  padding: Common.allPadding(mHeight: height),
+                  child: body(),
+                ))
               ],
             ),
           ),
@@ -49,11 +52,27 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     );
   }
 
-
-  Widget body(){
+  Widget body() {
     return Column(
       children: [
-
+        DataTableWithGivenColumn(
+          columns: ['Email','First', 'middle', 'Last'],
+          records: [
+            Surveyor(
+                firstName: 'faf',
+                address: 'faf',
+                age: 8,
+                email: 'rahil@gmail.com',
+                gender: '',
+                joiningDate: '',
+                lastName: 'Qureshi',
+                middleName: 'Nisar',
+              mobileNumber: '',
+              profession: '',
+              villageToAssign: '',
+            )
+          ],
+        ),
       ],
     );
   }
