@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
+import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
@@ -17,9 +17,8 @@ class AddPatientForm extends StatefulWidget {
 
 class _AddPatientFormState extends State<AddPatientForm> {
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
-  SurveyorFirebaseService _surveyorFirebaseService = SurveyorFirebaseService();
   var width, height;
-
+  String _selectedDate = formatDate(DateTime.now().toString());
   Map<String, String> patientForm = {};
   List<String> flavours = [];
 
@@ -55,6 +54,21 @@ class _AddPatientFormState extends State<AddPatientForm> {
     'Other',
   ];
 
+  onPressedSubmit() async {
+    print("surveyorStart");
+    if (formKeyNewSurveyorForm.currentState!.validate()) {
+      patientForm['id'] = "1234";
+      patientForm['date'] = _selectedDate;
+      patientForm['age'] = ageDropDown!.selectedItem!;
+      patientForm['gender'] = genderDropDown!.selectedItem!;
+      patientForm['profession'] = professionDropDown!.selectedItem!;
+      formKeyNewSurveyorForm.currentState!.save();
+
+      Patient surveyor = Patient.fromMap(patientForm);
+      print("surveyor $surveyor");
+    }
+  }
+
   @override
   void initState() {
     ageDropDown = DropDownButtonWidget(
@@ -73,12 +87,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       items: diseases,
       name: 'Disease',
     );
-    getSurveyorDetails();
     super.initState();
-  }
-
-  getSurveyorDetails() async {
-    var user = await _surveyorFirebaseService.getSurveyorDetails();
   }
 
   void _showMultiSelect(BuildContext context) async {
@@ -136,11 +145,22 @@ class _AddPatientFormState extends State<AddPatientForm> {
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      onSaved: (email) {
-        List<String> splitFullName = email!.split(" ");
-        patientForm["firstName"] = splitFullName[0];
-        patientForm["middleName"] = splitFullName[1];
-        patientForm["lastName"] = splitFullName[2];
+      validator: (name) {
+        print("in valid full name");
+        String fullName = name!.trim();
+        // print();
+        if (fullName.split(" ").length == 3) {
+          return null;
+        } else {
+          return "*Enter a valid Name";
+        }
+      },
+      onSaved: (name) {
+        String fullName = name!.trim();
+        List<String> splitName = fullName.split(" ");
+        patientForm["firstName"] = splitName[0];
+        patientForm["middleName"] = splitName[1];
+        patientForm["lastName"] = splitName[2];
       },
       // validator: (email) => emailValidator(email!),
       decoration: Common.textFormFieldInputDecoration(labelText: "Full Name"),
@@ -170,7 +190,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       autofocus: false,
       validator: (mobileNo) => mobileNumberValidator(mobileNo!),
       onSaved: (mobileNo) {
-        patientForm["mobileNo"] = mobileNo!;
+        patientForm["mobileNumber"] = mobileNo!;
       },
       // validator: (email) => emailValidator(email!),
       decoration:
@@ -180,7 +200,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       keyboardType: TextInputType.text,
       autofocus: false,
       onSaved: (othDisease) {
-        patientForm["Disease"] = othDisease!;
+        patientForm["diseases"] = othDisease!;
       },
       // validator: (email) => emailValidator(email!),
       decoration: Common.textFormFieldInputDecoration(labelText: "Disease"),
@@ -188,9 +208,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
 
     final submitBtn = OutlinedButton(
         onPressed: () {
-          if (formKeyNewSurveyorForm.currentState!.validate()) {
-            formKeyNewSurveyorForm.currentState!.save();
-          }
+          onPressedSubmit();
         },
         child: Text('Submit'));
 

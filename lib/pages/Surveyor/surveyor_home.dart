@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
+import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/routes/routes.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/curve_clipper.dart';
@@ -13,11 +14,21 @@ class SurveyorHomePage extends StatefulWidget {
 }
 
 class _SurveyorHomePageState extends State<SurveyorHomePage> {
+  SurveyorFirebaseService _surveyorFirebaseService = SurveyorFirebaseService();
   var width, height;
 
-
-  onLogoutPressed(){
+  onLogoutPressed() {
     context.read<FirebaseAuthService>().signOut();
+  }
+
+  getSurveyorDetails() async {
+    var user = await _surveyorFirebaseService.getSurveyorDetails();
+  }
+
+  @override
+  void initState() {
+    getSurveyorDetails();
+    super.initState();
   }
 
   @override
@@ -78,22 +89,22 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                   children: [
                                     Text(
                                       'Name',
-                                      style: TextStyle(
-                                          color: Colors.white),
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                     Text(
                                       'more Info',
-                                      style: TextStyle(
-                                          color: Colors.white),
+                                      style: TextStyle(color: Colors.white),
                                     )
                                   ],
                                 ),
                               )
                             ],
                           ),
-                          IconButton(onPressed: (){
-                            onLogoutPressed();
-                          }, icon: Icon(Icons.logout_rounded))
+                          IconButton(
+                              onPressed: () {
+                                onLogoutPressed();
+                              },
+                              icon: Icon(Icons.logout_rounded))
                         ],
                       ),
                     ],
@@ -151,7 +162,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                   ),
                                 ),
                                 onTap: () {
-                                  Navigator.pushNamed(context,routeAddpatient);
+                                  Navigator.pushNamed(context, routeAddpatient);
                                 },
                               ),
                             ),
@@ -178,7 +189,8 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                   ),
                                 ),
                                 onTap: () {
-                                  Navigator.pushNamed(context,routeUpdatepatient);
+                                  Navigator.pushNamed(
+                                      context, routeUpdatepatient);
                                 },
                               ),
                             ),
