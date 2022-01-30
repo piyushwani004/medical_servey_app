@@ -44,6 +44,30 @@ class _DataTableWithGivenColumnState extends State<DataTableWithGivenColumn> {
         widget.records.sort((Surveyor r1, Surveyor r2) =>
             compareString(ascending, r1.lastName, r2.lastName));
         break;
+      case 4:
+        widget.records.sort((Surveyor r1, Surveyor r2) =>
+            compareString(ascending, r1.age.toString(), r2.age.toString()));
+        break;
+      case 5:
+        widget.records.sort((Surveyor r1, Surveyor r2) =>
+            compareString(ascending, r1.gender, r2.gender));
+        break;
+      case 6:
+        widget.records.sort((Surveyor r1, Surveyor r2) =>
+            compareString(ascending, r1.address, r2.address));
+        break;
+      case 7:
+        widget.records.sort((Surveyor r1, Surveyor r2) =>
+            compareString(ascending, r1.profession, r2.profession));
+        break;
+      case 8:
+        widget.records.sort((Surveyor r1, Surveyor r2) =>
+            compareString(ascending, r1.joiningDate, r2.joiningDate));
+        break;
+      case 9:
+        widget.records.sort((Surveyor r1, Surveyor r2) =>
+            compareString(ascending, r1.villageToAssign, r2.villageToAssign));
+        break;
     }
 
     setState(() {
@@ -64,10 +88,17 @@ class _DataTableWithGivenColumnState extends State<DataTableWithGivenColumn> {
   List<DataRow> getRows(List<Surveyor> records) => records
       .map((Surveyor row) => DataRow(
             cells: [
-              DataCell(Text(row.email)),
+              DataCell(
+                  Text(row.email)),
               DataCell(Text(row.firstName)),
               DataCell(Text(row.middleName)),
               DataCell(Text(row.lastName)),
+              DataCell(Text(row.age.toString())),
+              DataCell(Text(row.gender)),
+              DataCell(Text(row.address)),
+              DataCell(Text(row.profession)),
+              DataCell(Text(row.joiningDate)),
+              DataCell(Text(row.villageToAssign)),
             ],
             selected: widget.selectedRecords.contains(row),
             onSelectChanged: (isSelected) => setState(() {

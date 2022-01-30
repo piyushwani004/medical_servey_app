@@ -26,12 +26,20 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   AdminFirebaseService _firebaseService = AdminFirebaseService();
   TextEditingController _textEditingController = TextEditingController();
   final GlobalKey<State> surveyorListKey = GlobalKey<State>();
+  final _verticalScrollController = ScrollController();
+  final _horizontalScrollController = ScrollController();
   Loading? _loading;
   List<String> columnsOfDataTable = [
     'Email',
-    'First Name',
-    'Middle Name',
-    'Last Name'
+    'First-Name',
+    'Middle-Name',
+    'Last-Name',
+    'Age',
+    'Gender',
+    'Address',
+    'Profession',
+    'Joining-Date',
+    'Assigned-Village',
   ];
 
   getSurveyorsList() async {
@@ -47,19 +55,25 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
             sur.firstName.contains(searchText) ||
             sur.middleName.contains(searchText) ||
             sur.lastName.contains(searchText) ||
-            sur.email.contains(searchText))
+            sur.email.contains(searchText) ||
+            sur.mobileNumber.contains(searchText) ||
+            sur.address.contains(searchText) ||
+            sur.gender.contains(searchText) ||
+            sur.joiningDate.contains(searchText) ||
+            sur.villageToAssign.contains(searchText) ||
+            sur.profession.contains(searchText))
         .toList();
     setState(() {});
   }
 
-  onSearchCrossBtnPressed(){
+  onSearchCrossBtnPressed() {
     listOfFilteredSurveyor = null;
     setState(() {});
   }
 
   @override
   void initState() {
-    _loading = Loading(context: context,key: surveyorListKey);
+    _loading = Loading(context: context, key: surveyorListKey);
     super.initState();
     getSurveyorsList();
   }
@@ -114,12 +128,28 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
           onSearchTap: () {
             onSearchBtnPressed();
           },
-          onCrossTap: (){
+          onCrossTap: () {
             onSearchCrossBtnPressed();
           },
-          isCrossVisible: listOfFilteredSurveyor!=null,
+          isCrossVisible: listOfFilteredSurveyor != null,
         ),
-        dataTableWithGivenColumn!
+        Scrollbar(
+          isAlwaysShown: true,
+          controller: _verticalScrollController,
+          child: SingleChildScrollView(
+            controller: _verticalScrollController,
+            scrollDirection: Axis.vertical,
+            child: Scrollbar(
+              isAlwaysShown: true,
+              controller: _horizontalScrollController,
+              child: SingleChildScrollView(
+                controller: _horizontalScrollController,
+                scrollDirection: Axis.horizontal,
+                child: Card(child: dataTableWithGivenColumn!),
+              ),
+            ),
+          ),
+        )
       ],
     );
   }
