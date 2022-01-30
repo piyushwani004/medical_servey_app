@@ -40,19 +40,16 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   }
 
   onSearchBtnPressed() {
-    // _loading?.on();
     print(_textEditingController.text);
     String searchText = _textEditingController.text;
     listOfFilteredSurveyor = listOfSurveyor
         ?.where((Surveyor sur) =>
-            sur.firstName.contains(searchText.toLowerCase()) ||
+            sur.firstName.contains(searchText) ||
             sur.middleName.contains(searchText) ||
             sur.lastName.contains(searchText) ||
             sur.email.contains(searchText))
         .toList();
-    // _loading?.off();
     setState(() {});
-
   }
 
   onSearchCrossBtnPressed(){
