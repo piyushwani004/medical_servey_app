@@ -26,7 +26,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
   List<Disease> _diseaseList = [];
   SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
 
-  bool _switchValue = true;
+  bool _switchValue = false;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -213,7 +213,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
         },
         child: Text("Show Diseases"));
 
-    final diseaseBtn = CupertinoSwitch(
+    final diseaseSwitch = CupertinoSwitch(
       value: _switchValue,
       onChanged: (value) {
         setState(() {
@@ -297,6 +297,11 @@ class _AddPatientFormState extends State<AddPatientForm> {
                     child: showDiseases,
                   ),
                 ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
                 Flexible(
                   child: Padding(
                     padding: Common.allPadding(mHeight: height),
@@ -306,10 +311,16 @@ class _AddPatientFormState extends State<AddPatientForm> {
                 Flexible(
                   child: Padding(
                     padding: Common.allPadding(mHeight: height),
-                    child: diseaseBtn,
+                    child: diseaseSwitch,
+                  ),
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: Visibility(
+                        visible: _switchValue, child: otherDiseaseInput),
                   ),
                 )
-                //Visibility(visible: false, child: otherDisease)
               ],
             ),
             Padding(
