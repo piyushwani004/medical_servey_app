@@ -6,7 +6,8 @@ import 'package:medical_servey_app/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({
+  ScrollController _scrollController = ScrollController();
+  SideMenu({
     Key? key,
   }) : super(key: key);
 
@@ -15,6 +16,7 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+        controller:_scrollController ,
         children: [
           DrawerHeader(
             child: Image.asset("assets/images/logo.png"),

@@ -182,7 +182,6 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
         surveyorForm["middleName"] = splitName[1];
         surveyorForm["lastName"] = splitName[2];
       },
-      // validator: (email) => emailValidator(email!),
       decoration: Common.textFormFieldInputDecoration(labelText: "Full Name"),
     );
 
@@ -193,7 +192,6 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       onSaved: (email) {
         surveyorForm["email"] = email!;
       },
-      // validator: (email) => emailValidator(email!),
       decoration: Common.textFormFieldInputDecoration(labelText: "Email"),
     );
     final address = TextFormField(
@@ -202,7 +200,6 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       onSaved: (address) {
         surveyorForm["address"] = address!;
       },
-      // validator: (email) => emailValidator(email!),
       decoration: Common.textFormFieldInputDecoration(labelText: "Address"),
     );
     final mobileNo = TextFormField(
@@ -221,9 +218,8 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       // validator: (aadhaarNo) => aadhaarNumberValidator(aadhaarNo!),
       autofocus: false,
       onSaved: (aadhaarNo) {
-        surveyorForm["aadhaarNo"] = aadhaarNo!;
+        surveyorForm["aadhaarNumber"] = aadhaarNo!;
       },
-      // validator: (email) => emailValidator(email!),
       decoration:
           Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
     );

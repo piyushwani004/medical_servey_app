@@ -7,6 +7,7 @@ import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/data_table_widget.dart';
 import 'package:medical_servey_app/widgets/loading.dart';
 import 'package:medical_servey_app/widgets/search_field.dart';
+import 'package:medical_servey_app/widgets/surveyor_edit_dialog.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
 import 'main/components/side_menu.dart';
@@ -29,6 +30,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   final _verticalScrollController = ScrollController();
   final _horizontalScrollController = ScrollController();
   Loading? _loading;
+  final scaffoldState = GlobalKey<ScaffoldState>();
   List<String> columnsOfDataTable = [
     'Email',
     'First-Name',
@@ -71,6 +73,25 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     setState(() {});
   }
 
+  onUpdatePressed() {
+    if (dataTableWithGivenColumn!.selectedRecords.isNotEmpty &&
+        dataTableWithGivenColumn!.selectedRecords.length == 1) {
+      // print(dataTableWithGivenColumn!.selectedRecords);
+      showDialog(
+          context: context,
+          builder: (context) => SurveyorEditDialog(
+              surveyor: dataTableWithGivenColumn!.selectedRecords[0]));
+    } else {
+      Common.showAlert(
+          context: context,
+          title: 'Surveyor Edit',
+          content: dataTableWithGivenColumn!.selectedRecords.isEmpty
+              ? 'Please select a Surveyor'
+              : 'Cannot edit multiple at a time',
+          isError: true);
+    }
+  }
+
   @override
   void initState() {
     _loading = Loading(context: context, key: surveyorListKey);
@@ -83,6 +104,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
+      key: scaffoldState,
       drawer: !Responsive.isDesktop(context) ? SideMenu() : null,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,15 +145,28 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     );
     return Column(
       children: [
-        SearchField(
-          controller: _textEditingController,
-          onSearchTap: () {
-            onSearchBtnPressed();
-          },
-          onCrossTap: () {
-            onSearchCrossBtnPressed();
-          },
-          isCrossVisible: listOfFilteredSurveyor != null,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Flexible(
+              child: SearchField(
+                controller: _textEditingController,
+                onSearchTap: () {
+                  onSearchBtnPressed();
+                },
+                onCrossTap: () {
+                  onSearchCrossBtnPressed();
+                },
+                isCrossVisible: listOfFilteredSurveyor != null,
+              ),
+            ),
+            IconButton(
+                onPressed: () {
+                  onUpdatePressed();
+                },
+                icon: Icon(Icons.edit)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.delete_forever))
+          ],
         ),
         Scrollbar(
           isAlwaysShown: true,
@@ -145,7 +180,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
               child: SingleChildScrollView(
                 controller: _horizontalScrollController,
                 scrollDirection: Axis.horizontal,
-                child: Card(child: dataTableWithGivenColumn!),
+                child: Card(elevation: 10, child: dataTableWithGivenColumn!),
               ),
             ),
           ),

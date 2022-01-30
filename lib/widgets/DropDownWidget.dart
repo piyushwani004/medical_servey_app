@@ -8,6 +8,7 @@ class DropDownButtonWidget extends StatefulWidget {
     Key? key,
     required this.items,
     required this.name,
+    this.selectedItem
   }) : super(key: key);
 
   @override

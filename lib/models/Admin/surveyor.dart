@@ -12,6 +12,7 @@ class Surveyor {
   String gender;
   String joiningDate;
   String villageToAssign;
+  String aadhaarNumber;
   int age;
   Surveyor({
     this.uid,
@@ -25,6 +26,7 @@ class Surveyor {
     required this.gender,
     required this.joiningDate,
     required this.villageToAssign,
+    required this.aadhaarNumber,
     required this.age,
   });
 
@@ -40,6 +42,7 @@ class Surveyor {
     String? gender,
     String? joiningDate,
     String? villageToAssign,
+    String? aadhaarNumber,
     int? age,
   }) {
     return Surveyor(
@@ -54,6 +57,7 @@ class Surveyor {
       gender: gender ?? this.gender,
       joiningDate: joiningDate ?? this.joiningDate,
       villageToAssign: villageToAssign ?? this.villageToAssign,
+      aadhaarNumber: aadhaarNumber ?? this.aadhaarNumber,
       age: age ?? this.age,
     );
   }
@@ -71,6 +75,7 @@ class Surveyor {
       'gender': gender,
       'joiningDate': joiningDate,
       'villageToAssign': villageToAssign,
+      'aadhaarNumber': aadhaarNumber,
       'age': age,
     };
   }
@@ -88,6 +93,7 @@ class Surveyor {
       gender: map['gender'] ?? '',
       joiningDate: map['joiningDate'] ?? '',
       villageToAssign: map['villageToAssign'] ?? '',
+      aadhaarNumber: map['aadhaarNumber'] ?? '',
       age: int.parse(map['age'].toString()),
     );
   }
@@ -99,7 +105,7 @@ class Surveyor {
 
   @override
   String toString() {
-    return 'Surveyor(uid: $uid, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, joiningDate: $joiningDate, villageToAssign: $villageToAssign, age: $age)';
+    return 'Surveyor(uid: $uid, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, joiningDate: $joiningDate, villageToAssign: $villageToAssign, aadhaarNumber: $aadhaarNumber, age: $age)';
   }
 
   @override
@@ -118,6 +124,7 @@ class Surveyor {
         other.gender == gender &&
         other.joiningDate == joiningDate &&
         other.villageToAssign == villageToAssign &&
+        other.aadhaarNumber == aadhaarNumber &&
         other.age == age;
   }
 
@@ -134,6 +141,7 @@ class Surveyor {
         gender.hashCode ^
         joiningDate.hashCode ^
         villageToAssign.hashCode ^
+        aadhaarNumber.hashCode ^
         age.hashCode;
   }
 }
