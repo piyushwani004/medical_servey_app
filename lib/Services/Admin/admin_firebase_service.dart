@@ -5,12 +5,6 @@ import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 
-final CollectionReference collectionDisease =
-    FirebaseFirestore.instance.collection('Diseases');
-
-final CollectionReference collectionSurveyor =
-    FirebaseFirestore.instance.collection('Diseases');
-
 class AdminFirebaseService {
   FirebaseFirestore? instance = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;

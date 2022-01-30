@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 const String TRUST_NAME = "Trust Name";
@@ -8,5 +9,10 @@ const kPrimaryColor = Color(0xFFFE4350);
 
 const defaultPadding = 16.0;
 
-
 const DEF_SEC_FB = '123456789!@#&*()';
+
+final CollectionReference collectionDisease =
+    FirebaseFirestore.instance.collection('Diseases');
+
+final CollectionReference collectionSurveyor =
+    FirebaseFirestore.instance.collection('Diseases');

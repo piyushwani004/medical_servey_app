@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
+import 'package:medical_servey_app/models/Admin/Disease.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
@@ -20,21 +23,16 @@ class _AddPatientFormState extends State<AddPatientForm> {
   var width, height;
   String _selectedDate = formatDate(DateTime.now().toString());
   Map<String, String> patientForm = {};
-  List<String> flavours = [];
+  List<Disease> _diseaseList = [];
+  SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
+
+  bool _switchValue = true;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? professionDropDown;
-  DropDownButtonWidget? diseasesDropdown;
 
-  var ages = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-  ];
-
+  List<int> ages = generateN2MList(15, 100);
   var genders = [
     'M',
     'F',
@@ -45,13 +43,6 @@ class _AddPatientFormState extends State<AddPatientForm> {
     'Degree pass',
     'Metric Pass',
     'None',
-  ];
-
-  var diseases = [
-    'diseases 1',
-    'diseases 2',
-    'diseases 3',
-    'Other',
   ];
 
   onPressedSubmit() async {
@@ -72,7 +63,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
   @override
   void initState() {
     ageDropDown = DropDownButtonWidget(
-      items: ages,
+      items: ages.map((age) => age.toString()).toList(),
       name: 'Age',
     );
     genderDropDown = DropDownButtonWidget(
@@ -83,18 +74,22 @@ class _AddPatientFormState extends State<AddPatientForm> {
       items: profession,
       name: 'Profession',
     );
-    diseasesDropdown = DropDownButtonWidget(
-      items: diseases,
-      name: 'Disease',
-    );
+    getAllDisease();
     super.initState();
+  }
+
+  getAllDisease() async {
+    _diseaseList = await _firebaseService.getAllDiseases();
+    setState(() {
+      print("_diseaseList  $_diseaseList");
+    });
   }
 
   void _showMultiSelect(BuildContext context) async {
     final items = <MultiSelectDialogItem<int>>[
-      MultiSelectDialogItem(1, 'Dog'),
-      MultiSelectDialogItem(2, 'Cat'),
-      MultiSelectDialogItem(3, 'Mouse'),
+      MultiSelectDialogItem(1, 'Disease one'),
+      MultiSelectDialogItem(2, 'Disease two'),
+      MultiSelectDialogItem(3, 'Disease three'),
     ];
 
     final selectedValues = await showDialog<Set<int>>(
@@ -102,12 +97,12 @@ class _AddPatientFormState extends State<AddPatientForm> {
       builder: (BuildContext context) {
         return MultiSelectDialog(
           items: items,
-          initialSelectedValues: [1, 3].toSet(),
+          initialSelectedValues: [1].toSet(),
         );
       },
     );
 
-    print(selectedValues);
+    print("selectedValues" + selectedValues.toString());
   }
 
   @override
@@ -196,7 +191,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       decoration:
           Common.textFormFieldInputDecoration(labelText: "Mobile Number"),
     );
-    final otherDisease = TextFormField(
+    final otherDiseaseInput = TextFormField(
       keyboardType: TextInputType.text,
       autofocus: false,
       onSaved: (othDisease) {
@@ -212,11 +207,20 @@ class _AddPatientFormState extends State<AddPatientForm> {
         },
         child: Text('Submit'));
 
-    final diseaseBtn = ElevatedButton(
-        onPressed: () async {
+    final showDiseases = TextButton(
+        onPressed: () {
           _showMultiSelect(context);
         },
-        child: Text('Other'));
+        child: Text("Show Diseases"));
+
+    final diseaseBtn = CupertinoSwitch(
+      value: _switchValue,
+      onChanged: (value) {
+        setState(() {
+          _switchValue = value;
+        });
+      },
+    );
 
     return Form(
         key: formKey,
@@ -285,12 +289,18 @@ class _AddPatientFormState extends State<AddPatientForm> {
               child: address,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Flexible(
                   child: Padding(
                     padding: Common.allPadding(mHeight: height),
-                    child: diseasesDropdown!,
+                    child: showDiseases,
+                  ),
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: Text("Others"),
                   ),
                 ),
                 Flexible(
