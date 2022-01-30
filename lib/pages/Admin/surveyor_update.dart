@@ -44,9 +44,11 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     'Assigned-Village',
   ];
 
-  getSurveyorsList() async {
-    listOfSurveyor = await _firebaseService.getSurveyors();
-    setState(() {});
+  Stream<List<Surveyor>> getSurveyorsList() async* {
+    List<Surveyor> listOfSurveyor = await _firebaseService.getSurveyors();
+    this.listOfSurveyor = listOfSurveyor;
+    yield listOfSurveyor;
+    // setState(() {});
   }
 
   onSearchBtnPressed() {
@@ -81,7 +83,6 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
           context: context,
           builder: (context) => SurveyorEditDialog(
               surveyor: dataTableWithGivenColumn!.selectedRecords[0]));
-      scaffoldState.currentState!.setState(() {});
     } else {
       Common.showAlert(
           context: context,
@@ -97,7 +98,6 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   void initState() {
     _loading = Loading(context: context, key: surveyorListKey);
     super.initState();
-    getSurveyorsList();
   }
 
   @override
@@ -125,11 +125,8 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                 CustomScrollViewBody(
                     bodyWidget: Padding(
                   padding: Common.allPadding(mHeight: height),
-                  child: listOfSurveyor != null
-                      ? body()
-                      : Center(
-                          child: CircularProgressIndicator(),
-                        ),
+                  child: body()
+
                 ))
               ],
             ),
@@ -140,10 +137,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   }
 
   Widget body() {
-    dataTableWithGivenColumn = DataTableWithGivenColumn(
-      columns: columnsOfDataTable,
-      records: listOfFilteredSurveyor ?? listOfSurveyor!,
-    );
+
     return Column(
       children: [
         Row(
@@ -181,7 +175,24 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
               child: SingleChildScrollView(
                 controller: _horizontalScrollController,
                 scrollDirection: Axis.horizontal,
-                child: Card(elevation: 10, child: dataTableWithGivenColumn!),
+                child: Card(elevation: 10, child:StreamBuilder<List<Surveyor>>(
+                    stream: getSurveyorsList(),
+                    builder: (context, snapshot) {
+                      if(snapshot.hasData){
+                        dataTableWithGivenColumn = DataTableWithGivenColumn(
+                          columns: columnsOfDataTable,
+                          records: listOfFilteredSurveyor ?? snapshot.data!,
+                        );
+                        print(dataTableWithGivenColumn?.selectedRecords);
+                      }
+                      return snapshot.hasData?
+                      dataTableWithGivenColumn!:Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+
+                ) ),
               ),
             ),
           ),
