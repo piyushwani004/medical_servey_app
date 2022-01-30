@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
+import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 
 import 'DropDownWidget.dart';
@@ -9,7 +11,8 @@ import 'loading.dart';
 
 class SurveyorEditDialog extends StatefulWidget {
   final Surveyor surveyor;
-  SurveyorEditDialog( {Key? key, required this.surveyor}) : super(key: key);
+
+  SurveyorEditDialog({Key? key, required this.surveyor}) : super(key: key);
 
   @override
   _SurveyorEditDialogState createState() => _SurveyorEditDialogState();
@@ -19,7 +22,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
   String? selectedDate;
   Map<String, String> surveyorForm = {};
   final formKey = GlobalKey<FormState>();
-  final GlobalKey<State> newSurveyorKey = GlobalKey<State>();
+  final GlobalKey<State> surveyorEditKey = GlobalKey<State>();
   Loading? _loading;
   AdminFirebaseService _firebaseService = AdminFirebaseService();
   DropDownButtonWidget? ageDropDown;
@@ -27,9 +30,8 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
   DropDownButtonWidget? qualificationDropDown;
   DropDownButtonWidget? villageToAssign;
 
-
   // List of items in our dropdown menu
-  List<int> ageList = generateN2MList(15,100);
+  List<int> ageList = generateN2MList(15, 100);
   var villages = [
     'Bhusawal',
     'Jalgao',
@@ -49,9 +51,47 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
   ];
   var width, height;
 
+  Future<Response> onConfirmBtnPressed() async {
+    if (formKey.currentState!.validate()) {
+      //turning loading on
+      // _loading!.on(); //invoking login
+      surveyorForm['joiningDate'] = selectedDate!;
+      surveyorForm['age'] = ageDropDown!.selectedItem!;
+      surveyorForm['gender'] = genderDropDown!.selectedItem!;
+      surveyorForm['profession'] = qualificationDropDown!.selectedItem!;
+      surveyorForm['villageToAssign'] = villageToAssign!.selectedItem!;
+      formKey.currentState!.save();
+      Surveyor surveyor = Surveyor.fromMap(surveyorForm);
+      Response isUpdate = await _firebaseService.updateSurveyor(surveyor);
+
+      if (isUpdate.isSuccessful) {
+        await Common.showAlert(
+            context: context,
+            title: 'Surveyor Update',
+            content: isUpdate.message,
+            isError: false);
+        return isUpdate;
+      } else {
+        await Common.showAlert(
+            context: context,
+            title: 'Surveyor Update',
+            content: isUpdate.message,
+            isError: true);
+        return isUpdate;
+      }
+    }else{
+      Common.showAlert(
+          context: context,
+          title: 'Surveyor Update',
+          content: 'Incorrect Values',
+          isError: true);
+      return Response(isSuccessful: false, message: 'Incorrect Values');
+    }
+  }
 
   @override
   void initState() {
+    _loading = Loading(key: surveyorEditKey, context: context);
     selectedDate = formatDate(widget.surveyor.joiningDate);
     // assigning dropdowns
     ageDropDown = DropDownButtonWidget(
@@ -75,7 +115,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       name: 'Village To Assign',
     );
 
-    _loading = Loading(context: context,key: newSurveyorKey);
+    _loading = Loading(context: context, key: surveyorEditKey);
 
     super.initState();
   }
@@ -85,9 +125,9 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
-
     final fullName = TextFormField(
-      initialValue: "${widget.surveyor.firstName} ${widget.surveyor.middleName} ${widget.surveyor.lastName} ",
+      initialValue:
+          "${widget.surveyor.firstName} ${widget.surveyor.middleName} ${widget.surveyor.lastName} ",
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       validator: (name) {
@@ -142,7 +182,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       },
       // validator: (email) => emailValidator(email!),
       decoration:
-      Common.textFormFieldInputDecoration(labelText: "Mobile Number"),
+          Common.textFormFieldInputDecoration(labelText: "Mobile Number"),
     );
     final aadhaarNo = TextFormField(
       initialValue: '${widget.surveyor.aadhaarNumber}',
@@ -154,7 +194,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       },
       // validator: (email) => emailValidator(email!),
       decoration:
-      Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
+          Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
     );
     return AlertDialog(
       scrollable: true,
@@ -176,17 +216,17 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
                       children: [
                         Expanded(
                             child: Padding(
-                              padding: Common.allPadding(mHeight: height),
-                              child: ageDropDown!,
-                            )),
+                          padding: Common.allPadding(mHeight: height),
+                          child: ageDropDown!,
+                        )),
                         SizedBox(
                           width: width * 0.01,
                         ),
                         Expanded(
                             child: Padding(
-                              padding: Common.allPadding(mHeight: height),
-                              child: genderDropDown!,
-                            )),
+                          padding: Common.allPadding(mHeight: height),
+                          child: genderDropDown!,
+                        )),
                       ],
                     ),
                     Row(
@@ -209,7 +249,8 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
                                     },
                                     child: Text(
                                       selectedDate ==
-                                          formatDate(DateTime.now().toString())
+                                              formatDate(
+                                                  DateTime.now().toString())
                                           ? "Today"
                                           : selectedDate.toString(),
                                       style: TextStyle(
@@ -246,20 +287,23 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
               ),
             ],
           )),
-
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text('Cancel'),
         ),
         TextButton(
-          onPressed: () {
-
-            Navigator.pop(context);
+          onPressed: () async {
+            Response res = await onConfirmBtnPressed();
+            print(res.isSuccessful);
+            if(res.isSuccessful){
+              Navigator.pop(context);
+            }
           },
           child: Text('Confirm'),
         ),
       ],
-    );;
+    );
+    ;
   }
 }

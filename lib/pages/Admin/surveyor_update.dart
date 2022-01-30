@@ -73,14 +73,15 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     setState(() {});
   }
 
-  onUpdatePressed() {
+  onUpdatePressed() async {
     if (dataTableWithGivenColumn!.selectedRecords.isNotEmpty &&
         dataTableWithGivenColumn!.selectedRecords.length == 1) {
       // print(dataTableWithGivenColumn!.selectedRecords);
-      showDialog(
+      await showDialog(
           context: context,
           builder: (context) => SurveyorEditDialog(
               surveyor: dataTableWithGivenColumn!.selectedRecords[0]));
+      scaffoldState.currentState!.setState(() {});
     } else {
       Common.showAlert(
           context: context,
@@ -161,8 +162,8 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
               ),
             ),
             IconButton(
-                onPressed: () {
-                  onUpdatePressed();
+                onPressed: () async {
+                  await onUpdatePressed();
                 },
                 icon: Icon(Icons.edit)),
             IconButton(onPressed: () {}, icon: Icon(Icons.delete_forever))

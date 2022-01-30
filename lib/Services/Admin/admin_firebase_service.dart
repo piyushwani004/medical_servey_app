@@ -32,6 +32,25 @@ class AdminFirebaseService {
     return Response(isSuccessful: isSuccessful, message: message);
   }
 
+  Future<Response> updateSurveyor(Surveyor surveyor) async {
+    //updating the surveyor details first
+    CollectionReference surveyorCollection = instance!.collection('Surveyor');
+    String message = "";
+    bool isSuccessful = false;
+    try {
+     String id = await getDocId(rootDocName: "Surveyor", uniqueField:'email', uniqueFieldValue: surveyor.email);
+     surveyorCollection.doc(id).update(surveyor.toMap());
+     message = "Updated Successfully";
+     isSuccessful = true;
+     return Response(isSuccessful: isSuccessful, message: message);
+    } on FirebaseException catch (e) {
+      isSuccessful = false;
+      message = e.message.toString();
+      return Response(isSuccessful: isSuccessful, message: message);
+    }
+
+  }
+
   Future<Response> createSurveyorAccount(Surveyor surveyor) async {
     //creating the surveyor account with random password
     try {
@@ -98,6 +117,19 @@ class AdminFirebaseService {
       message = e.toString();
     }
     return Response(isSuccessful: isSuccessful, message: message);
+  }
+
+  Future<String> getDocId({
+    required String rootDocName,
+    required String uniqueField,
+    required String uniqueFieldValue,
+  }) async {
+    var data = await instance!
+        .collection(rootDocName)
+        .where(uniqueField, isEqualTo: uniqueFieldValue)
+        .get();
+
+    return data.docs[0].id;
   }
 
   Future<bool> checkExist(String path, String docID) async {
