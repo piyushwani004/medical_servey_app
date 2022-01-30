@@ -141,11 +141,12 @@ class AdminFirebaseService {
     return data.docs[0].id;
   }
 
-  Future<List<Disease>> getAllDiseases() async {
+  Stream<List<Disease>> getAllDiseases() async* {
     QuerySnapshot querySnapshot = await collectionDisease.get();
     _diseaseList.addAll(querySnapshot.docs.map(
         (disease) => Disease.fromMap(disease.data() as Map<String, dynamic>)));
-    return _diseaseList;
+    print("_diseaseList: $_diseaseList");
+    yield _diseaseList;
   }
 
   Future<bool> checkExist(String path, String docID) async {

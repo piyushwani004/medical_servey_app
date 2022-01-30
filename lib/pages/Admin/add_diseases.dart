@@ -139,9 +139,50 @@ class _AddDiseasesState extends State<AddDiseases> {
               ),
               Divider(
                 color: Colors.blueAccent,
-              )
+              ),
+              SizedBox(
+                height: height * 0.03,
+              ),
+              Container(child: fetchAllDisease())
             ]),
           )),
     );
+  }
+
+  Widget fetchAllDisease() {
+    return StreamBuilder<List<Disease>>(
+        stream: _firebaseService.getAllDiseases(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          }
+          return Center(
+            child: Column(
+              children: [
+                ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: null,
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.blue,
+                        child: Text(snapshot.data![index].name[0]),
+                      ),
+                      title: Row(children: <Widget>[
+                        Expanded(
+                            child: Text(
+                          snapshot.data![index].id,
+                        )),
+                        Expanded(child: Text(snapshot.data![index].name)),
+                      ]),
+                    );
+                  },
+                )
+              ],
+            ),
+          );
+        });
   }
 }
