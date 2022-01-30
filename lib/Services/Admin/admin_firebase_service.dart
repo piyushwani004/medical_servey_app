@@ -5,9 +5,16 @@ import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 
+final CollectionReference collectionDisease =
+    FirebaseFirestore.instance.collection('Diseases');
+
+final CollectionReference collectionSurveyor =
+    FirebaseFirestore.instance.collection('Diseases');
+
 class AdminFirebaseService {
   FirebaseFirestore? instance = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  List<Disease> _diseaseList = [];
 
   Future<Response> saveNewSurveyor(Surveyor surveyor) async {
     //saving the surveyor details first
@@ -38,17 +45,19 @@ class AdminFirebaseService {
     String message = "";
     bool isSuccessful = false;
     try {
-     String id = await getDocId(rootDocName: "Surveyor", uniqueField:'email', uniqueFieldValue: surveyor.email);
-     surveyorCollection.doc(id).update(surveyor.toMap());
-     message = "Updated Successfully";
-     isSuccessful = true;
-     return Response(isSuccessful: isSuccessful, message: message);
+      String id = await getDocId(
+          rootDocName: "Surveyor",
+          uniqueField: 'email',
+          uniqueFieldValue: surveyor.email);
+      surveyorCollection.doc(id).update(surveyor.toMap());
+      message = "Updated Successfully";
+      isSuccessful = true;
+      return Response(isSuccessful: isSuccessful, message: message);
     } on FirebaseException catch (e) {
       isSuccessful = false;
       message = e.message.toString();
       return Response(isSuccessful: isSuccessful, message: message);
     }
-
   }
 
   Future<Response> createSurveyorAccount(Surveyor surveyor) async {
@@ -130,6 +139,13 @@ class AdminFirebaseService {
         .get();
 
     return data.docs[0].id;
+  }
+
+  Future<List<Disease>> getAllDiseases() async {
+    QuerySnapshot querySnapshot = await collectionDisease.get();
+    _diseaseList.addAll(querySnapshot.docs.map(
+        (disease) => Disease.fromMap(disease.data() as Map<String, dynamic>)));
+    return _diseaseList;
   }
 
   Future<bool> checkExist(String path, String docID) async {
