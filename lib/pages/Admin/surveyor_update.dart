@@ -83,6 +83,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
           context: context,
           builder: (context) => SurveyorEditDialog(
               surveyor: dataTableWithGivenColumn!.selectedRecords[0]));
+      setState(() {});
     } else {
       Common.showAlert(
           context: context,
