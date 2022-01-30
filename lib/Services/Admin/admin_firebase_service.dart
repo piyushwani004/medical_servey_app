@@ -149,6 +149,30 @@ class AdminFirebaseService {
     yield _diseaseList;
   }
 
+  Future<Response> updateDisease({required Disease disease}) async {
+    String message = "";
+    bool isSuccessful = false;
+    print(disease.toMap());
+    try {
+      await collectionDisease
+          .doc(disease.id)
+          .update(disease.toMap())
+          .then((value) {
+        return value;
+      }).whenComplete(() {
+        isSuccessful = true;
+        message = "successfully update...";
+      }).onError((error, stackTrace) {
+        isSuccessful = false;
+        message = "$error";
+      });
+    } catch (e) {
+      isSuccessful = false;
+      message = "$e";
+    }
+    return Response(isSuccessful: isSuccessful, message: message);
+  }
+
   Future<bool> checkExist(String path, String docID) async {
     bool exist = false;
     try {

@@ -94,9 +94,8 @@ class _AddDiseasesState extends State<AddDiseases> {
             child: Column(children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text("Disease List"),
                   Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -143,6 +142,26 @@ class _AddDiseasesState extends State<AddDiseases> {
               SizedBox(
                 height: height * 0.03,
               ),
+              Container(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Flexible(
+                          child: Text(
+                        "ID",
+                        style: TextStyle(
+                            fontSize: 20, fontStyle: FontStyle.normal),
+                      )),
+                      Flexible(
+                          child: Text("Name",
+                              style: TextStyle(
+                                  fontSize: 20, fontStyle: FontStyle.normal))),
+                      Flexible(
+                          child: Text("Actions",
+                              style: TextStyle(
+                                  fontSize: 20, fontStyle: FontStyle.normal))),
+                    ]),
+              ),
               Container(child: fetchAllDisease())
             ]),
           )),
@@ -150,38 +169,96 @@ class _AddDiseasesState extends State<AddDiseases> {
   }
 
   Widget fetchAllDisease() {
-    return StreamBuilder<List<Disease>>(
-        stream: _firebaseService.getAllDiseases(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          }
-          return Center(
-            child: Column(
-              children: [
-                ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      onTap: null,
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.blue,
-                        child: Text(snapshot.data![index].name[0]),
-                      ),
-                      title: Row(children: <Widget>[
-                        Expanded(
-                            child: Text(
-                          snapshot.data![index].id,
-                        )),
-                        Expanded(child: Text(snapshot.data![index].name)),
-                      ]),
-                    );
-                  },
-                )
-              ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: StreamBuilder<List<Disease>>(
+          stream: _firebaseService.getAllDiseases(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
+            return Center(
+              child: Column(
+                children: [
+                  ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        onTap: null,
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.blue,
+                          child: Text(snapshot.data![index].name[0]),
+                        ),
+                        title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Flexible(
+                                  child: Text(
+                                snapshot.data![index].id,
+                              )),
+                              Flexible(child: Text(snapshot.data![index].name)),
+                              Flexible(
+                                  child: ElevatedButton(
+                                      onPressed: () async {
+                                        await _displayTextInputDialog(
+                                            context,
+                                            Disease(
+                                              id: snapshot.data![index].id,
+                                              name: snapshot.data![index].name,
+                                            ));
+                                      },
+                                      child: Text('Edit'))),
+                              Flexible(
+                                  child: ElevatedButton(
+                                      onPressed: () {}, child: Text("Delete"))),
+                            ]),
+                      );
+                    },
+                  )
+                ],
+              ),
+            );
+          }),
+    );
+  }
+
+  Future<void> _displayTextInputDialog(
+      BuildContext context, Disease disease) async {
+    String updatedDisease = "";
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('update Disease'),
+            content: TextFormField(
+              onChanged: (value) {
+                updatedDisease = value;
+              },
+              initialValue: "${disease.name}",
+              autofocus: false,
+              decoration: InputDecoration(hintText: "Enter Dsease"),
             ),
+            actions: <Widget>[
+              ElevatedButton(
+                child: Text('CANCEL'),
+                onPressed: () {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+              ElevatedButton(
+                child: Text('OK'),
+                onPressed: () async {
+                  Navigator.pop(context);
+                  Response response = await _firebaseService.updateDisease(
+                      disease: Disease(id: disease.id, name: updatedDisease));
+                  print(response.toString());
+                },
+              ),
+            ],
           );
         });
   }

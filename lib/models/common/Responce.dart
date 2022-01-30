@@ -3,5 +3,13 @@ class Response<T> {
   String message;
   T? data;
 
-  Response({this.data, required this.isSuccessful, required this.message});
+  Response({
+    required this.isSuccessful,
+    required this.message,
+    this.data,
+  });
+
+  @override
+  String toString() =>
+      'Response(isSuccessful: $isSuccessful, message: $message, data: $data)';
 }
