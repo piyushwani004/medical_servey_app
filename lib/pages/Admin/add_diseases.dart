@@ -21,22 +21,20 @@ class _AddDiseasesState extends State<AddDiseases> {
   final formKeyAddDiseseForm = GlobalKey<FormState>();
   AdminFirebaseService _firebaseService = AdminFirebaseService();
   Map<String, String> diseaseForm = {};
+  TextFormField? addDiseaseTextFormField;
 
-
-  Future onEditPressed(snapshot, index)async{
+  Future onEditPressed(snapshot, index) async {
     await _displayTextInputDialog(
         context,
         Disease(
-        id: snapshot.data![index].id,
-        name: snapshot.data![index].name,
-    ));
+          id: snapshot.data![index].id,
+          name: snapshot.data![index].name,
+        ));
     setState(() {});
   }
 
-
-
-  Stream<List<Disease>>getAllDisease()async*{
-    List<Disease> allDisease =  await _firebaseService.getAllDiseases();
+  Stream<List<Disease>> getAllDisease() async* {
+    List<Disease> allDisease = await _firebaseService.getAllDiseases();
     yield allDisease;
   }
 
@@ -56,6 +54,7 @@ class _AddDiseasesState extends State<AddDiseases> {
             isError: false);
         // isLoading = false;
         formKeyAddDiseseForm.currentState!.reset();
+        setState(() {});
       } else {
         //if failed while creating an account
         Common.showAlert(
@@ -66,6 +65,43 @@ class _AddDiseasesState extends State<AddDiseases> {
         // isLoading = false;
       }
     } else {}
+  }
+
+
+  @override
+  void initState() {
+    addDiseaseTextFormField = TextFormField(
+      cursorColor: Colors.black,
+      keyboardType: TextInputType.text,
+      autofocus: true,
+      validator: (disease) {
+        disease = disease?.trim();
+        return disease == null || disease == ""
+            ? "Disease name can't be empty"
+            : null;
+      },
+      onSaved: (value) {
+        diseaseForm['name'] = value.toString();
+      },
+      decoration: InputDecoration(
+          suffix: Card(
+              elevation: 2,
+              child: IconButton(
+                  onPressed: () async {
+                    await onPressedAddDisease();
+                  },
+                  icon: Icon(Icons.add))),
+          border: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blueAccent),
+          ),
+          contentPadding:
+          EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+          hintText: "Add Diseases"),
+    );
+    super.initState();
   }
 
   @override
@@ -101,96 +137,40 @@ class _AddDiseasesState extends State<AddDiseases> {
     );
   }
 
+
   Widget body(width, height) {
-    return FormContainer(
-      mHeight: height,
-      mWidth: width,
-      form: Form(
-          key: formKeyAddDiseseForm,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 50, right: 50),
-            child: Column(children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: width * 0.2,
-                      child: TextFormField(
-                        cursorColor: Colors.black,
-                        keyboardType: TextInputType.text,
-                        autofocus: true,
-                        validator: (disease) {
-                          return disease == null
-                              ? "Disease can't be empty"
-                              : null;
-                        },
-                        onSaved: (value) {
-                          diseaseForm['name'] = value.toString();
-                        },
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.blueAccent),
-                            ),
-                            enabledBorder: InputBorder.none,
-                            errorBorder: InputBorder.none,
-                            disabledBorder: InputBorder.none,
-                            contentPadding: EdgeInsets.only(
-                                left: 15, bottom: 11, top: 11, right: 15),
-                            hintText: "Enter Diseases"),
-                      ),
-                    ),
-                  ),
-                  OutlinedButton(
-                      onPressed: () {
-                        onPressedAddDisease();
-                      },
-                      child: Text('Add Disease')),
-                ],
-              ),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              Divider(
-                color: Colors.blueAccent,
-              ),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              Container(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Flexible(
-                          child: Text(
-                        "ID",
-                        style: TextStyle(
-                            fontSize: 20, fontStyle: FontStyle.normal),
-                      )),
-                      Flexible(
-                          child: Text("Name",
-                              style: TextStyle(
-                                  fontSize: 20, fontStyle: FontStyle.normal))),
-                      Flexible(
-                          child: Text("Actions",
-                              style: TextStyle(
-                                  fontSize: 20, fontStyle: FontStyle.normal))),
-                    ]),
-              ),
-              Container(child: fetchAllDisease())
-            ]),
-          )),
+    return Form(
+      key: formKeyAddDiseseForm,
+      child: Responsive(desktop: contentsDesktop(), mobile: contentsMobile(),tablet: contentsDesktop(),),
     );
   }
 
-  Widget fetchAllDisease() {
+  Widget contentsDesktop() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Flexible(
+          child: addDiseaseTextFormField!,
+        ),
+        Flexible(flex: 3, child: diseaseListViewWithStream())
+      ],
+    );
+  }
+
+  Widget contentsMobile() {
+    return Column(
+      children: <Widget>[
+        addDiseaseTextFormField!,
+        diseaseListViewWithStream()
+      ],
+    );
+  }
+
+  Widget diseaseListViewWithStream() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: StreamBuilder<List<Disease>>(
-          stream:getAllDisease(),
+          stream: getAllDisease(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const CircularProgressIndicator();
@@ -203,30 +183,42 @@ class _AddDiseasesState extends State<AddDiseases> {
                     shrinkWrap: true,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        onTap: null,
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.blue,
-                          child: Text(snapshot.data![index].name[0]),
-                        ),
-                        title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Flexible(
-                                  child: Text(
-                                snapshot.data![index].id,
-                              )),
-                              Flexible(child: Text(snapshot.data![index].name)),
-                              Flexible(
-                                  child: ElevatedButton(
-                                      onPressed: () async {
-                                        onEditPressed(snapshot, index);
-                                      },
-                                      child: Text('Edit'))),
-                              Flexible(
-                                  child: ElevatedButton(
-                                      onPressed: () {}, child: Text("Delete"))),
-                            ]),
+                      return Row(
+                        children: [
+                          Flexible(
+                            flex: 3,
+                            child: Card(
+                              elevation: 2,
+                              child: ListTile(
+                                title: Row(children: <Widget>[
+                                  Expanded(
+                                      child: Text(
+                                    snapshot.data![index].name,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )),
+                                ]),
+                                subtitle: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text(
+                                      snapshot.data![index].id,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                    )),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Card(
+                            child: IconButton(onPressed: () {
+                              onEditPressed(snapshot, index);
+                            }, icon: Icon(Icons.edit)),
+                          )
+                        ],
                       );
                     },
                   )
@@ -244,14 +236,14 @@ class _AddDiseasesState extends State<AddDiseases> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('update Disease'),
+            title: Text('Update Disease'),
             content: TextFormField(
               onChanged: (value) {
                 updatedDisease = value;
               },
               initialValue: "${disease.name}",
               autofocus: false,
-              decoration: InputDecoration(hintText: "Enter Dsease"),
+              decoration: InputDecoration(hintText: "Enter Disease"),
             ),
             actions: <Widget>[
               ElevatedButton(
