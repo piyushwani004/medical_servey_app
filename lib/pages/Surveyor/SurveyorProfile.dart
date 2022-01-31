@@ -71,13 +71,12 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                         },
                         icon: Icon(Icons.arrow_back)),
                   ),
-                  SizedBox(
-                    height: 80.0,
-                  ),
-                  CircleAvatar(
-                    radius: 65.0,
-                    backgroundImage: AssetImage(LOGO_PATH),
-                    backgroundColor: Colors.white,
+                  Center(
+                    child: CircleAvatar(
+                      radius: 65.0,
+                      backgroundImage: AssetImage(LOGO_PATH),
+                      backgroundColor: Colors.white,
+                    ),
                   ),
                   SizedBox(
                     height: 10.0,
@@ -313,8 +312,8 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
         ),
         Positioned(
             top: MediaQuery.of(context).size.height * 0.45,
-            left: 20.0,
-            right: 20.0,
+            left: MediaQuery.of(context).size.width * 0.04,
+            right: MediaQuery.of(context).size.width * 0.04,
             child: Card(
                 child: Padding(
               padding: EdgeInsets.all(16.0),
