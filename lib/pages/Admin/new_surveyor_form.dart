@@ -32,8 +32,6 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   DropDownButtonWidget? qualificationDropDown;
   DropDownButtonWidget? villageToAssign;
 
-
-
   onPressedSubmit() async {
     print("surveyorStart");
     if (formKeyNewSurveyorForm.currentState!.validate()) {
@@ -50,29 +48,43 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       Surveyor surveyor = Surveyor.fromMap(surveyorForm);
       print(surveyor);
       //creating account for surveyor
-      Response responseForCreatingAcc = await _firebaseService.createSurveyorAccount(surveyor);
-      print("Firestore Response for  ::" + responseForCreatingAcc.message.toString());
+      Response responseForCreatingAcc =
+          await _firebaseService.createSurveyorAccount(surveyor);
+      print("Firestore Response for  ::" +
+          responseForCreatingAcc.message.toString());
 
       //if successfully created then try to push details to fire store
-      if(responseForCreatingAcc.isSuccessful){
+      if (responseForCreatingAcc.isSuccessful) {
         Response response = await _firebaseService.saveNewSurveyor(surveyor);
-        if(response.isSuccessful){
+        if (response.isSuccessful) {
           // if successfully return  a message that process is complete
           _loading!.off(); // popping loading
-          Common.showAlert(context: context, title: 'Surveyor Registration', content: response.message, isError: false);
+          Common.showAlert(
+              context: context,
+              title: 'Surveyor Registration',
+              content: response.message,
+              isError: false);
           // isLoading = false;
 
-        }else{
+        } else {
           //if failed while creating an account
           _loading!.off(); // popping loading
-          Common.showAlert(context: context, title: 'Failed in Creating Account', content: response.message, isError: true);
+          Common.showAlert(
+              context: context,
+              title: 'Failed in Creating Account',
+              content: response.message,
+              isError: true);
           // isLoading = false;
         }
         print("Firestore Response ::" + response.message.toString());
-      }else{
+      } else {
         //if failed while creating an account
         _loading!.off(); // popping loading
-        Common.showAlert(context: context, title: 'Failed in Creating Account', content: responseForCreatingAcc.message, isError: true);
+        Common.showAlert(
+            context: context,
+            title: 'Failed in Creating Account',
+            content: responseForCreatingAcc.message,
+            isError: true);
         // isLoading = false;
         print(responseForCreatingAcc.message);
       }
@@ -80,7 +92,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   }
 
   // List of items in our dropdown menu
-  List<int> ageList = generateN2MList(15,100);
+  List<int> ageList = generateN2MList(15, 100);
   var villages = [
     'Bhusawal',
     'Jalgao',
@@ -99,7 +111,6 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     'None',
   ];
   var width, height;
-
 
   @override
   void initState() {
@@ -120,7 +131,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       name: 'Village To Assign',
     );
 
-    _loading = Loading(context: context,key: newSurveyorKey);
+    _loading = Loading(context: context, key: newSurveyorKey);
 
     super.initState();
   }

@@ -20,7 +20,6 @@ class _DataTableWithGivenColumnState extends State<DataTableWithGivenColumn> {
   bool isAscending = false;
   List<Surveyor>? filteredRecords;
 
-
   int compareString(bool ascending, String val1, String val2) =>
       ascending ? val1.compareTo(val2) : val2.compareTo(val1);
 
@@ -68,6 +67,10 @@ class _DataTableWithGivenColumnState extends State<DataTableWithGivenColumn> {
         widget.records.sort((Surveyor r1, Surveyor r2) =>
             compareString(ascending, r1.villageToAssign, r2.villageToAssign));
         break;
+      case 10:
+        widget.records.sort((Surveyor r1, Surveyor r2) =>
+            compareString(ascending, r1.aadhaarNumber, r2.aadhaarNumber));
+        break;
     }
 
     setState(() {
@@ -88,8 +91,7 @@ class _DataTableWithGivenColumnState extends State<DataTableWithGivenColumn> {
   List<DataRow> getRows(List<Surveyor> records) => records
       .map((Surveyor row) => DataRow(
             cells: [
-              DataCell(
-                  Text(row.email)),
+              DataCell(Text(row.email)),
               DataCell(Text(row.firstName)),
               DataCell(Text(row.middleName)),
               DataCell(Text(row.lastName)),
@@ -99,6 +101,7 @@ class _DataTableWithGivenColumnState extends State<DataTableWithGivenColumn> {
               DataCell(Text(row.profession)),
               DataCell(Text(row.joiningDate)),
               DataCell(Text(row.villageToAssign)),
+              DataCell(Text(row.aadhaarNumber)),
             ],
             selected: widget.selectedRecords.contains(row),
             onSelectChanged: (isSelected) => setState(() {

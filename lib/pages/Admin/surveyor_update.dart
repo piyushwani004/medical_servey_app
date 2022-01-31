@@ -42,6 +42,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     'Profession',
     'Joining-Date',
     'Assigned-Village',
+    'Aadhaar-Number'
   ];
 
   Stream<List<Surveyor>> getSurveyorsList() async* {
@@ -65,6 +66,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
             sur.gender.contains(searchText) ||
             sur.joiningDate.contains(searchText) ||
             sur.villageToAssign.contains(searchText) ||
+            sur.aadhaarNumber.contains(searchText) ||
             sur.profession.contains(searchText))
         .toList();
     setState(() {});
@@ -125,10 +127,8 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                 TopSliverAppBar(mHeight: height, text: "Surveyor List"),
                 CustomScrollViewBody(
                     bodyWidget: Padding(
-                  padding: Common.allPadding(mHeight: height),
-                  child: body()
-
-                ))
+                        padding: Common.allPadding(mHeight: height),
+                        child: body()))
               ],
             ),
           ),
@@ -138,7 +138,6 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   }
 
   Widget body() {
-
     return Column(
       children: [
         Row(
@@ -165,7 +164,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
           ],
         ),
         Scrollbar(
-          isAlwaysShown:  true,
+          isAlwaysShown: true,
           controller: _verticalScrollController,
           child: SingleChildScrollView(
             controller: _verticalScrollController,
@@ -176,24 +175,24 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
               child: SingleChildScrollView(
                 controller: _horizontalScrollController,
                 scrollDirection: Axis.horizontal,
-                child: Card(elevation: 10, child:StreamBuilder<List<Surveyor>>(
-                    stream: getSurveyorsList(),
-                    builder: (context, snapshot) {
-                      if(snapshot.hasData){
-                        dataTableWithGivenColumn = DataTableWithGivenColumn(
-                          columns: columnsOfDataTable,
-                          records: listOfFilteredSurveyor ?? snapshot.data!,
-                        );
-                        print(dataTableWithGivenColumn?.selectedRecords);
-                      }
-                      return snapshot.hasData?
-                      dataTableWithGivenColumn!:Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-
-
-                ) ),
+                child: Card(
+                    elevation: 10,
+                    child: StreamBuilder<List<Surveyor>>(
+                        stream: getSurveyorsList(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            dataTableWithGivenColumn = DataTableWithGivenColumn(
+                              columns: columnsOfDataTable,
+                              records: listOfFilteredSurveyor ?? snapshot.data!,
+                            );
+                            print(dataTableWithGivenColumn?.selectedRecords);
+                          }
+                          return snapshot.hasData
+                              ? dataTableWithGivenColumn!
+                              : Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                        })),
               ),
             ),
           ),
