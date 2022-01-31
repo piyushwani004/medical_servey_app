@@ -95,26 +95,36 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                           Common.allPadding(mHeight: height),
                                       child: Column(
                                         children: [
-                                          Text(
-                                            '${user!.firstName} ${user!.lastName}',
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${user!.firstName} ${user!.lastName}',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ],
                                           ),
-                                          Text(
-                                            '${user!.email}',
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${user!.email}',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )
+                                            ],
                                           )
                                         ],
                                       ),
                                     )
                                   ],
                                 ),
-                                IconButton(
-                                    onPressed: () {
-                                      onLogoutPressed();
-                                    },
-                                    icon: Icon(Icons.logout_rounded))
+                                Flexible(
+                                  child: IconButton(
+                                      onPressed: () {
+                                        onLogoutPressed();
+                                      },
+                                      icon: Icon(Icons.logout_rounded)),
+                                )
                               ],
                             ),
                           ],
@@ -230,7 +240,8 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                   ),
                                 ),
                                 onTap: () {
-                                  Navigator.pushNamed(context, routeSurveyorProfile);
+                                  Navigator.pushNamed(
+                                      context, routeSurveyorProfile);
                                 },
                               ),
                             ),

@@ -52,7 +52,8 @@ class _AddPatientFormState extends State<AddPatientForm> {
   ];
 
   onPressedSubmit() async {
-    if (formKeyNewSurveyorForm.currentState!.validate() && selectedValues!=null &&
+    if (formKeyNewSurveyorForm.currentState!.validate() &&
+        selectedValues != null &&
         selectedValues!.isNotEmpty) {
       patientForm['id'] = DateTime.now().millisecondsSinceEpoch.toString();
       patientForm['date'] = _selectedDate;

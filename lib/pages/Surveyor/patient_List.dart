@@ -50,7 +50,11 @@ class _PatientListState extends State<PatientList> {
           stream: getAllPatient(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return const CircularProgressIndicator();
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [CircularProgressIndicator()],
+              );
             }
             return Center(
               child: Column(
@@ -75,8 +79,13 @@ class _PatientListState extends State<PatientList> {
                               Flexible(
                                   child: Text(snapshot.data![index].lastName)),
                             ]),
-                        subtitle: Flexible(
-                            child: Text(snapshot.data![index].mobileNumber)),
+                        subtitle: Row(
+                          children: [
+                            Flexible(
+                                child:
+                                    Text(snapshot.data![index].mobileNumber)),
+                          ],
+                        ),
                         trailing: PopupMenuButton(
                           itemBuilder: (context) {
                             return [
