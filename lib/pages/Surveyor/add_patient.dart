@@ -31,9 +31,9 @@ class _AddPatientFormState extends State<AddPatientForm> {
 
   Map<String, String> patientForm = {};
   List<Disease> _diseaseList = [];
-  List<MultiSelectDialogItem<int>> _items = [];
+  List<MultiSelectDialogItem> _items = [];
   List<int> ages = generateN2MList(15, 100);
-  Set<int>? selectedValues;
+  Set? selectedValues;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -52,7 +52,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
   ];
 
   onPressedSubmit() async {
-    if (formKeyNewSurveyorForm.currentState!.validate() &&
+    if (formKeyNewSurveyorForm.currentState!.validate() && selectedValues!=null &&
         selectedValues!.isNotEmpty) {
       patientForm['id'] = DateTime.now().millisecondsSinceEpoch.toString();
       patientForm['date'] = _selectedDate;
@@ -135,12 +135,11 @@ class _AddPatientFormState extends State<AddPatientForm> {
   }
 
   void _showMultiSelect(BuildContext context) async {
-    selectedValues = (await showDialog<Set<int>>(
+    selectedValues = (await showDialog<Set>(
       context: context,
       builder: (BuildContext context) {
         return MultiSelectDialog(
           items: _items,
-          initialSelectedValues: [int.parse(_diseaseList.first.id)].toSet(),
         );
       },
     ));
