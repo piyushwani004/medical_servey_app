@@ -116,7 +116,6 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
     );
 
     _loading = Loading(context: context, key: surveyorEditKey);
-
     super.initState();
   }
 
@@ -155,6 +154,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       initialValue: '${widget.surveyor.email}',
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
+      enabled: false,
       validator: (email) => emailValidator(email!),
       onSaved: (email) {
         surveyorForm["email"] = email!;
