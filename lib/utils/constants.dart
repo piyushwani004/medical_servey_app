@@ -15,4 +15,4 @@ final CollectionReference collectionDisease =
     FirebaseFirestore.instance.collection('Diseases');
 
 final CollectionReference collectionSurveyor =
-    FirebaseFirestore.instance.collection('Diseases');
+    FirebaseFirestore.instance.collection('Surveyor');

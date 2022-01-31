@@ -8,7 +8,10 @@ import 'package:medical_servey_app/utils/constants.dart';
 class AdminFirebaseService {
   FirebaseFirestore? instance = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  List<Disease> _diseaseList = [];
+
+
+
+//***************Surveyor-Methods***********//
 
   Future<Response> saveNewSurveyor(Surveyor surveyor) async {
     //saving the surveyor details first
@@ -65,19 +68,6 @@ class AdminFirebaseService {
     }
   }
 
-  Future<String> getAdminEmail() async {
-    String email = "";
-    CollectionReference categories = instance!.collection('Users');
-    DocumentSnapshot snapshot = await categories.doc('Admin').get();
-    if (snapshot.exists) {
-      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-      if (data.containsKey("Email")) {
-        email = data['Email'].toString();
-      }
-    }
-    return email;
-  }
-
   Future<List<Surveyor>> getSurveyors() async {
     List<Surveyor> _surveyors = [];
     CollectionReference surveyorCollection = instance!.collection('Surveyor');
@@ -98,6 +88,8 @@ class AdminFirebaseService {
 
     return _surveyors;
   }
+
+  //***************Disease-Methods***********//
 
   Future<Response> saveNewDiseases(Disease disease) async {
     //saving the surveyor details first
@@ -122,25 +114,13 @@ class AdminFirebaseService {
     return Response(isSuccessful: isSuccessful, message: message);
   }
 
-  Future<String> getDocId({
-    required String rootDocName,
-    required String uniqueField,
-    required String uniqueFieldValue,
-  }) async {
-    var data = await instance!
-        .collection(rootDocName)
-        .where(uniqueField, isEqualTo: uniqueFieldValue)
-        .get();
-
-    return data.docs[0].id;
-  }
-
-  Stream<List<Disease>> getAllDiseases() async* {
+  Future<List<Disease>> getAllDiseases() async {
+    List<Disease> _diseaseList = [];
     QuerySnapshot querySnapshot = await collectionDisease.get();
     _diseaseList.addAll(querySnapshot.docs.map(
         (disease) => Disease.fromMap(disease.data() as Map<String, dynamic>)));
     print("_diseaseList: $_diseaseList");
-    yield _diseaseList;
+    return _diseaseList;
   }
 
   Future<Response> updateDisease({required Disease disease}) async {
@@ -165,6 +145,35 @@ class AdminFirebaseService {
       message = "$e";
     }
     return Response(isSuccessful: isSuccessful, message: message);
+  }
+
+  //***************General-Methods***********//
+
+
+  Future<String> getAdminEmail() async {
+    String email = "";
+    CollectionReference categories = instance!.collection('Users');
+    DocumentSnapshot snapshot = await categories.doc('Admin').get();
+    if (snapshot.exists) {
+      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+      if (data.containsKey("Email")) {
+        email = data['Email'].toString();
+      }
+    }
+    return email;
+  }
+
+  Future<String> getDocId({
+    required String rootDocName,
+    required String uniqueField,
+    required String uniqueFieldValue,
+  }) async {
+    var data = await instance!
+        .collection(rootDocName)
+        .where(uniqueField, isEqualTo: uniqueFieldValue)
+        .get();
+
+    return data.docs[0].id;
   }
 
   Future<bool> checkExist(String path, String docID) async {

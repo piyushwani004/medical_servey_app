@@ -22,6 +22,24 @@ class _AddDiseasesState extends State<AddDiseases> {
   AdminFirebaseService _firebaseService = AdminFirebaseService();
   Map<String, String> diseaseForm = {};
 
+
+  Future onEditPressed(snapshot, index)async{
+    await _displayTextInputDialog(
+        context,
+        Disease(
+        id: snapshot.data![index].id,
+        name: snapshot.data![index].name,
+    ));
+    setState(() {});
+  }
+
+
+
+  Stream<List<Disease>>getAllDisease()async*{
+    List<Disease> allDisease =  await _firebaseService.getAllDiseases();
+    yield allDisease;
+  }
+
   onPressedAddDisease() async {
     if (formKeyAddDiseseForm.currentState!.validate()) {
       diseaseForm['id'] = DateTime.now().millisecondsSinceEpoch.toString();
@@ -172,9 +190,9 @@ class _AddDiseasesState extends State<AddDiseases> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: StreamBuilder<List<Disease>>(
-          stream: _firebaseService.getAllDiseases(),
+          stream:getAllDisease(),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            if (!snapshot.hasData) {
               return const CircularProgressIndicator();
             }
             return Center(
@@ -202,12 +220,7 @@ class _AddDiseasesState extends State<AddDiseases> {
                               Flexible(
                                   child: ElevatedButton(
                                       onPressed: () async {
-                                        await _displayTextInputDialog(
-                                            context,
-                                            Disease(
-                                              id: snapshot.data![index].id,
-                                              name: snapshot.data![index].name,
-                                            ));
+                                        onEditPressed(snapshot, index);
                                       },
                                       child: Text('Edit'))),
                               Flexible(
