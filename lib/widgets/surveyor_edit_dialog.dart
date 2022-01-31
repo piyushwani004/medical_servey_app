@@ -154,7 +154,11 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       initialValue: '${widget.surveyor.email}',
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      enabled: false,
+      readOnly: true,
+      // enabled: false,
+      onTap: (){
+        Common.showAlert(context: context, title: "Invalid Operation", content: "Email cannot be edited", isError: true);
+      },
       validator: (email) => emailValidator(email!),
       onSaved: (email) {
         surveyorForm["email"] = email!;

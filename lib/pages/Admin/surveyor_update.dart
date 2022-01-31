@@ -165,13 +165,13 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
           ],
         ),
         Scrollbar(
-          thumbVisibility: true,
+          isAlwaysShown:  true,
           controller: _verticalScrollController,
           child: SingleChildScrollView(
             controller: _verticalScrollController,
             scrollDirection: Axis.vertical,
             child: Scrollbar(
-              thumbVisibility: true,
+              isAlwaysShown: true,
               controller: _horizontalScrollController,
               child: SingleChildScrollView(
                 controller: _horizontalScrollController,
