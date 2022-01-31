@@ -49,6 +49,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: Routes.generateRoute,
       home: MultiProvider(providers: [
         Provider<FirebaseAuthService>(
