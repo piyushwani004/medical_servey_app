@@ -42,6 +42,15 @@ class SurveyorFirebaseService {
     return _diseaseList;
   }
 
+  Future<List<Patient>> getAllPatients() async {
+    List<Patient> _patientList = [];
+    QuerySnapshot querySnapshot = await collectionPatient.get();
+    _patientList.addAll(querySnapshot.docs.map(
+        (patient) => Patient.fromMap(patient.data() as Map<String, dynamic>)));
+    print("_patientList: $_patientList");
+    return _patientList;
+  }
+
   Future<Response> savePatient({required Patient patient}) async {
     CollectionReference surveyorCollection = instance!.collection('Patient');
     String message = "";

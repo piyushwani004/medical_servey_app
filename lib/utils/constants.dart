@@ -14,5 +14,8 @@ const DEF_SEC_FB = '123456789!@#&*()';
 final CollectionReference collectionDisease =
     FirebaseFirestore.instance.collection('Diseases');
 
+final CollectionReference collectionPatient =
+    FirebaseFirestore.instance.collection('Patient');
+
 final CollectionReference collectionSurveyor =
     FirebaseFirestore.instance.collection('Surveyor');
