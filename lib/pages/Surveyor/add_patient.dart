@@ -24,6 +24,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
   String _selectedDate = formatDate(DateTime.now().toString());
   Map<String, String> patientForm = {};
   List<Disease> _diseaseList = [];
+  List<MultiSelectDialogItem<int>> _items = [];
   SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
 
   bool _switchValue = false;
@@ -86,18 +87,18 @@ class _AddPatientFormState extends State<AddPatientForm> {
   }
 
   void _showMultiSelect(BuildContext context) async {
-    final items = <MultiSelectDialogItem<int>>[
-      MultiSelectDialogItem(1, 'Disease one'),
-      MultiSelectDialogItem(2, 'Disease two'),
-      MultiSelectDialogItem(3, 'Disease three'),
-    ];
+    _diseaseList.forEach((element) {
+      _items.add(
+        MultiSelectDialogItem(int.parse(element.id), element.name),
+      );
+    });
 
     final selectedValues = await showDialog<Set<int>>(
       context: context,
       builder: (BuildContext context) {
         return MultiSelectDialog(
-          items: items,
-          initialSelectedValues: [1].toSet(),
+          items: _items,
+          initialSelectedValues: [int.parse(_diseaseList.first.id)].toSet(),
         );
       },
     );

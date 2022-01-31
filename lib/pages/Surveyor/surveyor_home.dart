@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
+import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/routes/routes.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/curve_clipper.dart';
@@ -17,12 +18,15 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
   SurveyorFirebaseService _surveyorFirebaseService = SurveyorFirebaseService();
   var width, height;
 
+  Surveyor? user;
+
   onLogoutPressed() {
     context.read<FirebaseAuthService>().signOut();
   }
 
   getSurveyorDetails() async {
-    var user = await _surveyorFirebaseService.getSurveyorDetails();
+    user = await _surveyorFirebaseService.getSurveyorDetails();
+    setState(() {});
   }
 
   @override
@@ -64,53 +68,64 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
           ),
           ListView(
             children: [
-              Align(
-                // name of profile
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: Common.allPadding(mHeight: height),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: Common.allPadding(mHeight: height),
-                                child: CircleAvatar(
-                                  //first letter of name
-                                  child: Text('N'),
-                                ),
-                              ),
-                              Padding(
-                                padding: Common.allPadding(mHeight: height),
-                                child: Column(
+              user != null
+                  ? Align(
+                      // name of profile
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: Common.allPadding(mHeight: height),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Name',
-                                      style: TextStyle(color: Colors.white),
+                                    Padding(
+                                      padding:
+                                          Common.allPadding(mHeight: height),
+                                      child: CircleAvatar(
+                                        //first letter of name
+                                        child: Text("${user!.firstName[0]}"),
+                                      ),
                                     ),
-                                    Text(
-                                      'more Info',
-                                      style: TextStyle(color: Colors.white),
+                                    Padding(
+                                      padding:
+                                          Common.allPadding(mHeight: height),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            '${user!.firstName} ${user!.lastName}',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          Text(
+                                            '${user!.email}',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )
+                                        ],
+                                      ),
                                     )
                                   ],
                                 ),
-                              )
-                            ],
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                onLogoutPressed();
-                              },
-                              icon: Icon(Icons.logout_rounded))
-                        ],
+                                IconButton(
+                                    onPressed: () {
+                                      onLogoutPressed();
+                                    },
+                                    icon: Icon(Icons.logout_rounded))
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
+                    )
+                  : Container(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
               //table containers for each feature
               Padding(
                 padding: Common.allPadding(mHeight: height * 1),

@@ -9,22 +9,22 @@ class SurveyorFirebaseService {
   FirebaseFirestore? instance = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Response? _surveyorResponse;
+  Future<Surveyor?> getSurveyorDetails() async {
+    List<Surveyor> _surveyors = [];
+    try {
+      var email = firebaseAuth.currentUser?.email.toString();
+      CollectionReference collection = instance!.collection('Surveyor');
+      var querySnapshots =
+          await collection.where('email', isEqualTo: email).get();
 
-  Future<Response?> getSurveyorDetails() async {
-    Surveyor _surveyor;
-    var email = firebaseAuth.currentUser?.email.toString();
-    CollectionReference collection = instance!.collection('Surveyor');
-    var querySnapshots =
-        await collection.where('email', isEqualTo: email).get();
-    print(querySnapshots.docs.toString());
+      _surveyors.addAll(querySnapshots.docs.map((surveyor) =>
+          Surveyor.fromMap(surveyor.data() as Map<String, dynamic>)));
+    } catch (e) {
+      print(e);
+    }
 
-    querySnapshots.docs.forEach((element) {
-      element.data();
-      print(element.toString());
-    });
-
-    return _surveyorResponse;
+    print(_surveyors.toString());
+    return _surveyors.first;
   }
 
   Future<List<Disease>> getAllDiseases() async {
