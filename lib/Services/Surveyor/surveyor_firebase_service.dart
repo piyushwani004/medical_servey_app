@@ -44,7 +44,9 @@ class SurveyorFirebaseService {
 
   Future<List<Patient>> getAllPatients() async {
     List<Patient> _patientList = [];
-    QuerySnapshot querySnapshot = await collectionPatient.get();
+    var uid = firebaseAuth.currentUser?.uid.toString();
+    QuerySnapshot querySnapshot =
+        await collectionPatient.where('surveyorUID', isEqualTo: uid).get();
     _patientList.addAll(querySnapshot.docs.map(
         (patient) => Patient.fromMap(patient.data() as Map<String, dynamic>)));
     print("_patientList: $_patientList");
