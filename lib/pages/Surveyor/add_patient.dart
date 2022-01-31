@@ -33,7 +33,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
   List<Disease> _diseaseList = [];
   List<MultiSelectDialogItem<int>> _items = [];
   List<int> ages = generateN2MList(15, 100);
-  Set<int> selectedValues = {};
+  Set<int>? selectedValues;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -53,7 +53,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
 
   onPressedSubmit() async {
     if (formKeyNewSurveyorForm.currentState!.validate() &&
-        selectedValues.isNotEmpty) {
+        selectedValues!.isNotEmpty) {
       patientForm['id'] = DateTime.now().millisecondsSinceEpoch.toString();
       patientForm['date'] = _selectedDate;
       patientForm['surveyorUID'] = user!.uid.toString();
@@ -73,7 +73,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
           address: patientForm['address'].toString(),
           gender: patientForm['gender'].toString(),
           date: patientForm['date'].toString(),
-          diseases: selectedValues.toList(),
+          diseases: selectedValues!.toList(),
           surveyorUID: patientForm['surveyorUID'].toString(),
           age: int.parse(patientForm['age'].toString()));
 
@@ -143,7 +143,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
           initialSelectedValues: [int.parse(_diseaseList.first.id)].toSet(),
         );
       },
-    ))!;
+    ));
 
     print("selectedValues" + selectedValues.toString());
   }
@@ -346,18 +346,21 @@ class _AddPatientFormState extends State<AddPatientForm> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Flexible(
+                  flex: _switchValue ? 2 : 3,
                   child: Padding(
                     padding: Common.allPadding(mHeight: height),
                     child: Text("Others"),
                   ),
                 ),
                 Flexible(
+                  flex: _switchValue ? 2 : 3,
                   child: Padding(
                     padding: Common.allPadding(mHeight: height),
                     child: diseaseSwitch,
                   ),
                 ),
                 Flexible(
+                  flex: 5,
                   child: Padding(
                     padding: Common.allPadding(mHeight: height),
                     child: Visibility(
