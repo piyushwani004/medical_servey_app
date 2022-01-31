@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
-import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
 class PatientList extends StatefulWidget {

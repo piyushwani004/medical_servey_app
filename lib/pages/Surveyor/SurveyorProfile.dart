@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medical_servey_app/routes/routes.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';

@@ -6,7 +6,6 @@ import 'package:medical_servey_app/pages/Admin/main/components/side_menu.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
-import 'package:medical_servey_app/widgets/form_container.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
 class AddDiseases extends StatefulWidget {

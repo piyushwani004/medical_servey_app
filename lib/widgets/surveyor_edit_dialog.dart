@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
@@ -308,6 +307,6 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
         ),
       ],
     );
-    ;
+    
   }
 }
