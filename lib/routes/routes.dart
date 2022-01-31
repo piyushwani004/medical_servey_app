@@ -3,6 +3,7 @@ import 'package:medical_servey_app/pages/Admin/add_diseases.dart';
 import 'package:medical_servey_app/pages/Admin/main/main_screen.dart';
 import 'package:medical_servey_app/pages/Admin/surveyor_update.dart';
 import 'package:medical_servey_app/pages/Admin/new_surveyor_form.dart';
+import 'package:medical_servey_app/pages/Surveyor/SurveyorProfile.dart';
 import 'package:medical_servey_app/pages/Surveyor/add_patient.dart';
 import 'package:medical_servey_app/pages/Surveyor/patient_List.dart';
 import 'package:medical_servey_app/pages/Surveyor/surveyor_home.dart';
@@ -13,11 +14,12 @@ const routeLogin = '/login';
 const routeAdminHome = '/adminHome';
 const routeAdminAddSurveyor = '/adminAddSurveyor';
 const routeHome = '/home';
+const routeAddDiseases = '/AddDisease';
+const routeSurveyorListForUpdate = '/SurveyorListForUpdate';
 
 const routeAddPatient = '/AddPatient';
 const routeUpdatePatient = '/UpdatePatient';
-const routeAddDiseases = '/AddDisease';
-const routeSurveyorListForUpdate = '/SurveyorListForUpdate';
+const routeSurveyorProfile = '/SurveyorProfile';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -55,6 +57,9 @@ class Routes {
       case routeUpdatePatient:
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: PatientList());
+      case routeSurveyorProfile:
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: SurveyorProfie());
       default:
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: LoginPage());

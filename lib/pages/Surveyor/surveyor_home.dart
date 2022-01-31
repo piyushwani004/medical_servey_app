@@ -211,21 +211,27 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                             ),
                             Padding(
                               padding: Common.allPadding(mHeight: height * 0.9),
-                              child: Container(
-                                decoration: Common.containerBoxDecoration(),
-                                height: 200,
-                                width: 100,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.person_outline_rounded,
-                                      size: height * 0.09,
-                                    ),
-                                    Text("Surveyor Profile")
-                                  ],
+                              child: InkWell(
+                                child: Container(
+                                  decoration: Common.containerBoxDecoration(),
+                                  height: 200,
+                                  width: 100,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.person_outline_rounded,
+                                        size: height * 0.09,
+                                      ),
+                                      Text("Surveyor Profile")
+                                    ],
+                                  ),
                                 ),
+                                onTap: () {
+                                  Navigator.pushNamed(context, routeSurveyorProfile);
+                                },
                               ),
                             ),
                           ])
