@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/routes/routes.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
+import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
+import 'package:medical_servey_app/models/Admin/surveyor.dart';
 
 class SurveyorProfie extends StatefulWidget {
   SurveyorProfie({Key? key}) : super(key: key);
@@ -9,15 +12,37 @@ class SurveyorProfie extends StatefulWidget {
 }
 
 class _SurveyorProfieState extends State<SurveyorProfie> {
+  SurveyorFirebaseService _surveyorFirebaseService = SurveyorFirebaseService();
   var width, height;
+
+  Surveyor? user;
+
   int counter = 0;
+
+  getProfileDetails() async {
+    user = await _surveyorFirebaseService.getSurveyorDetails();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getProfileDetails();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: SafeArea(child: body()),
+      body: SafeArea(
+          child: user != null
+              ? body()
+              : Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )),
     );
   }
 
@@ -32,12 +57,23 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.deepPurpleAccent, Colors.deepPurpleAccent],
+                    colors: [
+                      Color.fromARGB(255, 131, 96, 228),
+                      Colors.deepPurpleAccent
+                    ],
                   ),
                 ),
                 child: Column(children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.arrow_back)),
+                  ),
                   SizedBox(
-                    height: 110.0,
+                    height: 80.0,
                   ),
                   CircleAvatar(
                     radius: 65.0,
@@ -47,16 +83,16 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                   SizedBox(
                     height: 10.0,
                   ),
-                  Text('Erza Scarlet',
+                  Text('${user!.firstName} ${user!.lastName}',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
                       )),
                   SizedBox(
-                    height: 10.0,
+                    height: 5.0,
                   ),
                   Text(
-                    'S Class Mage',
+                    '${user!.email}',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15.0,
@@ -77,157 +113,199 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                             height: 290.0,
                             child: Padding(
                               padding: EdgeInsets.all(10.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Information",
-                                    style: TextStyle(
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.w800,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Information",
+                                      style: TextStyle(
+                                        fontSize: 17.0,
+                                        fontWeight: FontWeight.w800,
+                                      ),
                                     ),
-                                  ),
-                                  Divider(
-                                    color: Colors.grey[300],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.home,
-                                        color: Colors.blueAccent[400],
-                                        size: 35,
-                                      ),
-                                      SizedBox(
-                                        width: 20.0,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Guild",
-                                            style: TextStyle(
-                                              fontSize: 15.0,
+                                    Divider(
+                                      color: Colors.grey[300],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.home,
+                                          color: Colors.blueAccent[400],
+                                          size: 35,
+                                        ),
+                                        SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Address",
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            "FairyTail, Magnolia",
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.grey[400],
+                                            Text(
+                                              "${user!.address}",
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.auto_awesome,
+                                          color: Colors.yellowAccent[400],
+                                          size: 35,
+                                        ),
+                                        SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Aadhaar Number",
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                              ),
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.auto_awesome,
-                                        color: Colors.yellowAccent[400],
-                                        size: 35,
-                                      ),
-                                      SizedBox(
-                                        width: 20.0,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Magic",
-                                            style: TextStyle(
-                                              fontSize: 15.0,
+                                            Text(
+                                              "${user!.aadhaarNumber}",
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.call,
+                                          color: Colors.pinkAccent[400],
+                                          size: 35,
+                                        ),
+                                        SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Mobile Number",
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            "Spatial & Sword Magic, Telekinesis",
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.grey[400],
+                                            Text(
+                                              "${user!.mobileNumber}",
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.holiday_village,
+                                          color: Colors.lightGreen[400],
+                                          size: 35,
+                                        ),
+                                        SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Village",
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                              ),
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.favorite,
-                                        color: Colors.pinkAccent[400],
-                                        size: 35,
-                                      ),
-                                      SizedBox(
-                                        width: 20.0,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Loves",
-                                            style: TextStyle(
-                                              fontSize: 15.0,
+                                            Text(
+                                              "${user!.villageToAssign}",
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.date_range,
+                                          color: Colors.lightGreen[400],
+                                          size: 35,
+                                        ),
+                                        SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Profession",
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            "Eating cakes",
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.grey[400],
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.people,
-                                        color: Colors.lightGreen[400],
-                                        size: 35,
-                                      ),
-                                      SizedBox(
-                                        width: 20.0,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Team",
-                                            style: TextStyle(
-                                              fontSize: 15.0,
-                                            ),
-                                          ),
-                                          Text(
-                                            "Team Natsu",
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.grey[400],
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ],
+                                            Text(
+                                              "${user!.profession}",
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             )))),
               ),
@@ -248,7 +326,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                       child: Column(
                     children: [
                       Text(
-                        'Battles',
+                        'Age',
                         style:
                             TextStyle(color: Colors.grey[400], fontSize: 14.0),
                       ),
@@ -256,7 +334,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                         height: 5.0,
                       ),
                       Text(
-                        "$counter",
+                        "${user!.age}",
                         style: TextStyle(
                           fontSize: 15.0,
                         ),
@@ -266,7 +344,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                   Container(
                     child: Column(children: [
                       Text(
-                        'Birthday',
+                        'Gender',
                         style:
                             TextStyle(color: Colors.grey[400], fontSize: 14.0),
                       ),
@@ -274,7 +352,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                         height: 5.0,
                       ),
                       Text(
-                        'April 7th',
+                        '${user!.gender}',
                         style: TextStyle(
                           fontSize: 15.0,
                         ),
@@ -285,7 +363,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                       child: Column(
                     children: [
                       Text(
-                        'Age',
+                        'Joining Date',
                         style:
                             TextStyle(color: Colors.grey[400], fontSize: 14.0),
                       ),
@@ -293,7 +371,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                         height: 5.0,
                       ),
                       Text(
-                        '19 yrs',
+                        '${user!.joiningDate}',
                         style: TextStyle(
                           fontSize: 15.0,
                         ),
