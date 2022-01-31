@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/Disease.dart';
+import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
@@ -20,24 +22,27 @@ class AddPatientForm extends StatefulWidget {
 
 class _AddPatientFormState extends State<AddPatientForm> {
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
+  SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
+
   var width, height;
   String _selectedDate = formatDate(DateTime.now().toString());
+  bool _switchValue = false;
+  User? user;
+
   Map<String, String> patientForm = {};
   List<Disease> _diseaseList = [];
   List<MultiSelectDialogItem<int>> _items = [];
-  SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
-
-  bool _switchValue = false;
+  List<int> ages = generateN2MList(15, 100);
+  Set<int> selectedValues = {};
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? professionDropDown;
 
-  List<int> ages = generateN2MList(15, 100);
   var genders = [
-    'M',
-    'F',
-    'T',
+    'Male',
+    'Female',
+    'Intersex',
   ];
 
   var profession = [
@@ -47,17 +52,50 @@ class _AddPatientFormState extends State<AddPatientForm> {
   ];
 
   onPressedSubmit() async {
-    print("surveyorStart");
-    if (formKeyNewSurveyorForm.currentState!.validate()) {
-      patientForm['id'] = "1234";
+    if (formKeyNewSurveyorForm.currentState!.validate() &&
+        selectedValues.isNotEmpty) {
+      patientForm['id'] = DateTime.now().millisecondsSinceEpoch.toString();
       patientForm['date'] = _selectedDate;
+      patientForm['surveyorUID'] = user!.uid.toString();
       patientForm['age'] = ageDropDown!.selectedItem!;
       patientForm['gender'] = genderDropDown!.selectedItem!;
       patientForm['profession'] = professionDropDown!.selectedItem!;
       formKeyNewSurveyorForm.currentState!.save();
 
-      Patient surveyor = Patient.fromMap(patientForm);
-      print("surveyor $surveyor");
+      Patient patientData = Patient(
+          id: patientForm['id'].toString(),
+          firstName: patientForm['firstName'].toString(),
+          middleName: patientForm['middleName'].toString(),
+          lastName: patientForm['lastName'].toString(),
+          profession: patientForm['profession'].toString(),
+          email: patientForm['email'].toString(),
+          mobileNumber: patientForm['mobileNumber'].toString(),
+          address: patientForm['address'].toString(),
+          gender: patientForm['gender'].toString(),
+          date: patientForm['date'].toString(),
+          diseases: selectedValues.toList(),
+          surveyorUID: patientForm['surveyorUID'].toString(),
+          age: int.parse(patientForm['age'].toString()));
+
+      print("patientData $patientData");
+      Response response =
+          await _firebaseService.savePatient(patient: patientData);
+      if (response.isSuccessful) {
+        Common.showAlert(
+            context: context,
+            title: 'Patient Registration',
+            content: response.message,
+            isError: false);
+        formKeyNewSurveyorForm.currentState!.reset();
+      } else {
+        Common.showAlert(
+            context: context,
+            title: 'Failed in Adding Patient',
+            content: response.message,
+            isError: true);
+      }
+    } else {
+      showSnackBar(context, "select Diseases..");
     }
   }
 
@@ -75,25 +113,29 @@ class _AddPatientFormState extends State<AddPatientForm> {
       items: profession,
       name: 'Profession',
     );
+    getCurrentUser();
     getAllDisease();
     super.initState();
   }
 
+  getCurrentUser() async {
+    user = await _firebaseService.getCurrentUser();
+  }
+
   getAllDisease() async {
     _diseaseList = await _firebaseService.getAllDiseases();
+
     setState(() {
-      print("_diseaseList  $_diseaseList");
+      _diseaseList.forEach((element) {
+        _items.add(
+          MultiSelectDialogItem(int.parse(element.id), element.name),
+        );
+      });
     });
   }
 
   void _showMultiSelect(BuildContext context) async {
-    _diseaseList.forEach((element) {
-      _items.add(
-        MultiSelectDialogItem(int.parse(element.id), element.name),
-      );
-    });
-
-    final selectedValues = await showDialog<Set<int>>(
+    selectedValues = (await showDialog<Set<int>>(
       context: context,
       builder: (BuildContext context) {
         return MultiSelectDialog(
@@ -101,7 +143,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
           initialSelectedValues: [int.parse(_diseaseList.first.id)].toSet(),
         );
       },
-    );
+    ))!;
 
     print("selectedValues" + selectedValues.toString());
   }
