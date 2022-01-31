@@ -141,6 +141,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       builder: (BuildContext context) {
         return MultiSelectDialog(
           items: _items,
+          initialSelectedValues: selectedValues ?? [].toSet(),
         );
       },
     ));
@@ -271,20 +272,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: width,
-              height: height * 0.3,
-              child: Container(
-                margin: EdgeInsets.all(height * 0.01),
-                decoration: Common.containerBoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10))),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.asset(
-                    NEW_SURVEY_PATH,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+              height: height *0.02,
             ),
             Padding(
               padding: Common.allPadding(mHeight: height),

@@ -9,10 +9,11 @@ class MultiSelectDialogItem {
 
 class MultiSelectDialog extends StatefulWidget {
   MultiSelectDialog(
-      {Key? key, required this.items})
+      {Key? key, required this.items, required this.initialSelectedValues})
       : super(key: key);
 
   final List<MultiSelectDialogItem> items;
+  final Set initialSelectedValues;
 
   @override
   State<StatefulWidget> createState() => _MultiSelectDialogState();
@@ -21,7 +22,7 @@ class MultiSelectDialog extends StatefulWidget {
 class _MultiSelectDialogState extends State<MultiSelectDialog> {
   final _selectedValues = Set<String>();
 
-  void _onItemCheckedChange( itemValue, bool checked) {
+  void _onItemCheckedChange(itemValue, bool checked) {
     setState(() {
       if (checked) {
         _selectedValues.add(itemValue);
@@ -37,6 +38,15 @@ class _MultiSelectDialogState extends State<MultiSelectDialog> {
 
   void _onSubmitTap() {
     Navigator.pop(context, _selectedValues);
+  }
+
+  @override
+  void initState() {
+    if (widget.initialSelectedValues != null) {
+      _selectedValues
+          .addAll(widget.initialSelectedValues.map((e) => e.toString()));
+    }
+    super.initState();
   }
 
   @override
