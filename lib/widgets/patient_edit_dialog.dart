@@ -24,7 +24,7 @@ class PatientEditDialog extends StatefulWidget {
 
 class _PatientEditDialogState extends State<PatientEditDialog> {
 
-  final _formkey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   AdminFirebaseService _firebaseService = AdminFirebaseService();
 
   var width, height;
@@ -55,7 +55,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
   ];
 
   onPressedSubmit() async {
-    if (_formkey.currentState!.validate() && selectedValues!=null &&
+    if (_formKey.currentState!.validate() && selectedValues!=null &&
         selectedValues!.isNotEmpty) {
       patientForm['id'] = DateTime.now().millisecondsSinceEpoch.toString();
       patientForm['date'] = _selectedDate;
@@ -63,7 +63,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       patientForm['age'] = ageDropDown!.selectedItem!;
       patientForm['gender'] = genderDropDown!.selectedItem!;
       patientForm['profession'] = professionDropDown!.selectedItem!;
-      _formkey.currentState!.save();
+      _formKey.currentState!.save();
 
       Patient patientData = Patient(
           id: patientForm['id'].toString(),
@@ -89,7 +89,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
             title: 'Patient Update',
             content: response.message,
             isError: false);
-        _formkey.currentState!.reset();
+        _formKey.currentState!.reset();
       } else {
         Common.showAlert(
             context: context,
@@ -127,7 +127,6 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
 
   getAllDisease() async {
     _diseaseList = await _firebaseService.getAllDiseases();
-
     setState(() {
       _diseaseList.forEach((element) {
         _items.add(
@@ -165,10 +164,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     return AlertDialog(
       scrollable: true,
       title: Text('Edit Patient'),
-      content: Form(
-          key: _formkey,
-          child: body(patientForm: patientForm, formKey: _formkey)
-      ),
+      content: body(patientForm: patientForm, formKey: _formKey),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
@@ -255,11 +251,6 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       decoration: Common.textFormFieldInputDecoration(labelText: "Disease"),
     );
 
-    final submitBtn = OutlinedButton(
-        onPressed: () {
-          onPressedSubmit();
-        },
-        child: Text('Submit'));
 
     final showDiseases = TextButton(
         onPressed: () {
@@ -278,97 +269,95 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
 
     return Form(
         key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: fullName,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: fullName,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                      child: Padding(
+                        padding: Common.allPadding(mHeight: height),
+                        child: ageDropDown!,
+                      )),
+                  SizedBox(
+                    width: width * 0.01,
+                  ),
+                  Expanded(
+                      child: Padding(
+                        padding: Common.allPadding(mHeight: height),
+                        child: genderDropDown!,
+                      )),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
                     child: Padding(
                       padding: Common.allPadding(mHeight: height),
-                      child: ageDropDown!,
-                    )),
-                SizedBox(
-                  width: width * 0.01,
-                ),
-                Expanded(
+                      child: professionDropDown!,
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: mobileNo,
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: email,
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: address,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
                     child: Padding(
                       padding: Common.allPadding(mHeight: height),
-                      child: genderDropDown!,
-                    )),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: professionDropDown!,
+                      child: showDiseases,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: mobileNo,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: email,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: address,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: showDiseases,
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
+                    flex: _switchValue ? 2 : 3,
+                    child: Padding(
+                      padding: Common.allPadding(mHeight: height),
+                      child: Text("Others"),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Flexible(
-                  flex: _switchValue ? 2 : 3,
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: Text("Others"),
+                  Flexible(
+                    flex: _switchValue ? 2 : 3,
+                    child: Padding(
+                      padding: Common.allPadding(mHeight: height),
+                      child: diseaseSwitch,
+                    ),
                   ),
-                ),
-                Flexible(
-                  flex: _switchValue ? 2 : 3,
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: diseaseSwitch,
-                  ),
-                ),
-                Flexible(
-                  flex: 5,
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: Visibility(
-                        visible: _switchValue, child: otherDiseaseInput),
-                  ),
-                )
-              ],
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: submitBtn,
-            ),
-          ],
+                  Flexible(
+                    flex: 5,
+                    child: Padding(
+                      padding: Common.allPadding(mHeight: height),
+                      child: Visibility(
+                          visible: _switchValue, child: otherDiseaseInput),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ));
   }
 
