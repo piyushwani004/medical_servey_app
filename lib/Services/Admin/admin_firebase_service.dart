@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medical_servey_app/models/Admin/Disease.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
+import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 
 class AdminFirebaseService {
@@ -146,6 +147,42 @@ class AdminFirebaseService {
     }
     return Response(isSuccessful: isSuccessful, message: message);
   }
+
+
+  //***************Patient-Methods***********//
+
+
+  Future<List<Patient>> getPatients() async {
+    List<Patient> _patients = [];
+    CollectionReference patientCollection = instance!.collection('Patient');
+    var allSurveyorsSnapshots = await patientCollection.get();
+    _patients.addAll(allSurveyorsSnapshots.docs.map((surveyor) =>
+        Patient.fromMap(surveyor.data() as Map<String, dynamic>)));
+    return _patients;
+  }
+
+
+  Future<Response> updatePatient(Patient patient) async {
+    //updating the surveyor details first
+    CollectionReference surveyorCollection = instance!.collection('Patient');
+    String message = "";
+    bool isSuccessful = false;
+    try {
+      String id = await getDocId(
+          rootDocName: "Patient",
+          uniqueField: 'email',
+          uniqueFieldValue: patient.email);
+      surveyorCollection.doc(id).update(patient.toMap());
+      message = "Updated Successfully";
+      isSuccessful = true;
+      return Response(isSuccessful: isSuccessful, message: message);
+    } on FirebaseException catch (e) {
+      isSuccessful = false;
+      message = e.message.toString();
+      return Response(isSuccessful: isSuccessful, message: message);
+    }
+  }
+
 
   //***************General-Methods***********//
 

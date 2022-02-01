@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 
-class DataTableWithGivenColumn extends StatefulWidget {
+class DataTableWithGivenColumnForSurveyor extends StatefulWidget {
   final List<String> columns;
   final List<Surveyor> records;
   List<Surveyor> selectedRecords = [];
 
-  DataTableWithGivenColumn(
+  DataTableWithGivenColumnForSurveyor(
       {Key? key, required this.columns, required this.records})
       : super(key: key);
 
   @override
-  _DataTableWithGivenColumnState createState() =>
-      _DataTableWithGivenColumnState();
+  _DataTableWithGivenColumnForSurveyorState createState() =>
+      _DataTableWithGivenColumnForSurveyorState();
 }
 
-class _DataTableWithGivenColumnState extends State<DataTableWithGivenColumn> {
+class _DataTableWithGivenColumnForSurveyorState extends State<DataTableWithGivenColumnForSurveyor> {
   int? sortColumnIndex;
   bool isAscending = false;
   List<Surveyor>? filteredRecords;

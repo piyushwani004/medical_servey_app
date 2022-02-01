@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/pages/Admin/add_diseases.dart';
 import 'package:medical_servey_app/pages/Admin/main/main_screen.dart';
+import 'package:medical_servey_app/pages/Admin/patient_admin_update.dart';
 import 'package:medical_servey_app/pages/Admin/surveyor_update.dart';
 import 'package:medical_servey_app/pages/Admin/new_surveyor_form.dart';
 import 'package:medical_servey_app/pages/Surveyor/SurveyorProfile.dart';
@@ -20,7 +21,7 @@ const routeSurveyorListForUpdate = '/SurveyorListForUpdate';
 const routeAddPatient = '/AddPatient';
 const routeUpdatePatient = '/UpdatePatient';
 const routeSurveyorProfile = '/SurveyorProfile';
-
+const routeAdminUpdatePatient = '/AdminUpdatePatient';
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -46,6 +47,10 @@ class Routes {
         //Map mapData = settings.arguments;
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: AddDiseases());
+      case routeAdminUpdatePatient:
+      //Map mapData = settings.arguments;
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: PatientUpdateAdminForUpdate());
 
       //Surveyor
       case routeHome:

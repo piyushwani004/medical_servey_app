@@ -7,16 +7,16 @@ import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
   ScrollController _scrollController = ScrollController();
+
   SideMenu({
     Key? key,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        controller:_scrollController ,
+        controller: _scrollController,
         children: [
           DrawerHeader(
             child: Image.asset("assets/images/logo.png"),
@@ -25,36 +25,36 @@ class SideMenu extends StatelessWidget {
             title: "Dashboard",
             svgSrc: "assets/icons/menu_dashbord.svg",
             press: () {
-              Navigator.pushReplacementNamed(
-                  context,routeAdminHome);
+              Navigator.pushReplacementNamed(context, routeAdminHome);
             },
           ),
           DrawerListTile(
             title: "Patient Update",
             svgSrc: "assets/icons/menu_tran.svg",
             press: () {
-
+              Navigator.pushReplacementNamed(context, routeAdminUpdatePatient);
             },
           ),
           DrawerListTile(
             title: "Add Surveyor",
             svgSrc: "assets/icons/menu_doc.svg",
             press: () {
-              Navigator.pushReplacementNamed(context,routeAdminAddSurveyor);
+              Navigator.pushReplacementNamed(context, routeAdminAddSurveyor);
             },
           ),
           DrawerListTile(
             title: "Update Surveyor ",
             svgSrc: "assets/icons/menu_doc.svg",
             press: () {
-              Navigator.pushReplacementNamed(context,routeSurveyorListForUpdate);
+              Navigator.pushReplacementNamed(
+                  context, routeSurveyorListForUpdate);
             },
           ),
           DrawerListTile(
             title: "Disease",
             svgSrc: "assets/icons/menu_store.svg",
             press: () {
-              Navigator.pushReplacementNamed(context,routeAddDiseases);
+              Navigator.pushReplacementNamed(context, routeAddDiseases);
             },
           ),
           DrawerListTile(

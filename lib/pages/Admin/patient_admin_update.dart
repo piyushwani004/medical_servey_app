@@ -1,37 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
-import 'package:medical_servey_app/models/Admin/surveyor.dart';
+import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
+import 'package:medical_servey_app/widgets/data_table_pateint_widget.dart';
 import 'package:medical_servey_app/widgets/data_table_surveyor_widget.dart';
 import 'package:medical_servey_app/widgets/loading.dart';
 import 'package:medical_servey_app/widgets/search_field.dart';
-import 'package:medical_servey_app/widgets/surveyor_edit_dialog.dart';
+import 'package:medical_servey_app/widgets/patient_edit_dialog.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
 import 'main/components/side_menu.dart';
 
-class SurveyorListForUpdate extends StatefulWidget {
-  const SurveyorListForUpdate({Key? key}) : super(key: key);
+class PatientUpdateAdminForUpdate extends StatefulWidget {
+  const PatientUpdateAdminForUpdate({Key? key}) : super(key: key);
 
   @override
-  _SurveyorListForUpdateState createState() => _SurveyorListForUpdateState();
+  _PatientListForUpdateState createState() => _PatientListForUpdateState();
 }
 
-class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
+class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
   var width, height;
-  DataTableWithGivenColumnForSurveyor? dataTableWithGivenColumn;
-  List<Surveyor>? listOfSurveyor;
-  List<Surveyor>? listOfFilteredSurveyor;
+  DataTableWithGivenColumnForPatient? dataTableWithGivenColumn;
+  List<Patient>? listOfPatient;
+  List<Patient>? listOfFilteredPatient;
   AdminFirebaseService _firebaseService = AdminFirebaseService();
   TextEditingController _textEditingController = TextEditingController();
-  final GlobalKey<State> surveyorListKey = GlobalKey<State>();
+  final GlobalKey<State> patientListKey = GlobalKey<State>();
   final _verticalScrollController = ScrollController();
   final _horizontalScrollController = ScrollController();
   Loading? _loading;
   final scaffoldState = GlobalKey<ScaffoldState>();
   List<String> columnsOfDataTable = [
+    'id',
+    'By Surveyor',
     'Email',
     'First-Name',
     'Middle-Name',
@@ -40,40 +43,37 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     'Gender',
     'Address',
     'Profession',
-    'Joining-Date',
-    'Assigned-Village',
-    'Aadhaar-Number'
+    'Mobile-Number',
+    'Diseases',
   ];
 
-  Stream<List<Surveyor>> getSurveyorsList() async* {
-    List<Surveyor> listOfSurveyor = await _firebaseService.getSurveyors();
-    this.listOfSurveyor = listOfSurveyor;
-    yield listOfSurveyor;
+  Stream<List<Patient>> getPatientsList() async* {
+    List<Patient> listOfPatient = await _firebaseService.getPatients();
+    this.listOfPatient = listOfPatient;
+    yield listOfPatient;
     // setState(() {});
   }
 
   onSearchBtnPressed() {
     print(_textEditingController.text);
     String searchText = _textEditingController.text;
-    listOfFilteredSurveyor = listOfSurveyor
-        ?.where((Surveyor sur) =>
-            sur.firstName.contains(searchText) ||
-            sur.middleName.contains(searchText) ||
-            sur.lastName.contains(searchText) ||
-            sur.email.contains(searchText) ||
-            sur.mobileNumber.contains(searchText) ||
-            sur.address.contains(searchText) ||
-            sur.gender.contains(searchText) ||
-            sur.joiningDate.contains(searchText) ||
-            sur.villageToAssign.contains(searchText) ||
-            sur.aadhaarNumber.contains(searchText) ||
-            sur.profession.contains(searchText))
+    listOfFilteredPatient = listOfPatient
+        ?.where((Patient patient) =>
+    patient.firstName.contains(searchText) ||
+        patient.middleName.contains(searchText) ||
+        patient.lastName.contains(searchText) ||
+        patient.email.contains(searchText) ||
+        patient.mobileNumber.contains(searchText) ||
+        patient.address.contains(searchText) ||
+        patient.gender.contains(searchText) ||
+        patient.id.contains(searchText) ||
+        patient.profession.contains(searchText))
         .toList();
     setState(() {});
   }
 
   onSearchCrossBtnPressed() {
-    listOfFilteredSurveyor = null;
+    listOfFilteredPatient = null;
     setState(() {});
   }
 
@@ -83,15 +83,15 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
       // print(dataTableWithGivenColumn!.selectedRecords);
       await showDialog(
           context: context,
-          builder: (context) => SurveyorEditDialog(
-              surveyor: dataTableWithGivenColumn!.selectedRecords[0]));
+          builder: (context) => PatientEditDialog(
+              patient: dataTableWithGivenColumn!.selectedRecords[0]));
       setState(() {});
     } else {
       Common.showAlert(
           context: context,
-          title: 'Surveyor Edit',
+          title: 'Patient Edit',
           content: dataTableWithGivenColumn!.selectedRecords.isEmpty
-              ? 'Please select a Surveyor'
+              ? 'Please select a Patient'
               : 'Cannot edit multiple at a time',
           isError: true);
     }
@@ -99,7 +99,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
 
   @override
   void initState() {
-    _loading = Loading(context: context, key: surveyorListKey);
+    _loading = Loading(context: context, key: patientListKey);
     super.initState();
   }
 
@@ -124,7 +124,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
             flex: 5,
             child: CustomScrollView(
               slivers: [
-                TopSliverAppBar(mHeight: height, text: "Surveyor List"),
+                TopSliverAppBar(mHeight: height, text: "Update Patient"),
                 CustomScrollViewBody(
                     bodyWidget: Padding(
                         padding: Common.allPadding(mHeight: height),
@@ -152,7 +152,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                 onCrossTap: () {
                   onSearchCrossBtnPressed();
                 },
-                isCrossVisible: listOfFilteredSurveyor != null,
+                isCrossVisible: listOfFilteredPatient != null,
               ),
             ),
             IconButton(
@@ -177,21 +177,21 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                 scrollDirection: Axis.horizontal,
                 child: Card(
                     elevation: 10,
-                    child: StreamBuilder<List<Surveyor>>(
-                        stream: getSurveyorsList(),
+                    child: StreamBuilder<List<Patient>>(
+                        stream: getPatientsList(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            dataTableWithGivenColumn = DataTableWithGivenColumnForSurveyor(
+                            dataTableWithGivenColumn = DataTableWithGivenColumnForPatient(
                               columns: columnsOfDataTable,
-                              records: listOfFilteredSurveyor ?? snapshot.data!,
+                              records: listOfFilteredPatient ?? snapshot.data!,
                             );
                             print(dataTableWithGivenColumn?.selectedRecords);
                           }
                           return snapshot.hasData
                               ? dataTableWithGivenColumn!
                               : Center(
-                                  child: CircularProgressIndicator(),
-                                );
+                            child: CircularProgressIndicator(),
+                          );
                         })),
               ),
             ),
