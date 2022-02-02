@@ -74,4 +74,23 @@ class SurveyorFirebaseService {
     }
     return Response(isSuccessful: isSuccessful, message: "$message");
   }
+
+  Future<Response> updatePatient(Patient patient) async {
+    //updating the surveyor details first
+    CollectionReference surveyorCollection = instance!.collection('Patient');
+    String message = "";
+    bool isSuccessful = false;
+    try {
+      String id = patient.id;
+      surveyorCollection.doc(id).update(patient.toMap()).whenComplete(() {
+        message = "Updated Successfully";
+        isSuccessful = true;
+      });
+      return Response(isSuccessful: isSuccessful, message: message);
+    } on FirebaseException catch (e) {
+      isSuccessful = false;
+      message = e.message.toString();
+      return Response(isSuccessful: isSuccessful, message: message);
+    }
+  }
 }
