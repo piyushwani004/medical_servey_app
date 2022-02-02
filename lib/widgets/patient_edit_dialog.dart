@@ -110,15 +110,18 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
   void initState() {
     ageDropDown = DropDownButtonWidget(
       items: ages.map((age) => age.toString()).toList(),
+      selectedItem: widget.patient.age.toString(),
       name: 'Age',
     );
     genderDropDown = DropDownButtonWidget(
       items: genders,
       name: 'Gender',
+      selectedItem: widget.patient.gender,
     );
     professionDropDown = DropDownButtonWidget(
       items: profession,
       name: 'Profession',
+      selectedItem: widget.patient.profession,
     );
     getAllDisease();
     super.initState();
@@ -141,7 +144,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       context: context,
       builder: (BuildContext context) {
         return MultiSelectDialog(
-          items: _items, initialSelectedValues: [].toSet(),
+          items: _items, initialSelectedValues: widget.patient.diseases.toSet(),
         );
       },
     ));
@@ -190,6 +193,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
+      initialValue: "${widget.patient.firstName} ${widget.patient.middleName} ${widget.patient.lastName}",
       validator: (name) {
         print("in valid full name");
         String fullName = name!.trim();
@@ -212,6 +216,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     );
 
     final email = TextFormField(
+      initialValue: widget.patient.email,
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       validator: (email) => emailValidator(email!),
@@ -222,6 +227,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       decoration: Common.textFormFieldInputDecoration(labelText: "Email"),
     );
     final address = TextFormField(
+      initialValue: widget.patient.address,
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       onSaved: (address) {
@@ -231,6 +237,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       decoration: Common.textFormFieldInputDecoration(labelText: "Address"),
     );
     final mobileNo = TextFormField(
+      initialValue: widget.patient.mobileNumber,
       keyboardType: TextInputType.number,
       autofocus: false,
       validator: (mobileNo) => mobileNumberValidator(mobileNo!),
