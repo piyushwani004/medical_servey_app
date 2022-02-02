@@ -76,6 +76,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
           date: patientForm['date'].toString(),
           diseases: selectedValues!.toList(),
           surveyorUID: patientForm['surveyorUID'].toString(),
+          otherDisease: patientForm['otherDisease'].toString(),
           age: int.parse(patientForm['age'].toString()));
 
       print("patientData $patientData");
@@ -147,6 +148,15 @@ class _AddPatientFormState extends State<AddPatientForm> {
     ));
 
     print("selectedValues" + selectedValues.toString());
+  }
+
+  String? otherDiseaseValidator(String? value) {
+    if (_switchValue && value != null && value.isNotEmpty) {
+      value = value.trim();
+      return null;
+    } else {
+      return "Other Disease can't be empty";
+    }
   }
 
   @override
@@ -239,9 +249,11 @@ class _AddPatientFormState extends State<AddPatientForm> {
       keyboardType: TextInputType.text,
       autofocus: false,
       onSaved: (othDisease) {
-        patientForm["diseases"] = othDisease!;
+        patientForm["otherDisease"] = othDisease!;
       },
-      // validator: (email) => emailValidator(email!),
+      validator: (otherDisease) {
+        return otherDiseaseValidator(otherDisease);
+      },
       decoration: Common.textFormFieldInputDecoration(labelText: "Disease"),
     );
 
@@ -272,7 +284,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: height *0.02,
+              height: height * 0.02,
             ),
             Padding(
               padding: Common.allPadding(mHeight: height),

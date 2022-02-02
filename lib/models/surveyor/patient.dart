@@ -16,6 +16,7 @@ class Patient {
   List diseases = [];
   int age;
   String surveyorUID;
+  String? otherDisease;
   
   Patient({
     required this.id,
@@ -31,6 +32,7 @@ class Patient {
     required this.diseases,
     required this.age,
     required this.surveyorUID,
+    this.otherDisease,
   });
 
   Patient copyWith({
@@ -47,6 +49,7 @@ class Patient {
     List? diseases,
     int? age,
     String? surveyorUID,
+    String? otherDisease,
   }) {
     return Patient(
       id: id ?? this.id,
@@ -62,6 +65,7 @@ class Patient {
       diseases: diseases ?? this.diseases,
       age: age ?? this.age,
       surveyorUID: surveyorUID ?? this.surveyorUID,
+      otherDisease: otherDisease ?? this.otherDisease,
     );
   }
 
@@ -80,6 +84,7 @@ class Patient {
       'diseases': diseases,
       'age': age,
       'surveyorUID': surveyorUID,
+      'otherDisease': otherDisease,
     };
   }
 
@@ -98,6 +103,7 @@ class Patient {
       diseases: List.from(map['diseases']),
       age: map['age'],
       surveyorUID: map['surveyorUID'],
+      otherDisease: map['otherDisease'],
     );
   }
 
@@ -108,7 +114,7 @@ class Patient {
 
   @override
   String toString() {
-    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID)';
+    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease)';
   }
 
   @override
@@ -128,7 +134,8 @@ class Patient {
         other.date == date &&
         listEquals(other.diseases, diseases) &&
         other.age == age &&
-        other.surveyorUID == surveyorUID;
+        other.surveyorUID == surveyorUID &&
+        other.otherDisease == otherDisease;
   }
 
   @override
@@ -145,6 +152,7 @@ class Patient {
         date.hashCode ^
         diseases.hashCode ^
         age.hashCode ^
-        surveyorUID.hashCode;
+        surveyorUID.hashCode ^
+        otherDisease.hashCode;
   }
 }
