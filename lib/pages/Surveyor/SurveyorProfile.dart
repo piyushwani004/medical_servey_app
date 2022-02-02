@@ -69,6 +69,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
+                        iconSize: height * 0.05,
                         icon: Icon(Icons.arrow_back)),
                   ),
                   Center(

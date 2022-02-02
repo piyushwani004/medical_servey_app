@@ -15,6 +15,8 @@ class SurveyorFirebaseService {
     return user;
   }
 
+  //***************Surveyor Details-Methods***********//
+
   Future<Surveyor?> getSurveyorDetails() async {
     List<Surveyor> _surveyors = [];
     try {
@@ -33,6 +35,8 @@ class SurveyorFirebaseService {
     return _surveyors.first;
   }
 
+  //***************patient Diseses-Methods***********//
+
   Future<List<Disease>> getAllDiseases() async {
     List<Disease> _diseaseList = [];
     QuerySnapshot querySnapshot = await collectionDisease.get();
@@ -41,6 +45,8 @@ class SurveyorFirebaseService {
     print("SurveyorFirebaseService: $_diseaseList");
     return _diseaseList;
   }
+
+  //*************** Patient-Methods***********//
 
   Future<List<Patient>> getAllPatients() async {
     List<Patient> _patientList = [];
@@ -86,6 +92,24 @@ class SurveyorFirebaseService {
         message = "Updated Successfully";
         isSuccessful = true;
       });
+      return Response(isSuccessful: isSuccessful, message: message);
+    } on FirebaseException catch (e) {
+      isSuccessful = false;
+      message = e.message.toString();
+      return Response(isSuccessful: isSuccessful, message: message);
+    }
+  }
+
+  Future<Response> deletePatient(Patient patient) async {
+    //updating the surveyor details first
+    CollectionReference surveyorCollection = instance!.collection('Patient');
+    String message = "";
+    bool isSuccessful = false;
+    try {
+      String id = patient.id;
+      surveyorCollection.doc(id).delete();
+      message = "Delete Successfully";
+      isSuccessful = true;
       return Response(isSuccessful: isSuccessful, message: message);
     } on FirebaseException catch (e) {
       isSuccessful = false;

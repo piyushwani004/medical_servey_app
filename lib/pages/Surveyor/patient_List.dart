@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
+import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/patient_edit_dialog.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
@@ -47,8 +48,15 @@ class _PatientListState extends State<PatientList> {
     setState(() {});
   }
 
-  onPressedDelete({id}) {
-    print("onPressedDelete $id");
+  onPressedDelete({patientData}) async {
+    print("onPressedDelete $patientData");
+    Response response = await _firebaseService.deletePatient(patientData);
+    if (response.isSuccessful) {
+      showSnackBar(context, response.message);
+    } else {
+      showSnackBar(context, response.message);
+    }
+    setState(() {});
   }
 
   Stream<List<Patient>> getAllPatient() async* {
@@ -91,8 +99,7 @@ class _PatientListState extends State<PatientList> {
                       subtitle: Row(
                         children: [
                           Flexible(
-                              child:
-                                  Text(snapshot.data![index].mobileNumber)),
+                              child: Text(snapshot.data![index].mobileNumber)),
                         ],
                       ),
                       trailing: PopupMenuButton(
@@ -112,7 +119,7 @@ class _PatientListState extends State<PatientList> {
                           if (value == "edit") {
                             onPressedEdit(patientData: snapshot.data![index]);
                           } else {
-                            onPressedDelete(id: snapshot.data![index]);
+                            onPressedDelete(patientData: snapshot.data![index]);
                           }
                         },
                       ),

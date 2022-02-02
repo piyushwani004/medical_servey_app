@@ -8,9 +8,9 @@ class TopSliverAppBar extends StatelessWidget {
 
   const TopSliverAppBar(
       {Key? key,
-        required this.mHeight,
-        required this.text,
-        this.onPressedLogout})
+      required this.mHeight,
+      required this.text,
+      this.onPressedLogout})
       : super(key: key);
 
   @override
@@ -18,28 +18,31 @@ class TopSliverAppBar extends StatelessWidget {
     return SliverAppBar(
       floating: true,
       centerTitle: true,
-      title: Text(text,style: TextStyle(color: Colors.white),),
+      title: Text(
+        text,
+        style: TextStyle(color: Colors.white),
+      ),
       elevation: 5,
       expandedHeight: mHeight * 0.08,
       forceElevated: true,
       actions: onPressedLogout != null
           ? [
-        Padding(
-          padding: EdgeInsetsDirectional.all(mHeight*0.019),
-          child: OutlinedButton(
-            //logging out
-            onPressed: () {
-              onPressedLogout!();
-            },
+              Padding(
+                padding: EdgeInsetsDirectional.all(mHeight * 0.019),
+                child: OutlinedButton(
+                  //logging out
+                  onPressed: () {
+                    onPressedLogout!();
+                  },
 
-            child: const Icon(
-              Icons.exit_to_app_rounded,
-              color: Colors.black,
-            ),
-            style: Common.buttonStyle(),
-          ),
-        ),
-      ]
+                  child: const Icon(
+                    Icons.exit_to_app_rounded,
+                    color: Colors.black,
+                  ),
+                  style: Common.buttonStyle(),
+                ),
+              ),
+            ]
           : [],
     );
   }
@@ -63,12 +66,4 @@ class GradientText extends StatelessWidget {
       child: Text(text, style: style),
     );
   }
-}
-
-SnackBar snackBarWidget({text}) {
-  return SnackBar(
-    content: Text(text ?? "Error"),
-    duration: const Duration(seconds: 3),
-    // shape: ,
-  );
 }
