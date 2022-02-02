@@ -168,10 +168,7 @@ class AdminFirebaseService {
     String message = "";
     bool isSuccessful = false;
     try {
-      String id = await getDocId(
-          rootDocName: "Patient",
-          uniqueField: 'email',
-          uniqueFieldValue: patient.email);
+      String id = patient.id;
       surveyorCollection.doc(id).update(patient.toMap());
       message = "Updated Successfully";
       isSuccessful = true;

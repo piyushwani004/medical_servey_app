@@ -30,7 +30,6 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
   var width, height;
   String _selectedDate = formatDate(DateTime.now().toString());
   bool _switchValue = false;
-  User? user;
 
   Map<String, String> patientForm = {};
   List<Disease> _diseaseList = [];
@@ -54,21 +53,30 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     'None',
   ];
 
-  onPressedSubmit() async {
+  Future<Response> onPressedSubmit() async {
+    Response response;
     if (_formKey.currentState!.validate() && selectedValues!=null &&
         selectedValues!.isNotEmpty) {
-      patientForm['id'] = DateTime.now().millisecondsSinceEpoch.toString();
+      print(widget.patient.toString() + "\npatient that is selected 61");
+      print('$patientForm' + 'Patient form before');
+      print('in if of form valid 62');
+      patientForm['id'] = widget.patient.id;
+      print(widget.patient.id);
       patientForm['date'] = _selectedDate;
-      patientForm['surveyorUID'] = user!.uid.toString();
+      print(_selectedDate);
+      patientForm['surveyorUID'] = widget.patient.surveyorUID;
+      print(_selectedDate);
       patientForm['age'] = ageDropDown!.selectedItem!;
       patientForm['gender'] = genderDropDown!.selectedItem!;
       patientForm['profession'] = professionDropDown!.selectedItem!;
       _formKey.currentState!.save();
+      print('$patientForm' + 'Patient form after');
 
+      print('in if of form saved 69');
       Patient patientData = Patient(
           id: patientForm['id'].toString(),
-          firstName: patientForm['firstName'].toString(),
-          middleName: patientForm['middleName'].toString(),
+          firstName: patientForm['firstName']!,
+          middleName: patientForm['middleName']!,
           lastName: patientForm['lastName'].toString(),
           profession: patientForm['profession'].toString(),
           email: patientForm['email'].toString(),
@@ -79,30 +87,35 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
           diseases: selectedValues!.toList(),
           surveyorUID: patientForm['surveyorUID'].toString(),
           age: int.parse(patientForm['age'].toString()));
+      print('in if of form patient assigned');
 
       print("patientData $patientData");
-      Response response =
+      response =
       await _firebaseService.updatePatient(patientData);
+      print('in if of form after fetching from firebase 95');
       if (response.isSuccessful) {
-        Common.showAlert(
+        await Common.showAlert(
             context: context,
             title: 'Patient Update',
             content: response.message,
             isError: false);
         _formKey.currentState!.reset();
+        return response;
       } else {
-        Common.showAlert(
+        await Common.showAlert(
             context: context,
             title: 'Failed in Update Patient',
             content: response.message,
             isError: true);
+        return response;
       }
     } else {
-      Common.showAlert(
+      await Common.showAlert(
           context: context,
           title: 'Invalid Operation',
           content: 'Please select Disease',
           isError: true);
+      return response = Response(isSuccessful: false, message: 'Some fields have invalid values.');
     }
   }
 
@@ -167,7 +180,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     return AlertDialog(
       scrollable: true,
       title: Text('Edit Patient'),
-      content: body(patientForm: patientForm, formKey: _formKey),
+      content: body(),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
@@ -189,7 +202,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
 
   }
 
-  Widget body({required Map<String, String> patientForm, required formKey}) {
+  Widget body() {
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
@@ -275,7 +288,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     );
 
     return Form(
-        key: formKey,
+        key: _formKey,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

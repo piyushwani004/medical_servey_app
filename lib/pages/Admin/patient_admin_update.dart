@@ -85,6 +85,9 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
           context: context,
           builder: (context) => PatientEditDialog(
               patient: dataTableWithGivenColumn!.selectedRecords[0]));
+
+
+
       setState(() {});
     } else {
       Common.showAlert(
