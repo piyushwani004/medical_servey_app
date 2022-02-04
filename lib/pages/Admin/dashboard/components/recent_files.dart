@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 
-
-
 class RecentFiles extends StatelessWidget {
   const RecentFiles({
     Key? key,
@@ -20,16 +18,17 @@ class RecentFiles extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Recent Files",
+            "Patient List",
             style: Theme.of(context).textTheme.subtitle1,
           ),
           SizedBox(
             width: double.infinity,
-            child: Container(child: Text("123"),),
+            child: Container(
+              child: Text("123"),
+            ),
           ),
         ],
       ),
     );
   }
 }
-
