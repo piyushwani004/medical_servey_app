@@ -42,7 +42,7 @@ class FirebaseAuthService {
   Future<String?> signUp(
       {required String email, required String password}) async {
     FirebaseApp app = await Firebase.initializeApp(
-        name: 'Secondary', options: Firebase.app().options);
+        name: '$email', options: Firebase.app().options);
     try {
       await FirebaseAuth.instanceFor(app: app)
           .createUserWithEmailAndPassword(email: email, password: password);
