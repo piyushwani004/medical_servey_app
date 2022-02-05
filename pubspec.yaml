@@ -37,6 +37,7 @@ dependencies:
   page_transition: ^2.0.4
   flutter_svg: ^1.0.3
   fl_chart: ^0.41.0
+  dropdown_search: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +58,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/json/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

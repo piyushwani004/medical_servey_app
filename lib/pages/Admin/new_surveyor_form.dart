@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import "package:flutter/material.dart";
+import 'package:flutter/services.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/functions.dart';
+import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
@@ -10,6 +14,7 @@ import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/form_container.dart';
 import 'package:medical_servey_app/widgets/loading.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 import 'main/components/side_menu.dart';
 
@@ -31,9 +36,9 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? qualificationDropDown;
 
-  DropDownButtonWidget? districtDropDown;
-  DropDownButtonWidget? talukaDropDown;
-  DropDownButtonWidget? villageDropDown;
+  DropdownSearch<String>? districtDropDown;
+  DropdownSearch<String>? talukaDropDown;
+  DropdownSearch<String>? villageDropDown;
 
   onPressedSubmit() async {
     print("surveyorStart");
@@ -98,31 +103,12 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
 
   // List of items in our dropdown menu
   List<int> ageList = generateN2MList(15, 100);
+  List<String> taluka = [];
+  List<String> villages = [];
   var district = [
     'Jalgaon',
   ];
-  var taluka = [
-    'taluka 1',
-    'taluka 2',
-    'taluka 3',
-    'taluka 4',
-    'taluka 5',
-    'taluka 6',
-    'taluka 7',
-    'taluka 8',
-    'taluka 9',
-  ];
-  var villages = [
-    'village 1',
-    'village 2',
-    'village 3',
-    'village 4',
-    'village 5',
-    'village 6',
-    'village 7',
-    'village 8',
-    'village 9',
-  ];
+
   var genders = [
     'Male',
     'Female',
@@ -135,7 +121,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     'GED',
     'Vocational qualification',
     'Diploma'
-    'Bachelors degree',
+        'Bachelors degree',
     'Masters degree',
     'Doctorate or higher'
   ];
@@ -156,19 +142,46 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       name: 'Qualification',
     );
 
-    districtDropDown = DropDownButtonWidget(
+    districtDropDown = DropdownSearch<String>(
       items: district,
-      name: 'District To Assign',
+      mode: Mode.MENU,
+      dropdownSearchDecoration: InputDecoration(
+        hintText: "Select a District",
+        labelText: "District To Assign",
+      ),
       selectedItem: district.first,
+      validator: (v) => v == null ? "required field" : null,
     );
-    talukaDropDown = DropDownButtonWidget(
+
+    //searchable dropdown widgets
+    talukaDropDown = DropdownSearch<String>(
+      mode: Mode.DIALOG,
+      showSearchBox: true,
       items: taluka,
-      name: 'Taluka To Assign',
+      showSelectedItems: true,
+      dropdownSearchDecoration: InputDecoration(
+        hintText: "Select a Taluka",
+        labelText: "Select a Taluka",
+      ),
+      onChanged: print,
+      showClearButton: true,
+      validator: (v) => v == null ? "required field" : null,
     );
-    villageDropDown = DropDownButtonWidget(
+
+    villageDropDown = DropdownSearch<String>(
+      mode: Mode.DIALOG,
+      showSearchBox: true,
       items: villages,
-      name: 'Village To Assign',
+      showSelectedItems: true,
+      dropdownSearchDecoration: InputDecoration(
+        hintText: "Select a Taluka",
+        labelText: "Select a Taluka",
+      ),
+      onChanged: print,
+      showClearButton: true,
+      validator: (v) => v == null ? "required field" : null,
     );
+    //
 
     _loading = Loading(context: context, key: newSurveyorKey);
 

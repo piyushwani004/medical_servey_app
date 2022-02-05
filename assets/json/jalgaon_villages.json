@@ -1,0 +1,7569 @@
+{
+  "Sheet1": [
+    {
+      "No": 1,
+      "Taluka": "Amalner",
+      "Village": "Amalgaon"
+    },
+    {
+      "No": 2,
+      "Taluka": "Amalner",
+      "Village": "Amalner (Rural)"
+    },
+    {
+      "No": 3,
+      "Taluka": "Amalner",
+      "Village": "Ambare"
+    },
+    {
+      "No": 4,
+      "Taluka": "Amalner",
+      "Village": "Ambasan"
+    },
+    {
+      "No": 5,
+      "Taluka": "Amalner",
+      "Village": "Amode"
+    },
+    {
+      "No": 6,
+      "Taluka": "Amalner",
+      "Village": "Anchalwadi"
+    },
+    {
+      "No": 7,
+      "Taluka": "Amalner",
+      "Village": "Anora"
+    },
+    {
+      "No": 8,
+      "Taluka": "Amalner",
+      "Village": "Anturli"
+    },
+    {
+      "No": 9,
+      "Taluka": "Amalner",
+      "Village": "Ardi"
+    },
+    {
+      "No": 10,
+      "Taluka": "Amalner",
+      "Village": "Atale"
+    },
+    {
+      "No": 11,
+      "Taluka": "Amalner",
+      "Village": "Bahadar Wadi"
+    },
+    {
+      "No": 12,
+      "Taluka": "Amalner",
+      "Village": "Bamhane"
+    },
+    {
+      "No": 13,
+      "Taluka": "Amalner",
+      "Village": "Bharvas"
+    },
+    {
+      "No": 14,
+      "Taluka": "Amalner",
+      "Village": "Bhilali"
+    },
+    {
+      "No": 15,
+      "Taluka": "Amalner",
+      "Village": "Bhortek"
+    },
+    {
+      "No": 16,
+      "Taluka": "Amalner",
+      "Village": "Bilkhede"
+    },
+    {
+      "No": 17,
+      "Taluka": "Amalner",
+      "Village": "Bodarde"
+    },
+    {
+      "No": 18,
+      "Taluka": "Amalner",
+      "Village": "Bohare"
+    },
+    {
+      "No": 19,
+      "Taluka": "Amalner",
+      "Village": "Borgaon"
+    },
+    {
+      "No": 20,
+      "Taluka": "Amalner",
+      "Village": "Chakave"
+    },
+    {
+      "No": 21,
+      "Taluka": "Amalner",
+      "Village": "Chaubari"
+    },
+    {
+      "No": 22,
+      "Taluka": "Amalner",
+      "Village": "Chimanpuri"
+    },
+    {
+      "No": 23,
+      "Taluka": "Amalner",
+      "Village": "Chopdai"
+    },
+    {
+      "No": 24,
+      "Taluka": "Amalner",
+      "Village": "Dahiwad"
+    },
+    {
+      "No": 25,
+      "Taluka": "Amalner",
+      "Village": "Dahiwad Kh."
+    },
+    {
+      "No": 26,
+      "Taluka": "Amalner",
+      "Village": "Dangar Bk."
+    },
+    {
+      "No": 27,
+      "Taluka": "Amalner",
+      "Village": "Dapori Bk."
+    },
+    {
+      "No": 28,
+      "Taluka": "Amalner",
+      "Village": "Dapuri Kh."
+    },
+    {
+      "No": 29,
+      "Taluka": "Amalner",
+      "Village": "Daregaon"
+    },
+    {
+      "No": 30,
+      "Taluka": "Amalner",
+      "Village": "Deogaon"
+    },
+    {
+      "No": 31,
+      "Taluka": "Amalner",
+      "Village": "Devali"
+    },
+    {
+      "No": 32,
+      "Taluka": "Amalner",
+      "Village": "Dhanore"
+    },
+    {
+      "No": 33,
+      "Taluka": "Amalner",
+      "Village": "Dhar"
+    },
+    {
+      "No": 34,
+      "Taluka": "Amalner",
+      "Village": "Dhavade"
+    },
+    {
+      "No": 35,
+      "Taluka": "Amalner",
+      "Village": "Dheku Bk."
+    },
+    {
+      "No": 36,
+      "Taluka": "Amalner",
+      "Village": "Dheku Charam"
+    },
+    {
+      "No": 37,
+      "Taluka": "Amalner",
+      "Village": "Dheku Kh."
+    },
+    {
+      "No": 38,
+      "Taluka": "Amalner",
+      "Village": "Dheku Seem."
+    },
+    {
+      "No": 39,
+      "Taluka": "Amalner",
+      "Village": "Dhupi"
+    },
+    {
+      "No": 40,
+      "Taluka": "Amalner",
+      "Village": "Dodhawad"
+    },
+    {
+      "No": 41,
+      "Taluka": "Amalner",
+      "Village": "Eklahare"
+    },
+    {
+      "No": 42,
+      "Taluka": "Amalner",
+      "Village": "Ekrukhi"
+    },
+    {
+      "No": 43,
+      "Taluka": "Amalner",
+      "Village": "Ektas"
+    },
+    {
+      "No": 44,
+      "Taluka": "Amalner",
+      "Village": "Fapore Bk."
+    },
+    {
+      "No": 45,
+      "Taluka": "Amalner",
+      "Village": "Fapore Kh."
+    },
+    {
+      "No": 46,
+      "Taluka": "Amalner",
+      "Village": "Gadkhamb"
+    },
+    {
+      "No": 47,
+      "Taluka": "Amalner",
+      "Village": "Galwade Bk."
+    },
+    {
+      "No": 48,
+      "Taluka": "Amalner",
+      "Village": "Galwade Kh."
+    },
+    {
+      "No": 49,
+      "Taluka": "Amalner",
+      "Village": "Gandhali"
+    },
+    {
+      "No": 50,
+      "Taluka": "Amalner",
+      "Village": "Gangapuri"
+    },
+    {
+      "No": 51,
+      "Taluka": "Amalner",
+      "Village": "Ghurkhede"
+    },
+    {
+      "No": 52,
+      "Taluka": "Amalner",
+      "Village": "Govardhan"
+    },
+    {
+      "No": 53,
+      "Taluka": "Amalner",
+      "Village": "Hedave"
+    },
+    {
+      "No": 54,
+      "Taluka": "Amalner",
+      "Village": "Hingone Bk."
+    },
+    {
+      "No": 55,
+      "Taluka": "Amalner",
+      "Village": "Hingone Kh. Pr. J."
+    },
+    {
+      "No": 56,
+      "Taluka": "Amalner",
+      "Village": "Hingone Kh.Pr.Jalod"
+    },
+    {
+      "No": 57,
+      "Taluka": "Amalner",
+      "Village": "Hingone Seem"
+    },
+    {
+      "No": 58,
+      "Taluka": "Amalner",
+      "Village": "Indrapimpri"
+    },
+    {
+      "No": 59,
+      "Taluka": "Amalner",
+      "Village": "Jaitpir"
+    },
+    {
+      "No": 60,
+      "Taluka": "Amalner",
+      "Village": "Jalod"
+    },
+    {
+      "No": 61,
+      "Taluka": "Amalner",
+      "Village": "Janave"
+    },
+    {
+      "No": 62,
+      "Taluka": "Amalner",
+      "Village": "Javakhede"
+    },
+    {
+      "No": 63,
+      "Taluka": "Amalner",
+      "Village": "Junone"
+    },
+    {
+      "No": 64,
+      "Taluka": "Amalner",
+      "Village": "Kachare"
+    },
+    {
+      "No": 65,
+      "Taluka": "Amalner",
+      "Village": "Kalali"
+    },
+    {
+      "No": 66,
+      "Taluka": "Amalner",
+      "Village": "Kalambe"
+    },
+    {
+      "No": 67,
+      "Taluka": "Amalner",
+      "Village": "Kalamsare"
+    },
+    {
+      "No": 68,
+      "Taluka": "Amalner",
+      "Village": "Kamatwadi"
+    },
+    {
+      "No": 69,
+      "Taluka": "Amalner",
+      "Village": "Kandari Kh."
+    },
+    {
+      "No": 70,
+      "Taluka": "Amalner",
+      "Village": "Kanhere"
+    },
+    {
+      "No": 71,
+      "Taluka": "Amalner",
+      "Village": "Karan Khede"
+    },
+    {
+      "No": 72,
+      "Taluka": "Amalner",
+      "Village": "Kavpimpri"
+    },
+    {
+      "No": 73,
+      "Taluka": "Amalner",
+      "Village": "Khadke"
+    },
+    {
+      "No": 74,
+      "Taluka": "Amalner",
+      "Village": "Khaparkhede Pr.Dangri"
+    },
+    {
+      "No": 75,
+      "Taluka": "Amalner",
+      "Village": "Khaparkhede Pr.Jalod"
+    },
+    {
+      "No": 76,
+      "Taluka": "Amalner",
+      "Village": "Kharde"
+    },
+    {
+      "No": 77,
+      "Taluka": "Amalner",
+      "Village": "Khaushi Bk."
+    },
+    {
+      "No": 78,
+      "Taluka": "Amalner",
+      "Village": "Khedi Bk. Pr. Dangri"
+    },
+    {
+      "No": 79,
+      "Taluka": "Amalner",
+      "Village": "Khedi Kh.pr. Amalner"
+    },
+    {
+      "No": 80,
+      "Taluka": "Amalner",
+      "Village": "Khedi Kh.Pr.Jalod"
+    },
+    {
+      "No": 81,
+      "Taluka": "Amalner",
+      "Village": "Khedi Seem Pr. J."
+    },
+    {
+      "No": 82,
+      "Taluka": "Amalner",
+      "Village": "Khokar Pat"
+    },
+    {
+      "No": 83,
+      "Taluka": "Amalner",
+      "Village": "Kondaval"
+    },
+    {
+      "No": 84,
+      "Taluka": "Amalner",
+      "Village": "Kurhe Bk."
+    },
+    {
+      "No": 85,
+      "Taluka": "Amalner",
+      "Village": "Kurhe Kh."
+    },
+    {
+      "No": 86,
+      "Taluka": "Amalner",
+      "Village": "Kurhe Seem"
+    },
+    {
+      "No": 87,
+      "Taluka": "Amalner",
+      "Village": "Ladgaon"
+    },
+    {
+      "No": 88,
+      "Taluka": "Amalner",
+      "Village": "Lon Bk."
+    },
+    {
+      "No": 89,
+      "Taluka": "Amalner",
+      "Village": "Lon Charam"
+    },
+    {
+      "No": 90,
+      "Taluka": "Amalner",
+      "Village": "Lon Kh."
+    },
+    {
+      "No": 91,
+      "Taluka": "Amalner",
+      "Village": "Lon Seem"
+    },
+    {
+      "No": 92,
+      "Taluka": "Amalner",
+      "Village": "Londhave"
+    },
+    {
+      "No": 93,
+      "Taluka": "Amalner",
+      "Village": "Lone"
+    },
+    {
+      "No": 94,
+      "Taluka": "Amalner",
+      "Village": "Lonpancham"
+    },
+    {
+      "No": 95,
+      "Taluka": "Amalner",
+      "Village": "Malpur"
+    },
+    {
+      "No": 96,
+      "Taluka": "Amalner",
+      "Village": "Mandal"
+    },
+    {
+      "No": 97,
+      "Taluka": "Amalner",
+      "Village": "Mangarul"
+    },
+    {
+      "No": 98,
+      "Taluka": "Amalner",
+      "Village": "Manjardi"
+    },
+    {
+      "No": 99,
+      "Taluka": "Amalner",
+      "Village": "Marwad"
+    },
+    {
+      "No": 100,
+      "Taluka": "Amalner",
+      "Village": "Mathagavhan"
+    },
+    {
+      "No": 101,
+      "Taluka": "Amalner",
+      "Village": "Mehargaon"
+    },
+    {
+      "No": 102,
+      "Taluka": "Amalner",
+      "Village": "Mhasale"
+    },
+    {
+      "No": 103,
+      "Taluka": "Amalner",
+      "Village": "Mudi Pr. D."
+    },
+    {
+      "No": 104,
+      "Taluka": "Amalner",
+      "Village": "Mudi.Pr.Amalner"
+    },
+    {
+      "No": 105,
+      "Taluka": "Amalner",
+      "Village": "Mungase"
+    },
+    {
+      "No": 106,
+      "Taluka": "Amalner",
+      "Village": "Nagaon Bk."
+    },
+    {
+      "No": 107,
+      "Taluka": "Amalner",
+      "Village": "Nagaon Kh."
+    },
+    {
+      "No": 108,
+      "Taluka": "Amalner",
+      "Village": "Nalkhede"
+    },
+    {
+      "No": 109,
+      "Taluka": "Amalner",
+      "Village": "Nandgaon"
+    },
+    {
+      "No": 110,
+      "Taluka": "Amalner",
+      "Village": "Nandri"
+    },
+    {
+      "No": 111,
+      "Taluka": "Amalner",
+      "Village": "Nimb"
+    },
+    {
+      "No": 112,
+      "Taluka": "Amalner",
+      "Village": "Nimbhora"
+    },
+    {
+      "No": 113,
+      "Taluka": "Amalner",
+      "Village": "Nimzari"
+    },
+    {
+      "No": 114,
+      "Taluka": "Amalner",
+      "Village": "Nisardi"
+    },
+    {
+      "No": 115,
+      "Taluka": "Amalner",
+      "Village": "Padalse"
+    },
+    {
+      "No": 116,
+      "Taluka": "Amalner",
+      "Village": "Padse"
+    },
+    {
+      "No": 117,
+      "Taluka": "Amalner",
+      "Village": "Palasdal"
+    },
+    {
+      "No": 118,
+      "Taluka": "Amalner",
+      "Village": "Patonda"
+    },
+    {
+      "No": 119,
+      "Taluka": "Amalner",
+      "Village": "Pilode"
+    },
+    {
+      "No": 120,
+      "Taluka": "Amalner",
+      "Village": "Pimpale Bk."
+    },
+    {
+      "No": 121,
+      "Taluka": "Amalner",
+      "Village": "Pimpale Kh."
+    },
+    {
+      "No": 122,
+      "Taluka": "Amalner",
+      "Village": "Pimpli Pr.Jalod"
+    },
+    {
+      "No": 123,
+      "Taluka": "Amalner",
+      "Village": "Pingalwade"
+    },
+    {
+      "No": 124,
+      "Taluka": "Amalner",
+      "Village": "Pragane Dangari"
+    },
+    {
+      "No": 125,
+      "Taluka": "Amalner",
+      "Village": "Radhavan"
+    },
+    {
+      "No": 126,
+      "Taluka": "Amalner",
+      "Village": "Rajore"
+    },
+    {
+      "No": 127,
+      "Taluka": "Amalner",
+      "Village": "Rameshwar Bk."
+    },
+    {
+      "No": 128,
+      "Taluka": "Amalner",
+      "Village": "Rameshwar Kh."
+    },
+    {
+      "No": 129,
+      "Taluka": "Amalner",
+      "Village": "Ranaiche"
+    },
+    {
+      "No": 130,
+      "Taluka": "Amalner",
+      "Village": "Ranaiche Kh."
+    },
+    {
+      "No": 131,
+      "Taluka": "Amalner",
+      "Village": "Ranjane"
+    },
+    {
+      "No": 132,
+      "Taluka": "Amalner",
+      "Village": "Rundhati"
+    },
+    {
+      "No": 133,
+      "Taluka": "Amalner",
+      "Village": "Sabagavhan"
+    },
+    {
+      "No": 134,
+      "Taluka": "Amalner",
+      "Village": "Sadawan Bk."
+    },
+    {
+      "No": 135,
+      "Taluka": "Amalner",
+      "Village": "Sadawan Kh."
+    },
+    {
+      "No": 136,
+      "Taluka": "Amalner",
+      "Village": "Sarbete Bk."
+    },
+    {
+      "No": 137,
+      "Taluka": "Amalner",
+      "Village": "Sarbete Kh."
+    },
+    {
+      "No": 138,
+      "Taluka": "Amalner",
+      "Village": "Satri"
+    },
+    {
+      "No": 139,
+      "Taluka": "Amalner",
+      "Village": "Savakhede"
+    },
+    {
+      "No": 140,
+      "Taluka": "Amalner",
+      "Village": "Shahapur"
+    },
+    {
+      "No": 141,
+      "Taluka": "Amalner",
+      "Village": "Shirsale Bk."
+    },
+    {
+      "No": 142,
+      "Taluka": "Amalner",
+      "Village": "Shirsale Kh."
+    },
+    {
+      "No": 143,
+      "Taluka": "Amalner",
+      "Village": "Shirud"
+    },
+    {
+      "No": 144,
+      "Taluka": "Amalner",
+      "Village": "Sonkhedi"
+    },
+    {
+      "No": 145,
+      "Taluka": "Amalner",
+      "Village": "Sundarpatti"
+    },
+    {
+      "No": 146,
+      "Taluka": "Amalner",
+      "Village": "Takarkhede"
+    },
+    {
+      "No": 147,
+      "Taluka": "Amalner",
+      "Village": "Talwade"
+    },
+    {
+      "No": 148,
+      "Taluka": "Amalner",
+      "Village": "Tandali"
+    },
+    {
+      "No": 149,
+      "Taluka": "Amalner",
+      "Village": "Taskhede"
+    },
+    {
+      "No": 150,
+      "Taluka": "Amalner",
+      "Village": "Vaghode"
+    },
+    {
+      "No": 151,
+      "Taluka": "Amalner",
+      "Village": "Vavade"
+    },
+    {
+      "No": 152,
+      "Taluka": "Amalner",
+      "Village": "Vyavhardal"
+    },
+    {
+      "No": 153,
+      "Taluka": "Amalner",
+      "Village": "Wasare"
+    },
+    {
+      "No": 154,
+      "Taluka": "Amalner",
+      "Village": "Zadi"
+    },
+    {
+      "No": 155,
+      "Taluka": "Bhadgaon",
+      "Village": "Achalgaon"
+    },
+    {
+      "No": 156,
+      "Taluka": "Bhadgaon",
+      "Village": "Adalase"
+    },
+    {
+      "No": 157,
+      "Taluka": "Bhadgaon",
+      "Village": "Amadade"
+    },
+    {
+      "No": 158,
+      "Taluka": "Bhadgaon",
+      "Village": "Anjan Vihire"
+    },
+    {
+      "No": 159,
+      "Taluka": "Bhadgaon",
+      "Village": "Anturli Bk."
+    },
+    {
+      "No": 160,
+      "Taluka": "Bhadgaon",
+      "Village": "Bachchhar"
+    },
+    {
+      "No": 161,
+      "Taluka": "Bhadgaon",
+      "Village": "Balad Kh."
+    },
+    {
+      "No": 162,
+      "Taluka": "Bhadgaon",
+      "Village": "Bambrud Pr. Bahal"
+    },
+    {
+      "No": 163,
+      "Taluka": "Bhadgaon",
+      "Village": "Bambrud Pr. Utran"
+    },
+    {
+      "No": 164,
+      "Taluka": "Bhadgaon",
+      "Village": "Bhatkhande Bk."
+    },
+    {
+      "No": 165,
+      "Taluka": "Bhadgaon",
+      "Village": "Bhattagaon"
+    },
+    {
+      "No": 166,
+      "Taluka": "Bhadgaon",
+      "Village": "Bhortek Bk"
+    },
+    {
+      "No": 167,
+      "Taluka": "Bhadgaon",
+      "Village": "Bodarde"
+    },
+    {
+      "No": 168,
+      "Taluka": "Bhadgaon",
+      "Village": "Bornar"
+    },
+    {
+      "No": 169,
+      "Taluka": "Bhadgaon",
+      "Village": "Dalwade"
+    },
+    {
+      "No": 170,
+      "Taluka": "Bhadgaon",
+      "Village": "Devhari"
+    },
+    {
+      "No": 171,
+      "Taluka": "Bhadgaon",
+      "Village": "Dhotre"
+    },
+    {
+      "No": 172,
+      "Taluka": "Bhadgaon",
+      "Village": "Ghusardi Kh."
+    },
+    {
+      "No": 173,
+      "Taluka": "Bhadgaon",
+      "Village": "Girad"
+    },
+    {
+      "No": 174,
+      "Taluka": "Bhadgaon",
+      "Village": "Gondgaon"
+    },
+    {
+      "No": 175,
+      "Taluka": "Bhadgaon",
+      "Village": "Gudhe"
+    },
+    {
+      "No": 176,
+      "Taluka": "Bhadgaon",
+      "Village": "Juwardi"
+    },
+    {
+      "No": 177,
+      "Taluka": "Bhadgaon",
+      "Village": "Kajgaon"
+    },
+    {
+      "No": 178,
+      "Taluka": "Bhadgaon",
+      "Village": "Kanashi"
+    },
+    {
+      "No": 179,
+      "Taluka": "Bhadgaon",
+      "Village": "Khedgaon Kh."
+    },
+    {
+      "No": 180,
+      "Taluka": "Bhadgaon",
+      "Village": "Kolgaon"
+    },
+    {
+      "No": 181,
+      "Taluka": "Bhadgaon",
+      "Village": "Kothali"
+    },
+    {
+      "No": 182,
+      "Taluka": "Bhadgaon",
+      "Village": "Lon Pr. Bhadgaon"
+    },
+    {
+      "No": 183,
+      "Taluka": "Bhadgaon",
+      "Village": "Lon Pr. Utran"
+    },
+    {
+      "No": 184,
+      "Taluka": "Bhadgaon",
+      "Village": "Mahindale"
+    },
+    {
+      "No": 185,
+      "Taluka": "Bhadgaon",
+      "Village": "Malgaon"
+    },
+    {
+      "No": 186,
+      "Taluka": "Bhadgaon",
+      "Village": "Mandki"
+    },
+    {
+      "No": 187,
+      "Taluka": "Bhadgaon",
+      "Village": "Navare"
+    },
+    {
+      "No": 188,
+      "Taluka": "Bhadgaon",
+      "Village": "Nimbhore"
+    },
+    {
+      "No": 189,
+      "Taluka": "Bhadgaon",
+      "Village": "Palaskhede"
+    },
+    {
+      "No": 190,
+      "Taluka": "Bhadgaon",
+      "Village": "Pandhrad"
+    },
+    {
+      "No": 191,
+      "Taluka": "Bhadgaon",
+      "Village": "Pasardi"
+    },
+    {
+      "No": 192,
+      "Taluka": "Bhadgaon",
+      "Village": "Pathrad"
+    },
+    {
+      "No": 193,
+      "Taluka": "Bhadgaon",
+      "Village": "Pendgaon"
+    },
+    {
+      "No": 194,
+      "Taluka": "Bhadgaon",
+      "Village": "Picharde"
+    },
+    {
+      "No": 195,
+      "Taluka": "Bhadgaon",
+      "Village": "Pimpalgaon Bk."
+    },
+    {
+      "No": 196,
+      "Taluka": "Bhadgaon",
+      "Village": "Pimparkhede"
+    },
+    {
+      "No": 197,
+      "Taluka": "Bhadgaon",
+      "Village": "Pimprihat"
+    },
+    {
+      "No": 198,
+      "Taluka": "Bhadgaon",
+      "Village": "Rupnagar"
+    },
+    {
+      "No": 199,
+      "Taluka": "Bhadgaon",
+      "Village": "Sawade"
+    },
+    {
+      "No": 200,
+      "Taluka": "Bhadgaon",
+      "Village": "Shindi"
+    },
+    {
+      "No": 201,
+      "Taluka": "Bhadgaon",
+      "Village": "Shivani"
+    },
+    {
+      "No": 202,
+      "Taluka": "Bhadgaon",
+      "Village": "Talband Tanda"
+    },
+    {
+      "No": 203,
+      "Taluka": "Bhadgaon",
+      "Village": "Tandalwadi"
+    },
+    {
+      "No": 204,
+      "Taluka": "Bhadgaon",
+      "Village": "Umarkhed"
+    },
+    {
+      "No": 205,
+      "Taluka": "Bhadgaon",
+      "Village": "Vasantwadi"
+    },
+    {
+      "No": 206,
+      "Taluka": "Bhadgaon",
+      "Village": "Wadajee"
+    },
+    {
+      "No": 207,
+      "Taluka": "Bhadgaon",
+      "Village": "Wade"
+    },
+    {
+      "No": 208,
+      "Taluka": "Bhadgaon",
+      "Village": "Wadgaon Bk."
+    },
+    {
+      "No": 209,
+      "Taluka": "Bhadgaon",
+      "Village": "Wadgaon Nalbandi"
+    },
+    {
+      "No": 210,
+      "Taluka": "Bhadgaon",
+      "Village": "Wak"
+    },
+    {
+      "No": 211,
+      "Taluka": "Bhadgaon",
+      "Village": "Walwadi Bk."
+    },
+    {
+      "No": 212,
+      "Taluka": "Bhadgaon",
+      "Village": "Walwadi Kh."
+    },
+    {
+      "No": 213,
+      "Taluka": "Bhadgaon",
+      "Village": "Warkhed"
+    },
+    {
+      "No": 214,
+      "Taluka": "Bhusawal",
+      "Village": "Achegaon"
+    },
+    {
+      "No": 215,
+      "Taluka": "Bhusawal",
+      "Village": "Anjansonde"
+    },
+    {
+      "No": 216,
+      "Taluka": "Bhusawal",
+      "Village": "Belkhede Digar"
+    },
+    {
+      "No": 217,
+      "Taluka": "Bhusawal",
+      "Village": "Belvhal"
+    },
+    {
+      "No": 218,
+      "Taluka": "Bhusawal",
+      "Village": "Bhankhede Pr. Edlabad"
+    },
+    {
+      "No": 219,
+      "Taluka": "Bhusawal",
+      "Village": "Bhilmali"
+    },
+    {
+      "No": 220,
+      "Taluka": "Bhusawal",
+      "Village": "Bhusawal (Rural)"
+    },
+    {
+      "No": 221,
+      "Taluka": "Bhusawal",
+      "Village": "Bohardi Bk"
+    },
+    {
+      "No": 222,
+      "Taluka": "Bhusawal",
+      "Village": "Bohardi Kh"
+    },
+    {
+      "No": 223,
+      "Taluka": "Bhusawal",
+      "Village": "Chorwad"
+    },
+    {
+      "No": 224,
+      "Taluka": "Bhusawal",
+      "Village": "Daryapur"
+    },
+    {
+      "No": 225,
+      "Taluka": "Bhusawal",
+      "Village": "Fekari"
+    },
+    {
+      "No": 226,
+      "Taluka": "Bhusawal",
+      "Village": "Fulgaon"
+    },
+    {
+      "No": 227,
+      "Taluka": "Bhusawal",
+      "Village": "Gojore"
+    },
+    {
+      "No": 228,
+      "Taluka": "Bhusawal",
+      "Village": "Gombhi"
+    },
+    {
+      "No": 229,
+      "Taluka": "Bhusawal",
+      "Village": "Hatnur"
+    },
+    {
+      "No": 230,
+      "Taluka": "Bhusawal",
+      "Village": "Jadgaon"
+    },
+    {
+      "No": 231,
+      "Taluka": "Bhusawal",
+      "Village": "Jogalkhede"
+    },
+    {
+      "No": 232,
+      "Taluka": "Bhusawal",
+      "Village": "Jogalkhori"
+    },
+    {
+      "No": 233,
+      "Taluka": "Bhusawal",
+      "Village": "Kahurkhede"
+    },
+    {
+      "No": 234,
+      "Taluka": "Bhusawal",
+      "Village": "Kanhale Bk."
+    },
+    {
+      "No": 235,
+      "Taluka": "Bhusawal",
+      "Village": "Kanhale Kh."
+    },
+    {
+      "No": 236,
+      "Taluka": "Bhusawal",
+      "Village": "Kathore Bk."
+    },
+    {
+      "No": 237,
+      "Taluka": "Bhusawal",
+      "Village": "Kathore Kh."
+    },
+    {
+      "No": 238,
+      "Taluka": "Bhusawal",
+      "Village": "Khadake"
+    },
+    {
+      "No": 239,
+      "Taluka": "Bhusawal",
+      "Village": "Khandale"
+    },
+    {
+      "No": 240,
+      "Taluka": "Bhusawal",
+      "Village": "Khedi Bk."
+    },
+    {
+      "No": 241,
+      "Taluka": "Bhusawal",
+      "Village": "Kinhi"
+    },
+    {
+      "No": 242,
+      "Taluka": "Bhusawal",
+      "Village": "Kurhe Pr. Nashirabad"
+    },
+    {
+      "No": 243,
+      "Taluka": "Bhusawal",
+      "Village": "Mandavedigar"
+    },
+    {
+      "No": 244,
+      "Taluka": "Bhusawal",
+      "Village": "Manpur"
+    },
+    {
+      "No": 245,
+      "Taluka": "Bhusawal",
+      "Village": "Manyarkhede"
+    },
+    {
+      "No": 246,
+      "Taluka": "Bhusawal",
+      "Village": "Mirgavhan"
+    },
+    {
+      "No": 247,
+      "Taluka": "Bhusawal",
+      "Village": "Mondhale"
+    },
+    {
+      "No": 248,
+      "Taluka": "Bhusawal",
+      "Village": "Nimbhore Kh."
+    },
+    {
+      "No": 249,
+      "Taluka": "Bhusawal",
+      "Village": "Pimpalgaon Bk."
+    },
+    {
+      "No": 250,
+      "Taluka": "Bhusawal",
+      "Village": "Pimpalgaon Kh."
+    },
+    {
+      "No": 251,
+      "Taluka": "Bhusawal",
+      "Village": "Pimprisekam."
+    },
+    {
+      "No": 252,
+      "Taluka": "Bhusawal",
+      "Village": "Sakari"
+    },
+    {
+      "No": 253,
+      "Taluka": "Bhusawal",
+      "Village": "Sakegaon"
+    },
+    {
+      "No": 254,
+      "Taluka": "Bhusawal",
+      "Village": "Savtar"
+    },
+    {
+      "No": 255,
+      "Taluka": "Bhusawal",
+      "Village": "Shindi"
+    },
+    {
+      "No": 256,
+      "Taluka": "Bhusawal",
+      "Village": "Sunasgaon"
+    },
+    {
+      "No": 257,
+      "Taluka": "Bhusawal",
+      "Village": "Susari"
+    },
+    {
+      "No": 258,
+      "Taluka": "Bhusawal",
+      "Village": "Tahakali"
+    },
+    {
+      "No": 259,
+      "Taluka": "Bhusawal",
+      "Village": "Talwel"
+    },
+    {
+      "No": 260,
+      "Taluka": "Bhusawal",
+      "Village": "Vanjole"
+    },
+    {
+      "No": 261,
+      "Taluka": "Bhusawal",
+      "Village": "Varad Seem"
+    },
+    {
+      "No": 262,
+      "Taluka": "Bhusawal",
+      "Village": "Vazarkhede"
+    },
+    {
+      "No": 263,
+      "Taluka": "Bhusawal",
+      "Village": "Vilhale"
+    },
+    {
+      "No": 264,
+      "Taluka": "Bodwad",
+      "Village": "Amadgaon"
+    },
+    {
+      "No": 265,
+      "Taluka": "Bodwad",
+      "Village": "Bhankhede Pr. Varangaon"
+    },
+    {
+      "No": 266,
+      "Taluka": "Bodwad",
+      "Village": "Bodwad"
+    },
+    {
+      "No": 267,
+      "Taluka": "Bodwad",
+      "Village": "Borgaon"
+    },
+    {
+      "No": 268,
+      "Taluka": "Bodwad",
+      "Village": "Chikhali Bk."
+    },
+    {
+      "No": 269,
+      "Taluka": "Bodwad",
+      "Village": "Chinchkhede Pr. Bodwad"
+    },
+    {
+      "No": 270,
+      "Taluka": "Bodwad",
+      "Village": "Chinchkhede Seem"
+    },
+    {
+      "No": 271,
+      "Taluka": "Bodwad",
+      "Village": "Dhanori"
+    },
+    {
+      "No": 272,
+      "Taluka": "Bodwad",
+      "Village": "Dhondkheda"
+    },
+    {
+      "No": 273,
+      "Taluka": "Bodwad",
+      "Village": "Farkande"
+    },
+    {
+      "No": 274,
+      "Taluka": "Bodwad",
+      "Village": "Ghankhede"
+    },
+    {
+      "No": 275,
+      "Taluka": "Bodwad",
+      "Village": "Golegaon Bk"
+    },
+    {
+      "No": 276,
+      "Taluka": "Bodwad",
+      "Village": "Golegaon Kh"
+    },
+    {
+      "No": 277,
+      "Taluka": "Bodwad",
+      "Village": "Harankhede"
+    },
+    {
+      "No": 278,
+      "Taluka": "Bodwad",
+      "Village": "Hingane"
+    },
+    {
+      "No": 279,
+      "Taluka": "Bodwad",
+      "Village": "Jalchakra Bk."
+    },
+    {
+      "No": 280,
+      "Taluka": "Bodwad",
+      "Village": "Jalchakra Kh."
+    },
+    {
+      "No": 281,
+      "Taluka": "Bodwad",
+      "Village": "Jamathi"
+    },
+    {
+      "No": 282,
+      "Taluka": "Bodwad",
+      "Village": "Junone"
+    },
+    {
+      "No": 283,
+      "Taluka": "Bodwad",
+      "Village": "Karanji"
+    },
+    {
+      "No": 284,
+      "Taluka": "Bodwad",
+      "Village": "Kholpimpri"
+    },
+    {
+      "No": 285,
+      "Taluka": "Bodwad",
+      "Village": "Kolhadi"
+    },
+    {
+      "No": 286,
+      "Taluka": "Bodwad",
+      "Village": "Kurha Hardo"
+    },
+    {
+      "No": 287,
+      "Taluka": "Bodwad",
+      "Village": "Lonwadi Pr.bodwad"
+    },
+    {
+      "No": 288,
+      "Taluka": "Bodwad",
+      "Village": "Manmodi"
+    },
+    {
+      "No": 289,
+      "Taluka": "Bodwad",
+      "Village": "Manur Bk."
+    },
+    {
+      "No": 290,
+      "Taluka": "Bodwad",
+      "Village": "Manur Kh."
+    },
+    {
+      "No": 291,
+      "Taluka": "Bodwad",
+      "Village": "Muktal"
+    },
+    {
+      "No": 292,
+      "Taluka": "Bodwad",
+      "Village": "Nadgaon"
+    },
+    {
+      "No": 293,
+      "Taluka": "Bodwad",
+      "Village": "Nandgaon"
+    },
+    {
+      "No": 294,
+      "Taluka": "Bodwad",
+      "Village": "Nimkhede"
+    },
+    {
+      "No": 295,
+      "Taluka": "Bodwad",
+      "Village": "Pachadevali"
+    },
+    {
+      "No": 296,
+      "Taluka": "Bodwad",
+      "Village": "Palaskhede Bk."
+    },
+    {
+      "No": 297,
+      "Taluka": "Bodwad",
+      "Village": "Palaskhede Kh."
+    },
+    {
+      "No": 298,
+      "Taluka": "Bodwad",
+      "Village": "Rajur"
+    },
+    {
+      "No": 299,
+      "Taluka": "Bodwad",
+      "Village": "Revati"
+    },
+    {
+      "No": 300,
+      "Taluka": "Bodwad",
+      "Village": "Salshingi"
+    },
+    {
+      "No": 301,
+      "Taluka": "Bodwad",
+      "Village": "Shelwad"
+    },
+    {
+      "No": 302,
+      "Taluka": "Bodwad",
+      "Village": "Shevage Bk."
+    },
+    {
+      "No": 303,
+      "Taluka": "Bodwad",
+      "Village": "Shevage Kh."
+    },
+    {
+      "No": 304,
+      "Taluka": "Bodwad",
+      "Village": "Shirsale"
+    },
+    {
+      "No": 305,
+      "Taluka": "Bodwad",
+      "Village": "Sonoti"
+    },
+    {
+      "No": 306,
+      "Taluka": "Bodwad",
+      "Village": "Surwade Bk."
+    },
+    {
+      "No": 307,
+      "Taluka": "Bodwad",
+      "Village": "Surwade Kh."
+    },
+    {
+      "No": 308,
+      "Taluka": "Bodwad",
+      "Village": "Vadji"
+    },
+    {
+      "No": 309,
+      "Taluka": "Bodwad",
+      "Village": "Vaki"
+    },
+    {
+      "No": 310,
+      "Taluka": "Bodwad",
+      "Village": "Varad Bk."
+    },
+    {
+      "No": 311,
+      "Taluka": "Bodwad",
+      "Village": "Varad Kh."
+    },
+    {
+      "No": 312,
+      "Taluka": "Bodwad",
+      "Village": "Varkhede Bk."
+    },
+    {
+      "No": 313,
+      "Taluka": "Bodwad",
+      "Village": "Varkhede Kh."
+    },
+    {
+      "No": 314,
+      "Taluka": "Bodwad",
+      "Village": "Vichave"
+    },
+    {
+      "No": 315,
+      "Taluka": "Bodwad",
+      "Village": "Yengaon"
+    },
+    {
+      "No": 316,
+      "Taluka": "Bodwad",
+      "Village": "Yevati"
+    },
+    {
+      "No": 317,
+      "Taluka": "Chalisgaon",
+      "Village": "Abhone"
+    },
+    {
+      "No": 318,
+      "Taluka": "Chalisgaon",
+      "Village": "Adgaon"
+    },
+    {
+      "No": 319,
+      "Taluka": "Chalisgaon",
+      "Village": "Alwadi"
+    },
+    {
+      "No": 320,
+      "Taluka": "Chalisgaon",
+      "Village": "Ambehoi"
+    },
+    {
+      "No": 321,
+      "Taluka": "Chalisgaon",
+      "Village": "Andhari"
+    },
+    {
+      "No": 322,
+      "Taluka": "Chalisgaon",
+      "Village": "Bahal"
+    },
+    {
+      "No": 323,
+      "Taluka": "Chalisgaon",
+      "Village": "Bangaon"
+    },
+    {
+      "No": 324,
+      "Taluka": "Chalisgaon",
+      "Village": "Beldarwadi"
+    },
+    {
+      "No": 325,
+      "Taluka": "Chalisgaon",
+      "Village": "Bhamare Bk"
+    },
+    {
+      "No": 326,
+      "Taluka": "Chalisgaon",
+      "Village": "Bhamare Kh"
+    },
+    {
+      "No": 327,
+      "Taluka": "Chalisgaon",
+      "Village": "Bhaur"
+    },
+    {
+      "No": 328,
+      "Taluka": "Chalisgaon",
+      "Village": "Bhawali"
+    },
+    {
+      "No": 329,
+      "Taluka": "Chalisgaon",
+      "Village": "Bhoras Bk."
+    },
+    {
+      "No": 330,
+      "Taluka": "Chalisgaon",
+      "Village": "Bhoras Kh"
+    },
+    {
+      "No": 331,
+      "Taluka": "Chalisgaon",
+      "Village": "Bilakhed"
+    },
+    {
+      "No": 332,
+      "Taluka": "Chalisgaon",
+      "Village": "Bodhare"
+    },
+    {
+      "No": 333,
+      "Taluka": "Chalisgaon",
+      "Village": "Borkhede Bk"
+    },
+    {
+      "No": 334,
+      "Taluka": "Chalisgaon",
+      "Village": "Borkhede Kh."
+    },
+    {
+      "No": 335,
+      "Taluka": "Chalisgaon",
+      "Village": "Bramhan Shewage"
+    },
+    {
+      "No": 336,
+      "Taluka": "Chalisgaon",
+      "Village": "Chambhardi Bk."
+    },
+    {
+      "No": 337,
+      "Taluka": "Chalisgaon",
+      "Village": "Chambhardi Kh."
+    },
+    {
+      "No": 338,
+      "Taluka": "Chalisgaon",
+      "Village": "Chandikawadi"
+    },
+    {
+      "No": 339,
+      "Taluka": "Chalisgaon",
+      "Village": "Chatrubhuj"
+    },
+    {
+      "No": 340,
+      "Taluka": "Chalisgaon",
+      "Village": "Chinchgavhan"
+    },
+    {
+      "No": 341,
+      "Taluka": "Chalisgaon",
+      "Village": "Chinchkhede"
+    },
+    {
+      "No": 342,
+      "Taluka": "Chalisgaon",
+      "Village": "Chitegaon"
+    },
+    {
+      "No": 343,
+      "Taluka": "Chalisgaon",
+      "Village": "Dahiwad"
+    },
+    {
+      "No": 344,
+      "Taluka": "Chalisgaon",
+      "Village": "Damrun"
+    },
+    {
+      "No": 345,
+      "Taluka": "Chalisgaon",
+      "Village": "Daregaon"
+    },
+    {
+      "No": 346,
+      "Taluka": "Chalisgaon",
+      "Village": "Dasegaon Bk"
+    },
+    {
+      "No": 347,
+      "Taluka": "Chalisgaon",
+      "Village": "Daskebardi"
+    },
+    {
+      "No": 348,
+      "Taluka": "Chalisgaon",
+      "Village": "Deoli"
+    },
+    {
+      "No": 349,
+      "Taluka": "Chalisgaon",
+      "Village": "Deshmukhwadi"
+    },
+    {
+      "No": 350,
+      "Taluka": "Chalisgaon",
+      "Village": "Dhamangaon"
+    },
+    {
+      "No": 351,
+      "Taluka": "Chalisgaon",
+      "Village": "Dhomane"
+    },
+    {
+      "No": 352,
+      "Taluka": "Chalisgaon",
+      "Village": "Don Digar"
+    },
+    {
+      "No": 353,
+      "Taluka": "Chalisgaon",
+      "Village": "Eklahare"
+    },
+    {
+      "No": 354,
+      "Taluka": "Chalisgaon",
+      "Village": "Ganeshpur"
+    },
+    {
+      "No": 355,
+      "Taluka": "Chalisgaon",
+      "Village": "Ganpur"
+    },
+    {
+      "No": 356,
+      "Taluka": "Chalisgaon",
+      "Village": "Ghodegaon"
+    },
+    {
+      "No": 357,
+      "Taluka": "Chalisgaon",
+      "Village": "Gorakhpur"
+    },
+    {
+      "No": 358,
+      "Taluka": "Chalisgaon",
+      "Village": "Gujardari"
+    },
+    {
+      "No": 359,
+      "Taluka": "Chalisgaon",
+      "Village": "Hatale"
+    },
+    {
+      "No": 360,
+      "Taluka": "Chalisgaon",
+      "Village": "Hatgaon"
+    },
+    {
+      "No": 361,
+      "Taluka": "Chalisgaon",
+      "Village": "Hingone Kh."
+    },
+    {
+      "No": 362,
+      "Taluka": "Chalisgaon",
+      "Village": "Hingone Seem"
+    },
+    {
+      "No": 363,
+      "Taluka": "Chalisgaon",
+      "Village": "Hirapur"
+    },
+    {
+      "No": 364,
+      "Taluka": "Chalisgaon",
+      "Village": "Ichchhapur"
+    },
+    {
+      "No": 365,
+      "Taluka": "Chalisgaon",
+      "Village": "Jamada"
+    },
+    {
+      "No": 366,
+      "Taluka": "Chalisgaon",
+      "Village": "Jamadi Pr. Bahal"
+    },
+    {
+      "No": 367,
+      "Taluka": "Chalisgaon",
+      "Village": "Jawale"
+    },
+    {
+      "No": 368,
+      "Taluka": "Chalisgaon",
+      "Village": "Junone"
+    },
+    {
+      "No": 369,
+      "Taluka": "Chalisgaon",
+      "Village": "Junpani Sett"
+    },
+    {
+      "No": 370,
+      "Taluka": "Chalisgaon",
+      "Village": "Kadhere"
+    },
+    {
+      "No": 371,
+      "Taluka": "Chalisgaon",
+      "Village": "Kakadane"
+    },
+    {
+      "No": 372,
+      "Taluka": "Chalisgaon",
+      "Village": "Kalamadu"
+    },
+    {
+      "No": 373,
+      "Taluka": "Chalisgaon",
+      "Village": "Karajgaon"
+    },
+    {
+      "No": 374,
+      "Taluka": "Chalisgaon",
+      "Village": "Kargaon"
+    },
+    {
+      "No": 375,
+      "Taluka": "Chalisgaon",
+      "Village": "Khadaki Bk."
+    },
+    {
+      "No": 376,
+      "Taluka": "Chalisgaon",
+      "Village": "Khadaki Seem"
+    },
+    {
+      "No": 377,
+      "Taluka": "Chalisgaon",
+      "Village": "Kharadi"
+    },
+    {
+      "No": 378,
+      "Taluka": "Chalisgaon",
+      "Village": "Kharjai"
+    },
+    {
+      "No": 379,
+      "Taluka": "Chalisgaon",
+      "Village": "Khedgaon"
+    },
+    {
+      "No": 380,
+      "Taluka": "Chalisgaon",
+      "Village": "Khedi Kh"
+    },
+    {
+      "No": 381,
+      "Taluka": "Chalisgaon",
+      "Village": "Kherde"
+    },
+    {
+      "No": 382,
+      "Taluka": "Chalisgaon",
+      "Village": "Kodgaon"
+    },
+    {
+      "No": 383,
+      "Taluka": "Chalisgaon",
+      "Village": "Konganagar"
+    },
+    {
+      "No": 384,
+      "Taluka": "Chalisgaon",
+      "Village": "Krishnapuri"
+    },
+    {
+      "No": 385,
+      "Taluka": "Chalisgaon",
+      "Village": "Krushnanagar"
+    },
+    {
+      "No": 386,
+      "Taluka": "Chalisgaon",
+      "Village": "Kunzar"
+    },
+    {
+      "No": 387,
+      "Taluka": "Chalisgaon",
+      "Village": "Londhe"
+    },
+    {
+      "No": 388,
+      "Taluka": "Chalisgaon",
+      "Village": "Lonje"
+    },
+    {
+      "No": 389,
+      "Taluka": "Chalisgaon",
+      "Village": "Malshevage"
+    },
+    {
+      "No": 390,
+      "Taluka": "Chalisgaon",
+      "Village": "Mandurne"
+    },
+    {
+      "No": 391,
+      "Taluka": "Chalisgaon",
+      "Village": "Mehunbare"
+    },
+    {
+      "No": 392,
+      "Taluka": "Chalisgaon",
+      "Village": "Mundkhede Bk."
+    },
+    {
+      "No": 393,
+      "Taluka": "Chalisgaon",
+      "Village": "Mundkhede Kh."
+    },
+    {
+      "No": 394,
+      "Taluka": "Chalisgaon",
+      "Village": "Naiknager"
+    },
+    {
+      "No": 395,
+      "Taluka": "Chalisgaon",
+      "Village": "Nandre"
+    },
+    {
+      "No": 396,
+      "Taluka": "Chalisgaon",
+      "Village": "Nhave"
+    },
+    {
+      "No": 397,
+      "Taluka": "Chalisgaon",
+      "Village": "Nimkhedi"
+    },
+    {
+      "No": 398,
+      "Taluka": "Chalisgaon",
+      "Village": "Odhare"
+    },
+    {
+      "No": 399,
+      "Taluka": "Chalisgaon",
+      "Village": "Ozar"
+    },
+    {
+      "No": 400,
+      "Taluka": "Chalisgaon",
+      "Village": "Palasare"
+    },
+    {
+      "No": 401,
+      "Taluka": "Chalisgaon",
+      "Village": "Parasharam Nagar"
+    },
+    {
+      "No": 402,
+      "Taluka": "Chalisgaon",
+      "Village": "Patana"
+    },
+    {
+      "No": 403,
+      "Taluka": "Chalisgaon",
+      "Village": "Pathraje"
+    },
+    {
+      "No": 404,
+      "Taluka": "Chalisgaon",
+      "Village": "Patkhadki"
+    },
+    {
+      "No": 405,
+      "Taluka": "Chalisgaon",
+      "Village": "Patonda"
+    },
+    {
+      "No": 406,
+      "Taluka": "Chalisgaon",
+      "Village": "Pilkhod"
+    },
+    {
+      "No": 407,
+      "Taluka": "Chalisgaon",
+      "Village": "Pimpalgaon"
+    },
+    {
+      "No": 408,
+      "Taluka": "Chalisgaon",
+      "Village": "Pimpalwad Mhalsa"
+    },
+    {
+      "No": 409,
+      "Taluka": "Chalisgaon",
+      "Village": "Pimpalwad Nikumbh"
+    },
+    {
+      "No": 410,
+      "Taluka": "Chalisgaon",
+      "Village": "Pimparkhede"
+    },
+    {
+      "No": 411,
+      "Taluka": "Chalisgaon",
+      "Village": "Pimpri Bk. Pr. de"
+    },
+    {
+      "No": 412,
+      "Taluka": "Chalisgaon",
+      "Village": "Pimpri Bk. Pr.chalisgoan"
+    },
+    {
+      "No": 413,
+      "Taluka": "Chalisgaon",
+      "Village": "Pimpri Kh."
+    },
+    {
+      "No": 414,
+      "Taluka": "Chalisgaon",
+      "Village": "Pohare"
+    },
+    {
+      "No": 415,
+      "Taluka": "Chalisgaon",
+      "Village": "Rahipuri"
+    },
+    {
+      "No": 416,
+      "Taluka": "Chalisgaon",
+      "Village": "Rajdehare"
+    },
+    {
+      "No": 417,
+      "Taluka": "Chalisgaon",
+      "Village": "Rajdehare Sett."
+    },
+    {
+      "No": 418,
+      "Taluka": "Chalisgaon",
+      "Village": "Rajmane"
+    },
+    {
+      "No": 419,
+      "Taluka": "Chalisgaon",
+      "Village": "Ramnagar"
+    },
+    {
+      "No": 420,
+      "Taluka": "Chalisgaon",
+      "Village": "Ranjangaon"
+    },
+    {
+      "No": 421,
+      "Taluka": "Chalisgaon",
+      "Village": "Rohini"
+    },
+    {
+      "No": 422,
+      "Taluka": "Chalisgaon",
+      "Village": "Rokade"
+    },
+    {
+      "No": 423,
+      "Taluka": "Chalisgaon",
+      "Village": "Sangavi"
+    },
+    {
+      "No": 424,
+      "Taluka": "Chalisgaon",
+      "Village": "Sayagaon"
+    },
+    {
+      "No": 425,
+      "Taluka": "Chalisgaon",
+      "Village": "Sevanagar"
+    },
+    {
+      "No": 426,
+      "Taluka": "Chalisgaon",
+      "Village": "Shewari"
+    },
+    {
+      "No": 427,
+      "Taluka": "Chalisgaon",
+      "Village": "Shidwadi"
+    },
+    {
+      "No": 428,
+      "Taluka": "Chalisgaon",
+      "Village": "Shindi"
+    },
+    {
+      "No": 429,
+      "Taluka": "Chalisgaon",
+      "Village": "Shirasgaon"
+    },
+    {
+      "No": 430,
+      "Taluka": "Chalisgaon",
+      "Village": "Shivapur"
+    },
+    {
+      "No": 431,
+      "Taluka": "Chalisgaon",
+      "Village": "Songaon"
+    },
+    {
+      "No": 432,
+      "Taluka": "Chalisgaon",
+      "Village": "Sundarnagar"
+    },
+    {
+      "No": 433,
+      "Taluka": "Chalisgaon",
+      "Village": "Takali Pr. Dehere"
+    },
+    {
+      "No": 434,
+      "Taluka": "Chalisgaon",
+      "Village": "Talegaon"
+    },
+    {
+      "No": 435,
+      "Taluka": "Chalisgaon",
+      "Village": "Talode Pr. Chalisgaon"
+    },
+    {
+      "No": 436,
+      "Taluka": "Chalisgaon",
+      "Village": "Talonde Pr. Dehere"
+    },
+    {
+      "No": 437,
+      "Taluka": "Chalisgaon",
+      "Village": "Tamaswadi"
+    },
+    {
+      "No": 438,
+      "Taluka": "Chalisgaon",
+      "Village": "Tambole Bk."
+    },
+    {
+      "No": 439,
+      "Taluka": "Chalisgaon",
+      "Village": "Tambole Kh."
+    },
+    {
+      "No": 440,
+      "Taluka": "Chalisgaon",
+      "Village": "Tamgavhan"
+    },
+    {
+      "No": 441,
+      "Taluka": "Chalisgaon",
+      "Village": "Tarwade Bk."
+    },
+    {
+      "No": 442,
+      "Taluka": "Chalisgaon",
+      "Village": "Tekwade Bk."
+    },
+    {
+      "No": 443,
+      "Taluka": "Chalisgaon",
+      "Village": "Tekwade Kh."
+    },
+    {
+      "No": 444,
+      "Taluka": "Chalisgaon",
+      "Village": "Tirpole"
+    },
+    {
+      "No": 445,
+      "Taluka": "Chalisgaon",
+      "Village": "Umbarkhede"
+    },
+    {
+      "No": 446,
+      "Taluka": "Chalisgaon",
+      "Village": "Upkhede"
+    },
+    {
+      "No": 447,
+      "Taluka": "Chalisgaon",
+      "Village": "Vadale Vadali"
+    },
+    {
+      "No": 448,
+      "Taluka": "Chalisgaon",
+      "Village": "Vadgaon Lambe"
+    },
+    {
+      "No": 449,
+      "Taluka": "Chalisgaon",
+      "Village": "Varkhede Bk."
+    },
+    {
+      "No": 450,
+      "Taluka": "Chalisgaon",
+      "Village": "Varkhede Kh."
+    },
+    {
+      "No": 451,
+      "Taluka": "Chalisgaon",
+      "Village": "Varthan"
+    },
+    {
+      "No": 452,
+      "Taluka": "Chalisgaon",
+      "Village": "Visapur"
+    },
+    {
+      "No": 453,
+      "Taluka": "Chalisgaon",
+      "Village": "Vishnunagar"
+    },
+    {
+      "No": 454,
+      "Taluka": "Chalisgaon",
+      "Village": "Waghadu"
+    },
+    {
+      "No": 455,
+      "Taluka": "Chalisgaon",
+      "Village": "Waghale"
+    },
+    {
+      "No": 456,
+      "Taluka": "Chalisgaon",
+      "Village": "Waghali"
+    },
+    {
+      "No": 457,
+      "Taluka": "Chalisgaon",
+      "Village": "Waghari"
+    },
+    {
+      "No": 458,
+      "Taluka": "Chalisgaon",
+      "Village": "Wakadi"
+    },
+    {
+      "No": 459,
+      "Taluka": "Chopda",
+      "Village": "Adgaon"
+    },
+    {
+      "No": 460,
+      "Taluka": "Chopda",
+      "Village": "Adwad"
+    },
+    {
+      "No": 461,
+      "Taluka": "Chopda",
+      "Village": "Ajanti Kh."
+    },
+    {
+      "No": 462,
+      "Taluka": "Chopda",
+      "Village": "Ajanti Seem"
+    },
+    {
+      "No": 463,
+      "Taluka": "Chopda",
+      "Village": "Akhatwade"
+    },
+    {
+      "No": 464,
+      "Taluka": "Chopda",
+      "Village": "Akulkhede"
+    },
+    {
+      "No": 465,
+      "Taluka": "Chopda",
+      "Village": "Amalwadi"
+    },
+    {
+      "No": 466,
+      "Taluka": "Chopda",
+      "Village": "Ambade"
+    },
+    {
+      "No": 467,
+      "Taluka": "Chopda",
+      "Village": "Anwarde Bk."
+    },
+    {
+      "No": 468,
+      "Taluka": "Chopda",
+      "Village": "Anwarde Kh."
+    },
+    {
+      "No": 469,
+      "Taluka": "Chopda",
+      "Village": "Asalwadi"
+    },
+    {
+      "No": 470,
+      "Taluka": "Chopda",
+      "Village": "Badhai"
+    },
+    {
+      "No": 471,
+      "Taluka": "Chopda",
+      "Village": "Badhawani"
+    },
+    {
+      "No": 472,
+      "Taluka": "Chopda",
+      "Village": "Bhardu"
+    },
+    {
+      "No": 473,
+      "Taluka": "Chopda",
+      "Village": "Bhawale"
+    },
+    {
+      "No": 474,
+      "Taluka": "Chopda",
+      "Village": "Bhokari"
+    },
+    {
+      "No": 475,
+      "Taluka": "Chopda",
+      "Village": "Bidgaon"
+    },
+    {
+      "No": 476,
+      "Taluka": "Chopda",
+      "Village": "Bor Ajanti"
+    },
+    {
+      "No": 477,
+      "Taluka": "Chopda",
+      "Village": "Borkhede"
+    },
+    {
+      "No": 478,
+      "Taluka": "Chopda",
+      "Village": "Bormali"
+    },
+    {
+      "No": 479,
+      "Taluka": "Chopda",
+      "Village": "Budhagaon"
+    },
+    {
+      "No": 480,
+      "Taluka": "Chopda",
+      "Village": "Chahardi"
+    },
+    {
+      "No": 481,
+      "Taluka": "Chopda",
+      "Village": "Chandsani"
+    },
+    {
+      "No": 482,
+      "Taluka": "Chopda",
+      "Village": "Chaugaon"
+    },
+    {
+      "No": 483,
+      "Taluka": "Chopda",
+      "Village": "Chunchale"
+    },
+    {
+      "No": 484,
+      "Taluka": "Chopda",
+      "Village": "Dagadi Bk"
+    },
+    {
+      "No": 485,
+      "Taluka": "Chopda",
+      "Village": "Deogaon"
+    },
+    {
+      "No": 486,
+      "Taluka": "Chopda",
+      "Village": "Deozari"
+    },
+    {
+      "No": 487,
+      "Taluka": "Chopda",
+      "Village": "Devhari"
+    },
+    {
+      "No": 488,
+      "Taluka": "Chopda",
+      "Village": "Dhanore Pr.Adavad"
+    },
+    {
+      "No": 489,
+      "Taluka": "Chopda",
+      "Village": "Dhanore Pr.chopda"
+    },
+    {
+      "No": 490,
+      "Taluka": "Chopda",
+      "Village": "Dhanwadi"
+    },
+    {
+      "No": 491,
+      "Taluka": "Chopda",
+      "Village": "Dhupe Bk."
+    },
+    {
+      "No": 492,
+      "Taluka": "Chopda",
+      "Village": "Dhupe Kh."
+    },
+    {
+      "No": 493,
+      "Taluka": "Chopda",
+      "Village": "Dondwade"
+    },
+    {
+      "No": 494,
+      "Taluka": "Chopda",
+      "Village": "Galangi"
+    },
+    {
+      "No": 495,
+      "Taluka": "Chopda",
+      "Village": "Galwade"
+    },
+    {
+      "No": 496,
+      "Taluka": "Chopda",
+      "Village": "Ganpur"
+    },
+    {
+      "No": 497,
+      "Taluka": "Chopda",
+      "Village": "Garatad"
+    },
+    {
+      "No": 498,
+      "Taluka": "Chopda",
+      "Village": "Ghadwel"
+    },
+    {
+      "No": 499,
+      "Taluka": "Chopda",
+      "Village": "Ghodgaon"
+    },
+    {
+      "No": 500,
+      "Taluka": "Chopda",
+      "Village": "Ghumawal Bk."
+    },
+    {
+      "No": 501,
+      "Taluka": "Chopda",
+      "Village": "Ghumawal Kh."
+    },
+    {
+      "No": 502,
+      "Taluka": "Chopda",
+      "Village": "Gorgawale Bk."
+    },
+    {
+      "No": 503,
+      "Taluka": "Chopda",
+      "Village": "Gorgawale Kh."
+    },
+    {
+      "No": 504,
+      "Taluka": "Chopda",
+      "Village": "Hatede Bk."
+    },
+    {
+      "No": 505,
+      "Taluka": "Chopda",
+      "Village": "Hatede Kh."
+    },
+    {
+      "No": 506,
+      "Taluka": "Chopda",
+      "Village": "Ichhapur"
+    },
+    {
+      "No": 507,
+      "Taluka": "Chopda",
+      "Village": "Kamalgaon"
+    },
+    {
+      "No": 508,
+      "Taluka": "Chopda",
+      "Village": "Karjane"
+    },
+    {
+      "No": 509,
+      "Taluka": "Chopda",
+      "Village": "Karjane"
+    },
+    {
+      "No": 510,
+      "Taluka": "Chopda",
+      "Village": "Kathore"
+    },
+    {
+      "No": 511,
+      "Taluka": "Chopda",
+      "Village": "Kazipura"
+    },
+    {
+      "No": 512,
+      "Taluka": "Chopda",
+      "Village": "Khachane"
+    },
+    {
+      "No": 513,
+      "Taluka": "Chopda",
+      "Village": "Khadgaon"
+    },
+    {
+      "No": 514,
+      "Taluka": "Chopda",
+      "Village": "Khandane"
+    },
+    {
+      "No": 515,
+      "Taluka": "Chopda",
+      "Village": "Kharag"
+    },
+    {
+      "No": 516,
+      "Taluka": "Chopda",
+      "Village": "Khardi"
+    },
+    {
+      "No": 517,
+      "Taluka": "Chopda",
+      "Village": "Kharya Padawa"
+    },
+    {
+      "No": 518,
+      "Taluka": "Chopda",
+      "Village": "Khedi Bk."
+    },
+    {
+      "No": 519,
+      "Taluka": "Chopda",
+      "Village": "Kolambe"
+    },
+    {
+      "No": 520,
+      "Taluka": "Chopda",
+      "Village": "Krishnapur"
+    },
+    {
+      "No": 521,
+      "Taluka": "Chopda",
+      "Village": "Kundyapani"
+    },
+    {
+      "No": 522,
+      "Taluka": "Chopda",
+      "Village": "Kurvel"
+    },
+    {
+      "No": 523,
+      "Taluka": "Chopda",
+      "Village": "Kusumbe"
+    },
+    {
+      "No": 524,
+      "Taluka": "Chopda",
+      "Village": "Lasur"
+    },
+    {
+      "No": 525,
+      "Taluka": "Chopda",
+      "Village": "Loni"
+    },
+    {
+      "No": 526,
+      "Taluka": "Chopda",
+      "Village": "Machale"
+    },
+    {
+      "No": 527,
+      "Taluka": "Chopda",
+      "Village": "Majare Hingone"
+    },
+    {
+      "No": 528,
+      "Taluka": "Chopda",
+      "Village": "Majre Hol"
+    },
+    {
+      "No": 529,
+      "Taluka": "Chopda",
+      "Village": "Malapur"
+    },
+    {
+      "No": 530,
+      "Taluka": "Chopda",
+      "Village": "Malkhede"
+    },
+    {
+      "No": 531,
+      "Taluka": "Chopda",
+      "Village": "Mamlade"
+    },
+    {
+      "No": 532,
+      "Taluka": "Chopda",
+      "Village": "Mangrul"
+    },
+    {
+      "No": 533,
+      "Taluka": "Chopda",
+      "Village": "Maratha"
+    },
+    {
+      "No": 534,
+      "Taluka": "Chopda",
+      "Village": "Mauje Hingone"
+    },
+    {
+      "No": 535,
+      "Taluka": "Chopda",
+      "Village": "Melane"
+    },
+    {
+      "No": 536,
+      "Taluka": "Chopda",
+      "Village": "Mitawali"
+    },
+    {
+      "No": 537,
+      "Taluka": "Chopda",
+      "Village": "Moharad"
+    },
+    {
+      "No": 538,
+      "Taluka": "Chopda",
+      "Village": "Mohide"
+    },
+    {
+      "No": 539,
+      "Taluka": "Chopda",
+      "Village": "Morchida"
+    },
+    {
+      "No": 540,
+      "Taluka": "Chopda",
+      "Village": "Mulyautar"
+    },
+    {
+      "No": 541,
+      "Taluka": "Chopda",
+      "Village": "Nagalwadi"
+    },
+    {
+      "No": 542,
+      "Taluka": "Chopda",
+      "Village": "Narod"
+    },
+    {
+      "No": 543,
+      "Taluka": "Chopda",
+      "Village": "Narwade"
+    },
+    {
+      "No": 544,
+      "Taluka": "Chopda",
+      "Village": "Nimgavhan"
+    },
+    {
+      "No": 545,
+      "Taluka": "Chopda",
+      "Village": "Panchak"
+    },
+    {
+      "No": 546,
+      "Taluka": "Chopda",
+      "Village": "Pargaon"
+    },
+    {
+      "No": 547,
+      "Taluka": "Chopda",
+      "Village": "Pimpri"
+    },
+    {
+      "No": 548,
+      "Taluka": "Chopda",
+      "Village": "Pungaon"
+    },
+    {
+      "No": 549,
+      "Taluka": "Chopda",
+      "Village": "Rukhankheda Pr.Adwat"
+    },
+    {
+      "No": 550,
+      "Taluka": "Chopda",
+      "Village": "Rukhankhede Pr.chopda"
+    },
+    {
+      "No": 551,
+      "Taluka": "Chopda",
+      "Village": "Sanpule"
+    },
+    {
+      "No": 552,
+      "Taluka": "Chopda",
+      "Village": "Satrasen"
+    },
+    {
+      "No": 553,
+      "Taluka": "Chopda",
+      "Village": "Shendani"
+    },
+    {
+      "No": 554,
+      "Taluka": "Chopda",
+      "Village": "Shikawal"
+    },
+    {
+      "No": 555,
+      "Taluka": "Chopda",
+      "Village": "Sutkar"
+    },
+    {
+      "No": 556,
+      "Taluka": "Chopda",
+      "Village": "Tandalwadi"
+    },
+    {
+      "No": 557,
+      "Taluka": "Chopda",
+      "Village": "Tawase Bk."
+    },
+    {
+      "No": 558,
+      "Taluka": "Chopda",
+      "Village": "Tawase Kh."
+    },
+    {
+      "No": 559,
+      "Taluka": "Chopda",
+      "Village": "Umarti"
+    },
+    {
+      "No": 560,
+      "Taluka": "Chopda",
+      "Village": "Vadati"
+    },
+    {
+      "No": 561,
+      "Taluka": "Chopda",
+      "Village": "Vadgaon Bk."
+    },
+    {
+      "No": 562,
+      "Taluka": "Chopda",
+      "Village": "Vadgaon Kh."
+    },
+    {
+      "No": 563,
+      "Taluka": "Chopda",
+      "Village": "Vadgaon Seem"
+    },
+    {
+      "No": 564,
+      "Taluka": "Chopda",
+      "Village": "Vadhode"
+    },
+    {
+      "No": 565,
+      "Taluka": "Chopda",
+      "Village": "Vaijapur"
+    },
+    {
+      "No": 566,
+      "Taluka": "Chopda",
+      "Village": "Vaijapur (Shenpani)"
+    },
+    {
+      "No": 567,
+      "Taluka": "Chopda",
+      "Village": "Varad"
+    },
+    {
+      "No": 568,
+      "Taluka": "Chopda",
+      "Village": "Vardi"
+    },
+    {
+      "No": 569,
+      "Taluka": "Chopda",
+      "Village": "Vargavhan"
+    },
+    {
+      "No": 570,
+      "Taluka": "Chopda",
+      "Village": "Vatar"
+    },
+    {
+      "No": 571,
+      "Taluka": "Chopda",
+      "Village": "Vele"
+    },
+    {
+      "No": 572,
+      "Taluka": "Chopda",
+      "Village": "Vichakhede"
+    },
+    {
+      "No": 573,
+      "Taluka": "Chopda",
+      "Village": "Virwade"
+    },
+    {
+      "No": 574,
+      "Taluka": "Chopda",
+      "Village": "Vishnapur"
+    },
+    {
+      "No": 575,
+      "Taluka": "Chopda",
+      "Village": "Vitner"
+    },
+    {
+      "No": 576,
+      "Taluka": "Chopda",
+      "Village": "Walaki"
+    },
+    {
+      "No": 577,
+      "Taluka": "Chopda",
+      "Village": "Welode"
+    },
+    {
+      "No": 578,
+      "Taluka": "Dharangaon",
+      "Village": "Ahire Bk."
+    },
+    {
+      "No": 579,
+      "Taluka": "Dharangaon",
+      "Village": "Ahire Kh."
+    },
+    {
+      "No": 580,
+      "Taluka": "Dharangaon",
+      "Village": "Anjan Vihire"
+    },
+    {
+      "No": 581,
+      "Taluka": "Dharangaon",
+      "Village": "Anore"
+    },
+    {
+      "No": 582,
+      "Taluka": "Dharangaon",
+      "Village": "Avhani"
+    },
+    {
+      "No": 583,
+      "Taluka": "Dharangaon",
+      "Village": "Babhale Bk."
+    },
+    {
+      "No": 584,
+      "Taluka": "Dharangaon",
+      "Village": "Babhulgaon"
+    },
+    {
+      "No": 585,
+      "Taluka": "Dharangaon",
+      "Village": "Bambhori Bk."
+    },
+    {
+      "No": 586,
+      "Taluka": "Dharangaon",
+      "Village": "Bambhori Pr. Chandsar"
+    },
+    {
+      "No": 587,
+      "Taluka": "Dharangaon",
+      "Village": "Bhamardi"
+    },
+    {
+      "No": 588,
+      "Taluka": "Dharangaon",
+      "Village": "Bhavarkhede"
+    },
+    {
+      "No": 589,
+      "Taluka": "Dharangaon",
+      "Village": "Bhod Bk."
+    },
+    {
+      "No": 590,
+      "Taluka": "Dharangaon",
+      "Village": "Bhod Kh."
+    },
+    {
+      "No": 591,
+      "Taluka": "Dharangaon",
+      "Village": "Bhokani"
+    },
+    {
+      "No": 592,
+      "Taluka": "Dharangaon",
+      "Village": "Bhone Bk."
+    },
+    {
+      "No": 593,
+      "Taluka": "Dharangaon",
+      "Village": "Bilkhede"
+    },
+    {
+      "No": 594,
+      "Taluka": "Dharangaon",
+      "Village": "Borgaon Bk."
+    },
+    {
+      "No": 595,
+      "Taluka": "Dharangaon",
+      "Village": "Borgaon Kh."
+    },
+    {
+      "No": 596,
+      "Taluka": "Dharangaon",
+      "Village": "Borkheda"
+    },
+    {
+      "No": 597,
+      "Taluka": "Dharangaon",
+      "Village": "Chamgaon"
+    },
+    {
+      "No": 598,
+      "Taluka": "Dharangaon",
+      "Village": "Chandsar Bk."
+    },
+    {
+      "No": 599,
+      "Taluka": "Dharangaon",
+      "Village": "Chavalkhede"
+    },
+    {
+      "No": 600,
+      "Taluka": "Dharangaon",
+      "Village": "Chinchpure Bk."
+    },
+    {
+      "No": 601,
+      "Taluka": "Dharangaon",
+      "Village": "Chorgaon"
+    },
+    {
+      "No": 602,
+      "Taluka": "Dharangaon",
+      "Village": "Dahidule"
+    },
+    {
+      "No": 603,
+      "Taluka": "Dharangaon",
+      "Village": "Dhanore"
+    },
+    {
+      "No": 604,
+      "Taluka": "Dharangaon",
+      "Village": "Dhar"
+    },
+    {
+      "No": 605,
+      "Taluka": "Dharangaon",
+      "Village": "Dharangaon (Rural)"
+    },
+    {
+      "No": 606,
+      "Taluka": "Dharangaon",
+      "Village": "Dongaon Bk."
+    },
+    {
+      "No": 607,
+      "Taluka": "Dharangaon",
+      "Village": "Dongaon Kh."
+    },
+    {
+      "No": 608,
+      "Taluka": "Dharangaon",
+      "Village": "Ekalagne Bk."
+    },
+    {
+      "No": 609,
+      "Taluka": "Dharangaon",
+      "Village": "Fulpat"
+    },
+    {
+      "No": 610,
+      "Taluka": "Dharangaon",
+      "Village": "Gangapuri Bk."
+    },
+    {
+      "No": 611,
+      "Taluka": "Dharangaon",
+      "Village": "Garkhede"
+    },
+    {
+      "No": 612,
+      "Taluka": "Dharangaon",
+      "Village": "Gondegaon"
+    },
+    {
+      "No": 613,
+      "Taluka": "Dharangaon",
+      "Village": "Hanmantkhede Kh."
+    },
+    {
+      "No": 614,
+      "Taluka": "Dharangaon",
+      "Village": "Hingone Bk."
+    },
+    {
+      "No": 615,
+      "Taluka": "Dharangaon",
+      "Village": "Hingone Kh."
+    },
+    {
+      "No": 616,
+      "Taluka": "Dharangaon",
+      "Village": "Jambhore"
+    },
+    {
+      "No": 617,
+      "Taluka": "Dharangaon",
+      "Village": "Kalyane Bk."
+    },
+    {
+      "No": 618,
+      "Taluka": "Dharangaon",
+      "Village": "Kalyane Hol"
+    },
+    {
+      "No": 619,
+      "Taluka": "Dharangaon",
+      "Village": "Kalyane Kh."
+    },
+    {
+      "No": 620,
+      "Taluka": "Dharangaon",
+      "Village": "Kandari Bk."
+    },
+    {
+      "No": 621,
+      "Taluka": "Dharangaon",
+      "Village": "Kavthal"
+    },
+    {
+      "No": 622,
+      "Taluka": "Dharangaon",
+      "Village": "Khamkhede"
+    },
+    {
+      "No": 623,
+      "Taluka": "Dharangaon",
+      "Village": "Khapat"
+    },
+    {
+      "No": 624,
+      "Taluka": "Dharangaon",
+      "Village": "Kharde Bk."
+    },
+    {
+      "No": 625,
+      "Taluka": "Dharangaon",
+      "Village": "Ladli"
+    },
+    {
+      "No": 626,
+      "Taluka": "Dharangaon",
+      "Village": "Mahankale"
+    },
+    {
+      "No": 627,
+      "Taluka": "Dharangaon",
+      "Village": "Musai Bk."
+    },
+    {
+      "No": 628,
+      "Taluka": "Dharangaon",
+      "Village": "Musai Kh."
+    },
+    {
+      "No": 629,
+      "Taluka": "Dharangaon",
+      "Village": "Nanded"
+    },
+    {
+      "No": 630,
+      "Taluka": "Dharangaon",
+      "Village": "Narne"
+    },
+    {
+      "No": 631,
+      "Taluka": "Dharangaon",
+      "Village": "Nimbhore"
+    },
+    {
+      "No": 632,
+      "Taluka": "Dharangaon",
+      "Village": "Nimkhede"
+    },
+    {
+      "No": 633,
+      "Taluka": "Dharangaon",
+      "Village": "Nishane Bk."
+    },
+    {
+      "No": 634,
+      "Taluka": "Dharangaon",
+      "Village": "Nishane Kh."
+    },
+    {
+      "No": 635,
+      "Taluka": "Dharangaon",
+      "Village": "Paldhi Bk."
+    },
+    {
+      "No": 636,
+      "Taluka": "Dharangaon",
+      "Village": "Paldhi Kh."
+    },
+    {
+      "No": 637,
+      "Taluka": "Dharangaon",
+      "Village": "Pashtane Bk."
+    },
+    {
+      "No": 638,
+      "Taluka": "Dharangaon",
+      "Village": "Pashtane Kh."
+    },
+    {
+      "No": 639,
+      "Taluka": "Dharangaon",
+      "Village": "Patharad Bk."
+    },
+    {
+      "No": 640,
+      "Taluka": "Dharangaon",
+      "Village": "Patharad Kh."
+    },
+    {
+      "No": 641,
+      "Taluka": "Dharangaon",
+      "Village": "Pimpale Bk."
+    },
+    {
+      "No": 642,
+      "Taluka": "Dharangaon",
+      "Village": "Pimpale Kh."
+    },
+    {
+      "No": 643,
+      "Taluka": "Dharangaon",
+      "Village": "Pimpale Sim"
+    },
+    {
+      "No": 644,
+      "Taluka": "Dharangaon",
+      "Village": "Pimpri Kh."
+    },
+    {
+      "No": 645,
+      "Taluka": "Dharangaon",
+      "Village": "Pokhari"
+    },
+    {
+      "No": 646,
+      "Taluka": "Dharangaon",
+      "Village": "Rel"
+    },
+    {
+      "No": 647,
+      "Taluka": "Dharangaon",
+      "Village": "Rotwad"
+    },
+    {
+      "No": 648,
+      "Taluka": "Dharangaon",
+      "Village": "Sakre"
+    },
+    {
+      "No": 649,
+      "Taluka": "Dharangaon",
+      "Village": "Salve"
+    },
+    {
+      "No": 650,
+      "Taluka": "Dharangaon",
+      "Village": "Sarve Kh."
+    },
+    {
+      "No": 651,
+      "Taluka": "Dharangaon",
+      "Village": "Satkhede"
+    },
+    {
+      "No": 652,
+      "Taluka": "Dharangaon",
+      "Village": "Shamkhede"
+    },
+    {
+      "No": 653,
+      "Taluka": "Dharangaon",
+      "Village": "Sheri"
+    },
+    {
+      "No": 654,
+      "Taluka": "Dharangaon",
+      "Village": "Sonwad Bk."
+    },
+    {
+      "No": 655,
+      "Taluka": "Dharangaon",
+      "Village": "Sonwad Kh."
+    },
+    {
+      "No": 656,
+      "Taluka": "Dharangaon",
+      "Village": "Tahakali Kh."
+    },
+    {
+      "No": 657,
+      "Taluka": "Dharangaon",
+      "Village": "Tarde Kh."
+    },
+    {
+      "No": 658,
+      "Taluka": "Dharangaon",
+      "Village": "Ukhalwadi"
+    },
+    {
+      "No": 659,
+      "Taluka": "Dharangaon",
+      "Village": "Vanjari Bk."
+    },
+    {
+      "No": 660,
+      "Taluka": "Dharangaon",
+      "Village": "Varad Bk."
+    },
+    {
+      "No": 661,
+      "Taluka": "Dharangaon",
+      "Village": "Varad Kh."
+    },
+    {
+      "No": 662,
+      "Taluka": "Dharangaon",
+      "Village": "Vivare"
+    },
+    {
+      "No": 663,
+      "Taluka": "Dharangaon",
+      "Village": "Waghlud Bk."
+    },
+    {
+      "No": 664,
+      "Taluka": "Dharangaon",
+      "Village": "Waghlud Kh."
+    },
+    {
+      "No": 665,
+      "Taluka": "Dharangaon",
+      "Village": "Waktuki"
+    },
+    {
+      "No": 666,
+      "Taluka": "Dharangaon",
+      "Village": "Zurkheda"
+    },
+    {
+      "No": 667,
+      "Taluka": "Erandol",
+      "Village": "Adgaon"
+    },
+    {
+      "No": 668,
+      "Taluka": "Erandol",
+      "Village": "Ambe"
+    },
+    {
+      "No": 669,
+      "Taluka": "Erandol",
+      "Village": "Anandnagar"
+    },
+    {
+      "No": 670,
+      "Taluka": "Erandol",
+      "Village": "Anturli Kh."
+    },
+    {
+      "No": 671,
+      "Taluka": "Erandol",
+      "Village": "Bambhori Kh."
+    },
+    {
+      "No": 672,
+      "Taluka": "Erandol",
+      "Village": "Bamhne"
+    },
+    {
+      "No": 673,
+      "Taluka": "Erandol",
+      "Village": "Bhalgaon Bk."
+    },
+    {
+      "No": 674,
+      "Taluka": "Erandol",
+      "Village": "Bhatkhede"
+    },
+    {
+      "No": 675,
+      "Taluka": "Erandol",
+      "Village": "Chortakki"
+    },
+    {
+      "No": 676,
+      "Taluka": "Erandol",
+      "Village": "Dapori"
+    },
+    {
+      "No": 677,
+      "Taluka": "Erandol",
+      "Village": "Dharagir"
+    },
+    {
+      "No": 678,
+      "Taluka": "Erandol",
+      "Village": "Erandol (Rural)"
+    },
+    {
+      "No": 679,
+      "Taluka": "Erandol",
+      "Village": "Farkande"
+    },
+    {
+      "No": 680,
+      "Taluka": "Erandol",
+      "Village": "Galapur"
+    },
+    {
+      "No": 681,
+      "Taluka": "Erandol",
+      "Village": "Ganeshnagar"
+    },
+    {
+      "No": 682,
+      "Taluka": "Erandol",
+      "Village": "Hanmantkhade Majre"
+    },
+    {
+      "No": 683,
+      "Taluka": "Erandol",
+      "Village": "Hanmantkhede Bk."
+    },
+    {
+      "No": 684,
+      "Taluka": "Erandol",
+      "Village": "Hanmantkhede Sim"
+    },
+    {
+      "No": 685,
+      "Taluka": "Erandol",
+      "Village": "Jalu"
+    },
+    {
+      "No": 686,
+      "Taluka": "Erandol",
+      "Village": "Janfal"
+    },
+    {
+      "No": 687,
+      "Taluka": "Erandol",
+      "Village": "Javkhede Bk."
+    },
+    {
+      "No": 688,
+      "Taluka": "Erandol",
+      "Village": "Javkhede Kh."
+    },
+    {
+      "No": 689,
+      "Taluka": "Erandol",
+      "Village": "Javkhede Sim"
+    },
+    {
+      "No": 690,
+      "Taluka": "Erandol",
+      "Village": "Kadholi"
+    },
+    {
+      "No": 691,
+      "Taluka": "Erandol",
+      "Village": "Kasoda"
+    },
+    {
+      "No": 692,
+      "Taluka": "Erandol",
+      "Village": "Khadke Bk."
+    },
+    {
+      "No": 693,
+      "Taluka": "Erandol",
+      "Village": "Khadke Kh."
+    },
+    {
+      "No": 694,
+      "Taluka": "Erandol",
+      "Village": "Khadke Sim"
+    },
+    {
+      "No": 695,
+      "Taluka": "Erandol",
+      "Village": "Kharchi Bk."
+    },
+    {
+      "No": 696,
+      "Taluka": "Erandol",
+      "Village": "Kharchi Kh."
+    },
+    {
+      "No": 697,
+      "Taluka": "Erandol",
+      "Village": "Khedgaon"
+    },
+    {
+      "No": 698,
+      "Taluka": "Erandol",
+      "Village": "Khedi Kh."
+    },
+    {
+      "No": 699,
+      "Taluka": "Erandol",
+      "Village": "Malkhede Bk."
+    },
+    {
+      "No": 700,
+      "Taluka": "Erandol",
+      "Village": "Mukhpat"
+    },
+    {
+      "No": 701,
+      "Taluka": "Erandol",
+      "Village": "Nagduli"
+    },
+    {
+      "No": 702,
+      "Taluka": "Erandol",
+      "Village": "Nandgaon Bk."
+    },
+    {
+      "No": 703,
+      "Taluka": "Erandol",
+      "Village": "Nandkhurde Bk."
+    },
+    {
+      "No": 704,
+      "Taluka": "Erandol",
+      "Village": "Nandkhurde Kh."
+    },
+    {
+      "No": 705,
+      "Taluka": "Erandol",
+      "Village": "Nipane"
+    },
+    {
+      "No": 706,
+      "Taluka": "Erandol",
+      "Village": "Palasdal"
+    },
+    {
+      "No": 707,
+      "Taluka": "Erandol",
+      "Village": "Patarkhede"
+    },
+    {
+      "No": 708,
+      "Taluka": "Erandol",
+      "Village": "Pimpalkhothe Bk."
+    },
+    {
+      "No": 709,
+      "Taluka": "Erandol",
+      "Village": "Pimpalkothe Kh."
+    },
+    {
+      "No": 710,
+      "Taluka": "Erandol",
+      "Village": "Pimpalkothe Pr. Chandsar"
+    },
+    {
+      "No": 711,
+      "Taluka": "Erandol",
+      "Village": "Pimpri Bk."
+    },
+    {
+      "No": 712,
+      "Taluka": "Erandol",
+      "Village": "Pimpri Sim"
+    },
+    {
+      "No": 713,
+      "Taluka": "Erandol",
+      "Village": "Pimpri-pr-chandsar"
+    },
+    {
+      "No": 714,
+      "Taluka": "Erandol",
+      "Village": "Ravanje Bk."
+    },
+    {
+      "No": 715,
+      "Taluka": "Erandol",
+      "Village": "Ravanje Kh."
+    },
+    {
+      "No": 716,
+      "Taluka": "Erandol",
+      "Village": "Ringangaon"
+    },
+    {
+      "No": 717,
+      "Taluka": "Erandol",
+      "Village": "Sawade Pr. Chandsar"
+    },
+    {
+      "No": 718,
+      "Taluka": "Erandol",
+      "Village": "Sonbardi"
+    },
+    {
+      "No": 719,
+      "Taluka": "Erandol",
+      "Village": "Tade"
+    },
+    {
+      "No": 720,
+      "Taluka": "Erandol",
+      "Village": "Takarkhede"
+    },
+    {
+      "No": 721,
+      "Taluka": "Erandol",
+      "Village": "Talai"
+    },
+    {
+      "No": 722,
+      "Taluka": "Erandol",
+      "Village": "Toli Kh."
+    },
+    {
+      "No": 723,
+      "Taluka": "Erandol",
+      "Village": "Umarde"
+    },
+    {
+      "No": 724,
+      "Taluka": "Erandol",
+      "Village": "Umare"
+    },
+    {
+      "No": 725,
+      "Taluka": "Erandol",
+      "Village": "Utran Ahir Hadd"
+    },
+    {
+      "No": 726,
+      "Taluka": "Erandol",
+      "Village": "Utran Gujar Hadd"
+    },
+    {
+      "No": 727,
+      "Taluka": "Erandol",
+      "Village": "Vaijanath"
+    },
+    {
+      "No": 728,
+      "Taluka": "Erandol",
+      "Village": "Vankothe"
+    },
+    {
+      "No": 729,
+      "Taluka": "Erandol",
+      "Village": "Varkhedi"
+    },
+    {
+      "No": 730,
+      "Taluka": "Erandol",
+      "Village": "Vikharan"
+    },
+    {
+      "No": 731,
+      "Taluka": "Erandol",
+      "Village": "Waghlud Sim"
+    },
+    {
+      "No": 732,
+      "Taluka": "Jalgaon",
+      "Village": "Amode Bk."
+    },
+    {
+      "No": 733,
+      "Taluka": "Jalgaon",
+      "Village": "Amode Kh"
+    },
+    {
+      "No": 734,
+      "Taluka": "Jalgaon",
+      "Village": "Asoda"
+    },
+    {
+      "No": 735,
+      "Taluka": "Jalgaon",
+      "Village": "Avhane"
+    },
+    {
+      "No": 736,
+      "Taluka": "Jalgaon",
+      "Village": "Awar"
+    },
+    {
+      "No": 737,
+      "Taluka": "Jalgaon",
+      "Village": "Beli"
+    },
+    {
+      "No": 738,
+      "Taluka": "Jalgaon",
+      "Village": "Bhadli Bk"
+    },
+    {
+      "No": 739,
+      "Taluka": "Jalgaon",
+      "Village": "Bhadli Kh"
+    },
+    {
+      "No": 740,
+      "Taluka": "Jalgaon",
+      "Village": "Bhagpur"
+    },
+    {
+      "No": 741,
+      "Taluka": "Jalgaon",
+      "Village": "Bhokar"
+    },
+    {
+      "No": 742,
+      "Taluka": "Jalgaon",
+      "Village": "Bholane"
+    },
+    {
+      "No": 743,
+      "Taluka": "Jalgaon",
+      "Village": "Bilkhede"
+    },
+    {
+      "No": 744,
+      "Taluka": "Jalgaon",
+      "Village": "Bilwadi"
+    },
+    {
+      "No": 745,
+      "Taluka": "Jalgaon",
+      "Village": "Bornar"
+    },
+    {
+      "No": 746,
+      "Taluka": "Jalgaon",
+      "Village": "Chincholi"
+    },
+    {
+      "No": 747,
+      "Taluka": "Jalgaon",
+      "Village": "Dapore"
+    },
+    {
+      "No": 748,
+      "Taluka": "Jalgaon",
+      "Village": "Deogoan"
+    },
+    {
+      "No": 749,
+      "Taluka": "Jalgaon",
+      "Village": "Deulwade"
+    },
+    {
+      "No": 750,
+      "Taluka": "Jalgaon",
+      "Village": "Devhari"
+    },
+    {
+      "No": 751,
+      "Taluka": "Jalgaon",
+      "Village": "Dhamangaon"
+    },
+    {
+      "No": 752,
+      "Taluka": "Jalgaon",
+      "Village": "Dhanore Bk."
+    },
+    {
+      "No": 753,
+      "Taluka": "Jalgaon",
+      "Village": "Dhanore Kh"
+    },
+    {
+      "No": 754,
+      "Taluka": "Jalgaon",
+      "Village": "Dhanwad"
+    },
+    {
+      "No": 755,
+      "Taluka": "Jalgaon",
+      "Village": "Diksai"
+    },
+    {
+      "No": 756,
+      "Taluka": "Jalgaon",
+      "Village": "Domgaon"
+    },
+    {
+      "No": 757,
+      "Taluka": "Jalgaon",
+      "Village": "Fesardi"
+    },
+    {
+      "No": 758,
+      "Taluka": "Jalgaon",
+      "Village": "Fupanagari"
+    },
+    {
+      "No": 759,
+      "Taluka": "Jalgaon",
+      "Village": "Gadhode"
+    },
+    {
+      "No": 760,
+      "Taluka": "Jalgaon",
+      "Village": "Ghardi"
+    },
+    {
+      "No": 761,
+      "Taluka": "Jalgaon",
+      "Village": "Jalgaon Kh."
+    },
+    {
+      "No": 762,
+      "Taluka": "Jalgaon",
+      "Village": "Jalke"
+    },
+    {
+      "No": 763,
+      "Taluka": "Jalgaon",
+      "Village": "Jamod"
+    },
+    {
+      "No": 764,
+      "Taluka": "Jalgaon",
+      "Village": "Jawkhede"
+    },
+    {
+      "No": 765,
+      "Taluka": "Jalgaon",
+      "Village": "Kadgaon"
+    },
+    {
+      "No": 766,
+      "Taluka": "Jalgaon",
+      "Village": "Kanalde"
+    },
+    {
+      "No": 767,
+      "Taluka": "Jalgaon",
+      "Village": "Kanaswade"
+    },
+    {
+      "No": 768,
+      "Taluka": "Jalgaon",
+      "Village": "Kandari"
+    },
+    {
+      "No": 769,
+      "Taluka": "Jalgaon",
+      "Village": "Karanj"
+    },
+    {
+      "No": 770,
+      "Taluka": "Jalgaon",
+      "Village": "Kathore"
+    },
+    {
+      "No": 771,
+      "Taluka": "Jalgaon",
+      "Village": "Khaparkhede"
+    },
+    {
+      "No": 772,
+      "Taluka": "Jalgaon",
+      "Village": "Khedi Kh"
+    },
+    {
+      "No": 773,
+      "Taluka": "Jalgaon",
+      "Village": "Khirdi"
+    },
+    {
+      "No": 774,
+      "Taluka": "Jalgaon",
+      "Village": "Kinod"
+    },
+    {
+      "No": 775,
+      "Taluka": "Jalgaon",
+      "Village": "Kurhadade"
+    },
+    {
+      "No": 776,
+      "Taluka": "Jalgaon",
+      "Village": "Kusumbe Kh"
+    },
+    {
+      "No": 777,
+      "Taluka": "Jalgaon",
+      "Village": "KuwarKhede"
+    },
+    {
+      "No": 778,
+      "Taluka": "Jalgaon",
+      "Village": "Lamanjan P.Bornar"
+    },
+    {
+      "No": 779,
+      "Taluka": "Jalgaon",
+      "Village": "Lonwadi Bk"
+    },
+    {
+      "No": 780,
+      "Taluka": "Jalgaon",
+      "Village": "Lonwadi Kh"
+    },
+    {
+      "No": 781,
+      "Taluka": "Jalgaon",
+      "Village": "Mamurabad"
+    },
+    {
+      "No": 782,
+      "Taluka": "Jalgaon",
+      "Village": "Manyar Khede"
+    },
+    {
+      "No": 783,
+      "Taluka": "Jalgaon",
+      "Village": "Mhasawad"
+    },
+    {
+      "No": 784,
+      "Taluka": "Jalgaon",
+      "Village": "Mohadi"
+    },
+    {
+      "No": 785,
+      "Taluka": "Jalgaon",
+      "Village": "Nagziri"
+    },
+    {
+      "No": 786,
+      "Taluka": "Jalgaon",
+      "Village": "Nandgaon"
+    },
+    {
+      "No": 787,
+      "Taluka": "Jalgaon",
+      "Village": "Nandre Bk"
+    },
+    {
+      "No": 788,
+      "Taluka": "Jalgaon",
+      "Village": "Nandre Kh"
+    },
+    {
+      "No": 789,
+      "Taluka": "Jalgaon",
+      "Village": "Nashirabad"
+    },
+    {
+      "No": 790,
+      "Taluka": "Jalgaon",
+      "Village": "Nimgaon Bk"
+    },
+    {
+      "No": 791,
+      "Taluka": "Jalgaon",
+      "Village": "Palsod"
+    },
+    {
+      "No": 792,
+      "Taluka": "Jalgaon",
+      "Village": "Pathari"
+    },
+    {
+      "No": 793,
+      "Taluka": "Jalgaon",
+      "Village": "Phupani"
+    },
+    {
+      "No": 794,
+      "Taluka": "Jalgaon",
+      "Village": "Pilkhede"
+    },
+    {
+      "No": 795,
+      "Taluka": "Jalgaon",
+      "Village": "Pimpale"
+    },
+    {
+      "No": 796,
+      "Taluka": "Jalgaon",
+      "Village": "Raipur"
+    },
+    {
+      "No": 797,
+      "Taluka": "Jalgaon",
+      "Village": "Ramdeowadi"
+    },
+    {
+      "No": 798,
+      "Taluka": "Jalgaon",
+      "Village": "Ridhur"
+    },
+    {
+      "No": 799,
+      "Taluka": "Jalgaon",
+      "Village": "Savkhede Bk."
+    },
+    {
+      "No": 800,
+      "Taluka": "Jalgaon",
+      "Village": "Savkhede Kh."
+    },
+    {
+      "No": 801,
+      "Taluka": "Jalgaon",
+      "Village": "Shelgaon"
+    },
+    {
+      "No": 802,
+      "Taluka": "Jalgaon",
+      "Village": "Shirsoli P.B."
+    },
+    {
+      "No": 803,
+      "Taluka": "Jalgaon",
+      "Village": "Shirsoli P.N."
+    },
+    {
+      "No": 804,
+      "Taluka": "Jalgaon",
+      "Village": "Subhashwadi"
+    },
+    {
+      "No": 805,
+      "Taluka": "Jalgaon",
+      "Village": "Sujde"
+    },
+    {
+      "No": 806,
+      "Taluka": "Jalgaon",
+      "Village": "Tarsod"
+    },
+    {
+      "No": 807,
+      "Taluka": "Jalgaon",
+      "Village": "Tighre"
+    },
+    {
+      "No": 808,
+      "Taluka": "Jalgaon",
+      "Village": "Turkhede"
+    },
+    {
+      "No": 809,
+      "Taluka": "Jalgaon",
+      "Village": "Umale"
+    },
+    {
+      "No": 810,
+      "Taluka": "Jalgaon",
+      "Village": "Vadali"
+    },
+    {
+      "No": 811,
+      "Taluka": "Jalgaon",
+      "Village": "Vadnagari"
+    },
+    {
+      "No": 812,
+      "Taluka": "Jalgaon",
+      "Village": "Varad Bk."
+    },
+    {
+      "No": 813,
+      "Taluka": "Jalgaon",
+      "Village": "Varad Kh."
+    },
+    {
+      "No": 814,
+      "Taluka": "Jalgaon",
+      "Village": "Vasantwadi"
+    },
+    {
+      "No": 815,
+      "Taluka": "Jalgaon",
+      "Village": "Vidgaon"
+    },
+    {
+      "No": 816,
+      "Taluka": "Jalgaon",
+      "Village": "Vitner"
+    },
+    {
+      "No": 817,
+      "Taluka": "Jalgaon",
+      "Village": "Wakadi"
+    },
+    {
+      "No": 818,
+      "Taluka": "Jalgaon",
+      "Village": "Wavdade"
+    },
+    {
+      "No": 819,
+      "Taluka": "Jamner",
+      "Village": "Ambadi"
+    },
+    {
+      "No": 820,
+      "Taluka": "Jamner",
+      "Village": "Ambilhol"
+    },
+    {
+      "No": 821,
+      "Taluka": "Jamner",
+      "Village": "Ambilhol Deviche"
+    },
+    {
+      "No": 822,
+      "Taluka": "Jamner",
+      "Village": "Amkhede"
+    },
+    {
+      "No": 823,
+      "Taluka": "Jamner",
+      "Village": "Betawad Bk"
+    },
+    {
+      "No": 824,
+      "Taluka": "Jamner",
+      "Village": "Betawad Kh"
+    },
+    {
+      "No": 825,
+      "Taluka": "Jamner",
+      "Village": "Bhagadare"
+    },
+    {
+      "No": 826,
+      "Taluka": "Jamner",
+      "Village": "Bharadi"
+    },
+    {
+      "No": 827,
+      "Taluka": "Jamner",
+      "Village": "Bharud Khede"
+    },
+    {
+      "No": 828,
+      "Taluka": "Jamner",
+      "Village": "Bhilkhede"
+    },
+    {
+      "No": 829,
+      "Taluka": "Jamner",
+      "Village": "Bhilwadi"
+    },
+    {
+      "No": 830,
+      "Taluka": "Jamner",
+      "Village": "Borgaon"
+    },
+    {
+      "No": 831,
+      "Taluka": "Jamner",
+      "Village": "Chilgaon"
+    },
+    {
+      "No": 832,
+      "Taluka": "Jamner",
+      "Village": "Chinch Khede Bk."
+    },
+    {
+      "No": 833,
+      "Taluka": "Jamner",
+      "Village": "Chinch Khede Digar"
+    },
+    {
+      "No": 834,
+      "Taluka": "Jamner",
+      "Village": "Chinchkhede Tarf Wakadi"
+    },
+    {
+      "No": 835,
+      "Taluka": "Jamner",
+      "Village": "Chincholi Pimpri"
+    },
+    {
+      "No": 836,
+      "Taluka": "Jamner",
+      "Village": "Deopimpri"
+    },
+    {
+      "No": 837,
+      "Taluka": "Jamner",
+      "Village": "Deulgaon"
+    },
+    {
+      "No": 838,
+      "Taluka": "Jamner",
+      "Village": "Devlasgaon"
+    },
+    {
+      "No": 839,
+      "Taluka": "Jamner",
+      "Village": "Dhalgaon"
+    },
+    {
+      "No": 840,
+      "Taluka": "Jamner",
+      "Village": "Dhalsingi"
+    },
+    {
+      "No": 841,
+      "Taluka": "Jamner",
+      "Village": "Dohari"
+    },
+    {
+      "No": 842,
+      "Taluka": "Jamner",
+      "Village": "Dondvade"
+    },
+    {
+      "No": 843,
+      "Taluka": "Jamner",
+      "Village": "Ekulti Bk."
+    },
+    {
+      "No": 844,
+      "Taluka": "Jamner",
+      "Village": "Ekulti Kh"
+    },
+    {
+      "No": 845,
+      "Taluka": "Jamner",
+      "Village": "Gadegaon Pr.Nashirabad"
+    },
+    {
+      "No": 846,
+      "Taluka": "Jamner",
+      "Village": "Ganeshnagar"
+    },
+    {
+      "No": 847,
+      "Taluka": "Jamner",
+      "Village": "Gangapuri"
+    },
+    {
+      "No": 848,
+      "Taluka": "Jamner",
+      "Village": "Garkhede Bk"
+    },
+    {
+      "No": 849,
+      "Taluka": "Jamner",
+      "Village": "Garkhede Kh"
+    },
+    {
+      "No": 850,
+      "Taluka": "Jamner",
+      "Village": "Godri"
+    },
+    {
+      "No": 851,
+      "Taluka": "Jamner",
+      "Village": "Gondegaon"
+    },
+    {
+      "No": 852,
+      "Taluka": "Jamner",
+      "Village": "Gondkhel"
+    },
+    {
+      "No": 853,
+      "Taluka": "Jamner",
+      "Village": "Gorad Khede"
+    },
+    {
+      "No": 854,
+      "Taluka": "Jamner",
+      "Village": "Gornale"
+    },
+    {
+      "No": 855,
+      "Taluka": "Jamner",
+      "Village": "Harinagar"
+    },
+    {
+      "No": 856,
+      "Taluka": "Jamner",
+      "Village": "Hingane Bk"
+    },
+    {
+      "No": 857,
+      "Taluka": "Jamner",
+      "Village": "Hingane N.kasaba"
+    },
+    {
+      "No": 858,
+      "Taluka": "Jamner",
+      "Village": "Hingane Pimpri"
+    },
+    {
+      "No": 859,
+      "Taluka": "Jamner",
+      "Village": "Hivar Khede Bk."
+    },
+    {
+      "No": 860,
+      "Taluka": "Jamner",
+      "Village": "Hivar Khede Digar"
+    },
+    {
+      "No": 861,
+      "Taluka": "Jamner",
+      "Village": "Hivar Khede Tarf Wakadi"
+    },
+    {
+      "No": 862,
+      "Taluka": "Jamner",
+      "Village": "Hivari Digar"
+    },
+    {
+      "No": 863,
+      "Taluka": "Jamner",
+      "Village": "Holhaveli"
+    },
+    {
+      "No": 864,
+      "Taluka": "Jamner",
+      "Village": "Jalandri Bk."
+    },
+    {
+      "No": 865,
+      "Taluka": "Jamner",
+      "Village": "Jalandri Kh."
+    },
+    {
+      "No": 866,
+      "Taluka": "Jamner",
+      "Village": "Jambhol"
+    },
+    {
+      "No": 867,
+      "Taluka": "Jamner",
+      "Village": "Jangipura"
+    },
+    {
+      "No": 868,
+      "Taluka": "Jamner",
+      "Village": "Jogal Khede"
+    },
+    {
+      "No": 869,
+      "Taluka": "Jamner",
+      "Village": "Junone"
+    },
+    {
+      "No": 870,
+      "Taluka": "Jamner",
+      "Village": "Kalkhede"
+    },
+    {
+      "No": 871,
+      "Taluka": "Jamner",
+      "Village": "Kapuswadi"
+    },
+    {
+      "No": 872,
+      "Taluka": "Jamner",
+      "Village": "Karmad"
+    },
+    {
+      "No": 873,
+      "Taluka": "Jamner",
+      "Village": "Karnafata"
+    },
+    {
+      "No": 874,
+      "Taluka": "Jamner",
+      "Village": "Kasali"
+    },
+    {
+      "No": 875,
+      "Taluka": "Jamner",
+      "Village": "Kasba Pimpri"
+    },
+    {
+      "No": 876,
+      "Taluka": "Jamner",
+      "Village": "Kekat Nimbhora"
+    },
+    {
+      "No": 877,
+      "Taluka": "Jamner",
+      "Village": "Khadgaon"
+    },
+    {
+      "No": 878,
+      "Taluka": "Jamner",
+      "Village": "Khadki"
+    },
+    {
+      "No": 879,
+      "Taluka": "Jamner",
+      "Village": "Khandave"
+    },
+    {
+      "No": 880,
+      "Taluka": "Jamner",
+      "Village": "Kharchane"
+    },
+    {
+      "No": 881,
+      "Taluka": "Jamner",
+      "Village": "Kinhi"
+    },
+    {
+      "No": 882,
+      "Taluka": "Jamner",
+      "Village": "Kodoli ."
+    },
+    {
+      "No": 883,
+      "Taluka": "Jamner",
+      "Village": "Kumbhari Bk."
+    },
+    {
+      "No": 884,
+      "Taluka": "Jamner",
+      "Village": "Kumbhari Kh"
+    },
+    {
+      "No": 885,
+      "Taluka": "Jamner",
+      "Village": "Kumbhari Sim"
+    },
+    {
+      "No": 886,
+      "Taluka": "Jamner",
+      "Village": "Lahasar"
+    },
+    {
+      "No": 887,
+      "Taluka": "Jamner",
+      "Village": "Lakholi"
+    },
+    {
+      "No": 888,
+      "Taluka": "Jamner",
+      "Village": "Lihe"
+    },
+    {
+      "No": 889,
+      "Taluka": "Jamner",
+      "Village": "Londhri Bk."
+    },
+    {
+      "No": 890,
+      "Taluka": "Jamner",
+      "Village": "Londhri Kh."
+    },
+    {
+      "No": 891,
+      "Taluka": "Jamner",
+      "Village": "Loni"
+    },
+    {
+      "No": 892,
+      "Taluka": "Jamner",
+      "Village": "Madani"
+    },
+    {
+      "No": 893,
+      "Taluka": "Jamner",
+      "Village": "Mahukhede"
+    },
+    {
+      "No": 894,
+      "Taluka": "Jamner",
+      "Village": "Maldabhadi"
+    },
+    {
+      "No": 895,
+      "Taluka": "Jamner",
+      "Village": "Malkhede"
+    },
+    {
+      "No": 896,
+      "Taluka": "Jamner",
+      "Village": "Malpimpri"
+    },
+    {
+      "No": 897,
+      "Taluka": "Jamner",
+      "Village": "Mandave Bk."
+    },
+    {
+      "No": 898,
+      "Taluka": "Jamner",
+      "Village": "Mandave Kh."
+    },
+    {
+      "No": 899,
+      "Taluka": "Jamner",
+      "Village": "Mehegaon"
+    },
+    {
+      "No": 900,
+      "Taluka": "Jamner",
+      "Village": "Mengaon"
+    },
+    {
+      "No": 901,
+      "Taluka": "Jamner",
+      "Village": "Mohadi"
+    },
+    {
+      "No": 902,
+      "Taluka": "Jamner",
+      "Village": "Morad ."
+    },
+    {
+      "No": 903,
+      "Taluka": "Jamner",
+      "Village": "Morgaon"
+    },
+    {
+      "No": 904,
+      "Taluka": "Jamner",
+      "Village": "Moyagaon Bk."
+    },
+    {
+      "No": 905,
+      "Taluka": "Jamner",
+      "Village": "Moyakhede Digar"
+    },
+    {
+      "No": 906,
+      "Taluka": "Jamner",
+      "Village": "Mundkhede"
+    },
+    {
+      "No": 907,
+      "Taluka": "Jamner",
+      "Village": "Nachane Khede"
+    },
+    {
+      "No": 908,
+      "Taluka": "Jamner",
+      "Village": "Nagan Kh ."
+    },
+    {
+      "No": 909,
+      "Taluka": "Jamner",
+      "Village": "Nandre Haveli"
+    },
+    {
+      "No": 910,
+      "Taluka": "Jamner",
+      "Village": "Nandre Pr.Lohare"
+    },
+    {
+      "No": 911,
+      "Taluka": "Jamner",
+      "Village": "Navapur"
+    },
+    {
+      "No": 912,
+      "Taluka": "Jamner",
+      "Village": "Nayadabhadi"
+    },
+    {
+      "No": 913,
+      "Taluka": "Jamner",
+      "Village": "Neri Bk."
+    },
+    {
+      "No": 914,
+      "Taluka": "Jamner",
+      "Village": "Neri Digar"
+    },
+    {
+      "No": 915,
+      "Taluka": "Jamner",
+      "Village": "Nimkhedi Pimpri"
+    },
+    {
+      "No": 916,
+      "Taluka": "Jamner",
+      "Village": "Ozar Bk."
+    },
+    {
+      "No": 917,
+      "Taluka": "Jamner",
+      "Village": "Ozar Kh."
+    },
+    {
+      "No": 918,
+      "Taluka": "Jamner",
+      "Village": "Pahur Kasba"
+    },
+    {
+      "No": 919,
+      "Taluka": "Jamner",
+      "Village": "Pahur Peth"
+    },
+    {
+      "No": 920,
+      "Taluka": "Jamner",
+      "Village": "Paladhi"
+    },
+    {
+      "No": 921,
+      "Taluka": "Jamner",
+      "Village": "Palas Khede Bk."
+    },
+    {
+      "No": 922,
+      "Taluka": "Jamner",
+      "Village": "Palas Khede Kakar"
+    },
+    {
+      "No": 923,
+      "Taluka": "Jamner",
+      "Village": "Palas Khede Mirache"
+    },
+    {
+      "No": 924,
+      "Taluka": "Jamner",
+      "Village": "Pat Khede"
+    },
+    {
+      "No": 925,
+      "Taluka": "Jamner",
+      "Village": "Pathad Tanda"
+    },
+    {
+      "No": 926,
+      "Taluka": "Jamner",
+      "Village": "Phattepur"
+    },
+    {
+      "No": 927,
+      "Taluka": "Jamner",
+      "Village": "Pimpalgaon Bk."
+    },
+    {
+      "No": 928,
+      "Taluka": "Jamner",
+      "Village": "Pimpalgaon Golait"
+    },
+    {
+      "No": 929,
+      "Taluka": "Jamner",
+      "Village": "Pimpalgaon Kamani"
+    },
+    {
+      "No": 930,
+      "Taluka": "Jamner",
+      "Village": "Pimpalgaon Kh."
+    },
+    {
+      "No": 931,
+      "Taluka": "Jamner",
+      "Village": "Pimpalgaon Pimpri"
+    },
+    {
+      "No": 932,
+      "Taluka": "Jamner",
+      "Village": "Pimpar Khede"
+    },
+    {
+      "No": 933,
+      "Taluka": "Jamner",
+      "Village": "Rahere Tarf Wakadi"
+    },
+    {
+      "No": 934,
+      "Taluka": "Jamner",
+      "Village": "Rampur"
+    },
+    {
+      "No": 935,
+      "Taluka": "Jamner",
+      "Village": "Rampur"
+    },
+    {
+      "No": 936,
+      "Taluka": "Jamner",
+      "Village": "Rampura"
+    },
+    {
+      "No": 937,
+      "Taluka": "Jamner",
+      "Village": "Ranjani"
+    },
+    {
+      "No": 938,
+      "Taluka": "Jamner",
+      "Village": "Rotwad"
+    },
+    {
+      "No": 939,
+      "Taluka": "Jamner",
+      "Village": "Samrod"
+    },
+    {
+      "No": 940,
+      "Taluka": "Jamner",
+      "Village": "Sangavi"
+    },
+    {
+      "No": 941,
+      "Taluka": "Jamner",
+      "Village": "Sargaon"
+    },
+    {
+      "No": 942,
+      "Taluka": "Jamner",
+      "Village": "Sarve Pr.Lohare"
+    },
+    {
+      "No": 943,
+      "Taluka": "Jamner",
+      "Village": "Savarle"
+    },
+    {
+      "No": 944,
+      "Taluka": "Jamner",
+      "Village": "Savat Khede"
+    },
+    {
+      "No": 945,
+      "Taluka": "Jamner",
+      "Village": "Shahapur"
+    },
+    {
+      "No": 946,
+      "Taluka": "Jamner",
+      "Village": "Shankarpura"
+    },
+    {
+      "No": 947,
+      "Taluka": "Jamner",
+      "Village": "Shelgaon"
+    },
+    {
+      "No": 948,
+      "Taluka": "Jamner",
+      "Village": "Shendurni"
+    },
+    {
+      "No": 949,
+      "Taluka": "Jamner",
+      "Village": "Shengole"
+    },
+    {
+      "No": 950,
+      "Taluka": "Jamner",
+      "Village": "Sheri"
+    },
+    {
+      "No": 951,
+      "Taluka": "Jamner",
+      "Village": "Shevage Pimpri"
+    },
+    {
+      "No": 952,
+      "Taluka": "Jamner",
+      "Village": "Shingait"
+    },
+    {
+      "No": 953,
+      "Taluka": "Jamner",
+      "Village": "Sonale"
+    },
+    {
+      "No": 954,
+      "Taluka": "Jamner",
+      "Village": "Sonari"
+    },
+    {
+      "No": 955,
+      "Taluka": "Jamner",
+      "Village": "Sunasgaon Bk."
+    },
+    {
+      "No": 956,
+      "Taluka": "Jamner",
+      "Village": "Sunasgaon Kh."
+    },
+    {
+      "No": 957,
+      "Taluka": "Jamner",
+      "Village": "Takali Bk."
+    },
+    {
+      "No": 958,
+      "Taluka": "Jamner",
+      "Village": "Takali Kh."
+    },
+    {
+      "No": 959,
+      "Taluka": "Jamner",
+      "Village": "Takali Pimpri"
+    },
+    {
+      "No": 960,
+      "Taluka": "Jamner",
+      "Village": "Takar Khede"
+    },
+    {
+      "No": 961,
+      "Taluka": "Jamner",
+      "Village": "Talegaon"
+    },
+    {
+      "No": 962,
+      "Taluka": "Jamner",
+      "Village": "Tarangwadi"
+    },
+    {
+      "No": 963,
+      "Taluka": "Jamner",
+      "Village": "Tighre Wadgaon"
+    },
+    {
+      "No": 964,
+      "Taluka": "Jamner",
+      "Village": "Tondapur"
+    },
+    {
+      "No": 965,
+      "Taluka": "Jamner",
+      "Village": "Tornale"
+    },
+    {
+      "No": 966,
+      "Taluka": "Jamner",
+      "Village": "Vasantnagar"
+    },
+    {
+      "No": 967,
+      "Taluka": "Jamner",
+      "Village": "Wadali"
+    },
+    {
+      "No": 968,
+      "Taluka": "Jamner",
+      "Village": "Wadgaon Bk."
+    },
+    {
+      "No": 969,
+      "Taluka": "Jamner",
+      "Village": "Wadgaon Nimb"
+    },
+    {
+      "No": 970,
+      "Taluka": "Jamner",
+      "Village": "Wadgaon Saddo"
+    },
+    {
+      "No": 971,
+      "Taluka": "Jamner",
+      "Village": "Wadgaon Tighre"
+    },
+    {
+      "No": 972,
+      "Taluka": "Jamner",
+      "Village": "Wadi"
+    },
+    {
+      "No": 973,
+      "Taluka": "Jamner",
+      "Village": "Waghari"
+    },
+    {
+      "No": 974,
+      "Taluka": "Jamner",
+      "Village": "Wakadi"
+    },
+    {
+      "No": 975,
+      "Taluka": "Jamner",
+      "Village": "Waki Bk."
+    },
+    {
+      "No": 976,
+      "Taluka": "Jamner",
+      "Village": "Waki Kh."
+    },
+    {
+      "No": 977,
+      "Taluka": "Jamner",
+      "Village": "Wakod"
+    },
+    {
+      "No": 978,
+      "Taluka": "Muktainagar",
+      "Village": "Anjangaon"
+    },
+    {
+      "No": 979,
+      "Taluka": "Muktainagar",
+      "Village": "Anturli"
+    },
+    {
+      "No": 980,
+      "Taluka": "Muktainagar",
+      "Village": "Bahadarpur"
+    },
+    {
+      "No": 981,
+      "Taluka": "Muktainagar",
+      "Village": "Belaswadi"
+    },
+    {
+      "No": 982,
+      "Taluka": "Muktainagar",
+      "Village": "Belkhede"
+    },
+    {
+      "No": 983,
+      "Taluka": "Muktainagar",
+      "Village": "Bhandgure"
+    },
+    {
+      "No": 984,
+      "Taluka": "Muktainagar",
+      "Village": "Bhokari"
+    },
+    {
+      "No": 985,
+      "Taluka": "Muktainagar",
+      "Village": "Bhote"
+    },
+    {
+      "No": 986,
+      "Taluka": "Muktainagar",
+      "Village": "Bodwad"
+    },
+    {
+      "No": 987,
+      "Taluka": "Muktainagar",
+      "Village": "Borkhede"
+    },
+    {
+      "No": 988,
+      "Taluka": "Muktainagar",
+      "Village": "Changdeo"
+    },
+    {
+      "No": 989,
+      "Taluka": "Muktainagar",
+      "Village": "Charthane"
+    },
+    {
+      "No": 990,
+      "Taluka": "Muktainagar",
+      "Village": "Chikhali"
+    },
+    {
+      "No": 991,
+      "Taluka": "Muktainagar",
+      "Village": "Chinchkhede Bk."
+    },
+    {
+      "No": 992,
+      "Taluka": "Muktainagar",
+      "Village": "Chinchkhede Kh"
+    },
+    {
+      "No": 993,
+      "Taluka": "Muktainagar",
+      "Village": "Chinchol"
+    },
+    {
+      "No": 994,
+      "Taluka": "Muktainagar",
+      "Village": "Daulatpur"
+    },
+    {
+      "No": 995,
+      "Taluka": "Muktainagar",
+      "Village": "Dhabe"
+    },
+    {
+      "No": 996,
+      "Taluka": "Muktainagar",
+      "Village": "Dhamande"
+    },
+    {
+      "No": 997,
+      "Taluka": "Muktainagar",
+      "Village": "Dhamangaon"
+    },
+    {
+      "No": 998,
+      "Taluka": "Muktainagar",
+      "Village": "Dhormal"
+    },
+    {
+      "No": 999,
+      "Taluka": "Muktainagar",
+      "Village": "Dhule"
+    },
+    {
+      "No": 1000,
+      "Taluka": "Muktainagar",
+      "Village": "Dolarkhede"
+    },
+    {
+      "No": 1001,
+      "Taluka": "Muktainagar",
+      "Village": "Dui"
+    },
+    {
+      "No": 1002,
+      "Taluka": "Muktainagar",
+      "Village": "Ghodasgaon"
+    },
+    {
+      "No": 1003,
+      "Taluka": "Muktainagar",
+      "Village": "Halkhede"
+    },
+    {
+      "No": 1004,
+      "Taluka": "Muktainagar",
+      "Village": "Hartale"
+    },
+    {
+      "No": 1005,
+      "Taluka": "Muktainagar",
+      "Village": "Hivare"
+    },
+    {
+      "No": 1006,
+      "Taluka": "Muktainagar",
+      "Village": "Ichhapur"
+    },
+    {
+      "No": 1007,
+      "Taluka": "Muktainagar",
+      "Village": "Jondhan Khede"
+    },
+    {
+      "No": 1008,
+      "Taluka": "Muktainagar",
+      "Village": "Kakode"
+    },
+    {
+      "No": 1009,
+      "Taluka": "Muktainagar",
+      "Village": "Karkee"
+    },
+    {
+      "No": 1010,
+      "Taluka": "Muktainagar",
+      "Village": "Kasarkhede"
+    },
+    {
+      "No": 1011,
+      "Taluka": "Muktainagar",
+      "Village": "Khamani"
+    },
+    {
+      "No": 1012,
+      "Taluka": "Muktainagar",
+      "Village": "Khamkhede"
+    },
+    {
+      "No": 1013,
+      "Taluka": "Muktainagar",
+      "Village": "Korhale"
+    },
+    {
+      "No": 1014,
+      "Taluka": "Muktainagar",
+      "Village": "Kothali"
+    },
+    {
+      "No": 1015,
+      "Taluka": "Muktainagar",
+      "Village": "Kothe"
+    },
+    {
+      "No": 1016,
+      "Taluka": "Muktainagar",
+      "Village": "Kund"
+    },
+    {
+      "No": 1017,
+      "Taluka": "Muktainagar",
+      "Village": "Kurhe"
+    },
+    {
+      "No": 1018,
+      "Taluka": "Muktainagar",
+      "Village": "Loharkhede"
+    },
+    {
+      "No": 1019,
+      "Taluka": "Muktainagar",
+      "Village": "Madhapuri (N.V.)"
+    },
+    {
+      "No": 1020,
+      "Taluka": "Muktainagar",
+      "Village": "Mahalkhede"
+    },
+    {
+      "No": 1021,
+      "Taluka": "Muktainagar",
+      "Village": "Malegaon"
+    },
+    {
+      "No": 1022,
+      "Taluka": "Muktainagar",
+      "Village": "Manegaon"
+    },
+    {
+      "No": 1023,
+      "Taluka": "Muktainagar",
+      "Village": "Manyarkhede"
+    },
+    {
+      "No": 1024,
+      "Taluka": "Muktainagar",
+      "Village": "Mehun"
+    },
+    {
+      "No": 1025,
+      "Taluka": "Muktainagar",
+      "Village": "Mel Sangave"
+    },
+    {
+      "No": 1026,
+      "Taluka": "Muktainagar",
+      "Village": "Mendhode"
+    },
+    {
+      "No": 1027,
+      "Taluka": "Muktainagar",
+      "Village": "Mondhalde"
+    },
+    {
+      "No": 1028,
+      "Taluka": "Muktainagar",
+      "Village": "Morzira"
+    },
+    {
+      "No": 1029,
+      "Taluka": "Muktainagar",
+      "Village": "Muktainagar"
+    },
+    {
+      "No": 1030,
+      "Taluka": "Muktainagar",
+      "Village": "Naigaon"
+    },
+    {
+      "No": 1031,
+      "Taluka": "Muktainagar",
+      "Village": "Nandwel"
+    },
+    {
+      "No": 1032,
+      "Taluka": "Muktainagar",
+      "Village": "Narvel"
+    },
+    {
+      "No": 1033,
+      "Taluka": "Muktainagar",
+      "Village": "Nimkhedi Bk."
+    },
+    {
+      "No": 1034,
+      "Taluka": "Muktainagar",
+      "Village": "Nimkhedi Kh"
+    },
+    {
+      "No": 1035,
+      "Taluka": "Muktainagar",
+      "Village": "Panchane"
+    },
+    {
+      "No": 1036,
+      "Taluka": "Muktainagar",
+      "Village": "Parambi"
+    },
+    {
+      "No": 1037,
+      "Taluka": "Muktainagar",
+      "Village": "Patondi"
+    },
+    {
+      "No": 1038,
+      "Taluka": "Muktainagar",
+      "Village": "Pimprale"
+    },
+    {
+      "No": 1039,
+      "Taluka": "Muktainagar",
+      "Village": "Pimpri Bhojana"
+    },
+    {
+      "No": 1040,
+      "Taluka": "Muktainagar",
+      "Village": "Pimpri Nandu"
+    },
+    {
+      "No": 1041,
+      "Taluka": "Muktainagar",
+      "Village": "Pimpri Pancham"
+    },
+    {
+      "No": 1042,
+      "Taluka": "Muktainagar",
+      "Village": "Pimpriakaraut"
+    },
+    {
+      "No": 1043,
+      "Taluka": "Muktainagar",
+      "Village": "Purnad"
+    },
+    {
+      "No": 1044,
+      "Taluka": "Muktainagar",
+      "Village": "Rajure"
+    },
+    {
+      "No": 1045,
+      "Taluka": "Muktainagar",
+      "Village": "Ramgad"
+    },
+    {
+      "No": 1046,
+      "Taluka": "Muktainagar",
+      "Village": "Rigaon"
+    },
+    {
+      "No": 1047,
+      "Taluka": "Muktainagar",
+      "Village": "Ruikhede"
+    },
+    {
+      "No": 1048,
+      "Taluka": "Muktainagar",
+      "Village": "Salbardi"
+    },
+    {
+      "No": 1049,
+      "Taluka": "Muktainagar",
+      "Village": "Sarole"
+    },
+    {
+      "No": 1050,
+      "Taluka": "Muktainagar",
+      "Village": "Satod"
+    },
+    {
+      "No": 1051,
+      "Taluka": "Muktainagar",
+      "Village": "Shemalde"
+    },
+    {
+      "No": 1052,
+      "Taluka": "Muktainagar",
+      "Village": "Sukali"
+    },
+    {
+      "No": 1053,
+      "Taluka": "Muktainagar",
+      "Village": "Sule"
+    },
+    {
+      "No": 1054,
+      "Taluka": "Muktainagar",
+      "Village": "Takali"
+    },
+    {
+      "No": 1055,
+      "Taluka": "Muktainagar",
+      "Village": "Talkhede"
+    },
+    {
+      "No": 1056,
+      "Taluka": "Muktainagar",
+      "Village": "Tarode"
+    },
+    {
+      "No": 1057,
+      "Taluka": "Muktainagar",
+      "Village": "Therole"
+    },
+    {
+      "No": 1058,
+      "Taluka": "Muktainagar",
+      "Village": "Uchande"
+    },
+    {
+      "No": 1059,
+      "Taluka": "Muktainagar",
+      "Village": "Umare"
+    },
+    {
+      "No": 1060,
+      "Taluka": "Muktainagar",
+      "Village": "Vadhave"
+    },
+    {
+      "No": 1061,
+      "Taluka": "Muktainagar",
+      "Village": "Vayale"
+    },
+    {
+      "No": 1062,
+      "Taluka": "Muktainagar",
+      "Village": "Wadhode"
+    },
+    {
+      "No": 1063,
+      "Taluka": "Pachora",
+      "Village": "Akhatwade"
+    },
+    {
+      "No": 1064,
+      "Taluka": "Pachora",
+      "Village": "Anturli Bk.Pr.Pachora"
+    },
+    {
+      "No": 1065,
+      "Taluka": "Pachora",
+      "Village": "Anturli Kh.Pr.Lohare"
+    },
+    {
+      "No": 1066,
+      "Taluka": "Pachora",
+      "Village": "Anturli Kh.Pr.Pachora"
+    },
+    {
+      "No": 1067,
+      "Taluka": "Pachora",
+      "Village": "Arve"
+    },
+    {
+      "No": 1068,
+      "Taluka": "Pachora",
+      "Village": "Asankhede Bk."
+    },
+    {
+      "No": 1069,
+      "Taluka": "Pachora",
+      "Village": "Asankhede Kh."
+    },
+    {
+      "No": 1070,
+      "Taluka": "Pachora",
+      "Village": "Atalgavhan"
+    },
+    {
+      "No": 1071,
+      "Taluka": "Pachora",
+      "Village": "Badarkhe"
+    },
+    {
+      "No": 1072,
+      "Taluka": "Pachora",
+      "Village": "Bahuleshwar"
+    },
+    {
+      "No": 1073,
+      "Taluka": "Pachora",
+      "Village": "Balad Bk."
+    },
+    {
+      "No": 1074,
+      "Taluka": "Pachora",
+      "Village": "Bambarud Kh. Pr.Pachora"
+    },
+    {
+      "No": 1075,
+      "Taluka": "Pachora",
+      "Village": "Bambarud Pr. Bordar"
+    },
+    {
+      "No": 1076,
+      "Taluka": "Pachora",
+      "Village": "Bhadali"
+    },
+    {
+      "No": 1077,
+      "Taluka": "Pachora",
+      "Village": "Bhatkhande Kh."
+    },
+    {
+      "No": 1078,
+      "Taluka": "Pachora",
+      "Village": "Bhoje"
+    },
+    {
+      "No": 1079,
+      "Taluka": "Pachora",
+      "Village": "Bhokari"
+    },
+    {
+      "No": 1080,
+      "Taluka": "Pachora",
+      "Village": "Bhortek Kh."
+    },
+    {
+      "No": 1081,
+      "Taluka": "Pachora",
+      "Village": "Bildi Bk."
+    },
+    {
+      "No": 1082,
+      "Taluka": "Pachora",
+      "Village": "Chinchakhede Bk."
+    },
+    {
+      "No": 1083,
+      "Taluka": "Pachora",
+      "Village": "Chinchkhede Kh."
+    },
+    {
+      "No": 1084,
+      "Taluka": "Pachora",
+      "Village": "Chinchpure"
+    },
+    {
+      "No": 1085,
+      "Taluka": "Pachora",
+      "Village": "Chunchale."
+    },
+    {
+      "No": 1086,
+      "Taluka": "Pachora",
+      "Village": "Dahigaon"
+    },
+    {
+      "No": 1087,
+      "Taluka": "Pachora",
+      "Village": "Dambhurni"
+    },
+    {
+      "No": 1088,
+      "Taluka": "Pachora",
+      "Village": "Dhokalkhede"
+    },
+    {
+      "No": 1089,
+      "Taluka": "Pachora",
+      "Village": "Dighi"
+    },
+    {
+      "No": 1090,
+      "Taluka": "Pachora",
+      "Village": "Dongargaon"
+    },
+    {
+      "No": 1091,
+      "Taluka": "Pachora",
+      "Village": "Duskhede"
+    },
+    {
+      "No": 1092,
+      "Taluka": "Pachora",
+      "Village": "Gahule"
+    },
+    {
+      "No": 1093,
+      "Taluka": "Pachora",
+      "Village": "Galan Bk."
+    },
+    {
+      "No": 1094,
+      "Taluka": "Pachora",
+      "Village": "Galan Kh."
+    },
+    {
+      "No": 1095,
+      "Taluka": "Pachora",
+      "Village": "Ghusardi Bk."
+    },
+    {
+      "No": 1096,
+      "Taluka": "Pachora",
+      "Village": "Goradkhede Bk."
+    },
+    {
+      "No": 1097,
+      "Taluka": "Pachora",
+      "Village": "Goradkhede Kh."
+    },
+    {
+      "No": 1098,
+      "Taluka": "Pachora",
+      "Village": "Hadsan"
+    },
+    {
+      "No": 1099,
+      "Taluka": "Pachora",
+      "Village": "Hanumanwadi"
+    },
+    {
+      "No": 1100,
+      "Taluka": "Pachora",
+      "Village": "Hol"
+    },
+    {
+      "No": 1101,
+      "Taluka": "Pachora",
+      "Village": "Jamane"
+    },
+    {
+      "No": 1102,
+      "Taluka": "Pachora",
+      "Village": "Jargaon"
+    },
+    {
+      "No": 1103,
+      "Taluka": "Pachora",
+      "Village": "Jawakhedi Digar"
+    },
+    {
+      "No": 1104,
+      "Taluka": "Pachora",
+      "Village": "Kalamsare"
+    },
+    {
+      "No": 1105,
+      "Taluka": "Pachora",
+      "Village": "Kasampure"
+    },
+    {
+      "No": 1106,
+      "Taluka": "Pachora",
+      "Village": "Khadakdeole Bk."
+    },
+    {
+      "No": 1107,
+      "Taluka": "Pachora",
+      "Village": "Khadakdeole Kh."
+    },
+    {
+      "No": 1108,
+      "Taluka": "Pachora",
+      "Village": "Khajole"
+    },
+    {
+      "No": 1109,
+      "Taluka": "Pachora",
+      "Village": "Khedgaon"
+    },
+    {
+      "No": 1110,
+      "Taluka": "Pachora",
+      "Village": "Kokadi"
+    },
+    {
+      "No": 1111,
+      "Taluka": "Pachora",
+      "Village": "Kolhe"
+    },
+    {
+      "No": 1112,
+      "Taluka": "Pachora",
+      "Village": "Kurangi"
+    },
+    {
+      "No": 1113,
+      "Taluka": "Pachora",
+      "Village": "Kurhad Bk."
+    },
+    {
+      "No": 1114,
+      "Taluka": "Pachora",
+      "Village": "Kurhad Kh."
+    },
+    {
+      "No": 1115,
+      "Taluka": "Pachora",
+      "Village": "Lakh ."
+    },
+    {
+      "No": 1116,
+      "Taluka": "Pachora",
+      "Village": "Lasgaon"
+    },
+    {
+      "No": 1117,
+      "Taluka": "Pachora",
+      "Village": "Lasure"
+    },
+    {
+      "No": 1118,
+      "Taluka": "Pachora",
+      "Village": "Lohara"
+    },
+    {
+      "No": 1119,
+      "Taluka": "Pachora",
+      "Village": "Lohari Bk."
+    },
+    {
+      "No": 1120,
+      "Taluka": "Pachora",
+      "Village": "Lohari Kh."
+    },
+    {
+      "No": 1121,
+      "Taluka": "Pachora",
+      "Village": "Lohatar"
+    },
+    {
+      "No": 1122,
+      "Taluka": "Pachora",
+      "Village": "Mahiji"
+    },
+    {
+      "No": 1123,
+      "Taluka": "Pachora",
+      "Village": "Mandaki"
+    },
+    {
+      "No": 1124,
+      "Taluka": "Pachora",
+      "Village": "Mhasas"
+    },
+    {
+      "No": 1125,
+      "Taluka": "Pachora",
+      "Village": "Mohadi"
+    },
+    {
+      "No": 1126,
+      "Taluka": "Pachora",
+      "Village": "Mohalai"
+    },
+    {
+      "No": 1127,
+      "Taluka": "Pachora",
+      "Village": "Mondhale"
+    },
+    {
+      "No": 1128,
+      "Taluka": "Pachora",
+      "Village": "Nachankhede"
+    },
+    {
+      "No": 1129,
+      "Taluka": "Pachora",
+      "Village": "Nagardeola Sim."
+    },
+    {
+      "No": 1130,
+      "Taluka": "Pachora",
+      "Village": "Nagardeole Bk."
+    },
+    {
+      "No": 1131,
+      "Taluka": "Pachora",
+      "Village": "Naiknagar"
+    },
+    {
+      "No": 1132,
+      "Taluka": "Pachora",
+      "Village": "Nandre"
+    },
+    {
+      "No": 1133,
+      "Taluka": "Pachora",
+      "Village": "Neri"
+    },
+    {
+      "No": 1134,
+      "Taluka": "Pachora",
+      "Village": "Nimbhori Bk."
+    },
+    {
+      "No": 1135,
+      "Taluka": "Pachora",
+      "Village": "Nimbhori Kh."
+    },
+    {
+      "No": 1136,
+      "Taluka": "Pachora",
+      "Village": "Nipane"
+    },
+    {
+      "No": 1137,
+      "Taluka": "Pachora",
+      "Village": "Ozar"
+    },
+    {
+      "No": 1138,
+      "Taluka": "Pachora",
+      "Village": "Pahan"
+    },
+    {
+      "No": 1139,
+      "Taluka": "Pachora",
+      "Village": "Pardhade"
+    },
+    {
+      "No": 1140,
+      "Taluka": "Pachora",
+      "Village": "Pimpalgaon Bk."
+    },
+    {
+      "No": 1141,
+      "Taluka": "Pachora",
+      "Village": "Pimpalgaon Kh. Pr. Bhadgaon"
+    },
+    {
+      "No": 1142,
+      "Taluka": "Pachora",
+      "Village": "Pimpri Bk. Pr.Bhadgaon."
+    },
+    {
+      "No": 1143,
+      "Taluka": "Pachora",
+      "Village": "Pimpri Bk.Pr.Pachora"
+    },
+    {
+      "No": 1144,
+      "Taluka": "Pachora",
+      "Village": "Pimpri Kh.Pr.Pachora"
+    },
+    {
+      "No": 1145,
+      "Taluka": "Pachora",
+      "Village": "Pungaon"
+    },
+    {
+      "No": 1146,
+      "Taluka": "Pachora",
+      "Village": "Rajuri Bk."
+    },
+    {
+      "No": 1147,
+      "Taluka": "Pachora",
+      "Village": "Rajuri Kh."
+    },
+    {
+      "No": 1148,
+      "Taluka": "Pachora",
+      "Village": "Rameshwar"
+    },
+    {
+      "No": 1149,
+      "Taluka": "Pachora",
+      "Village": "Sajagaon"
+    },
+    {
+      "No": 1150,
+      "Taluka": "Pachora",
+      "Village": "Samner"
+    },
+    {
+      "No": 1151,
+      "Taluka": "Pachora",
+      "Village": "Sangameshwar"
+    },
+    {
+      "No": 1152,
+      "Taluka": "Pachora",
+      "Village": "Sangavi Pr.Lohare"
+    },
+    {
+      "No": 1153,
+      "Taluka": "Pachora",
+      "Village": "Sangvi Pr.Bhadgaon"
+    },
+    {
+      "No": 1154,
+      "Taluka": "Pachora",
+      "Village": "Sarole Bk."
+    },
+    {
+      "No": 1155,
+      "Taluka": "Pachora",
+      "Village": "Sarole Kh."
+    },
+    {
+      "No": 1156,
+      "Taluka": "Pachora",
+      "Village": "Sarve Bk.Pr.Bhadgaon"
+    },
+    {
+      "No": 1157,
+      "Taluka": "Pachora",
+      "Village": "Sarve Bk.Pr.Lohare"
+    },
+    {
+      "No": 1158,
+      "Taluka": "Pachora",
+      "Village": "Sarve Bk.Pr.Pachora"
+    },
+    {
+      "No": 1159,
+      "Taluka": "Pachora",
+      "Village": "Sarve Kh.Pr.Bhadgaon"
+    },
+    {
+      "No": 1160,
+      "Taluka": "Pachora",
+      "Village": "Satgaon"
+    },
+    {
+      "No": 1161,
+      "Taluka": "Pachora",
+      "Village": "Sawkhede Bk."
+    },
+    {
+      "No": 1162,
+      "Taluka": "Pachora",
+      "Village": "Sawkhede Kh."
+    },
+    {
+      "No": 1163,
+      "Taluka": "Pachora",
+      "Village": "Shahapure"
+    },
+    {
+      "No": 1164,
+      "Taluka": "Pachora",
+      "Village": "Shewale"
+    },
+    {
+      "No": 1165,
+      "Taluka": "Pachora",
+      "Village": "Shindad"
+    },
+    {
+      "No": 1166,
+      "Taluka": "Pachora",
+      "Village": "Takali Bk."
+    },
+    {
+      "No": 1167,
+      "Taluka": "Pachora",
+      "Village": "Tarkhede Bk."
+    },
+    {
+      "No": 1168,
+      "Taluka": "Pachora",
+      "Village": "Tarkhede Kh."
+    },
+    {
+      "No": 1169,
+      "Taluka": "Pachora",
+      "Village": "Vadgaon Ambe"
+    },
+    {
+      "No": 1170,
+      "Taluka": "Pachora",
+      "Village": "Vadgaon Ambe Bk."
+    },
+    {
+      "No": 1171,
+      "Taluka": "Pachora",
+      "Village": "Vadgaon Ambe Kh."
+    },
+    {
+      "No": 1172,
+      "Taluka": "Pachora",
+      "Village": "Vadgaon Aseri"
+    },
+    {
+      "No": 1173,
+      "Taluka": "Pachora",
+      "Village": "Vadgaon Bk.Pr.Pachora"
+    },
+    {
+      "No": 1174,
+      "Taluka": "Pachora",
+      "Village": "Vadgaon Joge"
+    },
+    {
+      "No": 1175,
+      "Taluka": "Pachora",
+      "Village": "Vadgaon Kh.Pr.Bhadgaon"
+    },
+    {
+      "No": 1176,
+      "Taluka": "Pachora",
+      "Village": "Vadgaon Kh.Pr.Pachora"
+    },
+    {
+      "No": 1177,
+      "Taluka": "Pachora",
+      "Village": "Vadgaon Mulane"
+    },
+    {
+      "No": 1178,
+      "Taluka": "Pachora",
+      "Village": "Vadgaon Tek"
+    },
+    {
+      "No": 1179,
+      "Taluka": "Pachora",
+      "Village": "Vadgaonkade"
+    },
+    {
+      "No": 1180,
+      "Taluka": "Pachora",
+      "Village": "Vanegaon"
+    },
+    {
+      "No": 1181,
+      "Taluka": "Pachora",
+      "Village": "Varasade Pr.Bornar"
+    },
+    {
+      "No": 1182,
+      "Taluka": "Pachora",
+      "Village": "Varasade Pr.Pachora"
+    },
+    {
+      "No": 1183,
+      "Taluka": "Pachora",
+      "Village": "Varkhedi Bk."
+    },
+    {
+      "No": 1184,
+      "Taluka": "Pachora",
+      "Village": "Varkhedi Kh."
+    },
+    {
+      "No": 1185,
+      "Taluka": "Pachora",
+      "Village": "Veruli Bk."
+    },
+    {
+      "No": 1186,
+      "Taluka": "Pachora",
+      "Village": "Veruli Kh."
+    },
+    {
+      "No": 1187,
+      "Taluka": "Pachora",
+      "Village": "Vishnunagar"
+    },
+    {
+      "No": 1188,
+      "Taluka": "Pachora",
+      "Village": "Wadi"
+    },
+    {
+      "No": 1189,
+      "Taluka": "Pachora",
+      "Village": "Waghulkhede"
+    },
+    {
+      "No": 1190,
+      "Taluka": "Parola",
+      "Village": "Adgaon"
+    },
+    {
+      "No": 1191,
+      "Taluka": "Parola",
+      "Village": "Ambapimpri"
+    },
+    {
+      "No": 1192,
+      "Taluka": "Parola",
+      "Village": "Babhale Nag"
+    },
+    {
+      "No": 1193,
+      "Taluka": "Parola",
+      "Village": "Bahadarpur"
+    },
+    {
+      "No": 1194,
+      "Taluka": "Parola",
+      "Village": "Bahute"
+    },
+    {
+      "No": 1195,
+      "Taluka": "Parola",
+      "Village": "Bhatpuri"
+    },
+    {
+      "No": 1196,
+      "Taluka": "Parola",
+      "Village": "Bhilali"
+    },
+    {
+      "No": 1197,
+      "Taluka": "Parola",
+      "Village": "Bhokarbari"
+    },
+    {
+      "No": 1198,
+      "Taluka": "Parola",
+      "Village": "Bholane"
+    },
+    {
+      "No": 1199,
+      "Taluka": "Parola",
+      "Village": "Bhondandigar"
+    },
+    {
+      "No": 1200,
+      "Taluka": "Parola",
+      "Village": "Bodarde"
+    },
+    {
+      "No": 1201,
+      "Taluka": "Parola",
+      "Village": "Bole"
+    },
+    {
+      "No": 1202,
+      "Taluka": "Parola",
+      "Village": "Chahutre"
+    },
+    {
+      "No": 1203,
+      "Taluka": "Parola",
+      "Village": "Chikhalod Bk."
+    },
+    {
+      "No": 1204,
+      "Taluka": "Parola",
+      "Village": "Chikhalod Kh."
+    },
+    {
+      "No": 1205,
+      "Taluka": "Parola",
+      "Village": "Chorwad"
+    },
+    {
+      "No": 1206,
+      "Taluka": "Parola",
+      "Village": "Dabapimpri"
+    },
+    {
+      "No": 1207,
+      "Taluka": "Parola",
+      "Village": "Dagadi Pr. Amalner"
+    },
+    {
+      "No": 1208,
+      "Taluka": "Parola",
+      "Village": "Dahigaon"
+    },
+    {
+      "No": 1209,
+      "Taluka": "Parola",
+      "Village": "Dalwel"
+    },
+    {
+      "No": 1210,
+      "Taluka": "Parola",
+      "Village": "Deogaon"
+    },
+    {
+      "No": 1211,
+      "Taluka": "Parola",
+      "Village": "Dhabe"
+    },
+    {
+      "No": 1212,
+      "Taluka": "Parola",
+      "Village": "Dholi"
+    },
+    {
+      "No": 1213,
+      "Taluka": "Parola",
+      "Village": "Dhulpimpri"
+    },
+    {
+      "No": 1214,
+      "Taluka": "Parola",
+      "Village": "Gadgaon"
+    },
+    {
+      "No": 1215,
+      "Taluka": "Parola",
+      "Village": "Hanmant Khede"
+    },
+    {
+      "No": 1216,
+      "Taluka": "Parola",
+      "Village": "Hirapur"
+    },
+    {
+      "No": 1217,
+      "Taluka": "Parola",
+      "Village": "Hiwarkhede Bk."
+    },
+    {
+      "No": 1218,
+      "Taluka": "Parola",
+      "Village": "Hiwarkhede Kh."
+    },
+    {
+      "No": 1219,
+      "Taluka": "Parola",
+      "Village": "Hiwarkhede Seem"
+    },
+    {
+      "No": 1220,
+      "Taluka": "Parola",
+      "Village": "Holpimpri"
+    },
+    {
+      "No": 1221,
+      "Taluka": "Parola",
+      "Village": "Indhave"
+    },
+    {
+      "No": 1222,
+      "Taluka": "Parola",
+      "Village": "Itave"
+    },
+    {
+      "No": 1223,
+      "Taluka": "Parola",
+      "Village": "Itner"
+    },
+    {
+      "No": 1224,
+      "Taluka": "Parola",
+      "Village": "Jamde"
+    },
+    {
+      "No": 1225,
+      "Taluka": "Parola",
+      "Village": "Jirali"
+    },
+    {
+      "No": 1226,
+      "Taluka": "Parola",
+      "Village": "Jogal Khede"
+    },
+    {
+      "No": 1227,
+      "Taluka": "Parola",
+      "Village": "Kamatwadi"
+    },
+    {
+      "No": 1228,
+      "Taluka": "Parola",
+      "Village": "Kanhere"
+    },
+    {
+      "No": 1229,
+      "Taluka": "Parola",
+      "Village": "Kankraj"
+    },
+    {
+      "No": 1230,
+      "Taluka": "Parola",
+      "Village": "Karadi"
+    },
+    {
+      "No": 1231,
+      "Taluka": "Parola",
+      "Village": "Karanji Bk"
+    },
+    {
+      "No": 1232,
+      "Taluka": "Parola",
+      "Village": "Karmad Bk."
+    },
+    {
+      "No": 1233,
+      "Taluka": "Parola",
+      "Village": "Karmad Kh."
+    },
+    {
+      "No": 1234,
+      "Taluka": "Parola",
+      "Village": "Khedi Dhok"
+    },
+    {
+      "No": 1235,
+      "Taluka": "Parola",
+      "Village": "Kholsar"
+    },
+    {
+      "No": 1236,
+      "Taluka": "Parola",
+      "Village": "Kolpimpri"
+    },
+    {
+      "No": 1237,
+      "Taluka": "Parola",
+      "Village": "Loni Bk"
+    },
+    {
+      "No": 1238,
+      "Taluka": "Parola",
+      "Village": "Loni Kh"
+    },
+    {
+      "No": 1239,
+      "Taluka": "Parola",
+      "Village": "Loni Seem"
+    },
+    {
+      "No": 1240,
+      "Taluka": "Parola",
+      "Village": "Mahalpur"
+    },
+    {
+      "No": 1241,
+      "Taluka": "Parola",
+      "Village": "Mangrul"
+    },
+    {
+      "No": 1242,
+      "Taluka": "Parola",
+      "Village": "Mehu"
+    },
+    {
+      "No": 1243,
+      "Taluka": "Parola",
+      "Village": "Mhasve"
+    },
+    {
+      "No": 1244,
+      "Taluka": "Parola",
+      "Village": "Mohadi"
+    },
+    {
+      "No": 1245,
+      "Taluka": "Parola",
+      "Village": "Mondhale Pr. Amalner"
+    },
+    {
+      "No": 1246,
+      "Taluka": "Parola",
+      "Village": "Mondhale Pr. Utran"
+    },
+    {
+      "No": 1247,
+      "Taluka": "Parola",
+      "Village": "Morfal"
+    },
+    {
+      "No": 1248,
+      "Taluka": "Parola",
+      "Village": "Morfali"
+    },
+    {
+      "No": 1249,
+      "Taluka": "Parola",
+      "Village": "Mundane Pr.amalner"
+    },
+    {
+      "No": 1250,
+      "Taluka": "Parola",
+      "Village": "Mundane Pr.utran"
+    },
+    {
+      "No": 1251,
+      "Taluka": "Parola",
+      "Village": "Nagaon"
+    },
+    {
+      "No": 1252,
+      "Taluka": "Parola",
+      "Village": "Nerpat"
+    },
+    {
+      "No": 1253,
+      "Taluka": "Parola",
+      "Village": "Palaskhede Bk."
+    },
+    {
+      "No": 1254,
+      "Taluka": "Parola",
+      "Village": "Palaskhede Kh."
+    },
+    {
+      "No": 1255,
+      "Taluka": "Parola",
+      "Village": "Palaskhede Seem"
+    },
+    {
+      "No": 1256,
+      "Taluka": "Parola",
+      "Village": "Parola (Rural)"
+    },
+    {
+      "No": 1257,
+      "Taluka": "Parola",
+      "Village": "Patar Khede"
+    },
+    {
+      "No": 1258,
+      "Taluka": "Parola",
+      "Village": "Pimpal Bhairao"
+    },
+    {
+      "No": 1259,
+      "Taluka": "Parola",
+      "Village": "Pimpalkotha"
+    },
+    {
+      "No": 1260,
+      "Taluka": "Parola",
+      "Village": "Pimpri Pr.utran"
+    },
+    {
+      "No": 1261,
+      "Taluka": "Parola",
+      "Village": "Popatnagar"
+    },
+    {
+      "No": 1262,
+      "Taluka": "Parola",
+      "Village": "Pungaon"
+    },
+    {
+      "No": 1263,
+      "Taluka": "Parola",
+      "Village": "Rajawad"
+    },
+    {
+      "No": 1264,
+      "Taluka": "Parola",
+      "Village": "Ramnagar"
+    },
+    {
+      "No": 1265,
+      "Taluka": "Parola",
+      "Village": "Ratale"
+    },
+    {
+      "No": 1266,
+      "Taluka": "Parola",
+      "Village": "Ratnapimpri"
+    },
+    {
+      "No": 1267,
+      "Taluka": "Parola",
+      "Village": "Sab Gavhan Pr. Amalner"
+    },
+    {
+      "No": 1268,
+      "Taluka": "Parola",
+      "Village": "Sangvi"
+    },
+    {
+      "No": 1269,
+      "Taluka": "Parola",
+      "Village": "Sarve Bk"
+    },
+    {
+      "No": 1270,
+      "Taluka": "Parola",
+      "Village": "Savakhede Turk"
+    },
+    {
+      "No": 1271,
+      "Taluka": "Parola",
+      "Village": "Saval Khede"
+    },
+    {
+      "No": 1272,
+      "Taluka": "Parola",
+      "Village": "Savkhede Hol"
+    },
+    {
+      "No": 1273,
+      "Taluka": "Parola",
+      "Village": "Savkhede Marath"
+    },
+    {
+      "No": 1274,
+      "Taluka": "Parola",
+      "Village": "Shelave Bk."
+    },
+    {
+      "No": 1275,
+      "Taluka": "Parola",
+      "Village": "Shelave Kh."
+    },
+    {
+      "No": 1276,
+      "Taluka": "Parola",
+      "Village": "Shevage Bk."
+    },
+    {
+      "No": 1277,
+      "Taluka": "Parola",
+      "Village": "Shevage Pr.bahal"
+    },
+    {
+      "No": 1278,
+      "Taluka": "Parola",
+      "Village": "Shirasmani"
+    },
+    {
+      "No": 1279,
+      "Taluka": "Parola",
+      "Village": "Shirsode"
+    },
+    {
+      "No": 1280,
+      "Taluka": "Parola",
+      "Village": "Shivare Digar"
+    },
+    {
+      "No": 1281,
+      "Taluka": "Parola",
+      "Village": "Soke"
+    },
+    {
+      "No": 1282,
+      "Taluka": "Parola",
+      "Village": "Sub Gavhan Kh"
+    },
+    {
+      "No": 1283,
+      "Taluka": "Parola",
+      "Village": "Sudhakarnagar"
+    },
+    {
+      "No": 1284,
+      "Taluka": "Parola",
+      "Village": "Sumthane"
+    },
+    {
+      "No": 1285,
+      "Taluka": "Parola",
+      "Village": "Tamaswadi"
+    },
+    {
+      "No": 1286,
+      "Taluka": "Parola",
+      "Village": "Tambole"
+    },
+    {
+      "No": 1287,
+      "Taluka": "Parola",
+      "Village": "Tardi"
+    },
+    {
+      "No": 1288,
+      "Taluka": "Parola",
+      "Village": "Tarwade Kh."
+    },
+    {
+      "No": 1289,
+      "Taluka": "Parola",
+      "Village": "Tehu"
+    },
+    {
+      "No": 1290,
+      "Taluka": "Parola",
+      "Village": "Titavi"
+    },
+    {
+      "No": 1291,
+      "Taluka": "Parola",
+      "Village": "Titavi Seem"
+    },
+    {
+      "No": 1292,
+      "Taluka": "Parola",
+      "Village": "Toli"
+    },
+    {
+      "No": 1293,
+      "Taluka": "Parola",
+      "Village": "Undanidigar"
+    },
+    {
+      "No": 1294,
+      "Taluka": "Parola",
+      "Village": "Undanikhalsa"
+    },
+    {
+      "No": 1295,
+      "Taluka": "Parola",
+      "Village": "Undirkhede"
+    },
+    {
+      "No": 1296,
+      "Taluka": "Parola",
+      "Village": "Utrad"
+    },
+    {
+      "No": 1297,
+      "Taluka": "Parola",
+      "Village": "Vadgaon Pr. Amalner"
+    },
+    {
+      "No": 1298,
+      "Taluka": "Parola",
+      "Village": "Vadgaon Pr.erandol"
+    },
+    {
+      "No": 1299,
+      "Taluka": "Parola",
+      "Village": "Vanjari Kh."
+    },
+    {
+      "No": 1300,
+      "Taluka": "Parola",
+      "Village": "Vasant Nagar"
+    },
+    {
+      "No": 1301,
+      "Taluka": "Parola",
+      "Village": "Vasant Wadi"
+    },
+    {
+      "No": 1302,
+      "Taluka": "Parola",
+      "Village": "Velhane Kh."
+    },
+    {
+      "No": 1303,
+      "Taluka": "Parola",
+      "Village": "Vichkhede"
+    },
+    {
+      "No": 1304,
+      "Taluka": "Parola",
+      "Village": "Waghare"
+    },
+    {
+      "No": 1305,
+      "Taluka": "Parola",
+      "Village": "Waghari"
+    },
+    {
+      "No": 1306,
+      "Taluka": "Raver",
+      "Village": "Ahirwadi"
+    },
+    {
+      "No": 1307,
+      "Taluka": "Raver",
+      "Village": "Ainpur"
+    },
+    {
+      "No": 1308,
+      "Taluka": "Raver",
+      "Village": "Ajanad"
+    },
+    {
+      "No": 1309,
+      "Taluka": "Raver",
+      "Village": "Ajande"
+    },
+    {
+      "No": 1310,
+      "Taluka": "Raver",
+      "Village": "Ambhode Bk."
+    },
+    {
+      "No": 1311,
+      "Taluka": "Raver",
+      "Village": "Ambhode Kh."
+    },
+    {
+      "No": 1312,
+      "Taluka": "Raver",
+      "Village": "Andalwadi"
+    },
+    {
+      "No": 1313,
+      "Taluka": "Raver",
+      "Village": "Andharmali"
+    },
+    {
+      "No": 1314,
+      "Taluka": "Raver",
+      "Village": "Atwade"
+    },
+    {
+      "No": 1315,
+      "Taluka": "Raver",
+      "Village": "Balwadi"
+    },
+    {
+      "No": 1316,
+      "Taluka": "Raver",
+      "Village": "Bhamalwadi"
+    },
+    {
+      "No": 1317,
+      "Taluka": "Raver",
+      "Village": "Bhatkhede"
+    },
+    {
+      "No": 1318,
+      "Taluka": "Raver",
+      "Village": "Bhokari"
+    },
+    {
+      "No": 1319,
+      "Taluka": "Raver",
+      "Village": "Bhor"
+    },
+    {
+      "No": 1320,
+      "Taluka": "Raver",
+      "Village": "Boharde"
+    },
+    {
+      "No": 1321,
+      "Taluka": "Raver",
+      "Village": "Borkhede"
+    },
+    {
+      "No": 1322,
+      "Taluka": "Raver",
+      "Village": "Borkhede Sim"
+    },
+    {
+      "No": 1323,
+      "Taluka": "Raver",
+      "Village": "Chinawal"
+    },
+    {
+      "No": 1324,
+      "Taluka": "Raver",
+      "Village": "Chinchati"
+    },
+    {
+      "No": 1325,
+      "Taluka": "Raver",
+      "Village": "Chorwad"
+    },
+    {
+      "No": 1326,
+      "Taluka": "Raver",
+      "Village": "Chunwade"
+    },
+    {
+      "No": 1327,
+      "Taluka": "Raver",
+      "Village": "Dasanur"
+    },
+    {
+      "No": 1328,
+      "Taluka": "Raver",
+      "Village": "Dhamodi"
+    },
+    {
+      "No": 1329,
+      "Taluka": "Raver",
+      "Village": "Dhurkhede"
+    },
+    {
+      "No": 1330,
+      "Taluka": "Raver",
+      "Village": "Dodhe"
+    },
+    {
+      "No": 1331,
+      "Taluka": "Raver",
+      "Village": "Gahukhede"
+    },
+    {
+      "No": 1332,
+      "Taluka": "Raver",
+      "Village": "Garbardi"
+    },
+    {
+      "No": 1333,
+      "Taluka": "Raver",
+      "Village": "Garkhede"
+    },
+    {
+      "No": 1334,
+      "Taluka": "Raver",
+      "Village": "Gate"
+    },
+    {
+      "No": 1335,
+      "Taluka": "Raver",
+      "Village": "Gaulkhede"
+    },
+    {
+      "No": 1336,
+      "Taluka": "Raver",
+      "Village": "Goulwade"
+    },
+    {
+      "No": 1337,
+      "Taluka": "Raver",
+      "Village": "Gulabwadi"
+    },
+    {
+      "No": 1338,
+      "Taluka": "Raver",
+      "Village": "Janori"
+    },
+    {
+      "No": 1339,
+      "Taluka": "Raver",
+      "Village": "Jinsi"
+    },
+    {
+      "No": 1340,
+      "Taluka": "Raver",
+      "Village": "Junone"
+    },
+    {
+      "No": 1341,
+      "Taluka": "Raver",
+      "Village": "Kalmode"
+    },
+    {
+      "No": 1342,
+      "Taluka": "Raver",
+      "Village": "Kandwel"
+    },
+    {
+      "No": 1343,
+      "Taluka": "Raver",
+      "Village": "Karjod"
+    },
+    {
+      "No": 1344,
+      "Taluka": "Raver",
+      "Village": "Kerhale Bk."
+    },
+    {
+      "No": 1345,
+      "Taluka": "Raver",
+      "Village": "Kerhale Kh."
+    },
+    {
+      "No": 1346,
+      "Taluka": "Raver",
+      "Village": "Khanapur"
+    },
+    {
+      "No": 1347,
+      "Taluka": "Raver",
+      "Village": "Khirdi Bk."
+    },
+    {
+      "No": 1348,
+      "Taluka": "Raver",
+      "Village": "Khirdi Kh."
+    },
+    {
+      "No": 1349,
+      "Taluka": "Raver",
+      "Village": "Khirode Pr. Yawal"
+    },
+    {
+      "No": 1350,
+      "Taluka": "Raver",
+      "Village": "Khirode Pr.raver"
+    },
+    {
+      "No": 1351,
+      "Taluka": "Raver",
+      "Village": "Khirwad"
+    },
+    {
+      "No": 1352,
+      "Taluka": "Raver",
+      "Village": "Kochur Bk."
+    },
+    {
+      "No": 1353,
+      "Taluka": "Raver",
+      "Village": "Kochur Kh."
+    },
+    {
+      "No": 1354,
+      "Taluka": "Raver",
+      "Village": "Kolode"
+    },
+    {
+      "No": 1355,
+      "Taluka": "Raver",
+      "Village": "Kumbharkhade"
+    },
+    {
+      "No": 1356,
+      "Taluka": "Raver",
+      "Village": "Kusumbe Bk."
+    },
+    {
+      "No": 1357,
+      "Taluka": "Raver",
+      "Village": "Kusumbe Kh."
+    },
+    {
+      "No": 1358,
+      "Taluka": "Raver",
+      "Village": "Lalmati"
+    },
+    {
+      "No": 1359,
+      "Taluka": "Raver",
+      "Village": "Lohare"
+    },
+    {
+      "No": 1360,
+      "Taluka": "Raver",
+      "Village": "Lumkhede"
+    },
+    {
+      "No": 1361,
+      "Taluka": "Raver",
+      "Village": "Mangalwadi"
+    },
+    {
+      "No": 1362,
+      "Taluka": "Raver",
+      "Village": "Mangi"
+    },
+    {
+      "No": 1363,
+      "Taluka": "Raver",
+      "Village": "Manglur (N.V.)"
+    },
+    {
+      "No": 1364,
+      "Taluka": "Raver",
+      "Village": "Maskawad Bk."
+    },
+    {
+      "No": 1365,
+      "Taluka": "Raver",
+      "Village": "Maskawad Kh."
+    },
+    {
+      "No": 1366,
+      "Taluka": "Raver",
+      "Village": "Maskawadsim"
+    },
+    {
+      "No": 1367,
+      "Taluka": "Raver",
+      "Village": "Mohagan Bk."
+    },
+    {
+      "No": 1368,
+      "Taluka": "Raver",
+      "Village": "Mohamandali (new)"
+    },
+    {
+      "No": 1369,
+      "Taluka": "Raver",
+      "Village": "Mohamandali (old)"
+    },
+    {
+      "No": 1370,
+      "Taluka": "Raver",
+      "Village": "Morgaon Bk."
+    },
+    {
+      "No": 1371,
+      "Taluka": "Raver",
+      "Village": "Morgaon Kh."
+    },
+    {
+      "No": 1372,
+      "Taluka": "Raver",
+      "Village": "Morwhal"
+    },
+    {
+      "No": 1373,
+      "Taluka": "Raver",
+      "Village": "Munjalwadi"
+    },
+    {
+      "No": 1374,
+      "Taluka": "Raver",
+      "Village": "Nandurkhede"
+    },
+    {
+      "No": 1375,
+      "Taluka": "Raver",
+      "Village": "Nehete"
+    },
+    {
+      "No": 1376,
+      "Taluka": "Raver",
+      "Village": "Nimbhore Bk."
+    },
+    {
+      "No": 1377,
+      "Taluka": "Raver",
+      "Village": "Nimbhore Sim"
+    },
+    {
+      "No": 1378,
+      "Taluka": "Raver",
+      "Village": "Nimbol"
+    },
+    {
+      "No": 1379,
+      "Taluka": "Raver",
+      "Village": "Nimdya"
+    },
+    {
+      "No": 1380,
+      "Taluka": "Raver",
+      "Village": "Nirul"
+    },
+    {
+      "No": 1381,
+      "Taluka": "Raver",
+      "Village": "Padale Bk."
+    },
+    {
+      "No": 1382,
+      "Taluka": "Raver",
+      "Village": "Padale Kh"
+    },
+    {
+      "No": 1383,
+      "Taluka": "Raver",
+      "Village": "Pal"
+    },
+    {
+      "No": 1384,
+      "Taluka": "Raver",
+      "Village": "Patondi"
+    },
+    {
+      "No": 1385,
+      "Taluka": "Raver",
+      "Village": "Pimparkund"
+    },
+    {
+      "No": 1386,
+      "Taluka": "Raver",
+      "Village": "Pimpri"
+    },
+    {
+      "No": 1387,
+      "Taluka": "Raver",
+      "Village": "Punkhede"
+    },
+    {
+      "No": 1388,
+      "Taluka": "Raver",
+      "Village": "Puri"
+    },
+    {
+      "No": 1389,
+      "Taluka": "Raver",
+      "Village": "Raipur"
+    },
+    {
+      "No": 1390,
+      "Taluka": "Raver",
+      "Village": "Rangaon"
+    },
+    {
+      "No": 1391,
+      "Taluka": "Raver",
+      "Village": "Rasalpur"
+    },
+    {
+      "No": 1392,
+      "Taluka": "Raver",
+      "Village": "Raver (rural)"
+    },
+    {
+      "No": 1393,
+      "Taluka": "Raver",
+      "Village": "Rembhote"
+    },
+    {
+      "No": 1394,
+      "Taluka": "Raver",
+      "Village": "Rozode"
+    },
+    {
+      "No": 1395,
+      "Taluka": "Raver",
+      "Village": "Sahastraling"
+    },
+    {
+      "No": 1396,
+      "Taluka": "Raver",
+      "Village": "Sangve"
+    },
+    {
+      "No": 1397,
+      "Taluka": "Raver",
+      "Village": "Savda (rural)"
+    },
+    {
+      "No": 1398,
+      "Taluka": "Raver",
+      "Village": "Savkhede Bk."
+    },
+    {
+      "No": 1399,
+      "Taluka": "Raver",
+      "Village": "Savkhede Kh."
+    },
+    {
+      "No": 1400,
+      "Taluka": "Raver",
+      "Village": "Shingadi"
+    },
+    {
+      "No": 1401,
+      "Taluka": "Raver",
+      "Village": "Singanur"
+    },
+    {
+      "No": 1402,
+      "Taluka": "Raver",
+      "Village": "Singat"
+    },
+    {
+      "No": 1403,
+      "Taluka": "Raver",
+      "Village": "Sudgaon"
+    },
+    {
+      "No": 1404,
+      "Taluka": "Raver",
+      "Village": "Sulwadi"
+    },
+    {
+      "No": 1405,
+      "Taluka": "Raver",
+      "Village": "Sunode"
+    },
+    {
+      "No": 1406,
+      "Taluka": "Raver",
+      "Village": "Tamaswadi"
+    },
+    {
+      "No": 1407,
+      "Taluka": "Raver",
+      "Village": "Tandalwadi"
+    },
+    {
+      "No": 1408,
+      "Taluka": "Raver",
+      "Village": "Taskhede"
+    },
+    {
+      "No": 1409,
+      "Taluka": "Raver",
+      "Village": "Therode"
+    },
+    {
+      "No": 1410,
+      "Taluka": "Raver",
+      "Village": "Thorgavhan"
+    },
+    {
+      "No": 1411,
+      "Taluka": "Raver",
+      "Village": "Tidya"
+    },
+    {
+      "No": 1412,
+      "Taluka": "Raver",
+      "Village": "Udhali Kh"
+    },
+    {
+      "No": 1413,
+      "Taluka": "Raver",
+      "Village": "Udhali Bk"
+    },
+    {
+      "No": 1414,
+      "Taluka": "Raver",
+      "Village": "Utkhede"
+    },
+    {
+      "No": 1415,
+      "Taluka": "Raver",
+      "Village": "Vitwe"
+    },
+    {
+      "No": 1416,
+      "Taluka": "Raver",
+      "Village": "Vivare Bk."
+    },
+    {
+      "No": 1417,
+      "Taluka": "Raver",
+      "Village": "Vivare Kh"
+    },
+    {
+      "No": 1418,
+      "Taluka": "Raver",
+      "Village": "Wadgaon"
+    },
+    {
+      "No": 1419,
+      "Taluka": "Raver",
+      "Village": "Waghadi"
+    },
+    {
+      "No": 1420,
+      "Taluka": "Raver",
+      "Village": "Waghod"
+    },
+    {
+      "No": 1421,
+      "Taluka": "Raver",
+      "Village": "Waghode Bk."
+    },
+    {
+      "No": 1422,
+      "Taluka": "Raver",
+      "Village": "Waghode Kh"
+    },
+    {
+      "No": 1423,
+      "Taluka": "Yawal",
+      "Village": "Adgaon"
+    },
+    {
+      "No": 1424,
+      "Taluka": "Yawal",
+      "Village": "Aklud"
+    },
+    {
+      "No": 1425,
+      "Taluka": "Yawal",
+      "Village": "Ambapani"
+    },
+    {
+      "No": 1426,
+      "Taluka": "Yawal",
+      "Village": "Amode"
+    },
+    {
+      "No": 1427,
+      "Taluka": "Yawal",
+      "Village": "Anjale"
+    },
+    {
+      "No": 1428,
+      "Taluka": "Yawal",
+      "Village": "Atrawal"
+    },
+    {
+      "No": 1429,
+      "Taluka": "Yawal",
+      "Village": "Bhalod"
+    },
+    {
+      "No": 1430,
+      "Taluka": "Yawal",
+      "Village": "Bhalshiv"
+    },
+    {
+      "No": 1431,
+      "Taluka": "Yawal",
+      "Village": "Bhamnod"
+    },
+    {
+      "No": 1432,
+      "Taluka": "Yawal",
+      "Village": "Bhorkhede Kh"
+    },
+    {
+      "No": 1433,
+      "Taluka": "Yawal",
+      "Village": "Bhortek"
+    },
+    {
+      "No": 1434,
+      "Taluka": "Yawal",
+      "Village": "Borale"
+    },
+    {
+      "No": 1435,
+      "Taluka": "Yawal",
+      "Village": "Borawal Bk"
+    },
+    {
+      "No": 1436,
+      "Taluka": "Yawal",
+      "Village": "Borawal Kh"
+    },
+    {
+      "No": 1437,
+      "Taluka": "Yawal",
+      "Village": "Borkhede Bk"
+    },
+    {
+      "No": 1438,
+      "Taluka": "Yawal",
+      "Village": "Charmali"
+    },
+    {
+      "No": 1439,
+      "Taluka": "Yawal",
+      "Village": "Chikhali Kh"
+    },
+    {
+      "No": 1440,
+      "Taluka": "Yawal",
+      "Village": "Chikholi Bk"
+    },
+    {
+      "No": 1441,
+      "Taluka": "Yawal",
+      "Village": "Chincholi"
+    },
+    {
+      "No": 1442,
+      "Taluka": "Yawal",
+      "Village": "Chitode"
+    },
+    {
+      "No": 1443,
+      "Taluka": "Yawal",
+      "Village": "Chunchale"
+    },
+    {
+      "No": 1444,
+      "Taluka": "Yawal",
+      "Village": "Dagadi"
+    },
+    {
+      "No": 1445,
+      "Taluka": "Yawal",
+      "Village": "Dahigaon"
+    },
+    {
+      "No": 1446,
+      "Taluka": "Yawal",
+      "Village": "Dambhurni"
+    },
+    {
+      "No": 1447,
+      "Taluka": "Yawal",
+      "Village": "Dangarkuthora"
+    },
+    {
+      "No": 1448,
+      "Taluka": "Yawal",
+      "Village": "Dongaon"
+    },
+    {
+      "No": 1449,
+      "Taluka": "Yawal",
+      "Village": "Duskhede"
+    },
+    {
+      "No": 1450,
+      "Taluka": "Yawal",
+      "Village": "Faizpur (rural)"
+    },
+    {
+      "No": 1451,
+      "Taluka": "Yawal",
+      "Village": "Gadrya"
+    },
+    {
+      "No": 1452,
+      "Taluka": "Yawal",
+      "Village": "Giradgaon"
+    },
+    {
+      "No": 1453,
+      "Taluka": "Yawal",
+      "Village": "Hambardi"
+    },
+    {
+      "No": 1454,
+      "Taluka": "Yawal",
+      "Village": "Haripura"
+    },
+    {
+      "No": 1455,
+      "Taluka": "Yawal",
+      "Village": "Hingone"
+    },
+    {
+      "No": 1456,
+      "Taluka": "Yawal",
+      "Village": "Ichkheda"
+    },
+    {
+      "No": 1457,
+      "Taluka": "Yawal",
+      "Village": "Jamnya"
+    },
+    {
+      "No": 1458,
+      "Taluka": "Yawal",
+      "Village": "Karanji"
+    },
+    {
+      "No": 1459,
+      "Taluka": "Yawal",
+      "Village": "Kasarkhede"
+    },
+    {
+      "No": 1460,
+      "Taluka": "Yawal",
+      "Village": "Kasve"
+    },
+    {
+      "No": 1461,
+      "Taluka": "Yawal",
+      "Village": "Kathore Pr. Savada"
+    },
+    {
+      "No": 1462,
+      "Taluka": "Yawal",
+      "Village": "Khalkot"
+    },
+    {
+      "No": 1463,
+      "Taluka": "Yawal",
+      "Village": "Kingaon Bk"
+    },
+    {
+      "No": 1464,
+      "Taluka": "Yawal",
+      "Village": "Kingaon Kh"
+    },
+    {
+      "No": 1465,
+      "Taluka": "Yawal",
+      "Village": "Kolwad"
+    },
+    {
+      "No": 1466,
+      "Taluka": "Yawal",
+      "Village": "Korpawli"
+    },
+    {
+      "No": 1467,
+      "Taluka": "Yawal",
+      "Village": "Kosgaon"
+    },
+    {
+      "No": 1468,
+      "Taluka": "Yawal",
+      "Village": "Langda Amba"
+    },
+    {
+      "No": 1469,
+      "Taluka": "Yawal",
+      "Village": "Mahelkhedi"
+    },
+    {
+      "No": 1470,
+      "Taluka": "Yawal",
+      "Village": "Malod"
+    },
+    {
+      "No": 1471,
+      "Taluka": "Yawal",
+      "Village": "Manapur"
+    },
+    {
+      "No": 1472,
+      "Taluka": "Yawal",
+      "Village": "Manwel"
+    },
+    {
+      "No": 1473,
+      "Taluka": "Yawal",
+      "Village": "Marul"
+    },
+    {
+      "No": 1474,
+      "Taluka": "Yawal",
+      "Village": "Mhaiswadi"
+    },
+    {
+      "No": 1475,
+      "Taluka": "Yawal",
+      "Village": "Mohrale"
+    },
+    {
+      "No": 1476,
+      "Taluka": "Yawal",
+      "Village": "Naigaon"
+    },
+    {
+      "No": 1477,
+      "Taluka": "Yawal",
+      "Village": "Navare"
+    },
+    {
+      "No": 1478,
+      "Taluka": "Yawal",
+      "Village": "Nhavi P Adawad"
+    },
+    {
+      "No": 1479,
+      "Taluka": "Yawal",
+      "Village": "Nhavi Pr. Yaval"
+    },
+    {
+      "No": 1480,
+      "Taluka": "Yawal",
+      "Village": "Nimgaon"
+    },
+    {
+      "No": 1481,
+      "Taluka": "Yawal",
+      "Village": "Padalse"
+    },
+    {
+      "No": 1482,
+      "Taluka": "Yawal",
+      "Village": "Parsade Bk"
+    },
+    {
+      "No": 1483,
+      "Taluka": "Yawal",
+      "Village": "Pathrale"
+    },
+    {
+      "No": 1484,
+      "Taluka": "Yawal",
+      "Village": "Pilode Bk"
+    },
+    {
+      "No": 1485,
+      "Taluka": "Yawal",
+      "Village": "Pilode Kh"
+    },
+    {
+      "No": 1486,
+      "Taluka": "Yawal",
+      "Village": "Pimpri"
+    },
+    {
+      "No": 1487,
+      "Taluka": "Yawal",
+      "Village": "Pimprud"
+    },
+    {
+      "No": 1488,
+      "Taluka": "Yawal",
+      "Village": "Ridhori"
+    },
+    {
+      "No": 1489,
+      "Taluka": "Yawal",
+      "Village": "Rojore"
+    },
+    {
+      "No": 1490,
+      "Taluka": "Yawal",
+      "Village": "Ruikhede"
+    },
+    {
+      "No": 1491,
+      "Taluka": "Yawal",
+      "Village": "Sakali"
+    },
+    {
+      "No": 1492,
+      "Taluka": "Yawal",
+      "Village": "Sangvi Bk"
+    },
+    {
+      "No": 1493,
+      "Taluka": "Yawal",
+      "Village": "Sangvi Kh"
+    },
+    {
+      "No": 1494,
+      "Taluka": "Yawal",
+      "Village": "Satod Pr Yawal"
+    },
+    {
+      "No": 1495,
+      "Taluka": "Yawal",
+      "Village": "Savkhedesim"
+    },
+    {
+      "No": 1496,
+      "Taluka": "Yawal",
+      "Village": "Shiragad"
+    },
+    {
+      "No": 1497,
+      "Taluka": "Yawal",
+      "Village": "Shirsad"
+    },
+    {
+      "No": 1498,
+      "Taluka": "Yawal",
+      "Village": "Takarkhede"
+    },
+    {
+      "No": 1499,
+      "Taluka": "Yawal",
+      "Village": "Tembhi Kh"
+    },
+    {
+      "No": 1500,
+      "Taluka": "Yawal",
+      "Village": "Thorgavhan"
+    },
+    {
+      "No": 1501,
+      "Taluka": "Yawal",
+      "Village": "Tolane"
+    },
+    {
+      "No": 1502,
+      "Taluka": "Yawal",
+      "Village": "Unthawad"
+    },
+    {
+      "No": 1503,
+      "Taluka": "Yawal",
+      "Village": "Usmali"
+    },
+    {
+      "No": 1504,
+      "Taluka": "Yawal",
+      "Village": "Vadhode Pr Yawal"
+    },
+    {
+      "No": 1505,
+      "Taluka": "Yawal",
+      "Village": "Vadhode Pr. Sawada"
+    },
+    {
+      "No": 1506,
+      "Taluka": "Yawal",
+      "Village": "Vadri Kh"
+    },
+    {
+      "No": 1507,
+      "Taluka": "Yawal",
+      "Village": "Vaghazira"
+    },
+    {
+      "No": 1508,
+      "Taluka": "Yawal",
+      "Village": "Vanoli"
+    },
+    {
+      "No": 1509,
+      "Taluka": "Yawal",
+      "Village": "Viravali Bk"
+    },
+    {
+      "No": 1510,
+      "Taluka": "Yawal",
+      "Village": "Virode"
+    },
+    {
+      "No": 1511,
+      "Taluka": "Yawal",
+      "Village": "Waghlud"
+    },
+    {
+      "No": 1512,
+      "Taluka": "Yawal",
+      "Village": "Waghode"
+    },
+    {
+      "No": 1513,
+      "Taluka": "Yawal",
+      "Village": "Yawal (rural)"
+    }
+  ]
+}
