@@ -41,7 +41,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     'Address',
     'Profession',
     'Joining-Date',
-    'Assigned-Village',
+    'District',
     'Aadhaar-Number'
   ];
 
@@ -65,7 +65,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
             sur.address.contains(searchText) ||
             sur.gender.contains(searchText) ||
             sur.joiningDate.contains(searchText) ||
-            sur.villageToAssign.contains(searchText) ||
+            sur.district.contains(searchText) ||
             sur.aadhaarNumber.contains(searchText) ||
             sur.profession.contains(searchText))
         .toList();
@@ -181,7 +181,8 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                         stream: getSurveyorsList(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            dataTableWithGivenColumn = DataTableWithGivenColumnForSurveyor(
+                            dataTableWithGivenColumn =
+                                DataTableWithGivenColumnForSurveyor(
                               columns: columnsOfDataTable,
                               records: listOfFilteredSurveyor ?? snapshot.data!,
                             );

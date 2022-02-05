@@ -30,7 +30,10 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? qualificationDropDown;
-  DropDownButtonWidget? villageToAssign;
+
+  DropDownButtonWidget? districtDropDown;
+  DropDownButtonWidget? talukaDropDown;
+  DropDownButtonWidget? villageDropDown;
 
   onPressedSubmit() async {
     print("surveyorStart");
@@ -41,7 +44,9 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       surveyorForm['age'] = ageDropDown!.selectedItem!;
       surveyorForm['gender'] = genderDropDown!.selectedItem!;
       surveyorForm['profession'] = qualificationDropDown!.selectedItem!;
-      surveyorForm['villageToAssign'] = villageToAssign!.selectedItem!;
+      surveyorForm['district'] = districtDropDown!.selectedItem!;
+      surveyorForm['taluka'] = talukaDropDown!.selectedItem!;
+      surveyorForm['village'] = villageDropDown!.selectedItem!;
       formKeyNewSurveyorForm.currentState!.save();
 
       print("surveyorForm");
@@ -93,22 +98,46 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
 
   // List of items in our dropdown menu
   List<int> ageList = generateN2MList(15, 100);
+  var district = [
+    'Jalgaon',
+  ];
+  var taluka = [
+    'taluka 1',
+    'taluka 2',
+    'taluka 3',
+    'taluka 4',
+    'taluka 5',
+    'taluka 6',
+    'taluka 7',
+    'taluka 8',
+    'taluka 9',
+  ];
   var villages = [
-    'Bhusawal',
-    'Jalgao',
-    'Yavatmal',
-    'Pune',
-    'Wardha',
+    'village 1',
+    'village 2',
+    'village 3',
+    'village 4',
+    'village 5',
+    'village 6',
+    'village 7',
+    'village 8',
+    'village 9',
   ];
   var genders = [
-    'M',
-    'F',
-    'T',
+    'Male',
+    'Female',
+    'Intersex',
   ];
   var qualifications = [
-    'Degree pass',
-    'Metric Pass',
-    'None',
+    'No formal education',
+    'Primary education',
+    'Secondary education or high school',
+    'GED',
+    'Vocational qualification',
+    'Diploma'
+    'Bachelors degree',
+    'Masters degree',
+    'Doctorate or higher'
   ];
   var width, height;
 
@@ -126,7 +155,17 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       items: qualifications,
       name: 'Qualification',
     );
-    villageToAssign = DropDownButtonWidget(
+
+    districtDropDown = DropDownButtonWidget(
+      items: district,
+      name: 'District To Assign',
+      selectedItem: district.first,
+    );
+    talukaDropDown = DropDownButtonWidget(
+      items: taluka,
+      name: 'Taluka To Assign',
+    );
+    villageDropDown = DropDownButtonWidget(
       items: villages,
       name: 'Village To Assign',
     );
@@ -310,10 +349,34 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
                 padding: Common.allPadding(mHeight: height),
                 child: mobileNo,
               ),
-              Padding(
-                padding: Common.allPadding(mHeight: height),
-                child: villageToAssign,
+              //
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                      child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: districtDropDown!,
+                  )),
+                  SizedBox(
+                    width: width * 0.01,
+                  ),
+                  Expanded(
+                      child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: talukaDropDown!,
+                  )),
+                  SizedBox(
+                    width: width * 0.01,
+                  ),
+                  Expanded(
+                      child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: villageDropDown,
+                  )),
+                ],
               ),
+              //
               Padding(
                 padding: Common.allPadding(mHeight: height),
                 child: email,

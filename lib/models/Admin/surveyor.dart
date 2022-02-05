@@ -11,9 +11,12 @@ class Surveyor {
   String address;
   String gender;
   String joiningDate;
-  String villageToAssign;
+  String district;
+  String taluka;
+  String village;
   String aadhaarNumber;
   int age;
+  
   Surveyor({
     this.uid,
     required this.firstName,
@@ -25,7 +28,9 @@ class Surveyor {
     required this.address,
     required this.gender,
     required this.joiningDate,
-    required this.villageToAssign,
+    required this.district,
+    required this.taluka,
+    required this.village,
     required this.aadhaarNumber,
     required this.age,
   });
@@ -41,7 +46,9 @@ class Surveyor {
     String? address,
     String? gender,
     String? joiningDate,
-    String? villageToAssign,
+    String? district,
+    String? taluka,
+    String? village,
     String? aadhaarNumber,
     int? age,
   }) {
@@ -56,7 +63,9 @@ class Surveyor {
       address: address ?? this.address,
       gender: gender ?? this.gender,
       joiningDate: joiningDate ?? this.joiningDate,
-      villageToAssign: villageToAssign ?? this.villageToAssign,
+      district: district ?? this.district,
+      taluka: taluka ?? this.taluka,
+      village: village ?? this.village,
       aadhaarNumber: aadhaarNumber ?? this.aadhaarNumber,
       age: age ?? this.age,
     );
@@ -74,7 +83,9 @@ class Surveyor {
       'address': address,
       'gender': gender,
       'joiningDate': joiningDate,
-      'villageToAssign': villageToAssign,
+      'district': district,
+      'taluka': taluka,
+      'village': village,
       'aadhaarNumber': aadhaarNumber,
       'age': age,
     };
@@ -92,9 +103,11 @@ class Surveyor {
       address: map['address'] ?? '',
       gender: map['gender'] ?? '',
       joiningDate: map['joiningDate'] ?? '',
-      villageToAssign: map['villageToAssign'] ?? '',
+      district: map['district'] ?? '',
+      taluka: map['taluka'] ?? '',
+      village: map['village'] ?? '',
       aadhaarNumber: map['aadhaarNumber'] ?? '',
-      age: int.parse(map['age'].toString()),
+      age: map['age']?.toInt() ?? 0,
     );
   }
 
@@ -105,7 +118,7 @@ class Surveyor {
 
   @override
   String toString() {
-    return 'Surveyor(uid: $uid, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, joiningDate: $joiningDate, villageToAssign: $villageToAssign, aadhaarNumber: $aadhaarNumber, age: $age)';
+    return 'Surveyor(uid: $uid, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, joiningDate: $joiningDate, district: $district, taluka: $taluka, village: $village, aadhaarNumber: $aadhaarNumber, age: $age)';
   }
 
   @override
@@ -123,7 +136,9 @@ class Surveyor {
         other.address == address &&
         other.gender == gender &&
         other.joiningDate == joiningDate &&
-        other.villageToAssign == villageToAssign &&
+        other.district == district &&
+        other.taluka == taluka &&
+        other.village == village &&
         other.aadhaarNumber == aadhaarNumber &&
         other.age == age;
   }
@@ -140,7 +155,9 @@ class Surveyor {
         address.hashCode ^
         gender.hashCode ^
         joiningDate.hashCode ^
-        villageToAssign.hashCode ^
+        district.hashCode ^
+        taluka.hashCode ^
+        village.hashCode ^
         aadhaarNumber.hashCode ^
         age.hashCode;
   }

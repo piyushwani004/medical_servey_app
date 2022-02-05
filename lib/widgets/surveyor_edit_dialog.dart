@@ -78,7 +78,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
             isError: true);
         return isUpdate;
       }
-    }else{
+    } else {
       Common.showAlert(
           context: context,
           title: 'Surveyor Update',
@@ -109,7 +109,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       name: 'Qualification',
     );
     villageToAssign = DropDownButtonWidget(
-      selectedItem: widget.surveyor.villageToAssign,
+      selectedItem: widget.surveyor.district,
       items: villages,
       name: 'Village To Assign',
     );
@@ -155,8 +155,12 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       autofocus: false,
       readOnly: true,
       // enabled: false,
-      onTap: (){
-        Common.showAlert(context: context, title: "Invalid Operation", content: "Email cannot be edited", isError: true);
+      onTap: () {
+        Common.showAlert(
+            context: context,
+            title: "Invalid Operation",
+            content: "Email cannot be edited",
+            isError: true);
       },
       validator: (email) => emailValidator(email!),
       onSaved: (email) {
@@ -299,7 +303,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
           onPressed: () async {
             Response res = await onConfirmBtnPressed();
             print(res.isSuccessful);
-            if(res.isSuccessful){
+            if (res.isSuccessful) {
               Navigator.pop(context);
             }
           },
@@ -307,6 +311,5 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
         ),
       ],
     );
-    
   }
 }

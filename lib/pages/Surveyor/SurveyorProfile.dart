@@ -257,7 +257,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                                               ),
                                             ),
                                             Text(
-                                              "${user!.villageToAssign}",
+                                              "${user!.district}",
                                               style: TextStyle(
                                                 fontSize: 12.0,
                                                 color: Colors.grey[400],
