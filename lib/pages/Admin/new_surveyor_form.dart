@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart' show rootBundle;
+
 import "package:flutter/material.dart";
-import 'package:flutter/services.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
+import 'package:medical_servey_app/models/common/villageData.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
@@ -42,19 +44,18 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
 
   onPressedSubmit() async {
     print("surveyorStart");
+    print("surveyorForm $surveyorForm");
     if (formKeyNewSurveyorForm.currentState!.validate()) {
-      //turning loading on
+      // //turning loading on
       _loading!.on(); //invoking login
       surveyorForm['joiningDate'] = selectedDate;
       surveyorForm['age'] = ageDropDown!.selectedItem!;
       surveyorForm['gender'] = genderDropDown!.selectedItem!;
       surveyorForm['profession'] = qualificationDropDown!.selectedItem!;
-      surveyorForm['district'] = districtDropDown!.selectedItem!;
-      surveyorForm['taluka'] = talukaDropDown!.selectedItem!;
-      surveyorForm['village'] = villageDropDown!.selectedItem!;
+
       formKeyNewSurveyorForm.currentState!.save();
 
-      print("surveyorForm");
+      print("surveyorForm $surveyorForm");
       Surveyor surveyor = Surveyor.fromMap(surveyorForm);
       print(surveyor);
       //creating account for surveyor
@@ -103,6 +104,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
 
   // List of items in our dropdown menu
   List<int> ageList = generateN2MList(15, 100);
+  List<VillageData> villageData = [];
   List<String> taluka = [];
   List<String> villages = [];
   var district = [
@@ -120,15 +122,31 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     'Secondary education or high school',
     'GED',
     'Vocational qualification',
-    'Diploma'
-        'Bachelors degree',
+    'Diploma',
+    'Bachelors degree',
     'Masters degree',
     'Doctorate or higher'
   ];
   var width, height;
 
+  Future<void> fetchDataFromJson() async {
+    final assetBundle = DefaultAssetBundle.of(context);
+    final data = await assetBundle.loadString(JSON_PATH);
+    List body = json.decode(data)['Sheet1'];
+    setState(() {
+      villageData = body.map((e) => VillageData.fromMap(e)).toList();
+      taluka = villageData.map((e) => e.taluka).toSet().toList();
+      villages = villageData.map((e) => e.village).toSet().toList();
+    });
+  }
+
   @override
   void initState() {
+    fetchDataFromJson();
+    print("List<VillageData> ${villageData.length}");
+    print("taluka ${taluka.length}");
+    print("villages ${villages.length}");
+    print("object");
     ageDropDown = DropDownButtonWidget(
       items: ageList.map((age) => age.toString()).toList(),
       name: 'Age',
@@ -145,6 +163,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     districtDropDown = DropdownSearch<String>(
       items: district,
       mode: Mode.MENU,
+      onSaved: (districtSaved) => onDistrictSaved(districtSaved),
       dropdownSearchDecoration: InputDecoration(
         hintText: "Select a District",
         labelText: "District To Assign",
@@ -153,12 +172,35 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       validator: (v) => v == null ? "required field" : null,
     );
 
+    _loading = Loading(context: context, key: newSurveyorKey);
+
+    super.initState();
+  }
+
+  onTalukaSaved(saved) {
+    surveyorForm['taluka'] = saved;
+  }
+
+  onVllageSaved(villageSave) {
+    surveyorForm['village'] = villageSave;
+  }
+
+  onDistrictSaved(districtSaved) {
+    surveyorForm['district'] = districtSaved;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
+
     //searchable dropdown widgets
     talukaDropDown = DropdownSearch<String>(
       mode: Mode.DIALOG,
       showSearchBox: true,
       items: taluka,
       showSelectedItems: true,
+      onSaved: (saved) => onTalukaSaved(saved),
       dropdownSearchDecoration: InputDecoration(
         hintText: "Select a Taluka",
         labelText: "Select a Taluka",
@@ -173,6 +215,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       showSearchBox: true,
       items: villages,
       showSelectedItems: true,
+      onSaved: (villageSave) => onVllageSaved(villageSave),
       dropdownSearchDecoration: InputDecoration(
         hintText: "Select a Taluka",
         labelText: "Select a Taluka",
@@ -182,16 +225,6 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       validator: (v) => v == null ? "required field" : null,
     );
     //
-
-    _loading = Loading(context: context, key: newSurveyorKey);
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
     return Scaffold(
       drawer: !Responsive.isDesktop(context) ? SideMenu() : null,
       body: Row(
@@ -363,32 +396,34 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
                 child: mobileNo,
               ),
               //
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                      child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: districtDropDown!,
-                  )),
-                  SizedBox(
-                    width: width * 0.01,
-                  ),
-                  Expanded(
-                      child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: talukaDropDown!,
-                  )),
-                  SizedBox(
-                    width: width * 0.01,
-                  ),
-                  Expanded(
-                      child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: villageDropDown,
-                  )),
-                ],
-              ),
+              taluka.isNotEmpty && villages.isNotEmpty
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                            child: Padding(
+                          padding: Common.allPadding(mHeight: height),
+                          child: districtDropDown!,
+                        )),
+                        SizedBox(
+                          width: width * 0.01,
+                        ),
+                        Expanded(
+                            child: Padding(
+                          padding: Common.allPadding(mHeight: height),
+                          child: talukaDropDown!,
+                        )),
+                        SizedBox(
+                          width: width * 0.01,
+                        ),
+                        Expanded(
+                            child: Padding(
+                          padding: Common.allPadding(mHeight: height),
+                          child: villageDropDown!,
+                        )),
+                      ],
+                    )
+                  : CircularProgressIndicator(),
               //
               Padding(
                 padding: Common.allPadding(mHeight: height),

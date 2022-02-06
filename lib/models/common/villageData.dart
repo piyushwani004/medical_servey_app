@@ -1,41 +1,41 @@
 import 'dart:convert';
 
 class VillageData {
-  String No;
-  String Taluka;
-  String Village;
-  
+  String no;
+  String taluka;
+  String village;
+
   VillageData({
-    required this.No,
-    required this.Taluka,
-    required this.Village,
+    required this.no,
+    required this.taluka,
+    required this.village,
   });
 
   VillageData copyWith({
-    String? No,
-    String? Taluka,
-    String? Village,
+    String? no,
+    String? taluka,
+    String? village,
   }) {
     return VillageData(
-      No: No ?? this.No,
-      Taluka: Taluka ?? this.Taluka,
-      Village: Village ?? this.Village,
+      no: no ?? this.no,
+      taluka: taluka ?? this.taluka,
+      village: village ?? this.village,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'No': No,
-      'Taluka': Taluka,
-      'Village': Village,
+      'No': no,
+      'Taluka': taluka,
+      'Village': village,
     };
   }
 
   factory VillageData.fromMap(Map<String, dynamic> map) {
     return VillageData(
-      No: map['No'] ?? '',
-      Taluka: map['Taluka'] ?? '',
-      Village: map['Village'] ?? '',
+      no: map['No'].toString(),
+      taluka: map['Taluka'] ?? '',
+      village: map['Village'] ?? '',
     );
   }
 
@@ -46,18 +46,18 @@ class VillageData {
 
   @override
   String toString() =>
-      'VillageData(No: $No, Taluka: $Taluka, Village: $Village)';
+      'VillageData(no: $no, taluka: $taluka, village: $village)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
     return other is VillageData &&
-        other.No == No &&
-        other.Taluka == Taluka &&
-        other.Village == Village;
+        other.no == no &&
+        other.taluka == taluka &&
+        other.village == village;
   }
 
   @override
-  int get hashCode => No.hashCode ^ Taluka.hashCode ^ Village.hashCode;
+  int get hashCode => no.hashCode ^ taluka.hashCode ^ village.hashCode;
 }
