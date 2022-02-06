@@ -107,7 +107,7 @@ class Surveyor {
       taluka: map['taluka'] ?? '',
       village: map['village'] ?? '',
       aadhaarNumber: map['aadhaarNumber'] ?? '',
-      age: map['age']?.toInt() ?? 0,
+      age: int.parse(map['age'].toString()),
     );
   }
 
