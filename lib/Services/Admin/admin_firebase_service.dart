@@ -217,4 +217,15 @@ class AdminFirebaseService {
       return false;
     }
   }
+
+  //****************************** Dashboard Count Methods ******************************//
+
+  Future<int> getCount({required String collectionName}) async {
+    var count = 0;
+    final QuerySnapshot qSnap = await FirebaseFirestore.instance
+        .collection(collectionName) //your collectionref
+        .get();
+    count = qSnap.docs.length;
+    return count;
+  }
 }
