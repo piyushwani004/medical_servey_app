@@ -88,65 +88,67 @@ class _FileInfoCardGridViewState extends State<FileInfoCardGridView> {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: _countList.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: widget.crossAxisCount,
-        crossAxisSpacing: defaultPadding,
-        mainAxisSpacing: defaultPadding,
-        childAspectRatio: widget.childAspectRatio,
-      ),
-      itemBuilder: (context, index) {
-        return Container(
-          padding: EdgeInsets.all(defaultPadding),
-          decoration: BoxDecoration(
-            color: secondaryColor,
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                      padding: EdgeInsets.all(defaultPadding * 0.75),
-                      decoration: BoxDecoration(
-                        color: bgColor,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: Container(
-                        child: Text("${_countList[index].count}",
-                            style: TextStyle(color: Colors.white)),
-                      )),
-                ],
-              ),
-              Divider(),
-              Text(
-                "Total ${_countList[index].name}",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "${_countList[index].name} Count",
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(color: Colors.white, fontSize: 18),
-                  ),
-                ],
-              )
-            ],
-          ),
-        );
-      },
-    );
+    return _countList.isNotEmpty
+        ? GridView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: _countList.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: widget.crossAxisCount,
+              crossAxisSpacing: defaultPadding,
+              mainAxisSpacing: defaultPadding,
+              childAspectRatio: widget.childAspectRatio,
+            ),
+            itemBuilder: (context, index) {
+              return Container(
+                padding: EdgeInsets.all(defaultPadding),
+                decoration: BoxDecoration(
+                  color: secondaryColor,
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            padding: EdgeInsets.all(defaultPadding * 0.75),
+                            decoration: BoxDecoration(
+                              color: bgColor,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Container(
+                              child: Text("${_countList[index].count}",
+                                  style: TextStyle(color: Colors.white)),
+                            )),
+                      ],
+                    ),
+                    Divider(),
+                    Text(
+                      "Total ${_countList[index].name}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${_countList[index].name} Count",
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption!
+                              .copyWith(color: Colors.white, fontSize: 18),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              );
+            },
+          )
+        : CircularProgressIndicator();
   }
 }
