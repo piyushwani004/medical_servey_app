@@ -102,6 +102,8 @@ class _DataTableWithGivenColumnForSurveyorState
               DataCell(Text(row.profession)),
               DataCell(Text(row.joiningDate)),
               DataCell(Text(row.district)),
+              DataCell(Text(row.taluka)),
+              DataCell(Text(row.village.toString())),
               DataCell(Text(row.aadhaarNumber)),
             ],
             selected: widget.selectedRecords.contains(row),

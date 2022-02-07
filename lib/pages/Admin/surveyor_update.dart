@@ -69,6 +69,8 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
             sur.joiningDate.contains(searchText) ||
             sur.district.contains(searchText) ||
             sur.aadhaarNumber.contains(searchText) ||
+            sur.taluka.contains(searchText) ||
+            sur.village.contains(searchText) ||
             sur.profession.contains(searchText))
         .toList();
     setState(() {});
