@@ -42,6 +42,8 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     'Profession',
     'Joining-Date',
     'District',
+    'Taluka',
+    'Villages',
     'Aadhaar-Number'
   ];
 
