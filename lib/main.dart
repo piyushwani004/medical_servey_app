@@ -28,30 +28,37 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
-  AdminFirebaseService _adminFirebaseService = AdminFirebaseService();
-  String adminEmail = await _adminFirebaseService.getAdminEmail();
-  runApp(MyApp(adminEmail));
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  final String adminEmail;
-  MyApp(this.adminEmail);
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  AdminFirebaseService _adminFirebaseService = AdminFirebaseService();
+
+  String? adminEmail;
+
   // This widget is the root of your application.
+
+  getEmail() async {
+    adminEmail = await _adminFirebaseService.getAdminEmail();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getEmail();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Medical Survey',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: Routes.generateRoute,
-      home: MultiProvider(providers: [
+    return MultiProvider(
+      providers: [
         Provider<FirebaseAuthService>(
             create: (_) => FirebaseAuthService(FirebaseAuth.instance)),
         StreamProvider(
@@ -59,7 +66,19 @@ class _MyAppState extends State<MyApp> {
               context.read<FirebaseAuthService>().authStateChanges,
           initialData: null,
         ),
-      ], child: AuthenticationWrapper(adminEmail: widget.adminEmail,)),
+      ],
+      child: MaterialApp(
+          title: 'Medical Survey',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: Routes.generateRoute,
+          home: adminEmail != null
+              ? AuthenticationWrapper(
+                  adminEmail: adminEmail!,
+                )
+              : Center(child: CircularProgressIndicator())),
     );
   }
 }

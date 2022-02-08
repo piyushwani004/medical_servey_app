@@ -15,8 +15,13 @@ class FirebaseAuthService {
   /// This won't pop routes so you could do something like
   /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   /// after you called this method if you want to pop all routes.
-  Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+  Future<Response> signOut() async {
+    try{
+      await _firebaseAuth.signOut();
+      return Response(isSuccessful: true, message: "Log out Successfully!");
+    } on FirebaseAuthException catch(e){
+      return Response(isSuccessful: false, message: '${e.message}');
+    }
   }
 
   /// There are a lot of different ways on how you can do exception handling.

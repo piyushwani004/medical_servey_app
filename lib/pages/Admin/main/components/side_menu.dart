@@ -3,14 +3,31 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
 import 'package:medical_servey_app/routes/routes.dart';
 import 'package:medical_servey_app/utils/constants.dart';
+import 'package:medical_servey_app/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
-class SideMenu extends StatelessWidget {
-  ScrollController _scrollController = ScrollController();
+import '../../../../models/common/Responce.dart';
+import '../../../../widgets/common.dart';
+
+class SideMenu extends StatefulWidget {
 
   SideMenu({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<SideMenu> createState() => _SideMenuState();
+}
+
+class _SideMenuState extends State<SideMenu> {
+  ScrollController _scrollController = ScrollController();
+  Loading? loading;
+  final GlobalKey<State> sideMenuKey = GlobalKey<State>();
+  @override
+  void initState() {
+    loading = Loading(key: sideMenuKey, context: context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +82,21 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "Logout",
             svgSrc: "assets/icons/menu_task.svg",
-            press: () {
-              context.read<FirebaseAuthService>().signOut();
+            press: ()async {
+              loading!.on();
+              Response res = await context.read<FirebaseAuthService>().signOut();
+              if(res.isSuccessful) {
+                loading!.off();
+                Navigator.pushReplacementNamed(context, routeStart);
+
+              } else {
+                loading!.off();
+                Common.showAlert(
+                    context: context,
+                    title: "Logout Failed",
+                    content: res.message,
+                    isError: true);
+              }
             },
           ),
         ],
