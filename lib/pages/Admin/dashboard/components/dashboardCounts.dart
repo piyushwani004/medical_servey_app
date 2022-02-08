@@ -101,11 +101,11 @@ class _FileInfoCardGridViewState extends State<FileInfoCardGridView> {
             ),
             itemBuilder: (context, index) {
               return Card(
-                // padding: EdgeInsets.all(defaultPadding),
-                // decoration: BoxDecoration(
-                //   // color: secondaryColor,
-                //   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                // ),
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.white70, width: 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(defaultPadding),
                   child: Column(
@@ -117,10 +117,12 @@ class _FileInfoCardGridViewState extends State<FileInfoCardGridView> {
                         children: [
                           Flexible(
                             child: Card(
+                              elevation: 4,
                               child: Padding(
                                 padding: EdgeInsets.all(defaultPadding * 0.75),
-                                child: Text("${_countList[index].count}",
-                                    // style: TextStyle(color: Colors.white),
+                                child: Text(
+                                  "${_countList[index].count}",
+                                  // style: TextStyle(color: Colors.white),
                                 ),
                               ),
                             ),
