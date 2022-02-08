@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
-import 'package:medical_servey_app/models/Admin/Disease.dart';
+import 'package:medical_servey_app/models/Admin/disease.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/pages/Admin/main/components/side_menu.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
