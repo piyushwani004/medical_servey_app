@@ -100,51 +100,57 @@ class _FileInfoCardGridViewState extends State<FileInfoCardGridView> {
               childAspectRatio: widget.childAspectRatio,
             ),
             itemBuilder: (context, index) {
-              return Container(
-                padding: EdgeInsets.all(defaultPadding),
-                decoration: BoxDecoration(
-                  color: secondaryColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                            padding: EdgeInsets.all(defaultPadding * 0.75),
-                            decoration: BoxDecoration(
-                              color: bgColor,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
+              return Card(
+                // padding: EdgeInsets.all(defaultPadding),
+                // decoration: BoxDecoration(
+                //   // color: secondaryColor,
+                //   borderRadius: const BorderRadius.all(Radius.circular(10)),
+                // ),
+                child: Padding(
+                  padding: const EdgeInsets.all(defaultPadding),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Card(
+                              child: Padding(
+                                padding: EdgeInsets.all(defaultPadding * 0.75),
+                                child: Text("${_countList[index].count}",
+                                    // style: TextStyle(color: Colors.white),
+                                ),
+                              ),
                             ),
-                            child: Container(
-                              child: Text("${_countList[index].count}",
-                                  style: TextStyle(color: Colors.white)),
-                            )),
-                      ],
-                    ),
-                    Divider(),
-                    Text(
-                      "Total ${_countList[index].name}",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "${_countList[index].name} Count",
-                          style: Theme.of(context)
-                              .textTheme
-                              .caption!
-                              .copyWith(color: Colors.white, fontSize: 18),
+                          ),
+                        ],
+                      ),
+                      Divider(),
+                      Expanded(
+                        child: Text(
+                          "Total ${_countList[index].name}",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
-                    )
-                  ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "${_countList[index].name} Count",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption!
+                                  .copyWith(color: Colors.white, fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               );
             },
