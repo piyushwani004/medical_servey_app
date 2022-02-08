@@ -29,6 +29,58 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
     setState(() {});
   }
 
+  onVillageSelectPressed() {
+    openVillageDialoge();
+  }
+
+  Widget openVillageDialoge() {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
+      elevation: 25.0,
+      backgroundColor: Colors.white,
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(5.0),
+              alignment: Alignment.topRight,
+              child: Icon(
+                Icons.close,
+                color: Colors.grey,
+                size: 20.0,
+              ),
+            ),
+            Container(
+                margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
+                color: Colors.white,
+                child: Text(
+                  "Select your preferred language",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                )),
+            Flexible(
+              child: Container(), //Custom ListView
+            ),
+            SizedBox(
+              height: 50,
+              width: double.infinity,
+              child: TextButton(
+                onPressed: () {},
+                child: Text("Submit"),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     getSurveyorDetails();
@@ -149,20 +201,26 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                           TableRow(children: [
                             Padding(
                               padding: Common.allPadding(mHeight: height * 0.9),
-                              child: Container(
-                                decoration: Common.containerBoxDecoration(),
-                                height: 200,
-                                width: 100,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.holiday_village_rounded,
-                                      size: height * 0.09,
-                                    ),
-                                    Text("Select Village")
-                                  ],
+                              child: InkWell(
+                                onTap: () {
+                                  onVillageSelectPressed();
+                                },
+                                child: Container(
+                                  decoration: Common.containerBoxDecoration(),
+                                  height: 200,
+                                  width: 100,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.holiday_village_rounded,
+                                        size: height * 0.09,
+                                      ),
+                                      Text("Select Village")
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
