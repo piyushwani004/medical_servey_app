@@ -129,6 +129,9 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   onEnterMouse(PointerEnterEvent event){
     _focusNode.requestFocus();
   }
+  onExitMouse(PointerExitEvent event){
+    _focusNode.unfocus();
+  }
 
   @override
   void initState() {
@@ -217,6 +220,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                     elevation: 10,
                     child: MouseRegion(
                       onEnter:onEnterMouse,
+                      onExit: onExitMouse,
                       child: RawKeyboardListener(
                         autofocus: true,
                         focusNode:_focusNode ,
