@@ -30,55 +30,61 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
   }
 
   onVillageSelectPressed() {
-    openVillageDialoge();
-  }
-
-  Widget openVillageDialoge() {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
-        ),
-      ),
-      elevation: 25.0,
-      backgroundColor: Colors.white,
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.all(5.0),
-              alignment: Alignment.topRight,
-              child: Icon(
-                Icons.close,
-                color: Colors.grey,
-                size: 20.0,
-              ),
-            ),
-            Container(
-                margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
-                color: Colors.white,
-                child: Text(
-                  "Select your preferred language",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+    List<String> ringTone = [
+      'Luna',
+      'Oberon',
+      'Phobos',
+      'Rose',
+      'Sunset',
+      'Wood'
+    ];
+    int _currentIndex = 0;
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (context, setState2) {
+              return AlertDialog(
+                title: Text('Phone Ringtone'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, null);
+                    },
+                    child: Text('CANCEL'),
                   ),
-                )),
-            Flexible(
-              child: Container(), //Custom ListView
-            ),
-            SizedBox(
-              height: 50,
-              width: double.infinity,
-              child: TextButton(
-                onPressed: () {},
-                child: Text("Submit"),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, ringTone[_currentIndex]);
+                    },
+                    child: Text('OK'),
+                  ),
+                ],
+                content: Container(
+                  width: double.minPositive,
+                  height: 300,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: ringTone.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return RadioListTile(
+                        value: index,
+                        groupValue: _currentIndex,
+                        title: Text(ringTone[index]),
+                        onChanged: (val) {
+                          print("object $val");
+                          setState2(() {
+                           // _currentIndex = val;
+                          });
+                        },
+                      );
+                    },
+                  ),
+                ),
+              );
+            },
+          );
+        });
   }
 
   @override
