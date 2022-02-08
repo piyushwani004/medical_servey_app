@@ -257,7 +257,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       // validator: (aadhaarNo) => aadhaarNumberValidator(aadhaarNo!),
       autofocus: false,
       onSaved: (aadhaarNo) {
-        surveyorForm["aadhaarNo"] = aadhaarNo!;
+        surveyorForm["aadhaarNumber"] = aadhaarNo!;
       },
       // validator: (email) => emailValidator(email!),
       decoration:
@@ -513,7 +513,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       items: villages,
       showClearButton: true,
       onChanged: (onSaved) {
-        print('onsaveForVillage');
+        print('onsaveForVillage ${onSaved}');
         onVillageSaved(onSaved);
       },
       showSearchBox: true,
