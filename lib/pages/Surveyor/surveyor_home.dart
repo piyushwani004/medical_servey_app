@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
+import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/routes/routes.dart';
 import 'package:medical_servey_app/widgets/common.dart';
@@ -16,8 +18,10 @@ class SurveyorHomePage extends StatefulWidget {
 
 class _SurveyorHomePageState extends State<SurveyorHomePage> {
   SurveyorFirebaseService _surveyorFirebaseService = SurveyorFirebaseService();
+  VillageSelectService _villageSelectService = VillageSelectService();
   var width, height;
-  int? _currentIndex = -1;
+  String? _selectedRadioItem;
+  User? surveyorUID;
 
   Surveyor? user;
 
@@ -27,17 +31,21 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
 
   getSurveyorDetails() async {
     user = await _surveyorFirebaseService.getSurveyorDetails();
+    print("user $user");
+    surveyorUID = await _surveyorFirebaseService.getCurrentUser();
     setState(() {});
   }
 
   onVillageSelectPressed() {
+    print(surveyorUID!.uid);
+
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return StatefulBuilder(
             builder: (context, setState2) {
               return AlertDialog(
-                title: Text('Phone Ringtone'),
+                title: Text('Select Village'),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () {
@@ -47,26 +55,28 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context, null);
+                      _villageSelectService.setSelectedVillage(
+                          passedVillage: _selectedRadioItem ?? "NA",
+                          passedUID: surveyorUID!.uid);
+                      setState(() {});
+                      Navigator.pop(context);
                     },
                     child: Text('OK'),
                   ),
                 ],
                 content: Container(
                   width: double.minPositive,
-                  height: 300,
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: user!.village.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return RadioListTile(
-                        value: index,
-                        groupValue: _currentIndex,
+                      return RadioListTile<String?>(
                         title: Text(user!.village[index]),
-                        onChanged: (value) {
-                          setState(() {
-                            _currentIndex = value as int;
-                            print("object $_currentIndex");
+                        value: user!.village[index],
+                        groupValue: _selectedRadioItem,
+                        onChanged: (String? value) {
+                          setState2(() {
+                            _selectedRadioItem = value;
                           });
                         },
                       );
@@ -200,27 +210,48 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                           TableRow(children: [
                             Padding(
                               padding: Common.allPadding(mHeight: height * 0.9),
-                              child: InkWell(
-                                onTap: () {
-                                  onVillageSelectPressed();
-                                },
-                                child: Container(
-                                  decoration: Common.containerBoxDecoration(),
-                                  height: 200,
-                                  width: 100,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.holiday_village_rounded,
-                                        size: height * 0.09,
+                              child: Container(
+                                decoration: Common.containerBoxDecoration(),
+                                height: 200,
+                                width: 100,
+                                child: surveyorUID!.uid != null
+                                    ? StreamBuilder<String>(
+                                        stream: _villageSelectService
+                                            .getSelectedVillage(
+                                                passedUID: surveyorUID!.uid),
+                                        builder: (context, snapshot) {
+                                          return snapshot.data != null &&
+                                                  snapshot.hasData
+                                              ? InkWell(
+                                                  onTap: () {
+                                                    onVillageSelectPressed();
+                                                  },
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons
+                                                            .holiday_village_rounded,
+                                                        size: height * 0.09,
+                                                      ),
+                                                      Text(
+                                                          "${snapshot.data} Village")
+                                                    ],
+                                                  ),
+                                                )
+                                              : Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                );
+                                        })
+                                    : Center(
+                                        child: CircularProgressIndicator(),
                                       ),
-                                      Text("Select Village")
-                                    ],
-                                  ),
-                                ),
                               ),
                             ),
                             Padding(

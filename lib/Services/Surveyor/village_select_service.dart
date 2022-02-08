@@ -11,11 +11,14 @@ class VillageSelectService {
     prefs.setString(key, passedVillage);
   }
 
-  Future<String> getSelectedVillage({required String passedUID}) {
+  Stream<String> getSelectedVillage({required String passedUID}) async* {
     String key = passedUID + SELECTEDVILLAGE;
-    Future<String> _selectedVillage = _prefs.then((SharedPreferences prefs) {
-      return prefs.getString(key) ?? "Not Found";
-    });
-    return _selectedVillage;
+    // Future<String> _selectedVillage = _prefs.then((SharedPreferences prefs) {
+    //   return prefs.getString(key) ?? "NA";
+    // });
+    final SharedPreferences prefs = await _prefs;
+    String _selectedVillage = prefs.getString(key) ?? "Select";
+    print("_selectedVillage::: $_selectedVillage");
+    yield _selectedVillage;
   }
 }
