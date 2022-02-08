@@ -156,7 +156,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
 
   onVillageSaved(villageSave) {
     print("villageSave :: $villageSave");
-    surveyorForm['village'] = villageSave;
+    surveyorForm['village'] = villageSave ?? widget.surveyor.village;
   }
 
   onDistrictSaved(districtSaved) {
@@ -512,7 +512,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       // onSaved: (villageSave) => onVllageSaved(villageSave),
       items: villages,
       showClearButton: true,
-      onChanged: (onSaved) {
+      onSaved: (onSaved) {
         print('onsaveForVillage ${onSaved}');
         onVillageSaved(onSaved);
       },
