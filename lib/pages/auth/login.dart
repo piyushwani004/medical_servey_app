@@ -14,13 +14,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final TextEditingController _textController = TextEditingController();
   final formKeyEmailPass = GlobalKey<FormState>();
   var width, height;
   Map<String, String> emailPassword = {};
   final GlobalKey<State> _keyLoader = GlobalKey<State>();
   Loading? _loading;
+  bool _obscureText = true;
 
   onLoginPressed() async {
     if (formKeyEmailPass.currentState!.validate()) {
@@ -31,22 +31,20 @@ class _LoginPageState extends State<LoginPage> {
           email: emailPassword['email'] ?? '',
           password: emailPassword['password'] ?? '');
 
-      if(isSignedIn.isSuccessful){
+      if (isSignedIn.isSuccessful) {
+        _loading?.off();
+        showSnackBar(context, isSignedIn.message);
+      } else {
         _loading?.off();
         showSnackBar(context, isSignedIn.message);
       }
-      else{
-        _loading?.off();
-        showSnackBar(context, isSignedIn.message);
-      }
-
-
     }
   }
 
   onForgotPressed() async {
-    bool isEmailValid = emailValidator(_textController.text) == null? true:false;
-    if(isEmailValid){
+    bool isEmailValid =
+        emailValidator(_textController.text) == null ? true : false;
+    if (isEmailValid) {
       Response emailSent = await context
           .read<FirebaseAuthService>()
           .sendPasswordResetEmail(_textController.text);
@@ -63,15 +61,14 @@ class _LoginPageState extends State<LoginPage> {
             content: emailSent.message,
             isError: true);
       }
-    }else{
+    } else {
       showSnackBar(context, "Invalid Email");
-
     }
   }
 
   @override
   void initState() {
-    _loading = Loading(context: context,key: _keyLoader);
+    _loading = Loading(context: context, key: _keyLoader);
     super.initState();
   }
 
@@ -80,9 +77,9 @@ class _LoginPageState extends State<LoginPage> {
     _textController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
     final logo = Hero(
       tag: 'hero',
@@ -102,7 +99,12 @@ class _LoginPageState extends State<LoginPage> {
         emailPassword["email"] = email!;
       },
       validator: (email) => emailValidator(email!),
-      decoration: Common.textFormFieldInputDecoration(labelText: "Email"),
+      decoration: InputDecoration(
+          hintText: 'Email',
+          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          label: Text("Email"),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+          prefixIcon: Icon(Icons.email_outlined)),
     );
 
     final password = TextFormField(
@@ -110,8 +112,25 @@ class _LoginPageState extends State<LoginPage> {
         emailPassword["password"] = password!;
       },
       autofocus: false,
-      obscureText: true,
-      decoration: Common.textFormFieldInputDecoration(labelText: "Password"),
+      obscureText: _obscureText,
+      decoration: InputDecoration(
+        hintText: 'Password',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        label: Text("Password"),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        prefixIcon: Icon(Icons.lock_open_rounded),
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+          child: Icon(
+            _obscureText ? Icons.visibility : Icons.visibility_off,
+            semanticLabel: _obscureText ? 'show password' : 'hide password',
+          ),
+        ),
+      ),
     );
 
     final loginButton = Padding(
@@ -136,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 223, 222, 221),
+      backgroundColor: Color.fromRGBO(234, 242, 255, 1.0),
       body: Padding(
         padding: EdgeInsets.all(size.height > 770
             ? 64
