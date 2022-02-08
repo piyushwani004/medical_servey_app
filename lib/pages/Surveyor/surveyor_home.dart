@@ -17,6 +17,7 @@ class SurveyorHomePage extends StatefulWidget {
 class _SurveyorHomePageState extends State<SurveyorHomePage> {
   SurveyorFirebaseService _surveyorFirebaseService = SurveyorFirebaseService();
   var width, height;
+  int? _currentIndex = -1;
 
   Surveyor? user;
 
@@ -30,15 +31,6 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
   }
 
   onVillageSelectPressed() {
-    List<String> ringTone = [
-      'Luna',
-      'Oberon',
-      'Phobos',
-      'Rose',
-      'Sunset',
-      'Wood'
-    ];
-    int _currentIndex = 0;
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -55,7 +47,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context, ringTone[_currentIndex]);
+                      Navigator.pop(context, null);
                     },
                     child: Text('OK'),
                   ),
@@ -65,16 +57,16 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                   height: 300,
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: ringTone.length,
+                    itemCount: user!.village.length,
                     itemBuilder: (BuildContext context, int index) {
                       return RadioListTile(
                         value: index,
                         groupValue: _currentIndex,
-                        title: Text(ringTone[index]),
-                        onChanged: (val) {
-                          print("object $val");
-                          setState2(() {
-                           // _currentIndex = val;
+                        title: Text(user!.village[index]),
+                        onChanged: (value) {
+                          setState(() {
+                            _currentIndex = value as int;
+                            print("object $_currentIndex");
                           });
                         },
                       );
@@ -105,17 +97,18 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
           Column(
             children: [
               Flexible(
-                  flex: 2,
-                  child: ClipPath(
-                    clipper: CurveClipper(),
-                    child: Container(
-                      decoration: Common.gradientBoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(0),
-                            topLeft: Radius.circular(0)),
-                      ),
+                flex: 2,
+                child: ClipPath(
+                  clipper: CurveClipper(),
+                  child: Container(
+                    decoration: Common.gradientBoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(0),
+                          topLeft: Radius.circular(0)),
                     ),
-                  )),
+                  ),
+                ),
+              ),
               Flexible(
                 flex: 5,
                 child: Container(
