@@ -1,9 +1,15 @@
+import 'dart:convert';
+
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 
+import '../models/common/villageData.dart';
+import '../utils/image_utils.dart';
+import '../utils/responsive.dart';
 import 'DropDownWidget.dart';
 import 'common.dart';
 import 'loading.dart';
@@ -19,36 +25,55 @@ class SurveyorEditDialog extends StatefulWidget {
 
 class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
   String? selectedDate;
-  Map<String, String> surveyorForm = {};
+  Map<String, dynamic> surveyorForm = {};
   final formKey = GlobalKey<FormState>();
   final GlobalKey<State> surveyorEditKey = GlobalKey<State>();
+  final _multiKey = GlobalKey<DropdownSearchState<String>>();
   Loading? _loading;
   AdminFirebaseService _firebaseService = AdminFirebaseService();
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? qualificationDropDown;
-  DropDownButtonWidget? villageToAssign;
+  DropdownSearch<String>? districtDropDown;
+  DropdownSearch<String>? talukaDropDown;
 
   // List of items in our dropdown menu
   List<int> ageList = generateN2MList(15, 100);
-  var villages = [
-    'Bhusawal',
-    'Jalgao',
-    'Yavatmal',
-    'Pune',
-    'Wardha',
+  List<VillageData> villageData = [];
+  List<String> taluka = [];
+  List<String> villages = [];
+  var district = [
+    'Jalgaon',
   ];
+
   var genders = [
-    'M',
-    'F',
-    'T',
+    'Male',
+    'Female',
+    'Intersex',
   ];
   var qualifications = [
-    'Degree pass',
-    'Metric Pass',
-    'None',
+    'No formal education',
+    'Primary education',
+    'Secondary education or high school',
+    'GED',
+    'Vocational qualification',
+    'Diploma',
+    'Bachelors degree',
+    'Masters degree',
+    'Doctorate or higher'
   ];
   var width, height;
+
+  Future<void> fetchDataFromJson() async {
+    final assetBundle = DefaultAssetBundle.of(context);
+    final data = await assetBundle.loadString(JSON_PATH);
+    List body = json.decode(data)['Sheet1'];
+    setState(() {
+      villageData = body.map((e) => VillageData.fromMap(e)).toList();
+      taluka = villageData.map((e) => e.taluka).toSet().toList();
+      villages = villageData.map((e) => e.village).toSet().toList();
+    });
+  }
 
   Future<Response> onConfirmBtnPressed() async {
     if (formKey.currentState!.validate()) {
@@ -58,8 +83,8 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       surveyorForm['age'] = ageDropDown!.selectedItem!;
       surveyorForm['gender'] = genderDropDown!.selectedItem!;
       surveyorForm['profession'] = qualificationDropDown!.selectedItem!;
-      surveyorForm['villageToAssign'] = villageToAssign!.selectedItem!;
       formKey.currentState!.save();
+      print("surveyorForm $surveyorForm");
       Surveyor surveyor = Surveyor.fromMap(surveyorForm);
       Response isUpdate = await _firebaseService.updateSurveyor(surveyor);
 
@@ -78,7 +103,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
             isError: true);
         return isUpdate;
       }
-    }else{
+    } else {
       Common.showAlert(
           context: context,
           title: 'Surveyor Update',
@@ -90,6 +115,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
 
   @override
   void initState() {
+    fetchDataFromJson();
     _loading = Loading(key: surveyorEditKey, context: context);
     selectedDate = formatDate(widget.surveyor.joiningDate);
     // assigning dropdowns
@@ -108,20 +134,54 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       items: qualifications,
       name: 'Qualification',
     );
-    villageToAssign = DropDownButtonWidget(
-      selectedItem: widget.surveyor.villageToAssign,
-      items: villages,
-      name: 'Village To Assign',
+
+    districtDropDown = DropdownSearch<String>(
+      items: district,
+      mode: Mode.MENU,
+      onSaved: (districtSaved) => onDistrictSaved(districtSaved),
+      dropdownSearchDecoration:
+      Common.textFormFieldInputDecoration(labelText: "Select District"),
+      selectedItem: district.first,
+      validator: (v) => v == null ? "required field" : null,
     );
 
     _loading = Loading(context: context, key: surveyorEditKey);
     super.initState();
   }
 
+
+  onTalukaSaved(saved) {
+    surveyorForm['taluka'] = saved;
+  }
+
+  onVillageSaved(villageSave) {
+    print("villageSave :: $villageSave");
+    surveyorForm['village'] = villageSave ?? widget.surveyor.village;
+  }
+
+  onDistrictSaved(districtSaved) {
+    surveyorForm['district'] = districtSaved;
+  }
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
+
+    //searchable dropdown widgets
+    talukaDropDown = DropdownSearch<String>(
+      mode: Mode.DIALOG,
+      showSearchBox: true,
+      selectedItem: widget.surveyor.taluka,
+      items: taluka,
+      showSelectedItems: true,
+      onSaved: (saved) => onTalukaSaved(saved),
+      dropdownSearchDecoration:
+      Common.textFormFieldInputDecoration(labelText: "Select Taluka"),
+      onChanged: print,
+      showClearButton: true,
+      validator: (v) => v == null ? "required field" : null,
+    );
 
     final fullName = TextFormField(
       initialValue:
@@ -155,8 +215,12 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       autofocus: false,
       readOnly: true,
       // enabled: false,
-      onTap: (){
-        Common.showAlert(context: context, title: "Invalid Operation", content: "Email cannot be edited", isError: true);
+      onTap: () {
+        Common.showAlert(
+            context: context,
+            title: "Invalid Operation",
+            content: "Email cannot be edited",
+            isError: true);
       },
       validator: (email) => emailValidator(email!),
       onSaved: (email) {
@@ -193,7 +257,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
       // validator: (aadhaarNo) => aadhaarNumberValidator(aadhaarNo!),
       autofocus: false,
       onSaved: (aadhaarNo) {
-        surveyorForm["aadhaarNo"] = aadhaarNo!;
+        surveyorForm["aadhaarNumber"] = aadhaarNo!;
       },
       // validator: (email) => emailValidator(email!),
       decoration:
@@ -273,10 +337,11 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
                       padding: Common.allPadding(mHeight: height),
                       child: mobileNo,
                     ),
-                    Padding(
-                      padding: Common.allPadding(mHeight: height),
-                      child: villageToAssign,
-                    ),
+                    //
+                    taluka.isNotEmpty && villages.isNotEmpty
+                        ? Responsive(mobile: mobileView(), desktop: desktopView())
+                        : CircularProgressIndicator(),
+                    //
                     Padding(
                       padding: Common.allPadding(mHeight: height),
                       child: email,
@@ -299,7 +364,7 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
           onPressed: () async {
             Response res = await onConfirmBtnPressed();
             print(res.isSuccessful);
-            if(res.isSuccessful){
+            if (res.isSuccessful) {
               Navigator.pop(context);
             }
           },
@@ -307,6 +372,159 @@ class _SurveyorEditDialogState extends State<SurveyorEditDialog> {
         ),
       ],
     );
-    
+  }
+
+
+  Widget mobileView() {
+    return Column(
+      children: [
+        Padding(
+          padding: Common.allPadding(mHeight: height),
+          child: districtDropDown!,
+        ),
+        SizedBox(
+          width: width * 0.01,
+        ),
+        Padding(
+          padding: Common.allPadding(mHeight: height),
+          child: talukaDropDown!,
+        ),
+        SizedBox(
+          width: width * 0.01,
+        ),
+        Padding(
+          padding: Common.allPadding(mHeight: height),
+          child: multipleSelectionDropdown(),
+        ),
+      ],
+    );
+  }
+
+  Widget desktopView() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+            child: Padding(
+              padding: Common.allPadding(mHeight: height),
+              child: districtDropDown!,
+            )),
+        SizedBox(
+          width: width * 0.01,
+        ),
+        Expanded(
+            child: Padding(
+              padding: Common.allPadding(mHeight: height),
+              child: talukaDropDown!,
+            )),
+        SizedBox(
+          width: width * 0.01,
+        ),
+        Expanded(
+            child: Padding(
+              padding: Common.allPadding(mHeight: height),
+              child: multipleSelectionDropdown(),
+            )),
+      ],
+    );
+  }
+
+  Widget multipleSelectionDropdown() {
+    return DropdownSearch<String>.multiSelection(
+      key: _multiKey,
+      validator: (List<String>? v) {
+        return v == null || v.isEmpty ? "required field" : null;
+      },
+      dropdownBuilder: (context, selectedItems) {
+        Widget item(String i) => Container(
+          padding: EdgeInsets.only(left: 6, bottom: 3, top: 3, right: 0),
+          margin: EdgeInsets.symmetric(horizontal: 2),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).primaryColorLight),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                i,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+              MaterialButton(
+                height: 20,
+                shape: const CircleBorder(),
+                focusColor: Colors.red[200],
+                hoverColor: Colors.red[200],
+                padding: EdgeInsets.all(0),
+                minWidth: 34,
+                onPressed: () {
+                  _multiKey.currentState?.removeItem(i);
+                },
+                child: Icon(
+                  Icons.close_outlined,
+                  size: 20,
+                ),
+              )
+            ],
+          ),
+        );
+        return Wrap(
+          children: selectedItems.map((e) => item(e)).toList(),
+        );
+      },
+      popupCustomMultiSelectionWidget: (context, list) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKey.currentState?.closeDropDownSearch();
+                  },
+                  child: const Text('Cancel'),
+                ),
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKey.currentState?.popupDeselectAllItems();
+                  },
+                  child: const Text('None'),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+      selectedItems: widget.surveyor.village,
+      dropdownSearchDecoration:
+      Common.textFormFieldInputDecoration(labelText: "Select Villages"),
+      mode: Mode.DIALOG,
+      showSelectedItems: true,
+      // onSaved: (villageSave) => onVllageSaved(villageSave),
+      items: villages,
+      showClearButton: true,
+      onSaved: (onSaved) {
+        print('onsaveForVillage ${onSaved}');
+        onVillageSaved(onSaved);
+      },
+      showSearchBox: true,
+      popupSelectionWidget: (cnt, String item, bool isSelected) {
+        return isSelected
+            ? Icon(
+          Icons.check_circle,
+          color: Colors.green[500],
+        )
+            : Container();
+      },
+    );
   }
 }

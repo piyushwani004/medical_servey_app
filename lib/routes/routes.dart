@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/main.dart';
 import 'package:medical_servey_app/pages/Admin/add_diseases.dart';
 import 'package:medical_servey_app/pages/Admin/main/main_screen.dart';
 import 'package:medical_servey_app/pages/Admin/patient_admin_update.dart';
@@ -10,7 +11,7 @@ import 'package:medical_servey_app/pages/Surveyor/patient_List.dart';
 import 'package:medical_servey_app/pages/Surveyor/surveyor_home.dart';
 import 'package:medical_servey_app/pages/auth/login.dart';
 import 'package:page_transition/page_transition.dart';
-
+const routeStart = '/';
 const routeLogin = '/login';
 const routeAdminHome = '/adminHome';
 const routeAdminAddSurveyor = '/adminAddSurveyor';
@@ -27,6 +28,9 @@ class Routes {
     switch (settings.name) {
 
       //admin
+      case routeLogin:
+        return PageTransition(
+            type: PageTransitionType.rightToLeft, child: MyApp());
       case routeLogin:
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: LoginPage());
@@ -51,6 +55,7 @@ class Routes {
       //Map mapData = settings.arguments;
         return PageTransition(
             type: PageTransitionType.rightToLeft, child: PatientUpdateAdminForUpdate());
+
 
       //Surveyor
       case routeHome:

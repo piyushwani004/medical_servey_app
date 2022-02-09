@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
+import 'package:medical_servey_app/widgets/common.dart';
 
 class SurveyorProfie extends StatefulWidget {
   SurveyorProfie({Key? key}) : super(key: key);
@@ -54,14 +56,10 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
               flex: 5,
               child: Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 131, 96, 228),
-                      Colors.deepPurpleAccent
-                    ],
-                  ),
-                ),
+                decoration: Common.gradientBoxDecoration(
+                    borderRadius: BorderRadius.all(
+                  Radius.circular(0),
+                )),
                 child: Column(children: [
                   Align(
                     alignment: Alignment.topLeft,
@@ -103,7 +101,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
             Expanded(
               flex: 5,
               child: Container(
-                color: Colors.grey[200],
+                color: scafoldbBackgroundColor,
                 child: Center(
                     child: Card(
                         margin: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
@@ -251,13 +249,13 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Village",
+                                              "District",
                                               style: TextStyle(
                                                 fontSize: 15.0,
                                               ),
                                             ),
                                             Text(
-                                              "${user!.villageToAssign}",
+                                              "${user!.district}",
                                               style: TextStyle(
                                                 fontSize: 12.0,
                                                 color: Colors.grey[400],
@@ -275,8 +273,80 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Icon(
-                                          Icons.date_range,
-                                          color: Colors.lightGreen[400],
+                                          Icons.holiday_village,
+                                          color: Colors.purple,
+                                          size: 35,
+                                        ),
+                                        SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Taluka",
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${user!.taluka}",
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.person_pin_circle_outlined,
+                                          color: Colors.amber,
+                                          size: 35,
+                                        ),
+                                        SizedBox(
+                                          width: 20.0,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Assign VIllages",
+                                              style: TextStyle(
+                                                fontSize: 15.0,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${user!.village}",
+                                              style: TextStyle(
+                                                fontSize: 12.0,
+                                                color: Colors.grey[400],
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.school_rounded,
+                                          color: Colors.tealAccent,
                                           size: 35,
                                         ),
                                         SizedBox(

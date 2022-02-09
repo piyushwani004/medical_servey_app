@@ -15,7 +15,8 @@ class DataTableWithGivenColumnForSurveyor extends StatefulWidget {
       _DataTableWithGivenColumnForSurveyorState();
 }
 
-class _DataTableWithGivenColumnForSurveyorState extends State<DataTableWithGivenColumnForSurveyor> {
+class _DataTableWithGivenColumnForSurveyorState
+    extends State<DataTableWithGivenColumnForSurveyor> {
   int? sortColumnIndex;
   bool isAscending = false;
   List<Surveyor>? filteredRecords;
@@ -65,7 +66,7 @@ class _DataTableWithGivenColumnForSurveyorState extends State<DataTableWithGiven
         break;
       case 9:
         widget.records.sort((Surveyor r1, Surveyor r2) =>
-            compareString(ascending, r1.villageToAssign, r2.villageToAssign));
+            compareString(ascending, r1.district, r2.district));
         break;
       case 10:
         widget.records.sort((Surveyor r1, Surveyor r2) =>
@@ -100,7 +101,9 @@ class _DataTableWithGivenColumnForSurveyorState extends State<DataTableWithGiven
               DataCell(Text(row.address)),
               DataCell(Text(row.profession)),
               DataCell(Text(row.joiningDate)),
-              DataCell(Text(row.villageToAssign)),
+              DataCell(Text(row.district)),
+              DataCell(Text(row.taluka)),
+              DataCell(Text(row.village.toString())),
               DataCell(Text(row.aadhaarNumber)),
             ],
             selected: widget.selectedRecords.contains(row),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
-import 'package:medical_servey_app/models/Admin/Disease.dart';
+import 'package:medical_servey_app/models/Admin/disease.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/pages/Admin/main/components/side_menu.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
@@ -230,39 +230,54 @@ class _AddDiseasesState extends State<AddDiseases> {
 
   Future<void> _displayTextInputDialog(
       BuildContext context, Disease disease) async {
-    String updatedDisease = "";
+    String? updatedDisease;
+    GlobalKey<FormState> formKey = GlobalKey<FormState>() ;
     return showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: Text('Update Disease'),
-            content: TextFormField(
-              onChanged: (value) {
-                updatedDisease = value;
-              },
-              initialValue: "${disease.name}",
-              autofocus: false,
-              decoration: InputDecoration(hintText: "Enter Disease"),
-            ),
-            actions: <Widget>[
-              ElevatedButton(
-                child: Text('CANCEL'),
-                onPressed: () {
-                  setState(() {
-                    Navigator.pop(context);
-                  });
-                },
+          return StatefulBuilder(
+              builder: (context, setState2) {
+            return AlertDialog(
+              title: Text('Update Disease'),
+              content: Form(
+                key: formKey,
+                child: TextFormField(
+                  validator: (val) => val==null || val==""?'Cant be empty':null,
+                  initialValue: "${disease.name}",
+                  onSaved: (val){
+                    setState2(() {
+                      updatedDisease = val;
+                    });
+                  },
+                  autofocus: false,
+                  decoration: InputDecoration(hintText: "Enter Disease"),
+                ),
               ),
-              ElevatedButton(
-                child: Text('OK'),
-                onPressed: () async {
-                  Navigator.pop(context);
-                  Response response = await _firebaseService.updateDisease(
-                      disease: Disease(id: disease.id, name: updatedDisease));
-                  print(response.toString());
-                },
-              ),
-            ],
+              actions: <Widget>[
+                ElevatedButton(
+                  child: Text('CANCEL'),
+                  onPressed: () {
+                    setState(() {
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+                ElevatedButton(
+                  child: Text('OK'),
+                  onPressed: () async {
+                    if(formKey.currentState!.validate()){
+                      formKey.currentState!.save();
+                      print("updatedDisease $updatedDisease");
+                      Response response = await _firebaseService.updateDisease(
+                          disease:
+                              Disease(id: disease.id, name: updatedDisease!));
+                      Navigator.pop(context);
+                      print(response.toString());
+                    }
+                  },
+                ),
+              ],
+            );}
           );
         });
   }

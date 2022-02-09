@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/routes/routes.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'Services/Admin/admin_firebase_service.dart';
@@ -30,28 +31,35 @@ void main() async {
   }
   AdminFirebaseService _adminFirebaseService = AdminFirebaseService();
   String adminEmail = await _adminFirebaseService.getAdminEmail();
-  runApp(MyApp(adminEmail));
+  adminEmailStream.add(adminEmail);
+  // print("${adminEmail} adminEmailMain");
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  final String adminEmail;
-  MyApp(this.adminEmail);
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
+  String? adminEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    adminEmailStream.stream.listen((String email) {
+      adminEmail = email;
+      setState(() {});
+      print(email);
+    });
+    print(adminEmail);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Medical Survey',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: Routes.generateRoute,
-      home: MultiProvider(providers: [
+    print("$adminEmail build");
+    return MultiProvider(
+      providers: [
         Provider<FirebaseAuthService>(
             create: (_) => FirebaseAuthService(FirebaseAuth.instance)),
         StreamProvider(
@@ -59,7 +67,20 @@ class _MyAppState extends State<MyApp> {
               context.read<FirebaseAuthService>().authStateChanges,
           initialData: null,
         ),
-      ], child: AuthenticationWrapper(adminEmail: widget.adminEmail,)),
+      ],
+      child: MaterialApp(
+          title: 'Medical Survey',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            fontFamily: GoogleFonts.rubik().fontFamily,
+          ),
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: Routes.generateRoute,
+          home: adminEmail != null
+              ? AuthenticationWrapper(
+                  adminEmail: adminEmail!,
+                )
+              : Center(child: CircularProgressIndicator())),
     );
   }
 }

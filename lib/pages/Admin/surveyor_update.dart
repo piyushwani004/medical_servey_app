@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
@@ -41,7 +44,9 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     'Address',
     'Profession',
     'Joining-Date',
-    'Assigned-Village',
+    'District',
+    'Taluka',
+    'Villages',
     'Aadhaar-Number'
   ];
 
@@ -65,8 +70,10 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
             sur.address.contains(searchText) ||
             sur.gender.contains(searchText) ||
             sur.joiningDate.contains(searchText) ||
-            sur.villageToAssign.contains(searchText) ||
+            sur.district.contains(searchText) ||
             sur.aadhaarNumber.contains(searchText) ||
+            sur.taluka.contains(searchText) ||
+            sur.village.contains(searchText) ||
             sur.profession.contains(searchText))
         .toList();
     setState(() {});
@@ -97,10 +104,44 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     }
   }
 
+  final FocusNode _focusNode = FocusNode();
+  void _handleKeyEvent(RawKeyEvent event) {
+    var offset = _horizontalScrollController.offset;
+    if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+      setState(() {
+        if (kReleaseMode) {
+          _horizontalScrollController.animateTo(offset - 200, duration: Duration(milliseconds: 60), curve: Curves.ease);
+        } else {
+          // _horizontalScrollController.animateTo(offset - 200, duration: Duration(milliseconds: 60), curve: Curves.ease);
+        }
+      });
+    }
+    else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+      setState(() {
+        if (kReleaseMode) {
+          _horizontalScrollController.animateTo(offset + 200, duration: Duration(milliseconds: 30), curve: Curves.ease);
+        } else {
+          //_horizontalScrollController.animateTo(offset + 200, duration: Duration(milliseconds: 30), curve: Curves.ease);
+        }
+      });
+    }
+  }
+  onEnterMouse(PointerEnterEvent event){
+    _focusNode.requestFocus();
+  }
+  onExitMouse(PointerExitEvent event){
+    _focusNode.unfocus();
+  }
+
   @override
   void initState() {
     _loading = Loading(context: context, key: surveyorListKey);
     super.initState();
+  }
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -177,22 +218,32 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                 scrollDirection: Axis.horizontal,
                 child: Card(
                     elevation: 10,
-                    child: StreamBuilder<List<Surveyor>>(
-                        stream: getSurveyorsList(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            dataTableWithGivenColumn = DataTableWithGivenColumnForSurveyor(
-                              columns: columnsOfDataTable,
-                              records: listOfFilteredSurveyor ?? snapshot.data!,
-                            );
-                            print(dataTableWithGivenColumn?.selectedRecords);
-                          }
-                          return snapshot.hasData
-                              ? dataTableWithGivenColumn!
-                              : Center(
-                                  child: CircularProgressIndicator(),
+                    child: MouseRegion(
+                      onEnter:onEnterMouse,
+                      onExit: onExitMouse,
+                      child: RawKeyboardListener(
+                        autofocus: true,
+                        focusNode:_focusNode ,
+                        onKey: _handleKeyEvent,
+                        child: StreamBuilder<List<Surveyor>>(
+                            stream: getSurveyorsList(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                dataTableWithGivenColumn =
+                                    DataTableWithGivenColumnForSurveyor(
+                                  columns: columnsOfDataTable,
+                                  records: listOfFilteredSurveyor ?? snapshot.data!,
                                 );
-                        })),
+                                print(dataTableWithGivenColumn?.selectedRecords);
+                              }
+                              return snapshot.hasData
+                                  ? dataTableWithGivenColumn!
+                                  : Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                            }),
+                      ),
+                    )),
               ),
             ),
           ),

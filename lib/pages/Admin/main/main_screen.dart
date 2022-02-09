@@ -13,6 +13,7 @@ class _AdminHomeState extends State<AdminHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(234, 242, 255, 1.0),
       drawer: !Responsive.isDesktop(context)?SideMenu():null,
       body: SafeArea(
         child: Row(

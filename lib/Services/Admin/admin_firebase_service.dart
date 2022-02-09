@@ -1,16 +1,23 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:medical_servey_app/models/Admin/Disease.dart';
+import 'package:medical_servey_app/Services/Common/auth_service.dart';
+import 'package:medical_servey_app/models/Admin/disease.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 
+//stream for getting admin email
+StreamController<String> adminEmailStream = StreamController<String>();
+void disposeAdminEmailStream() {
+  adminEmailStream.close();
+}
+
 class AdminFirebaseService {
   FirebaseFirestore? instance = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
-
 
 //***************Surveyor-Methods***********//
 
@@ -61,8 +68,10 @@ class AdminFirebaseService {
   Future<Response> createSurveyorAccount(Surveyor surveyor) async {
     //creating the surveyor account with random password
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(
-          email: surveyor.email, password: DEF_SEC_FB);
+      // await firebaseAuth.createUserWithEmailAndPassword(
+      //     email: surveyor.email, password: DEF_SEC_FB);
+      FirebaseAuthService(firebaseAuth)
+          .signUp(email: surveyor.email, password: DEF_SEC_FB);
       return Response(isSuccessful: true, message: 'Created Successfully');
     } on FirebaseAuthException catch (e) {
       return Response(isSuccessful: false, message: e.message.toString());
@@ -148,9 +157,7 @@ class AdminFirebaseService {
     return Response(isSuccessful: isSuccessful, message: message);
   }
 
-
   //***************Patient-Methods***********//
-
 
   Future<List<Patient>> getPatients() async {
     List<Patient> _patients = [];
@@ -160,7 +167,6 @@ class AdminFirebaseService {
         Patient.fromMap(surveyor.data() as Map<String, dynamic>)));
     return _patients;
   }
-
 
   Future<Response> updatePatient(Patient patient) async {
     //updating the surveyor details first
@@ -180,9 +186,7 @@ class AdminFirebaseService {
     }
   }
 
-
   //***************General-Methods***********//
-
 
   Future<String> getAdminEmail() async {
     String email = "";
@@ -220,5 +224,16 @@ class AdminFirebaseService {
     } catch (e) {
       return false;
     }
+  }
+
+  //****************************** Dashboard Count Methods ******************************//
+
+  Future<int> getCount({required String collectionName}) async {
+    var count = 0;
+    final QuerySnapshot qSnap = await FirebaseFirestore.instance
+        .collection(collectionName) //your collectionref
+        .get();
+    count = qSnap.docs.length;
+    return count;
   }
 }

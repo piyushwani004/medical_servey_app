@@ -17,6 +17,7 @@ class Patient {
   int age;
   String surveyorUID;
   String? otherDisease;
+  String village;
   
   Patient({
     required this.id,
@@ -33,6 +34,7 @@ class Patient {
     required this.age,
     required this.surveyorUID,
     this.otherDisease,
+    required this.village,
   });
 
   Patient copyWith({
@@ -50,6 +52,7 @@ class Patient {
     int? age,
     String? surveyorUID,
     String? otherDisease,
+    String? village,
   }) {
     return Patient(
       id: id ?? this.id,
@@ -66,6 +69,7 @@ class Patient {
       age: age ?? this.age,
       surveyorUID: surveyorUID ?? this.surveyorUID,
       otherDisease: otherDisease ?? this.otherDisease,
+      village: village ?? this.village,
     );
   }
 
@@ -85,25 +89,27 @@ class Patient {
       'age': age,
       'surveyorUID': surveyorUID,
       'otherDisease': otherDisease,
+      'village': village,
     };
   }
 
   factory Patient.fromMap(Map<String, dynamic> map) {
     return Patient(
-      id: map['id'],
-      firstName: map['firstName'],
-      middleName: map['middleName'],
-      lastName: map['lastName'],
-      profession: map['profession'],
-      email: map['email'],
-      mobileNumber: map['mobileNumber'],
-      address: map['address'],
-      gender: map['gender'],
-      date: map['date'],
+      id: map['id'] ?? '',
+      firstName: map['firstName'] ?? '',
+      middleName: map['middleName'] ?? '',
+      lastName: map['lastName'] ?? '',
+      profession: map['profession'] ?? '',
+      email: map['email'] ?? '',
+      mobileNumber: map['mobileNumber'] ?? '',
+      address: map['address'] ?? '',
+      gender: map['gender'] ?? '',
+      date: map['date'] ?? '',
       diseases: List.from(map['diseases']),
-      age: map['age'],
-      surveyorUID: map['surveyorUID'],
+      age: map['age']?.toInt() ?? 0,
+      surveyorUID: map['surveyorUID'] ?? '',
       otherDisease: map['otherDisease'],
+      village: map['village'] ?? '',
     );
   }
 
@@ -114,7 +120,7 @@ class Patient {
 
   @override
   String toString() {
-    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease)';
+    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease, village: $village)';
   }
 
   @override
@@ -135,7 +141,8 @@ class Patient {
         listEquals(other.diseases, diseases) &&
         other.age == age &&
         other.surveyorUID == surveyorUID &&
-        other.otherDisease == otherDisease;
+        other.otherDisease == otherDisease &&
+        other.village == village;
   }
 
   @override
@@ -153,6 +160,7 @@ class Patient {
         diseases.hashCode ^
         age.hashCode ^
         surveyorUID.hashCode ^
-        otherDisease.hashCode;
+        otherDisease.hashCode ^
+        village.hashCode;
   }
 }

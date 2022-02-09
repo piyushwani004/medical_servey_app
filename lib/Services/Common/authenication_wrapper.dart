@@ -6,7 +6,7 @@ import 'package:medical_servey_app/pages/auth/login.dart';
 import 'package:provider/provider.dart';
 
 class AuthenticationWrapper extends StatefulWidget {
-  String adminEmail;
+  final String adminEmail;
   AuthenticationWrapper({required this.adminEmail,Key? key}) : super(key: key);
 
   @override
@@ -18,7 +18,8 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User?>();
+    User? firebaseUser = context.watch<User?>();
+    print("${firebaseUser?.email} userEmail");
     if(firebaseUser != null){
       if(firebaseUser.email == widget.adminEmail){
         return AdminHome();

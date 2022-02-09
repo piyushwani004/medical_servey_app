@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class Surveyor {
   String? uid;
   String firstName;
@@ -11,9 +13,12 @@ class Surveyor {
   String address;
   String gender;
   String joiningDate;
-  String villageToAssign;
+  String district;
+  String taluka;
+  List<String> village;
   String aadhaarNumber;
   int age;
+
   Surveyor({
     this.uid,
     required this.firstName,
@@ -25,10 +30,14 @@ class Surveyor {
     required this.address,
     required this.gender,
     required this.joiningDate,
-    required this.villageToAssign,
+    required this.district,
+    required this.taluka,
+    required this.village,
     required this.aadhaarNumber,
     required this.age,
   });
+  
+  
 
   Surveyor copyWith({
     String? uid,
@@ -41,7 +50,9 @@ class Surveyor {
     String? address,
     String? gender,
     String? joiningDate,
-    String? villageToAssign,
+    String? district,
+    String? taluka,
+    List<String>? village,
     String? aadhaarNumber,
     int? age,
   }) {
@@ -56,7 +67,9 @@ class Surveyor {
       address: address ?? this.address,
       gender: gender ?? this.gender,
       joiningDate: joiningDate ?? this.joiningDate,
-      villageToAssign: villageToAssign ?? this.villageToAssign,
+      district: district ?? this.district,
+      taluka: taluka ?? this.taluka,
+      village: village ?? this.village,
       aadhaarNumber: aadhaarNumber ?? this.aadhaarNumber,
       age: age ?? this.age,
     );
@@ -74,7 +87,9 @@ class Surveyor {
       'address': address,
       'gender': gender,
       'joiningDate': joiningDate,
-      'villageToAssign': villageToAssign,
+      'district': district,
+      'taluka': taluka,
+      'village': village,
       'aadhaarNumber': aadhaarNumber,
       'age': age,
     };
@@ -92,56 +107,61 @@ class Surveyor {
       address: map['address'] ?? '',
       gender: map['gender'] ?? '',
       joiningDate: map['joiningDate'] ?? '',
-      villageToAssign: map['villageToAssign'] ?? '',
+      district: map['district'] ?? '',
+      taluka: map['taluka'] ?? '',
+      village: List<String>.from(map['village']),
       aadhaarNumber: map['aadhaarNumber'] ?? '',
-      age: int.parse(map['age'].toString()),
+       age: int.parse(map['age'].toString()),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Surveyor.fromJson(String source) =>
-      Surveyor.fromMap(json.decode(source));
+  factory Surveyor.fromJson(String source) => Surveyor.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Surveyor(uid: $uid, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, joiningDate: $joiningDate, villageToAssign: $villageToAssign, aadhaarNumber: $aadhaarNumber, age: $age)';
+    return 'Surveyor(uid: $uid, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, joiningDate: $joiningDate, district: $district, taluka: $taluka, village: $village, aadhaarNumber: $aadhaarNumber, age: $age)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is Surveyor &&
-        other.uid == uid &&
-        other.firstName == firstName &&
-        other.middleName == middleName &&
-        other.lastName == lastName &&
-        other.profession == profession &&
-        other.email == email &&
-        other.mobileNumber == mobileNumber &&
-        other.address == address &&
-        other.gender == gender &&
-        other.joiningDate == joiningDate &&
-        other.villageToAssign == villageToAssign &&
-        other.aadhaarNumber == aadhaarNumber &&
-        other.age == age;
+      other.uid == uid &&
+      other.firstName == firstName &&
+      other.middleName == middleName &&
+      other.lastName == lastName &&
+      other.profession == profession &&
+      other.email == email &&
+      other.mobileNumber == mobileNumber &&
+      other.address == address &&
+      other.gender == gender &&
+      other.joiningDate == joiningDate &&
+      other.district == district &&
+      other.taluka == taluka &&
+      listEquals(other.village, village) &&
+      other.aadhaarNumber == aadhaarNumber &&
+      other.age == age;
   }
 
   @override
   int get hashCode {
     return uid.hashCode ^
-        firstName.hashCode ^
-        middleName.hashCode ^
-        lastName.hashCode ^
-        profession.hashCode ^
-        email.hashCode ^
-        mobileNumber.hashCode ^
-        address.hashCode ^
-        gender.hashCode ^
-        joiningDate.hashCode ^
-        villageToAssign.hashCode ^
-        aadhaarNumber.hashCode ^
-        age.hashCode;
+      firstName.hashCode ^
+      middleName.hashCode ^
+      lastName.hashCode ^
+      profession.hashCode ^
+      email.hashCode ^
+      mobileNumber.hashCode ^
+      address.hashCode ^
+      gender.hashCode ^
+      joiningDate.hashCode ^
+      district.hashCode ^
+      taluka.hashCode ^
+      village.hashCode ^
+      aadhaarNumber.hashCode ^
+      age.hashCode;
   }
 }

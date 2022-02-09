@@ -1,8 +1,13 @@
+import 'dart:convert';
+
+
 import "package:flutter/material.dart";
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
+import 'package:medical_servey_app/models/common/villageData.dart';
 import 'package:medical_servey_app/utils/functions.dart';
+import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
@@ -10,6 +15,7 @@ import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/form_container.dart';
 import 'package:medical_servey_app/widgets/loading.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 import 'main/components/side_menu.dart';
 
@@ -22,29 +28,35 @@ class NewSurveyorForm extends StatefulWidget {
 
 class _NewSurveyorFormState extends State<NewSurveyorForm> {
   String selectedDate = formatDate(DateTime.now().toString());
-  Map<String, String> surveyorForm = {};
+  Map<String, dynamic> surveyorForm = {};
+
+  final _multiKey = GlobalKey<DropdownSearchState<String>>();
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
   final GlobalKey<State> newSurveyorKey = GlobalKey<State>();
+
   Loading? _loading;
   AdminFirebaseService _firebaseService = AdminFirebaseService();
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? qualificationDropDown;
-  DropDownButtonWidget? villageToAssign;
+
+  DropdownSearch<String>? districtDropDown;
+  DropdownSearch<String>? talukaDropDown;
 
   onPressedSubmit() async {
     print("surveyorStart");
+    print("surveyorForm $surveyorForm");
     if (formKeyNewSurveyorForm.currentState!.validate()) {
-      //turning loading on
+      // //turning loading on
       _loading!.on(); //invoking login
       surveyorForm['joiningDate'] = selectedDate;
       surveyorForm['age'] = ageDropDown!.selectedItem!;
       surveyorForm['gender'] = genderDropDown!.selectedItem!;
       surveyorForm['profession'] = qualificationDropDown!.selectedItem!;
-      surveyorForm['villageToAssign'] = villageToAssign!.selectedItem!;
+
       formKeyNewSurveyorForm.currentState!.save();
 
-      print("surveyorForm");
+      print("surveyorForm $surveyorForm");
       Surveyor surveyor = Surveyor.fromMap(surveyorForm);
       print(surveyor);
       //creating account for surveyor
@@ -93,27 +105,49 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
 
   // List of items in our dropdown menu
   List<int> ageList = generateN2MList(15, 100);
-  var villages = [
-    'Bhusawal',
-    'Jalgao',
-    'Yavatmal',
-    'Pune',
-    'Wardha',
+  List<VillageData> villageData = [];
+  List<String> taluka = [];
+  List<String> villages = [];
+  var district = [
+    'Jalgaon',
   ];
+
   var genders = [
-    'M',
-    'F',
-    'T',
+    'Male',
+    'Female',
+    'Intersex',
   ];
   var qualifications = [
-    'Degree pass',
-    'Metric Pass',
-    'None',
+    'No formal education',
+    'Primary education',
+    'Secondary education or high school',
+    'GED',
+    'Vocational qualification',
+    'Diploma',
+    'Bachelors degree',
+    'Masters degree',
+    'Doctorate or higher'
   ];
   var width, height;
 
+  Future<void> fetchDataFromJson() async {
+    final assetBundle = DefaultAssetBundle.of(context);
+    final data = await assetBundle.loadString(JSON_PATH);
+    List body = json.decode(data)['Sheet1'];
+    setState(() {
+      villageData = body.map((e) => VillageData.fromMap(e)).toList();
+      taluka = villageData.map((e) => e.taluka).toSet().toList();
+      villages = villageData.map((e) => e.village).toSet().toList();
+    });
+  }
+
   @override
   void initState() {
+    fetchDataFromJson();
+    print("List<VillageData> ${villageData.length}");
+    print("taluka ${taluka.length}");
+    print("villages ${villages.length}");
+    print("object");
     ageDropDown = DropDownButtonWidget(
       items: ageList.map((age) => age.toString()).toList(),
       name: 'Age',
@@ -126,9 +160,15 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       items: qualifications,
       name: 'Qualification',
     );
-    villageToAssign = DropDownButtonWidget(
-      items: villages,
-      name: 'Village To Assign',
+
+    districtDropDown = DropdownSearch<String>(
+      items: district,
+      mode: Mode.MENU,
+      onSaved: (districtSaved) => onDistrictSaved(districtSaved),
+      dropdownSearchDecoration:
+          Common.textFormFieldInputDecoration(labelText: "Select District"),
+      selectedItem: district.first,
+      validator: (v) => v == null ? "required field" : null,
     );
 
     _loading = Loading(context: context, key: newSurveyorKey);
@@ -136,10 +176,40 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     super.initState();
   }
 
+  onTalukaSaved(saved) {
+    surveyorForm['taluka'] = saved;
+  }
+
+  onVllageSaved(villageSave) {
+    print("villageSave :: $villageSave");
+    surveyorForm['village'] = villageSave;
+  }
+
+  onDistrictSaved(districtSaved) {
+    surveyorForm['district'] = districtSaved;
+  }
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
+
+    //searchable dropdown widgets
+    talukaDropDown = DropdownSearch<String>(
+      mode: Mode.DIALOG,
+      showSearchBox: true,
+      items: taluka,
+      showSelectedItems: true,
+      onSaved: (saved) => onTalukaSaved(saved),
+      dropdownSearchDecoration:
+          Common.textFormFieldInputDecoration(labelText: "Select Taluka"),
+      onChanged: print,
+      showClearButton: true,
+      validator: (v) => v == null ? "required field" : null,
+    );
+
+    //
+
     return Scaffold(
       drawer: !Responsive.isDesktop(context) ? SideMenu() : null,
       body: Row(
@@ -172,7 +242,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     );
   }
 
-  Widget body({required Map<String, String> surveyorForm, required formKey}) {
+  Widget body({required Map<String, dynamic> surveyorForm, required formKey}) {
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
@@ -310,10 +380,11 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
                 padding: Common.allPadding(mHeight: height),
                 child: mobileNo,
               ),
-              Padding(
-                padding: Common.allPadding(mHeight: height),
-                child: villageToAssign,
-              ),
+              //
+              taluka.isNotEmpty && villages.isNotEmpty
+                  ? Responsive(mobile: mobileView(), desktop: desktopView())
+                  : CircularProgressIndicator(),
+              //
               Padding(
                 padding: Common.allPadding(mHeight: height),
                 child: email,
@@ -328,6 +399,157 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
               ),
             ],
           )),
+    );
+  }
+
+  Widget mobileView() {
+    return Column(
+      children: [
+        Padding(
+          padding: Common.allPadding(mHeight: height),
+          child: districtDropDown!,
+        ),
+        SizedBox(
+          width: width * 0.01,
+        ),
+        Padding(
+          padding: Common.allPadding(mHeight: height),
+          child: talukaDropDown!,
+        ),
+        SizedBox(
+          width: width * 0.01,
+        ),
+        Padding(
+          padding: Common.allPadding(mHeight: height),
+          child: multipleSelectionDropdown(),
+        ),
+      ],
+    );
+  }
+
+  Widget desktopView() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+            child: Padding(
+          padding: Common.allPadding(mHeight: height),
+          child: districtDropDown!,
+        )),
+        SizedBox(
+          width: width * 0.01,
+        ),
+        Expanded(
+            child: Padding(
+          padding: Common.allPadding(mHeight: height),
+          child: talukaDropDown!,
+        )),
+        SizedBox(
+          width: width * 0.01,
+        ),
+        Expanded(
+            child: Padding(
+          padding: Common.allPadding(mHeight: height),
+          child: multipleSelectionDropdown(),
+        )),
+      ],
+    );
+  }
+
+  Widget multipleSelectionDropdown() {
+    return DropdownSearch<String>.multiSelection(
+      key: _multiKey,
+      validator: (List<String>? v) {
+        return v == null || v.isEmpty ? "required field" : null;
+      },
+      dropdownBuilder: (context, selectedItems) {
+        Widget item(String i) => Container(
+              padding: EdgeInsets.only(left: 6, bottom: 3, top: 3, right: 0),
+              margin: EdgeInsets.symmetric(horizontal: 2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).primaryColorLight),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    i,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                  MaterialButton(
+                    height: 20,
+                    shape: const CircleBorder(),
+                    focusColor: Colors.red[200],
+                    hoverColor: Colors.red[200],
+                    padding: EdgeInsets.all(0),
+                    minWidth: 34,
+                    onPressed: () {
+                      _multiKey.currentState?.removeItem(i);
+                    },
+                    child: Icon(
+                      Icons.close_outlined,
+                      size: 20,
+                    ),
+                  )
+                ],
+              ),
+            );
+        return Wrap(
+          children: selectedItems.map((e) => item(e)).toList(),
+        );
+      },
+      popupCustomMultiSelectionWidget: (context, list) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKey.currentState?.closeDropDownSearch();
+                  },
+                  child: const Text('Cancel'),
+                ),
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKey.currentState?.popupDeselectAllItems();
+                  },
+                  child: const Text('None'),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+      dropdownSearchDecoration:
+          Common.textFormFieldInputDecoration(labelText: "Select Villages"),
+      mode: Mode.DIALOG,
+      showSelectedItems: true,
+      // onSaved: (villageSave) => onVllageSaved(villageSave),
+      items: villages,
+      showClearButton: true,
+      onChanged: (onSaved) {
+        onVllageSaved(onSaved);
+      },
+      showSearchBox: true,
+      popupSelectionWidget: (cnt, String item, bool isSelected) {
+        return isSelected
+            ? Icon(
+                Icons.check_circle,
+                color: Colors.green[500],
+              )
+            : Container();
+      },
     );
   }
 }

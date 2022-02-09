@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
-import 'package:medical_servey_app/models/Admin/Disease.dart';
+import 'package:medical_servey_app/models/Admin/disease.dart';
 
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
@@ -23,7 +23,6 @@ class PatientEditDialog extends StatefulWidget {
 }
 
 class _PatientEditDialogState extends State<PatientEditDialog> {
-
   final _formKey = GlobalKey<FormState>();
   AdminFirebaseService _firebaseService = AdminFirebaseService();
 
@@ -55,7 +54,9 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
 
   Future<Response> onPressedSubmit() async {
     Response response;
-    if (_formKey.currentState!.validate() && selectedValues!=null &&
+    print("selectedValues::::::--- $selectedValues");
+    if (_formKey.currentState!.validate() &&
+        selectedValues != null &&
         selectedValues!.isNotEmpty) {
       print(widget.patient.toString() + "\npatient that is selected 61");
       print('$patientForm' + 'Patient form before');
@@ -69,29 +70,31 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       patientForm['age'] = ageDropDown!.selectedItem!;
       patientForm['gender'] = genderDropDown!.selectedItem!;
       patientForm['profession'] = professionDropDown!.selectedItem!;
+      patientForm['village'] = widget.patient.village;
       _formKey.currentState!.save();
       print('$patientForm' + 'Patient form after');
 
       print('in if of form saved 69');
       Patient patientData = Patient(
-          id: patientForm['id'].toString(),
-          firstName: patientForm['firstName']!,
-          middleName: patientForm['middleName']!,
-          lastName: patientForm['lastName'].toString(),
-          profession: patientForm['profession'].toString(),
-          email: patientForm['email'].toString(),
-          mobileNumber: patientForm['mobileNumber'].toString(),
-          address: patientForm['address'].toString(),
-          gender: patientForm['gender'].toString(),
-          date: patientForm['date'].toString(),
-          diseases: selectedValues!.toList(),
-          surveyorUID: patientForm['surveyorUID'].toString(),
-          age: int.parse(patientForm['age'].toString()));
+        id: patientForm['id'].toString(),
+        firstName: patientForm['firstName']!,
+        middleName: patientForm['middleName']!,
+        lastName: patientForm['lastName'].toString(),
+        profession: patientForm['profession'].toString(),
+        email: patientForm['email'].toString(),
+        mobileNumber: patientForm['mobileNumber'].toString(),
+        address: patientForm['address'].toString(),
+        gender: patientForm['gender'].toString(),
+        date: patientForm['date'].toString(),
+        diseases: selectedValues!.toList(),
+        surveyorUID: patientForm['surveyorUID'].toString(),
+        age: int.parse(patientForm['age'].toString()),
+        village: patientForm['village'].toString(),
+      );
       print('in if of form patient assigned');
 
       print("patientData $patientData");
-      response =
-      await _firebaseService.updatePatient(patientData);
+      response = await _firebaseService.updatePatient(patientData);
       print('in if of form after fetching from firebase 95');
       if (response.isSuccessful) {
         await Common.showAlert(
@@ -115,7 +118,8 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
           title: 'Invalid Operation',
           content: 'Please select Disease',
           isError: true);
-      return response = Response(isSuccessful: false, message: 'Some fields have invalid values.');
+      return response = Response(
+          isSuccessful: false, message: 'Some fields have invalid values.');
     }
   }
 
@@ -137,9 +141,9 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       selectedItem: widget.patient.profession,
     );
     getAllDisease();
+    selectedValues = widget.patient.diseases.toSet();
     super.initState();
   }
-
 
   getAllDisease() async {
     _diseaseList = await _firebaseService.getAllDiseases();
@@ -157,7 +161,8 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       context: context,
       builder: (BuildContext context) {
         return MultiSelectDialog(
-          items: _items, initialSelectedValues: widget.patient.diseases.toSet(),
+          items: _items,
+          initialSelectedValues: widget.patient.diseases.toSet(),
         );
       },
     ));
@@ -165,17 +170,10 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     print("selectedValues" + selectedValues.toString());
   }
 
-
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery
-        .of(context)
-        .size
-        .width;
-    height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
 
     return AlertDialog(
       scrollable: true,
@@ -190,7 +188,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
           onPressed: () async {
             Response res = await onPressedSubmit();
             print(res.isSuccessful);
-            if(res.isSuccessful){
+            if (res.isSuccessful) {
               Navigator.pop(context);
             }
           },
@@ -198,15 +196,14 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
         ),
       ],
     );
-
-
   }
 
   Widget body() {
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
-      initialValue: "${widget.patient.firstName} ${widget.patient.middleName} ${widget.patient.lastName}",
+      initialValue:
+          "${widget.patient.firstName} ${widget.patient.middleName} ${widget.patient.lastName}",
       validator: (name) {
         print("in valid full name");
         String fullName = name!.trim();
@@ -259,7 +256,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       },
       // validator: (email) => emailValidator(email!),
       decoration:
-      Common.textFormFieldInputDecoration(labelText: "Mobile Number"),
+          Common.textFormFieldInputDecoration(labelText: "Mobile Number"),
     );
     final otherDiseaseInput = TextFormField(
       keyboardType: TextInputType.text,
@@ -270,7 +267,6 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       // validator: (email) => emailValidator(email!),
       decoration: Common.textFormFieldInputDecoration(labelText: "Disease"),
     );
-
 
     final showDiseases = TextButton(
         onPressed: () {
@@ -302,17 +298,17 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
                 children: [
                   Expanded(
                       child: Padding(
-                        padding: Common.allPadding(mHeight: height),
-                        child: ageDropDown!,
-                      )),
+                    padding: Common.allPadding(mHeight: height),
+                    child: ageDropDown!,
+                  )),
                   SizedBox(
                     width: width * 0.01,
                   ),
                   Expanded(
                       child: Padding(
-                        padding: Common.allPadding(mHeight: height),
-                        child: genderDropDown!,
-                      )),
+                    padding: Common.allPadding(mHeight: height),
+                    child: genderDropDown!,
+                  )),
                 ],
               ),
               Row(
@@ -380,5 +376,4 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
           ),
         ));
   }
-
 }
