@@ -11,9 +11,10 @@ import 'package:medical_servey_app/utils/constants.dart';
 
 //stream for getting admin email
 StreamController<String> adminEmailStream = StreamController<String>();
-void disposeAdminEmailStream(){
+void disposeAdminEmailStream() {
   adminEmailStream.close();
 }
+
 class AdminFirebaseService {
   FirebaseFirestore? instance = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;

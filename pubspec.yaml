@@ -39,6 +39,7 @@ dependencies:
   fl_chart: ^0.41.0
   dropdown_search: ^2.0.1
   shared_preferences: ^2.0.13
+  google_fonts: ^2.2.0
 
 dev_dependencies:
   flutter_test:

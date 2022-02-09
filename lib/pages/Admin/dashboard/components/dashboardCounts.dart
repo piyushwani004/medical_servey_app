@@ -129,6 +129,10 @@ class _FileInfoCardGridViewState extends State<FileInfoCardGridView> {
                       Flexible(
                         child: Text(
                           "Total ${_countList[index].name}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

@@ -11,7 +11,7 @@ class StarageDetails extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
-        color: secondaryColor,
+        color: Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
@@ -20,7 +20,7 @@ class StarageDetails extends StatelessWidget {
           Text(
             "Diseases Report",
             style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black),
           ),
         ],
       ),
