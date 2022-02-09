@@ -68,7 +68,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                   width: double.minPositive,
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: user!.village.length,
+                    itemCount: user?.village.length,
                     itemBuilder: (BuildContext context, int index) {
                       return RadioListTile<String?>(
                         title: Text(user!.village[index]),
@@ -192,11 +192,9 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                         ),
                       ),
                     )
-                  : Container(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
+                  : Center(
+                    child: CircularProgressIndicator(),
+                  ),
               //table containers for each feature
               Padding(
                 padding: Common.allPadding(mHeight: height * 1),
@@ -214,7 +212,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                 decoration: Common.containerBoxDecoration(),
                                 height: 200,
                                 width: 100,
-                                child: surveyorUID!.uid != null
+                                child: surveyorUID != null
                                     ? StreamBuilder<String>(
                                         stream: _villageSelectService
                                             .getSelectedVillage(
