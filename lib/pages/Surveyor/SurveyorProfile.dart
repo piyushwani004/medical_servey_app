@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
+import 'package:medical_servey_app/widgets/common.dart';
 
 class SurveyorProfie extends StatefulWidget {
   SurveyorProfie({Key? key}) : super(key: key);
@@ -54,14 +56,10 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
               flex: 5,
               child: Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 131, 96, 228),
-                      Colors.deepPurpleAccent
-                    ],
-                  ),
-                ),
+                decoration: Common.gradientBoxDecoration(
+                    borderRadius: BorderRadius.all(
+                  Radius.circular(0),
+                )),
                 child: Column(children: [
                   Align(
                     alignment: Alignment.topLeft,
@@ -103,7 +101,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
             Expanded(
               flex: 5,
               child: Container(
-                color: Colors.grey[200],
+                color: scafoldbBackgroundColor,
                 child: Center(
                     child: Card(
                         margin: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
@@ -276,7 +274,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                                       children: [
                                         Icon(
                                           Icons.holiday_village,
-                                          color: Colors.lightGreen[400],
+                                          color: Colors.purple,
                                           size: 35,
                                         ),
                                         SizedBox(

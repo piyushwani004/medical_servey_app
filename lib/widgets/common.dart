@@ -1,8 +1,5 @@
-
 import 'package:flutter/material.dart';
-
-
-
+import 'package:medical_servey_app/utils/constants.dart';
 
 class Common {
   // // header text
@@ -14,8 +11,11 @@ class Common {
   //   );
   // }
 
-
-  static Future<bool?> showAlert({required BuildContext context, required String title,required String content , required isError}) async {
+  static Future<bool?> showAlert(
+      {required BuildContext context,
+      required String title,
+      required String content,
+      required isError}) async {
     Widget submitButton = TextButton(
         child: Text('Continue'),
         onPressed: () {
@@ -33,7 +33,9 @@ class Common {
         content: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            !isError?Icon(Icons.done_outline_rounded):Icon(Icons.error_outline_rounded),
+            !isError
+                ? Icon(Icons.done_outline_rounded)
+                : Icon(Icons.error_outline_rounded),
             Text(content),
           ],
         ),
@@ -46,7 +48,6 @@ class Common {
           return dialog;
         });
   }
-
 
   static buttonStyle({Color? backClr, Color? foreClr}) {
     return ButtonStyle(
@@ -64,9 +65,9 @@ class Common {
   static containerBoxDecoration(
       {Color? backColor, BorderRadius? borderRadius}) {
     return BoxDecoration(
-      color: Colors.deepPurple,
+        color: blueshGradientOne,
         borderRadius:
-        borderRadius ?? const BorderRadius.all(Radius.circular(5)));
+            borderRadius ?? const BorderRadius.all(Radius.circular(5)));
   }
 
   // // AppBar
@@ -119,9 +120,13 @@ class Common {
 
   static BoxDecoration gradientBoxDecoration({borderRadius}) {
     return BoxDecoration(
-        borderRadius:
-        borderRadius ?? const BorderRadius.all(Radius.circular(10),),
+        borderRadius: borderRadius ??
+            const BorderRadius.all(
+              Radius.circular(10),
+            ),
         gradient: LinearGradient(
-            colors: [Colors.purple, Colors.deepPurpleAccent]));
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+            colors: [blueshGradientOne, blueshGradientTwo]));
   }
 }

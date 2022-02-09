@@ -5,6 +5,7 @@ import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.d
 import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/routes/routes.dart';
+import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/curve_clipper.dart';
 import 'package:provider/provider.dart';
@@ -100,7 +101,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: scafoldbBackgroundColor,
       body: Stack(
         children: [
           // background design
@@ -121,9 +122,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
               ),
               Flexible(
                 flex: 5,
-                child: Container(
-                  color: Colors.white,
-                ),
+                child: Container(color: scafoldbBackgroundColor),
               )
             ],
           ),
@@ -193,8 +192,8 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                       ),
                     )
                   : Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                      child: CircularProgressIndicator(),
+                    ),
               //table containers for each feature
               Padding(
                 padding: Common.allPadding(mHeight: height * 1),
@@ -235,6 +234,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                                       Icon(
                                                         Icons
                                                             .holiday_village_rounded,
+                                                        color: iconColor,
                                                         size: height * 0.09,
                                                       ),
                                                       Text(
@@ -265,7 +265,8 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        Icons.person_add_rounded,
+                                        Icons.medication,
+                                        color: iconColor,
                                         size: height * 0.09,
                                       ),
                                       Text("Add Patient")
@@ -294,6 +295,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                       Icon(
                                         Icons.edit,
                                         size: height * 0.09,
+                                        color: iconColor,
                                       ),
                                       Text("Update Patient")
                                     ],
@@ -318,7 +320,8 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        Icons.person_outline_rounded,
+                                        Icons.person,
+                                        color: iconColor,
                                         size: height * 0.09,
                                       ),
                                       Text("Surveyor Profile")
