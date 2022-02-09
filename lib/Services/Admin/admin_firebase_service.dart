@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
@@ -7,6 +9,11 @@ import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 
+//stream for getting admin email
+StreamController<String> adminEmailStream = StreamController<String>();
+void disposeAdminEmailStream(){
+  adminEmailStream.close();
+}
 class AdminFirebaseService {
   FirebaseFirestore? instance = FirebaseFirestore.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;

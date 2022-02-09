@@ -28,7 +28,10 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
-
+  AdminFirebaseService _adminFirebaseService = AdminFirebaseService();
+  String adminEmail = await _adminFirebaseService.getAdminEmail();
+  adminEmailStream.add(adminEmail);
+  // print("${adminEmail} adminEmailMain");
   runApp(MyApp());
 }
 
@@ -38,25 +41,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AdminFirebaseService _adminFirebaseService = AdminFirebaseService();
-
   String? adminEmail;
-
-  // This widget is the root of your application.
-
-  getEmail() async {
-    adminEmail = await _adminFirebaseService.getAdminEmail();
-    setState(() {});
-  }
 
   @override
   void initState() {
     super.initState();
-    getEmail();
+    adminEmailStream.stream.listen((String email) {
+      adminEmail = email;
+      print(email);
+    });
+    print(adminEmail);
   }
 
   @override
   Widget build(BuildContext context) {
+    print("${adminEmail} build");
     return MultiProvider(
       providers: [
         Provider<FirebaseAuthService>(
