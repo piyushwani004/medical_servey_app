@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
+import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
 import 'package:medical_servey_app/models/Admin/disease.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/functions.dart';
-import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
 import 'package:medical_servey_app/widgets/MultiSelect_Dialog.dart';
@@ -23,6 +23,7 @@ class AddPatientForm extends StatefulWidget {
 class _AddPatientFormState extends State<AddPatientForm> {
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
   SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
+  VillageSelectService _villageSelectService = VillageSelectService();
 
   var width, height;
   String _selectedDate = formatDate(DateTime.now().toString());
@@ -34,6 +35,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
   List<MultiSelectDialogItem> _items = [];
   List<int> ages = generateN2MList(15, 100);
   Set? selectedValues;
+  String? selectedVillage;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -51,7 +53,16 @@ class _AddPatientFormState extends State<AddPatientForm> {
     'None',
   ];
 
+  fetchSelectedVillage() async {
+    User? user = await _firebaseService.getCurrentUser();
+    selectedVillage = await _villageSelectService.getSelectedVillageString(
+        passedUID: user!.uid);
+    print("selectedVillage $selectedVillage");
+    setState(() {});
+  }
+
   onPressedSubmit() async {
+    fetchSelectedVillage();
     if (formKeyNewSurveyorForm.currentState!.validate() &&
         selectedValues != null &&
         selectedValues!.isNotEmpty) {
@@ -64,20 +75,22 @@ class _AddPatientFormState extends State<AddPatientForm> {
       formKeyNewSurveyorForm.currentState!.save();
 
       Patient patientData = Patient(
-          id: patientForm['id'].toString(),
-          firstName: patientForm['firstName'].toString(),
-          middleName: patientForm['middleName'].toString(),
-          lastName: patientForm['lastName'].toString(),
-          profession: patientForm['profession'].toString(),
-          email: patientForm['email'].toString(),
-          mobileNumber: patientForm['mobileNumber'].toString(),
-          address: patientForm['address'].toString(),
-          gender: patientForm['gender'].toString(),
-          date: patientForm['date'].toString(),
-          diseases: selectedValues!.toList(),
-          surveyorUID: patientForm['surveyorUID'].toString(),
-          otherDisease: patientForm['otherDisease'].toString(),
-          age: int.parse(patientForm['age'].toString()));
+        id: patientForm['id'].toString(),
+        firstName: patientForm['firstName'].toString(),
+        middleName: patientForm['middleName'].toString(),
+        lastName: patientForm['lastName'].toString(),
+        profession: patientForm['profession'].toString(),
+        email: patientForm['email'].toString(),
+        mobileNumber: patientForm['mobileNumber'].toString(),
+        address: patientForm['address'].toString(),
+        gender: patientForm['gender'].toString(),
+        date: patientForm['date'].toString(),
+        diseases: selectedValues!.toList(),
+        surveyorUID: patientForm['surveyorUID'].toString(),
+        otherDisease: patientForm['otherDisease'].toString(),
+        age: int.parse(patientForm['age'].toString()),
+        village: "$selectedVillage",
+      );
 
       print("patientData $patientData");
       Response response =

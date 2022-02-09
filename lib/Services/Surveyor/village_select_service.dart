@@ -21,4 +21,15 @@ class VillageSelectService {
     print("_selectedVillage::: $_selectedVillage");
     yield _selectedVillage;
   }
+
+  Future<String> getSelectedVillageString({required String passedUID}) async {
+    String key = passedUID + SELECTEDVILLAGE;
+    // Future<String> _selectedVillage = _prefs.then((SharedPreferences prefs) {
+    //   return prefs.getString(key) ?? "NA";
+    // });
+    final SharedPreferences prefs = await _prefs;
+    String _selectedVillage = prefs.getString(key) ?? "";
+    print("_selectedVillage String: $_selectedVillage");
+    return _selectedVillage;
+  }
 }
