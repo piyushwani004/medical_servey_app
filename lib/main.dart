@@ -48,6 +48,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     adminEmailStream.stream.listen((String email) {
       adminEmail = email;
+      setState(() {});
       print(email);
     });
     print(adminEmail);
