@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    print("${adminEmail} build");
+    print("$adminEmail build");
     return MultiProvider(
       providers: [
         Provider<FirebaseAuthService>(

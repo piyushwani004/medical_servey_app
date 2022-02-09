@@ -6,6 +6,7 @@ import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/routes/routes.dart';
 import 'package:medical_servey_app/utils/constants.dart';
+import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/curve_clipper.dart';
 import 'package:provider/provider.dart';
@@ -253,31 +254,58 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                               ),
                             ),
                             Padding(
-                              padding: Common.allPadding(mHeight: height * 0.9),
-                              child: InkWell(
+                                padding:
+                                    Common.allPadding(mHeight: height * 0.9),
                                 child: Container(
                                   decoration: Common.containerBoxDecoration(),
                                   height: 200,
                                   width: 100,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.medication,
-                                        color: iconColor,
-                                        size: height * 0.09,
-                                      ),
-                                      Text("Add Patient")
-                                    ],
-                                  ),
-                                ),
-                                onTap: () {
-                                  Navigator.pushNamed(context, routeAddPatient);
-                                },
-                              ),
-                            ),
+                                  child: surveyorUID != null
+                                      ? StreamBuilder<String>(
+                                          stream: _villageSelectService
+                                              .getSelectedVillage(
+                                                  passedUID: surveyorUID!.uid),
+                                          builder: (context, snapshot) {
+                                            return snapshot.data != null &&
+                                                    snapshot.hasData
+                                                ? InkWell(
+                                                    onTap: () {
+                                                      if (snapshot.data ==
+                                                          "Select") {
+                                                        showSnackBar(context,
+                                                            "Select Village first...");
+                                                      } else {
+                                                        Navigator.pushNamed(
+                                                            context,
+                                                            routeAddPatient);
+                                                      }
+                                                    },
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.medication,
+                                                          color: iconColor,
+                                                          size: height * 0.09,
+                                                        ),
+                                                        Text("Add Patient")
+                                                      ],
+                                                    ),
+                                                  )
+                                                : Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+                                          })
+                                      : Center(
+                                          child: CircularProgressIndicator(),
+                                        ),
+                                )),
                           ]),
                           TableRow(children: [
                             Padding(
