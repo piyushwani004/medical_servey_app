@@ -3,8 +3,6 @@ import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
-import '../../../Services/Admin/admin_firebase_service.dart';
-import '../../../models/surveyor/patient.dart';
 import 'components/dashboardCounts.dart';
 import 'components/dashboard_patients_list.dart';
 import 'components/storage_details.dart';

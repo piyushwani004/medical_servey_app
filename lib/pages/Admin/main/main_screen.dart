@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/pages/Admin/dashboard/dashboard_screen.dart';
+import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'components/side_menu.dart';
 
@@ -13,7 +14,7 @@ class _AdminHomeState extends State<AdminHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(234, 242, 255, 1.0),
+      backgroundColor: scafoldbBackgroundColor,
       drawer: !Responsive.isDesktop(context)?SideMenu():null,
       body: SafeArea(
         child: Row(
