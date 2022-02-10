@@ -70,11 +70,20 @@ class AdminFirebaseService {
     try {
       // await firebaseAuth.createUserWithEmailAndPassword(
       //     email: surveyor.email, password: DEF_SEC_FB);
-      FirebaseAuthService(firebaseAuth)
+      Response res = await FirebaseAuthService(firebaseAuth)
           .signUp(email: surveyor.email, password: DEF_SEC_FB);
-      return Response(isSuccessful: true, message: 'Created Successfully');
+      if(res.isSuccessful){
+        return Response(isSuccessful: true, message: 'Created Successfully');
+      }else{
+        return Response(isSuccessful: false, message: '${res.message}');
+      }
+
     } on FirebaseAuthException catch (e) {
+      print("in forebase auth exp ${e.code}");
       return Response(isSuccessful: false, message: e.message.toString());
+    }catch(e){
+      print("in normal exp");
+      return Response(isSuccessful: false, message: e.toString());
     }
   }
 

@@ -57,13 +57,6 @@ class _SideMenuState extends State<SideMenu> {
             },
           ),
           DrawerListTile(
-            title: "Surveyor",
-            svgSrc: "assets/icons/menu_doc.svg",
-            press: () {
-              Navigator.pushReplacementNamed(context, routeAdminAddSurveyor);
-            },
-          ),
-          DrawerListTile(
             title: "Update Surveyor ",
             svgSrc: "assets/icons/menu_doc.svg",
             press: () {

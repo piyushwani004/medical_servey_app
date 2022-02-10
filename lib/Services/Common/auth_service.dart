@@ -44,16 +44,22 @@ class FirebaseAuthService {
   /// This is to make it as easy as possible but a better way would be to
   /// use your own custom class that would take the exception and return better
   /// error messages. That way you can throw, return or whatever you prefer with that instead.
-  Future<String?> signUp(
+  Future<Response> signUp(
       {required String email, required String password}) async {
-    FirebaseApp app = await Firebase.initializeApp(
-        name: '$email', options: Firebase.app().options);
     try {
+      FirebaseApp app = await Firebase.initializeApp(
+          name: '$email', options: Firebase.app().options);
+      print("${app.toString()} app.toString()");
       await FirebaseAuth.instanceFor(app: app)
           .createUserWithEmailAndPassword(email: email, password: password);
-      return "Signed up";
+      return Response(message: "Signed up",isSuccessful: true);
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      print("in forebase auth exp of sigup${e.code}");
+      return Response(isSuccessful: false, message: e.message.toString());
+    }
+    catch (e){
+      print("in normal exc of signup ${e.toString()}");
+      return Response(isSuccessful: false, message: "${e.toString()}");
     }
   }
 

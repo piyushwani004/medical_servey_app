@@ -13,6 +13,7 @@ import 'package:medical_servey_app/widgets/search_field.dart';
 import 'package:medical_servey_app/widgets/surveyor_edit_dialog.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
+import '../../routes/routes.dart';
 import 'main/components/side_menu.dart';
 
 class SurveyorListForUpdate extends StatefulWidget {
@@ -104,32 +105,40 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     }
   }
 
+  onAddSurveyorBtnPressed(){
+    Navigator.pushNamed(context, routeAdminAddSurveyor);
+  }
+
   final FocusNode _focusNode = FocusNode();
+
   void _handleKeyEvent(RawKeyEvent event) {
     var offset = _horizontalScrollController.offset;
     if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
       setState(() {
         if (kReleaseMode) {
-          _horizontalScrollController.animateTo(offset - 200, duration: Duration(milliseconds: 60), curve: Curves.ease);
+          _horizontalScrollController.animateTo(offset - 200,
+              duration: Duration(milliseconds: 60), curve: Curves.ease);
         } else {
           // _horizontalScrollController.animateTo(offset - 200, duration: Duration(milliseconds: 60), curve: Curves.ease);
         }
       });
-    }
-    else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+    } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
       setState(() {
         if (kReleaseMode) {
-          _horizontalScrollController.animateTo(offset + 200, duration: Duration(milliseconds: 30), curve: Curves.ease);
+          _horizontalScrollController.animateTo(offset + 200,
+              duration: Duration(milliseconds: 30), curve: Curves.ease);
         } else {
           //_horizontalScrollController.animateTo(offset + 200, duration: Duration(milliseconds: 30), curve: Curves.ease);
         }
       });
     }
   }
-  onEnterMouse(PointerEnterEvent event){
+
+  onEnterMouse(PointerEnterEvent event) {
     _focusNode.requestFocus();
   }
-  onExitMouse(PointerExitEvent event){
+
+  onExitMouse(PointerExitEvent event) {
     _focusNode.unfocus();
   }
 
@@ -138,6 +147,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     _loading = Loading(context: context, key: surveyorListKey);
     super.initState();
   }
+
   @override
   void dispose() {
     _focusNode.dispose();
@@ -201,7 +211,13 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                   await onUpdatePressed();
                 },
                 icon: Icon(Icons.edit)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.delete_forever))
+            Card(
+                child: IconButton(
+                    onPressed: () {
+                      onAddSurveyorBtnPressed();
+
+                    },
+                    icon: Icon(Icons.add)))
           ],
         ),
         Scrollbar(
@@ -219,11 +235,11 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                 child: Card(
                     elevation: 10,
                     child: MouseRegion(
-                      onEnter:onEnterMouse,
+                      onEnter: onEnterMouse,
                       onExit: onExitMouse,
                       child: RawKeyboardListener(
                         autofocus: true,
-                        focusNode:_focusNode ,
+                        focusNode: _focusNode,
                         onKey: _handleKeyEvent,
                         child: StreamBuilder<List<Surveyor>>(
                             stream: getSurveyorsList(),
@@ -232,9 +248,11 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                                 dataTableWithGivenColumn =
                                     DataTableWithGivenColumnForSurveyor(
                                   columns: columnsOfDataTable,
-                                  records: listOfFilteredSurveyor ?? snapshot.data!,
+                                  records:
+                                      listOfFilteredSurveyor ?? snapshot.data!,
                                 );
-                                print(dataTableWithGivenColumn?.selectedRecords);
+                                print(
+                                    dataTableWithGivenColumn?.selectedRecords);
                               }
                               return snapshot.hasData
                                   ? dataTableWithGivenColumn!
