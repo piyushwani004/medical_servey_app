@@ -106,7 +106,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     }
   }
 
-  onAddSurveyorBtnPressed(){
+  onAddSurveyorBtnPressed() {
     Navigator.pushNamed(context, routeAdminAddSurveyor);
   }
 
@@ -209,17 +209,22 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
               ),
             ),
             IconButton(
-                onPressed: () async {
-                  await onUpdatePressed();
-                },
-                icon: Icon(Icons.edit)),
+              onPressed: () async {
+                await onUpdatePressed();
+              },
+              icon: Icon(Icons.edit),
+            ),
+            IconButton(
+              onPressed: () async {},
+              icon: Icon(Icons.save),
+            ),
             Card(
-                child: IconButton(
-                    onPressed: () {
-                      onAddSurveyorBtnPressed();
-
-                    },
-                    icon: Icon(Icons.add)))
+              child: IconButton(
+                  onPressed: () {
+                    onAddSurveyorBtnPressed();
+                  },
+                  icon: Icon(Icons.add)),
+            ),
           ],
         ),
         Scrollbar(

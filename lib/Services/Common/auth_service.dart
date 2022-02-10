@@ -16,10 +16,10 @@ class FirebaseAuthService {
   /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   /// after you called this method if you want to pop all routes.
   Future<Response> signOut() async {
-    try{
+    try {
       await _firebaseAuth.signOut();
       return Response(isSuccessful: true, message: "Log out Successfully!");
-    } on FirebaseAuthException catch(e){
+    } on FirebaseAuthException catch (e) {
       return Response(isSuccessful: false, message: '${e.message}');
     }
   }
@@ -52,12 +52,11 @@ class FirebaseAuthService {
       print("${app.toString()} app.toString()");
       await FirebaseAuth.instanceFor(app: app)
           .createUserWithEmailAndPassword(email: email, password: password);
-      return Response(message: "Signed up",isSuccessful: true);
+      return Response(message: "Signed up", isSuccessful: true);
     } on FirebaseAuthException catch (e) {
       print("in forebase auth exp of sigup${e.code}");
       return Response(isSuccessful: false, message: e.message.toString());
-    }
-    catch (e){
+    } catch (e) {
       print("in normal exc of signup ${e.toString()}");
       return Response(isSuccessful: false, message: "${e.toString()}");
     }
