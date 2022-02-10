@@ -60,15 +60,15 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     String searchText = _textEditingController.text;
     listOfFilteredPatient = listOfPatient
         ?.where((Patient patient) =>
-    patient.firstName.contains(searchText) ||
-        patient.middleName.contains(searchText) ||
-        patient.lastName.contains(searchText) ||
-        patient.email.contains(searchText) ||
-        patient.mobileNumber.contains(searchText) ||
-        patient.address.contains(searchText) ||
-        patient.gender.contains(searchText) ||
-        patient.id.contains(searchText) ||
-        patient.profession.contains(searchText))
+            patient.firstName.contains(searchText) ||
+            patient.middleName.contains(searchText) ||
+            patient.lastName.contains(searchText) ||
+            patient.email.contains(searchText) ||
+            patient.mobileNumber.contains(searchText) ||
+            patient.address.contains(searchText) ||
+            patient.gender.contains(searchText) ||
+            patient.id.contains(searchText) ||
+            patient.profession.contains(searchText))
         .toList();
     setState(() {});
   }
@@ -86,8 +86,6 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
           context: context,
           builder: (context) => PatientEditDialog(
               patient: dataTableWithGivenColumn!.selectedRecords[0]));
-
-
 
       setState(() {});
     } else {
@@ -129,7 +127,7 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
             flex: 5,
             child: CustomScrollView(
               slivers: [
-                TopSliverAppBar(mHeight: height, text: "Update Patient"),
+                TopSliverAppBar(mHeight: height, text: "Patient List"),
                 CustomScrollViewBody(
                     bodyWidget: Padding(
                         padding: Common.allPadding(mHeight: height),
@@ -186,7 +184,8 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
                         stream: getPatientsList(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            dataTableWithGivenColumn = DataTableWithGivenColumnForPatient(
+                            dataTableWithGivenColumn =
+                                DataTableWithGivenColumnForPatient(
                               columns: columnsOfDataTable,
                               records: listOfFilteredPatient ?? snapshot.data!,
                             );
@@ -195,8 +194,8 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
                           return snapshot.hasData
                               ? dataTableWithGivenColumn!
                               : Center(
-                            child: CircularProgressIndicator(),
-                          );
+                                  child: CircularProgressIndicator(),
+                                );
                         })),
               ),
             ),

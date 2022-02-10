@@ -72,6 +72,13 @@ class _SideMenuState extends State<SideMenu> {
             },
           ),
           DrawerListTile(
+            title: "Report",
+            svgSrc: "assets/icons/menu_doc.svg",
+            press: () {
+              Navigator.pushReplacementNamed(context, routeGenerateReport);
+            },
+          ),
+          DrawerListTile(
             title: "Logout",
             svgSrc: "assets/icons/menu_task.svg",
             press: () async {
