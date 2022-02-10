@@ -1,7 +1,12 @@
+import 'dart:convert';
+
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
+import 'package:medical_servey_app/models/common/villageData.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/constants.dart';
+import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
@@ -33,9 +38,15 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
   final _horizontalScrollController = ScrollController();
   Loading? _loading;
   final scaffoldState = GlobalKey<ScaffoldState>();
+
+  DropdownSearch<String>? villageDropDown;
+  String? villageChanged;
+
+  List<VillageData> villageData = [];
+  List<String> villages = [];
   List<String> columnsOfDataTable = [
     'id',
-    'By Surveyor',
+    'Village',
     'Email',
     'First-Name',
     'Middle-Name',
@@ -47,6 +58,16 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     'Mobile-Number',
     'Diseases',
   ];
+
+  Future<void> fetchDataFromJson() async {
+    final assetBundle = DefaultAssetBundle.of(context);
+    final data = await assetBundle.loadString(JSON_PATH);
+    List body = json.decode(data)['Sheet1'];
+    setState(() {
+      villageData = body.map((e) => VillageData.fromMap(e)).toList();
+      villages = villageData.map((e) => e.village).toSet().toList();
+    });
+  }
 
   Stream<List<Patient>> getPatientsList() async* {
     List<Patient> listOfPatient = await _firebaseService.getPatients();
@@ -69,6 +90,15 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
             patient.gender.contains(searchText) ||
             patient.id.contains(searchText) ||
             patient.profession.contains(searchText))
+        .toList();
+    setState(() {});
+  }
+
+  onVillageAndTalukaSort(village) {
+    listOfFilteredPatient = listOfPatient
+        ?.where(
+          (Patient patient) => patient.village.contains(village),
+        )
         .toList();
     setState(() {});
   }
@@ -99,8 +129,19 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     }
   }
 
+  onVillageChanged(villageSave) {
+    print("villageSave :: $villageSave");
+    if (villageSave == null) {
+      listOfFilteredPatient = null;
+      setState(() {});
+    } else {
+      onVillageAndTalukaSort(villageSave);
+    }
+  }
+
   @override
   void initState() {
+    fetchDataFromJson();
     _loading = Loading(context: context, key: patientListKey);
     super.initState();
   }
@@ -109,6 +150,20 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
+
+    villageDropDown = DropdownSearch<String>(
+      mode: Mode.DIALOG,
+      showSearchBox: true,
+      items: villages,
+      showSelectedItems: true,
+      //onSaved: (save) {},
+      dropdownSearchDecoration:
+          Common.textFormFieldInputDecoration(labelText: "Select Village"),
+      onChanged: (saved) => onVillageChanged(saved),
+      showClearButton: true,
+      validator: (v) => v == null ? "required field" : null,
+    );
+
     return Scaffold(
       key: scaffoldState,
       backgroundColor: scafoldbBackgroundColor,
@@ -147,6 +202,7 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Flexible(
+              flex: 2,
               child: SearchField(
                 controller: _textEditingController,
                 onSearchTap: () {
@@ -157,6 +213,16 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
                 },
                 isCrossVisible: listOfFilteredPatient != null,
               ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: villageDropDown!,
+              ),
+            ),
+            IconButton(
+              onPressed: () async {},
+              icon: Icon(Icons.save),
             ),
             IconButton(
                 onPressed: () async {
