@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
+import 'package:medical_servey_app/Services/Admin/pdf_genrate_service.dart';
+import 'package:medical_servey_app/models/common/pdf_model.dart';
 import 'package:medical_servey_app/models/common/villageData.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/constants.dart';
@@ -139,6 +141,31 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     }
   }
 
+  onPDFSavePressed() async {
+    final patientData = PdfModel(
+      patientLst: [
+        Patient(
+          id: "id",
+          firstName: "firstName",
+          middleName: "middleName",
+          lastName: "lastName",
+          profession: "profession",
+          email: "email",
+          mobileNumber: "mobileNumber",
+          address: "address",
+          gender: "gender",
+          date: "date",
+          diseases: ["data 1", "Data 2"],
+          age: 1,
+          surveyorUID: "surveyorUID",
+          village: "village",
+        )
+      ],
+    );
+    final pdfFile = await PdfInvoiceApi.generatePatientData(patientData);
+    PdfApi.openFile(pdfFile);
+  }
+
   @override
   void initState() {
     fetchDataFromJson();
@@ -221,7 +248,9 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
               ),
             ),
             IconButton(
-              onPressed: () async {},
+              onPressed: () async {
+                onPDFSavePressed();
+              },
               icon: Icon(Icons.save),
             ),
             IconButton(
