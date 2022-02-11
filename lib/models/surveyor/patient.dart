@@ -18,7 +18,7 @@ class Patient {
   String surveyorUID;
   String? otherDisease;
   String village;
-  
+
   Patient({
     required this.id,
     required this.firstName,
@@ -106,7 +106,7 @@ class Patient {
       gender: map['gender'] ?? '',
       date: map['date'] ?? '',
       diseases: List.from(map['diseases']),
-      age: map['age']?.toInt() ?? 0,
+      age: int.parse(map['age'].toString()),
       surveyorUID: map['surveyorUID'] ?? '',
       otherDisease: map['otherDisease'],
       village: map['village'] ?? '',
