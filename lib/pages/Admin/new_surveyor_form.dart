@@ -35,7 +35,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
   final GlobalKey<State> newSurveyorKey = GlobalKey<State>();
 
-  Loading? _loading;
+  late Loading _loading;
   AdminFirebaseService _firebaseService = AdminFirebaseService();
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -49,7 +49,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     print("surveyorForm $surveyorForm");
     if (formKeyNewSurveyorForm.currentState!.validate()) {
       // //turning loading on
-      // _loading!.on(); //invoking login
+      // _loading.on(); //invoking login
       surveyorForm['joiningDate'] = selectedDate;
       surveyorForm['age'] = ageDropDown!.selectedItem!;
       surveyorForm['gender'] = genderDropDown!.selectedItem!;
@@ -71,7 +71,9 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
         Response response = await _firebaseService.saveNewSurveyor(surveyor);
         if (response.isSuccessful) {
           // if successfully return  a message that process is complete
-          // _loading!.off(); // popping loading
+          // if(_loading != null){
+          //   // _loading.off();
+          // } // popping loading
           Common.showAlert(
               context: context,
               title: 'Surveyor Registration',
@@ -81,7 +83,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
 
         } else {
           //if failed while creating an account
-          // _loading!.off(); // popping loading
+          // _loading.off(); // popping loading
           Common.showAlert(
               context: context,
               title: 'Failed in Creating Account',
@@ -92,7 +94,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
         print("Firestore Response ::" + response.message.toString());
       } else {
         //if failed while creating an account
-        // _loading!.off(); // popping loading
+        // _loading.off(); // popping loading
         Common.showAlert(
             context: context,
             title: 'Failed in Creating Account',
@@ -172,7 +174,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       validator: (v) => v == null ? "required field" : null,
     );
 
-    _loading = Loading(context: context, key: newSurveyorKey);
+
 
     super.initState();
   }
@@ -245,6 +247,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   }
 
   Widget body({required Map<String, dynamic> surveyorForm, required formKey}) {
+    _loading = Loading(context: context, key: newSurveyorKey);
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
@@ -309,7 +312,9 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
 
     final submitBtn = OutlinedButton(
         onPressed: () {
+          _loading.on();
           onPressedSubmit();
+          _loading.off();
         },
         child: Text('Submit'));
     return FormContainer(
