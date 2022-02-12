@@ -13,7 +13,6 @@ import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/data_table_pateint_widget.dart';
-import 'package:medical_servey_app/widgets/data_table_surveyor_widget.dart';
 import 'package:medical_servey_app/widgets/loading.dart';
 import 'package:medical_servey_app/widgets/search_field.dart';
 import 'package:medical_servey_app/widgets/patient_edit_dialog.dart';
@@ -143,27 +142,9 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
 
   onPDFSavePressed() async {
     final patientData = PdfModel(
-      patientLst: [
-        Patient(
-          id: "id",
-          firstName: "firstName",
-          middleName: "middleName",
-          lastName: "lastName",
-          profession: "profession",
-          email: "email",
-          mobileNumber: "mobileNumber",
-          address: "address",
-          gender: "gender",
-          date: "date",
-          diseases: ["data 1", "Data 2"],
-          age: 1,
-          surveyorUID: "surveyorUID",
-          village: "village",
-        )
-      ],
+      patientLst: this.listOfPatient,
     );
-    final pdfFile = await PdfInvoiceApi.generatePatientData(patientData);
-    PdfApi.openFile(pdfFile);
+    await PdfInvoiceApi.generatePatientData(patientData);
   }
 
   @override

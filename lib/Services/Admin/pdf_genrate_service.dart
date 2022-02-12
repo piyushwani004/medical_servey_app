@@ -1,24 +1,30 @@
-import 'dart:io';
-import 'package:medical_servey_app/models/common/pdf_model.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
+// ignore_for_file: avoid_web_libraries_in_flutter
+
+import 'dart:convert';
+import 'dart:html';
+
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 
+import 'package:medical_servey_app/models/common/pdf_model.dart';
+
 class PdfInvoiceApi {
-  static Future<File> generatePatientData(PdfModel patient) async {
+  static Future<void> generatePatientData(PdfModel patient) async {
     final pdf = Document();
 
-    pdf.addPage(MultiPage(
-      
-      build: (context) => [
-        SizedBox(height: 3 * PdfPageFormat.cm),
-        buildPatientTitle(),
-        Divider(),
-        buildPatientTable(patient),
-      ],
-    ));
+    pdf.addPage(
+      MultiPage(
+        pageFormat: PdfPageFormat.a4,
+        margin: EdgeInsets.all(10),
+        header: (context) => buildPatientTitle(),
+        build: (context) => [
+          Divider(),
+          buildPatientTable(patient),
+          pw.SizedBox(height: 20),
+        ],
+      ),
+    );
 
     return PdfApi.saveDocument(name: 'my_patient_data.pdf', pdf: pdf);
   }
@@ -30,7 +36,6 @@ class PdfInvoiceApi {
             'Patient Data',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 0.8 * PdfPageFormat.cm),
         ],
       );
 
@@ -69,18 +74,30 @@ class PdfInvoiceApi {
 
     return Table.fromTextArray(
       headers: headers,
+      headerHeight: 25,
       data: data,
       border: null,
-      headerStyle: TextStyle(fontWeight: FontWeight.bold),
-      headerDecoration: BoxDecoration(color: PdfColors.grey300),
-      cellHeight: 30,
+      headerDecoration: pw.BoxDecoration(
+        borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+        color: PdfColors.grey300,
+      ),
+      cellHeight: 20,
+      defaultColumnWidth: const IntrinsicColumnWidth(flex: 20),
+      headerStyle: pw.TextStyle(
+        color: PdfColors.white,
+        fontSize: 10,
+        fontWeight: pw.FontWeight.bold,
+      ),
+      cellStyle: const pw.TextStyle(
+        color: PdfColors.grey,
+        fontSize: 10,
+      ),
       cellAlignments: {
-        0: Alignment.centerLeft,
-        1: Alignment.centerRight,
-        2: Alignment.centerRight,
-        3: Alignment.centerRight,
-        4: Alignment.centerRight,
-        5: Alignment.centerRight,
+        0: pw.Alignment.centerLeft,
+        1: pw.Alignment.centerLeft,
+        2: pw.Alignment.centerRight,
+        3: pw.Alignment.center,
+        4: pw.Alignment.centerRight,
       },
     );
   }
@@ -189,23 +206,15 @@ class PdfInvoiceApi {
 }
 
 class PdfApi {
-  static Future<File> saveDocument({
+  static Future<void> saveDocument({
     required String name,
     required Document pdf,
   }) async {
     final bytes = await pdf.save();
-
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File('${dir.path}/$name');
-
-    await file.writeAsBytes(bytes);
-
-    return file;
-  }
-
-  static Future openFile(File file) async {
-    final url = file.path;
-
-    await OpenFile.open(url);
+    AnchorElement(
+        href:
+            "data:application/octet-stream;charset=utf-16le;base64,${base64.encode(bytes)}")
+      ..setAttribute("download", "$name")
+      ..click();
   }
 }
