@@ -72,16 +72,15 @@ class AdminFirebaseService {
       //     email: surveyor.email, password: DEF_SEC_FB);
       Response res = await FirebaseAuthService(firebaseAuth)
           .signUp(email: surveyor.email, password: DEF_SEC_FB);
-      if(res.isSuccessful){
+      if (res.isSuccessful) {
         return Response(isSuccessful: true, message: 'Created Successfully');
-      }else{
+      } else {
         return Response(isSuccessful: false, message: '${res.message}');
       }
-
     } on FirebaseAuthException catch (e) {
       print("in forebase auth exp ${e.code}");
       return Response(isSuccessful: false, message: e.message.toString());
-    }catch(e){
+    } catch (e) {
       print("in normal exp");
       return Response(isSuccessful: false, message: e.toString());
     }
@@ -171,7 +170,7 @@ class AdminFirebaseService {
   Future<List<Patient>> getPatients() async {
     List<Patient> _patients = [];
     CollectionReference patientCollection = instance!.collection('Patient');
-    var allSurveyorsSnapshots = await patientCollection.get();
+    var allSurveyorsSnapshots = await patientCollection.orderBy('date').limit(20).get();
     _patients.addAll(allSurveyorsSnapshots.docs.map((surveyor) =>
         Patient.fromMap(surveyor.data() as Map<String, dynamic>)));
     return _patients;

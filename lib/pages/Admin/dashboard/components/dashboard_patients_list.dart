@@ -123,7 +123,7 @@ class _DashboardPatientsListState extends State<DashboardPatientsList> {
           children: [
             Text(
               "Patient List",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             Padding(
               padding: EdgeInsets.all(defaultPadding),
