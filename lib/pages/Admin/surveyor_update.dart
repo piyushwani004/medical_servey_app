@@ -3,7 +3,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
+import 'package:medical_servey_app/Services/Admin/pdf_genrate_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
+import 'package:medical_servey_app/models/common/pdf_model.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
@@ -155,6 +157,13 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     super.dispose();
   }
 
+  onPDFSavePressed() async {
+    final surveyorData = PdfModel(
+      surveyorLst: this.listOfSurveyor,
+    );
+    await PdfInvoiceApi.generateSurveyorData(surveyorData);
+  }
+
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
@@ -215,7 +224,9 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
               icon: Icon(Icons.edit),
             ),
             IconButton(
-              onPressed: () async {},
+              onPressed: () async {
+                onPDFSavePressed();
+              },
               icon: Icon(Icons.save),
             ),
             Card(

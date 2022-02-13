@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:html';
 
+import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
@@ -10,6 +11,8 @@ import 'package:pdf/widgets.dart';
 import 'package:medical_servey_app/models/common/pdf_model.dart';
 
 class PdfInvoiceApi {
+// *************************** generate Patient PDF **********************//
+
   static Future<void> generatePatientData(PdfModel patient) async {
     final pdf = Document();
 
@@ -26,7 +29,7 @@ class PdfInvoiceApi {
       ),
     );
 
-    return PdfApi.saveDocument(name: 'my_patient_data.pdf', pdf: pdf);
+    PdfApi.saveDocument(name: 'my_patient_data.pdf', pdf: pdf);
   }
 
   static Widget buildPatientTitle() => Column(
@@ -41,18 +44,18 @@ class PdfInvoiceApi {
 
   static Widget buildPatientTable(PdfModel pdf) {
     final headers = [
-      'id',
+      'Id',
       'Name',
-      'profession',
-      'email',
-      'mobileNumber',
-      'address',
-      'gender',
-      'date',
-      'diseases',
-      'otherDisease',
-      'age',
-      'village'
+      'Profession',
+      'Email',
+      'MobileNumber',
+      'Address',
+      'Gender',
+      'Date',
+      'Diseases',
+      'OtherDisease',
+      'Age',
+      'Village'
     ];
 
     final data = pdf.patientLst!.map((item) {
@@ -74,23 +77,31 @@ class PdfInvoiceApi {
 
     return Table.fromTextArray(
       headers: headers,
-      headerHeight: 25,
+      headerHeight: 20,
       data: data,
-      border: null,
+      //border: null,
       headerDecoration: pw.BoxDecoration(
         borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
-        color: PdfColors.grey300,
+        color: PdfColors.blueGrey400,
       ),
       cellHeight: 20,
-      defaultColumnWidth: const IntrinsicColumnWidth(flex: 20),
+      defaultColumnWidth: const IntrinsicColumnWidth(flex: 10),
       headerStyle: pw.TextStyle(
         color: PdfColors.white,
-        fontSize: 10,
+        fontSize: 8,
         fontWeight: pw.FontWeight.bold,
       ),
       cellStyle: const pw.TextStyle(
-        color: PdfColors.grey,
-        fontSize: 10,
+        color: PdfColors.blueGrey900,
+        fontSize: 6,
+      ),
+      rowDecoration: pw.BoxDecoration(
+        border: pw.Border(
+          bottom: pw.BorderSide(
+            color: PdfColors.blueGrey900,
+            width: .5,
+          ),
+        ),
       ),
       cellAlignments: {
         0: pw.Alignment.centerLeft,
@@ -102,105 +113,104 @@ class PdfInvoiceApi {
     );
   }
 
-  // static Future<File> generateSurveyorData(Surveyor surveyor) async {
-  //   final pdf = Document();
+  // *************************** generate Surveyor PDF **********************//
 
-  //   pdf.addPage(MultiPage(
-  //     build: (context) => [
-  //       SizedBox(height: 3 * PdfPageFormat.cm),
-  //       buildSurveyorTitle(surveyor),
-  //       Divider(),
-  //       buildSurveyorTable(surveyor),
-  //     ],
-  //   ));
+  static Future<void> generateSurveyorData(PdfModel surveyor) async {
+    final pdf = Document();
 
-  //   return PdfApi.saveDocument(name: 'my_surveyor_data.pdf', pdf: pdf);
-  // }
-
-  // static Widget buildSurveyorTitle(Surveyor patient) => Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Text(
-  //           'Patient Data',
-  //           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  //         ),
-  //         SizedBox(height: 0.8 * PdfPageFormat.cm),
-  //       ],
-  //     );
-
-  // static Widget buildSurveyorTable(Surveyor surveyor) {
-  //   final headers = [
-  //     'Description',
-  //     'Date',
-  //     'Quantity',
-  //     'Unit Price',
-  //     'VAT',
-  //     'Total'
-  //   ];
-
-  //   return Table.fromTextArray(
-  //     headers: headers,
-  //     data: data,
-  //     border: null,
-  //     headerStyle: TextStyle(fontWeight: FontWeight.bold),
-  //     headerDecoration: BoxDecoration(color: PdfColors.grey300),
-  //     cellHeight: 30,
-  //     cellAlignments: {
-  //       0: Alignment.centerLeft,
-  //       1: Alignment.centerRight,
-  //       2: Alignment.centerRight,
-  //       3: Alignment.centerRight,
-  //       4: Alignment.centerRight,
-  //       5: Alignment.centerRight,
-  //     },
-  //   );
-  // }
-
-  // static Widget buildFooter(Patient invoice) => Column(
-  //       crossAxisAlignment: CrossAxisAlignment.center,
-  //       children: [
-  //         Divider(),
-  //         SizedBox(height: 2 * PdfPageFormat.mm),
-  //         buildSimpleText(title: 'Address', value: invoice.supplier.address),
-  //         SizedBox(height: 1 * PdfPageFormat.mm),
-  //         buildSimpleText(title: 'Paypal', value: invoice.supplier.paymentInfo),
-  //       ],
-  //     );
-
-  static buildSimpleText({
-    required String title,
-    required String value,
-  }) {
-    final style = TextStyle(fontWeight: FontWeight.bold);
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: pw.CrossAxisAlignment.end,
-      children: [
-        Text(title, style: style),
-        SizedBox(width: 2 * PdfPageFormat.mm),
-        Text(value),
-      ],
-    );
-  }
-
-  static buildText({
-    required String title,
-    required String value,
-    double width = double.infinity,
-    TextStyle? titleStyle,
-    bool unite = false,
-  }) {
-    final style = titleStyle ?? TextStyle(fontWeight: FontWeight.bold);
-
-    return Container(
-      width: width,
-      child: Row(
-        children: [
-          Expanded(child: Text(title, style: style)),
-          Text(value, style: unite ? style : null),
+    pdf.addPage(
+      MultiPage(
+        pageFormat: PdfPageFormat.a4,
+        margin: EdgeInsets.all(10),
+        header: (context) => buildSurveyorTitle(),
+        build: (context) => [
+          Divider(),
+          buildSurveyorTable(surveyor),
         ],
       ),
+    );
+
+    PdfApi.saveDocument(name: 'my_surveyor_data.pdf', pdf: pdf);
+  }
+
+  static Widget buildSurveyorTitle() => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Surveyor Data',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ],
+      );
+
+  static Widget buildSurveyorTable(PdfModel pdf) {
+    final headers = [
+      'Name',
+      'Profession',
+      'Email',
+      'MobileNumber',
+      'Address',
+      'Gender',
+      'JoiningDate',
+      'District',
+      'Taluka',
+      'Age',
+      'Assign village',
+      'AadhaarNumber'
+    ];
+
+    final data = pdf.surveyorLst!.map((item) {
+      return [
+        "${item.firstName} ${item.middleName} ${item.lastName}",
+        item.profession,
+        item.email,
+        item.mobileNumber,
+        item.address,
+        item.gender,
+        item.joiningDate,
+        item.district,
+        item.taluka,
+        item.age,
+        item.village,
+        item.aadhaarNumber,
+      ];
+    }).toList();
+
+    return Table.fromTextArray(
+      headers: headers,
+      headerHeight: 20,
+      data: data,
+      // border: null,
+      headerDecoration: pw.BoxDecoration(
+        borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+        color: PdfColors.blueGrey400,
+      ),
+      cellHeight: 20,
+      defaultColumnWidth: const IntrinsicColumnWidth(flex: 10),
+      headerStyle: pw.TextStyle(
+        color: PdfColors.white,
+        fontSize: 8,
+        fontWeight: pw.FontWeight.bold,
+      ),
+      cellStyle: const pw.TextStyle(
+        color: PdfColors.blueGrey900,
+        fontSize: 6,
+      ),
+      rowDecoration: pw.BoxDecoration(
+        border: pw.Border(
+          bottom: pw.BorderSide(
+            color: PdfColors.blueGrey900,
+            width: .5,
+          ),
+        ),
+      ),
+      cellAlignments: {
+        0: pw.Alignment.centerLeft,
+        1: pw.Alignment.centerLeft,
+        2: pw.Alignment.centerRight,
+        3: pw.Alignment.center,
+        4: pw.Alignment.centerRight,
+      },
     );
   }
 }
