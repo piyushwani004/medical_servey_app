@@ -36,8 +36,8 @@ class _SideMenuState extends State<SideMenu> {
         controller: _scrollController,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text("Admin Name"),
-            accountEmail: Text("Admin Gmail"),
+            accountName: Text("Admin"),
+            accountEmail: Text("Admin@gmail.com"),
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage(LOGO_PATH),
             ),
