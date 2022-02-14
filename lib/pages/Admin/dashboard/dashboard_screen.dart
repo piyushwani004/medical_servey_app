@@ -5,7 +5,7 @@ import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 import 'components/dashboardCounts.dart';
 import 'components/dashboard_patients_list.dart';
-import 'components/storage_details.dart';
+import 'components/district_report.dart';
 
 
 
@@ -45,7 +45,7 @@ class DashboardScreen extends StatelessWidget {
                   DashboardPatientsList(),
                   if (Responsive.isMobile(context))
                     SizedBox(height: defaultPadding),
-                  if (Responsive.isMobile(context)) StarageDetails(),
+                  if (Responsive.isMobile(context)) DistrictReport(),
                 ],
               ),
             ),
@@ -55,7 +55,7 @@ class DashboardScreen extends StatelessWidget {
             if (!Responsive.isMobile(context))
               Expanded(
                 flex: 2,
-                child: StarageDetails(),
+                child: DistrictReport(),
               ),
           ],
         )
