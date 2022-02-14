@@ -68,7 +68,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
   }
 
   onPressedSubmit() async {
-    fetchSelectedVillage();
+    await fetchSelectedVillage();
     if (formKeyNewSurveyorForm.currentState!.validate()) {
       patientForm['id'] = DateTime.now().millisecondsSinceEpoch.toString();
       patientForm['date'] = _selectedDate;
