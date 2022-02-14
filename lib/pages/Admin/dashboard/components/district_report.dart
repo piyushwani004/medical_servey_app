@@ -20,14 +20,20 @@ class _DistrictReportState extends State<DistrictReport> {
 
   @override
   void initState() {
-   diseasePercentageCalculateService.calculatePercentageOfAllDisease();
+    diseasePercentageCalculateService.calculatePercentageOfAllDisease();
     super.initState();
   }
 
   @override
   build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
+    width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return Container(
       padding: EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
@@ -37,9 +43,12 @@ class _DistrictReportState extends State<DistrictReport> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FutureBuilder<Map<String,double>>(
-            future: diseasePercentageCalculateService.calculatePercentageOfAllDisease(), // a previously-obtained Future<String> or null
-            builder: (BuildContext context, AsyncSnapshot<Map<String,double>> snapshot) {
+          FutureBuilder<Map<String, double>>(
+            future: diseasePercentageCalculateService
+                .calculatePercentageOfAllDisease(),
+            // a previously-obtained Future<String> or null
+            builder: (BuildContext context,
+                AsyncSnapshot<Map<String, double>> snapshot) {
               List<Widget> children;
               if (snapshot.hasData) {
                 children = <Widget>[
@@ -48,10 +57,41 @@ class _DistrictReportState extends State<DistrictReport> {
                     color: Colors.green,
                     size: 60,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text('Result: ${snapshot.data}'),
-                  )
+                  Text(
+                    "Jalgaon Diseases Report",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black),
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: (snapshot.data?.keys)!.toList().length,
+                      itemBuilder: (_, index) {
+                        double? per= snapshot.data?[ (snapshot.data!.keys).toList()[index] ];
+                        String dis = (snapshot.data?.keys)!.toList()[index];
+                        return Row(
+                          children: [
+                            Expanded(
+                              child: Card(
+                                child: Padding(
+                                  padding: Common.allPadding(mHeight: height),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween,
+                                    children: [
+                                      Expanded(child: Text(
+                                       dis
+                                      )),
+                                      Flexible(child: Text( '${ per?.toStringAsFixed(2) }%')),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      })
                 ];
               } else if (snapshot.hasError) {
                 children = <Widget>[
@@ -86,32 +126,7 @@ class _DistrictReportState extends State<DistrictReport> {
               );
             },
           ),
-          Text(
-            "Diseases Report",
-            style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black),
-          ),
-          ListView.builder(
-              shrinkWrap: true,
-              itemCount: 10,
-              itemBuilder: (_, index) => Row(
-                    children: [
-                      Expanded(
-                        child: Card(
-                          child: Padding(
-                            padding: Common.allPadding(mHeight: height),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(child: Text("Corono")),
-                                Flexible(child: Text("Corono")),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ))
+
         ],
       ),
     );
