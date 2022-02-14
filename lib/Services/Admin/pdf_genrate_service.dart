@@ -1,12 +1,7 @@
-// ignore_for_file: avoid_web_libraries_in_flutter
-
-import 'dart:convert';
-import 'dart:html';
-
-import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
+import 'package:universal_html/html.dart' as html;
 
 import 'package:medical_servey_app/models/common/pdf_model.dart';
 
@@ -221,10 +216,15 @@ class PdfApi {
     required Document pdf,
   }) async {
     final bytes = await pdf.save();
-    AnchorElement(
-        href:
-            "data:application/octet-stream;charset=utf-16le;base64,${base64.encode(bytes)}")
-      ..setAttribute("download", "$name")
-      ..click();
+    final blob = html.Blob([bytes], 'application/pdf');
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final anchor = html.document.createElement('a') as html.AnchorElement
+      ..href = url
+      ..style.display = 'none'
+      ..download = '$name';
+    html.document.body!.children.add(anchor);
+    anchor.click();
+    html.document.body!.children.remove(anchor);
+    html.Url.revokeObjectUrl(url);
   }
 }

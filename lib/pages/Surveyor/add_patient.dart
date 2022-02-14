@@ -79,6 +79,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       patientForm['village'] = selectedVillage;
       formKeyNewSurveyorForm.currentState!.save();
 
+      print("patientForm map: $patientForm");
       Patient patient = Patient.fromMap(patientForm);
       print("patientData $patient");
 
