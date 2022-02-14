@@ -170,7 +170,10 @@ class AdminFirebaseService {
   Future<List<Patient>> getPatients() async {
     List<Patient> _patients = [];
     CollectionReference patientCollection = instance!.collection('Patient');
-    var allSurveyorsSnapshots = await patientCollection.orderBy('date').limit(20).get();
+    var allSurveyorsSnapshots = await patientCollection
+        .orderBy('date', descending: true)
+        .limit(20)
+        .get();
     _patients.addAll(allSurveyorsSnapshots.docs.map((surveyor) =>
         Patient.fromMap(surveyor.data() as Map<String, dynamic>)));
     return _patients;

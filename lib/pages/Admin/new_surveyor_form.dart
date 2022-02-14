@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import "package:flutter/material.dart";
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
@@ -63,8 +62,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       //creating account for surveyor
       Response responseForCreatingAcc =
           await _firebaseService.createSurveyorAccount(surveyor);
-      print("Firestore Response for  ::" +
-          responseForCreatingAcc.toString());
+      print("Firestore Response for  ::" + responseForCreatingAcc.toString());
 
       //if successfully created then try to push details to fire store
       if (responseForCreatingAcc.isSuccessful) {
@@ -140,7 +138,6 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     setState(() {
       villageData = body.map((e) => VillageData.fromMap(e)).toList();
       taluka = villageData.map((e) => e.taluka).toSet().toList();
-      villages = villageData.map((e) => e.village).toSet().toList();
     });
   }
 
@@ -174,13 +171,26 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       validator: (v) => v == null ? "required field" : null,
     );
 
-
-
     super.initState();
   }
 
   onTalukaSaved(saved) {
     surveyorForm['taluka'] = saved;
+  }
+
+  onTalukaChanged(talukaChanged) {
+    setState(() {
+      String village = talukaChanged;
+      villages = villageData
+          .map((e) {
+            if (talukaChanged == e.taluka) {
+              village = e.village;
+            }
+            return village;
+          })
+          .toSet()
+          .toList();
+    });
   }
 
   onVllageSaved(villageSave) {
@@ -206,7 +216,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       onSaved: (saved) => onTalukaSaved(saved),
       dropdownSearchDecoration:
           Common.textFormFieldInputDecoration(labelText: "Select Taluka"),
-      onChanged: print,
+      onChanged: (changed) => onTalukaChanged(changed),
       showClearButton: true,
       validator: (v) => v == null ? "required field" : null,
     );
@@ -388,7 +398,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
                 child: mobileNo,
               ),
               //
-              taluka.isNotEmpty && villages.isNotEmpty
+              taluka.isNotEmpty
                   ? Responsive(mobile: mobileView(), desktop: desktopView())
                   : CircularProgressIndicator(),
               //

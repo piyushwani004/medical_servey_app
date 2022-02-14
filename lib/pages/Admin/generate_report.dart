@@ -30,7 +30,6 @@ class _GenerateReportState extends State<GenerateReport> {
     List body = json.decode(data)['Sheet1'];
     setState(() {
       villageData = body.map((e) => VillageData.fromMap(e)).toList();
-      villages = villageData.map((e) => e.village).toSet().toList();
       taluka = villageData.map((e) => e.taluka).toSet().toList();
     });
   }
@@ -39,8 +38,19 @@ class _GenerateReportState extends State<GenerateReport> {
     print("village $village");
   }
 
-  onTalukaChanged(taluka) {
-    print("village $taluka");
+  onTalukaChanged(talukaChanged) {
+    setState(() {
+      String village = talukaChanged;
+      villages = villageData
+          .map((e) {
+            if (talukaChanged == e.taluka) {
+              village = e.village;
+            }
+            return village;
+          })
+          .toSet()
+          .toList();
+    });
   }
 
   @override
@@ -95,11 +105,11 @@ class _GenerateReportState extends State<GenerateReport> {
                 child: DropdownSearch<String>(
                   mode: Mode.DIALOG,
                   showSearchBox: true,
-                  items: villages,
+                  items: taluka,
                   showSelectedItems: true,
                   dropdownSearchDecoration: Common.textFormFieldInputDecoration(
-                      labelText: "Select Village"),
-                  onChanged: (saved) => onVillageChanged(saved),
+                      labelText: "Select Taluka"),
+                  onChanged: (saved) => onTalukaChanged(saved),
                   showClearButton: true,
                   validator: (v) => v == null ? "required field" : null,
                 ),
@@ -111,11 +121,11 @@ class _GenerateReportState extends State<GenerateReport> {
                 child: DropdownSearch<String>(
                   mode: Mode.DIALOG,
                   showSearchBox: true,
-                  items: taluka,
+                  items: villages,
                   showSelectedItems: true,
                   dropdownSearchDecoration: Common.textFormFieldInputDecoration(
-                      labelText: "Select Taluka"),
-                  onChanged: (saved) => onTalukaChanged(saved),
+                      labelText: "Select Village"),
+                  onChanged: (saved) => onVillageChanged(saved),
                   showClearButton: true,
                   validator: (v) => v == null ? "required field" : null,
                 ),

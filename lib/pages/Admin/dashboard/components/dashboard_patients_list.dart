@@ -62,8 +62,13 @@ class _DashboardPatientsListState extends State<DashboardPatientsList> {
         );
       }).toList();
 
-  List<DataCell> getCells(List<dynamic> cells) =>
-      cells.map((data) => DataCell(Text('$data'))).toList();
+  List<DataCell> getCells(List<dynamic> cells) => cells
+      .map(
+        (data) => DataCell(
+          Text('$data'),
+        ),
+      )
+      .toList();
 
   void onSort(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
