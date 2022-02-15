@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
+import 'package:medical_servey_app/Services/Admin/pdf_genrate_service.dart';
+import 'package:medical_servey_app/models/common/pdf_model.dart';
 import 'package:medical_servey_app/models/common/villageData.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/pages/Admin/main/components/side_menu.dart';
@@ -26,9 +28,9 @@ class _GenerateReportState extends State<GenerateReport> {
   DiseasePercentageCalculateService diseasePercentageCalculateService =
       DiseasePercentageCalculateService();
   AdminFirebaseService adminFirebaseService = AdminFirebaseService();
-  TextEditingController _controller = TextEditingController();
 
   var width, height;
+  Map<String, double>? reportLst;
   List<VillageData> villageData = [];
   List<String> villages = [];
   List<String> taluka = [];
@@ -93,6 +95,44 @@ class _GenerateReportState extends State<GenerateReport> {
     setState(() {});
   }
 
+  onPDFSavePressed() async {
+    final reportData = PdfModel(
+      reportLst: this.reportLst,
+    );
+    await PdfInvoiceApi.generateReportData(reportData);
+  }
+
+  Stream<Map<String, double>> calculatePercentageOfSelectedPatients(
+      List<Patient> patients) async* {
+    Map<String, double> freqDisease = {};
+    Map<String, double> perDisease = {};
+    int totalPatients;
+    //getting count of total patients
+    totalPatients = patients.length;
+    //calculating freq
+    for (Patient pat in patients) {
+      for (String dis in pat.diseases) {
+        //if freq has disease name increase its count
+        if ((freqDisease.keys.toList()).contains(dis)) {
+          freqDisease[dis] = (freqDisease[dis]! + 1);
+        } else {
+          ////if freq don't have disease name init its count to 1
+          freqDisease[dis] = 1;
+        }
+      }
+      // listOfDisease.addAll(pat.diseases);
+    }
+    print("$freqDisease --freqDisease");
+
+    //calculating percentage
+    for (String dis in freqDisease.keys) {
+      perDisease[dis] = (freqDisease[dis]! / totalPatients) * 100;
+    }
+    print("$perDisease --perDisease");
+    this.reportLst = perDisease;
+    yield perDisease;
+  }
+
   @override
   void initState() {
     fetchDataFromJson();
@@ -140,6 +180,7 @@ class _GenerateReportState extends State<GenerateReport> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Flexible(
+              flex: 3,
               child: Padding(
                 padding: Common.allPadding(mHeight: height),
                 child: DropdownSearch<String>(
@@ -156,6 +197,7 @@ class _GenerateReportState extends State<GenerateReport> {
               ),
             ),
             Flexible(
+              flex: 3,
               child: Padding(
                 padding: Common.allPadding(mHeight: height),
                 child: DropdownSearch<String>(
@@ -171,6 +213,14 @@ class _GenerateReportState extends State<GenerateReport> {
                 ),
               ),
             ),
+            Flexible(
+              child: IconButton(
+                onPressed: () async {
+                  onPDFSavePressed();
+                },
+                icon: Icon(Icons.save),
+              ),
+            ),
           ],
         ),
         Container(
@@ -183,8 +233,7 @@ class _GenerateReportState extends State<GenerateReport> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               StreamBuilder<Map<String, double>>(
-                stream: diseasePercentageCalculateService
-                    .calculatePercentageOfSelectedPatients(patientList),
+                stream: calculatePercentageOfSelectedPatients(patientList),
                 // a previously-obtained Future<String> or null
                 builder: (BuildContext context,
                     AsyncSnapshot<Map<String, double>> snapshot) {

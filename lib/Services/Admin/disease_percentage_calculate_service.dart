@@ -33,34 +33,4 @@ class DiseasePercentageCalculateService {
     print("$perDisease --perDisease");
     return perDisease;
   }
-
-  Stream<Map<String, double>> calculatePercentageOfSelectedPatients(
-      List<Patient> patients) async* {
-    Map<String, double> freqDisease = {};
-    Map<String, double> perDisease = {};
-    int totalPatients;
-    //getting count of total patients
-    totalPatients = patients.length;
-    //calculating freq
-    for (Patient pat in patients) {
-      for (String dis in pat.diseases) {
-        //if freq has disease name increase its count
-        if ((freqDisease.keys.toList()).contains(dis)) {
-          freqDisease[dis] = (freqDisease[dis]! + 1);
-        } else {
-          ////if freq don't have disease name init its count to 1
-          freqDisease[dis] = 1;
-        }
-      }
-      // listOfDisease.addAll(pat.diseases);
-    }
-    print("$freqDisease --freqDisease");
-
-    //calculating percentage
-    for (String dis in freqDisease.keys) {
-      perDisease[dis] = (freqDisease[dis]! / totalPatients) * 100;
-    }
-    print("$perDisease --perDisease");
-    yield perDisease;
-  }
 }

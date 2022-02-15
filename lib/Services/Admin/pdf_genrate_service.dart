@@ -208,6 +208,82 @@ class PdfInvoiceApi {
       },
     );
   }
+
+  // *************************** generate Report PDF **********************//
+
+  static Future<void> generateReportData(PdfModel report) async {
+    final pdf = Document();
+
+    pdf.addPage(
+      MultiPage(
+        pageFormat: PdfPageFormat.a4,
+        margin: EdgeInsets.all(10),
+        header: (context) => buildReportTitle(),
+        build: (context) => [
+          Divider(),
+          buildReportTable(report),
+        ],
+      ),
+    );
+
+    PdfApi.saveDocument(name: 'my_report_data.pdf', pdf: pdf);
+  }
+
+  static Widget buildReportTitle() => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Report Data',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ],
+      );
+
+  static Widget buildReportTable(PdfModel pdf) {
+    final headers = [
+      'Disease Name',
+      'Disease Percentage',
+    ];
+    print("pdf : ${pdf.reportLst}");
+    final data = pdf.reportLst!.keys.map((e) => []).toList();
+
+    return Table.fromTextArray(
+      headers: headers,
+      headerHeight: 20,
+      data: data,
+      // border: null,
+      headerDecoration: pw.BoxDecoration(
+        borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+        color: PdfColors.blueGrey400,
+      ),
+      cellHeight: 20,
+      defaultColumnWidth: const IntrinsicColumnWidth(flex: 10),
+      headerStyle: pw.TextStyle(
+        color: PdfColors.white,
+        fontSize: 8,
+        fontWeight: pw.FontWeight.bold,
+      ),
+      cellStyle: const pw.TextStyle(
+        color: PdfColors.blueGrey900,
+        fontSize: 6,
+      ),
+      rowDecoration: pw.BoxDecoration(
+        border: pw.Border(
+          bottom: pw.BorderSide(
+            color: PdfColors.blueGrey900,
+            width: .5,
+          ),
+        ),
+      ),
+      cellAlignments: {
+        0: pw.Alignment.centerLeft,
+        1: pw.Alignment.centerLeft,
+        2: pw.Alignment.centerRight,
+        3: pw.Alignment.center,
+        4: pw.Alignment.centerRight,
+      },
+    );
+  }
 }
 
 class PdfApi {
