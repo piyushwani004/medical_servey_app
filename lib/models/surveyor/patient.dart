@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class Patient {
@@ -18,7 +19,8 @@ class Patient {
   String surveyorUID;
   String? otherDisease;
   String village;
-
+  String taluka;
+  Timestamp timestamp;
   Patient({
     required this.id,
     required this.firstName,
@@ -35,6 +37,8 @@ class Patient {
     required this.surveyorUID,
     this.otherDisease,
     required this.village,
+    required this.taluka,
+    required this.timestamp,
   });
 
   Patient copyWith({
@@ -53,6 +57,8 @@ class Patient {
     String? surveyorUID,
     String? otherDisease,
     String? village,
+    String? taluka,
+    Timestamp? timestamp,
   }) {
     return Patient(
       id: id ?? this.id,
@@ -70,6 +76,8 @@ class Patient {
       surveyorUID: surveyorUID ?? this.surveyorUID,
       otherDisease: otherDisease ?? this.otherDisease,
       village: village ?? this.village,
+      taluka: taluka ?? this.taluka,
+      timestamp: timestamp ?? this.timestamp,
     );
   }
 
@@ -90,6 +98,8 @@ class Patient {
       'surveyorUID': surveyorUID,
       'otherDisease': otherDisease,
       'village': village,
+      'taluka': taluka,
+      'timestamp': timestamp.toMap(),
     };
   }
 
@@ -106,10 +116,12 @@ class Patient {
       gender: map['gender'] ?? '',
       date: map['date'] ?? '',
       diseases: List.from(map['diseases']),
-      age: int.parse(map['age'].toString()),
+      age: map['age']?.toInt() ?? 0,
       surveyorUID: map['surveyorUID'] ?? '',
       otherDisease: map['otherDisease'],
       village: map['village'] ?? '',
+      taluka: map['taluka'] ?? '',
+      timestamp: Timestamp.fromMap(map['timestamp']),
     );
   }
 
@@ -120,7 +132,7 @@ class Patient {
 
   @override
   String toString() {
-    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease, village: $village)';
+    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease, village: $village, taluka: $taluka, timestamp: $timestamp)';
   }
 
   @override
@@ -142,7 +154,9 @@ class Patient {
         other.age == age &&
         other.surveyorUID == surveyorUID &&
         other.otherDisease == otherDisease &&
-        other.village == village;
+        other.village == village &&
+        other.taluka == taluka &&
+        other.timestamp == timestamp;
   }
 
   @override
@@ -161,6 +175,8 @@ class Patient {
         age.hashCode ^
         surveyorUID.hashCode ^
         otherDisease.hashCode ^
-        village.hashCode;
+        village.hashCode ^
+        taluka.hashCode ^
+        timestamp.hashCode;
   }
 }
