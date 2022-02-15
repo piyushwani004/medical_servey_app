@@ -11,6 +11,8 @@ import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
+import '../../Services/Admin/disease_percentage_calculate_service.dart';
+
 class GenerateReport extends StatefulWidget {
   const GenerateReport({Key? key}) : super(key: key);
 
@@ -19,6 +21,7 @@ class GenerateReport extends StatefulWidget {
 }
 
 class _GenerateReportState extends State<GenerateReport> {
+  DiseasePercentageCalculateService diseasePercentageCalculateService = DiseasePercentageCalculateService();
   var width, height;
   List<VillageData> villageData = [];
   List<String> villages = [];
@@ -132,6 +135,102 @@ class _GenerateReportState extends State<GenerateReport> {
               ),
             ),
           ],
+        ),
+        Container(
+          padding: EdgeInsets.all(defaultPadding),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FutureBuilder<Map<String, double>>(
+                future: diseasePercentageCalculateService
+                    .calculatePercentageOfAllDisease(),
+                // a previously-obtained Future<String> or null
+                builder: (BuildContext context,
+                    AsyncSnapshot<Map<String, double>> snapshot) {
+                  List<Widget> children;
+                  if (snapshot.hasData) {
+                    children = <Widget>[
+                      const Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.green,
+                        size: 60,
+                      ),
+                      Text(
+                        "Jalgaon Diseases Report",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black),
+                      ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: (snapshot.data?.keys)!.toList().length,
+                          itemBuilder: (_, index) {
+                            double? per= snapshot.data?[ (snapshot.data!.keys).toList()[index] ];
+                            String dis = (snapshot.data?.keys)!.toList()[index];
+                            return Row(
+                              children: [
+                                Expanded(
+                                  child: Card(
+                                    child: Padding(
+                                      padding: Common.allPadding(mHeight: height),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .spaceBetween,
+                                        children: [
+                                          Expanded(child: Text(
+                                              dis
+                                          )),
+                                          Flexible(child: Text( '${ per?.toStringAsFixed(2) }%')),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          })
+                    ];
+                  } else if (snapshot.hasError) {
+                    children = <Widget>[
+                      const Icon(
+                        Icons.error_outline,
+                        color: Colors.red,
+                        size: 60,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Text('Error: ${snapshot.error}'),
+                      )
+                    ];
+                  } else {
+                    children = const <Widget>[
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: CircularProgressIndicator(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 16),
+                        child: Text('Awaiting result...'),
+                      )
+                    ];
+                  }
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: children,
+                    ),
+                  );
+                },
+              ),
+
+            ],
+          ),
         )
       ],
     );
