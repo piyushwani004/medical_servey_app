@@ -179,20 +179,17 @@ class AdminFirebaseService {
     return _patients;
   }
 
-  Future<List<Patient>> getPatientsByKey({
-    required String key,
-    required String value,
-  }) async {
+  Future<List<Patient>> getPatientsByVillages({required String selectedVillage}) async {
     List<Patient> _patients = [];
     CollectionReference patientCollection = instance!.collection('Patient');
-    var allSurveyorsSnapshots =
-        await patientCollection.where("$key", isEqualTo: value).get();
+    var allSurveyorsSnapshots = await patientCollection
+        .where("village", isEqualTo: selectedVillage)
+        .get();
     _patients.addAll(allSurveyorsSnapshots.docs.map((surveyor) =>
         Patient.fromMap(surveyor.data() as Map<String, dynamic>)));
-    print("patient::: $_patients");
     return _patients;
   }
-
+  
   Future<Response> updatePatient(Patient patient) async {
     //updating the surveyor details first
     CollectionReference surveyorCollection = instance!.collection('Patient');

@@ -9,7 +9,6 @@ import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart
 import 'package:medical_servey_app/models/Admin/disease.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
-import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
@@ -45,7 +44,6 @@ class _AddPatientFormState extends State<AddPatientForm> {
   List<int> ages = generateN2MList(15, 100);
   String? selectedVillage;
   String? taluka;
-  Map<String, String> map = {};
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -71,13 +69,25 @@ class _AddPatientFormState extends State<AddPatientForm> {
 
   fetchSelectedVillage() async {
     User? user = await _firebaseService.getCurrentUser();
-    map = await _villageSelectService.getSelectedVillageString(
+    selectedVillage = await _villageSelectService.getSelectedVillageString(
         passedUID: user!.uid);
-    selectedVillage = map['$SELECTEDVILLAGE'];
-    taluka = map['$SELECTEDTALUKA'];
     print("selectedVillage $selectedVillage");
-    print("selectedTaluka $taluka");
-    setState(() {});
+
+    final assetBundle = DefaultAssetBundle.of(context);
+    final data = await assetBundle.loadString(JSON_PATH);
+    List body = json.decode(data)['Sheet1'];
+    setState(() {
+      villageData = body.map((e) => VillageData.fromMap(e)).toList();
+      taluka = villageData
+          .map((e) {
+            if (e.village == selectedVillage) {
+              return e.taluka;
+            }
+          })
+          .toList()
+          .first;
+    });
+    print("taluka: $taluka");
   }
 
   onPressedSubmit() async {
