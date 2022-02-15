@@ -21,6 +21,7 @@ class Patient {
   String village;
   String taluka;
   Timestamp timestamp;
+
   Patient({
     required this.id,
     required this.firstName,
@@ -99,7 +100,7 @@ class Patient {
       'otherDisease': otherDisease,
       'village': village,
       'taluka': taluka,
-      'timestamp': timestamp.toMap(),
+      'timestamp': timestamp,
     };
   }
 
@@ -116,12 +117,12 @@ class Patient {
       gender: map['gender'] ?? '',
       date: map['date'] ?? '',
       diseases: List.from(map['diseases']),
-      age: map['age']?.toInt() ?? 0,
+      age: int.parse(map['age'].toString()),
       surveyorUID: map['surveyorUID'] ?? '',
       otherDisease: map['otherDisease'],
       village: map['village'] ?? '',
       taluka: map['taluka'] ?? '',
-      timestamp: Timestamp.fromMap(map['timestamp']),
+      timestamp: map['timestamp'],
     );
   }
 

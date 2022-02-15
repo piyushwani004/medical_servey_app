@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,9 @@ import 'package:medical_servey_app/widgets/DropDownWidget.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+
+import '../../models/common/villageData.dart';
+import '../../utils/image_utils.dart';
 
 class AddPatientForm extends StatefulWidget {
   const AddPatientForm({Key? key}) : super(key: key);
@@ -32,10 +38,12 @@ class _AddPatientFormState extends State<AddPatientForm> {
   User? user;
 
   Map<String, dynamic> patientForm = {};
+  List<VillageData> villageData = [];
   List<Disease> _diseaseData = [];
   List<String> _diseaseList = [];
   List<int> ages = generateN2MList(15, 100);
   String? selectedVillage;
+  String? taluka;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -64,7 +72,22 @@ class _AddPatientFormState extends State<AddPatientForm> {
     selectedVillage = await _villageSelectService.getSelectedVillageString(
         passedUID: user!.uid);
     print("selectedVillage $selectedVillage");
-    setState(() {});
+
+    final assetBundle = DefaultAssetBundle.of(context);
+    final data = await assetBundle.loadString(JSON_PATH);
+    List body = json.decode(data)['Sheet1'];
+    setState(() {
+      villageData = body.map((e) => VillageData.fromMap(e)).toList();
+      taluka = villageData
+          .map((e) {
+            if (e.village == selectedVillage) {
+              return e.taluka;
+            }
+          })
+          .toList()
+          .first;
+    });
+    print("taluka: $taluka");
   }
 
   onPressedSubmit() async {
@@ -77,6 +100,8 @@ class _AddPatientFormState extends State<AddPatientForm> {
       patientForm['gender'] = genderDropDown!.selectedItem!;
       patientForm['profession'] = professionDropDown!.selectedItem!;
       patientForm['village'] = selectedVillage;
+      patientForm['taluka'] = taluka;
+      patientForm['timestamp'] = Timestamp.fromDate(DateTime.now());
       formKeyNewSurveyorForm.currentState!.save();
 
       print("patientForm map: $patientForm");
