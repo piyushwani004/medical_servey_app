@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/common/villageData.dart';
+import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/pages/Admin/main/components/side_menu.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
@@ -21,11 +23,18 @@ class GenerateReport extends StatefulWidget {
 }
 
 class _GenerateReportState extends State<GenerateReport> {
-  DiseasePercentageCalculateService diseasePercentageCalculateService = DiseasePercentageCalculateService();
+  DiseasePercentageCalculateService diseasePercentageCalculateService =
+      DiseasePercentageCalculateService();
+  AdminFirebaseService adminFirebaseService = AdminFirebaseService();
+  TextEditingController _controller = TextEditingController();
+
   var width, height;
   List<VillageData> villageData = [];
   List<String> villages = [];
   List<String> taluka = [];
+  List<Patient> patientList = [];
+  String? selectedTaluka;
+  String? selectedVillage;
 
   Future<void> fetchDataFromJson() async {
     final assetBundle = DefaultAssetBundle.of(context);
@@ -37,23 +46,51 @@ class _GenerateReportState extends State<GenerateReport> {
     });
   }
 
-  onVillageChanged(village) {
+  onVillageChanged(village) async {
     print("village $village");
+    selectedVillage = village;
+    if (village != null) {
+      patientList = await adminFirebaseService.getPatientsByKeys(
+        key: "village",
+        value: village,
+      );
+      print("patient sort by village Size : ${patientList.length}");
+    } else {
+      if (selectedTaluka != null) {
+        patientList = await adminFirebaseService.getPatientsByKeys(
+          key: "taluka",
+          value: selectedTaluka!,
+        );
+      }
+    }
+    setState(() {});
   }
 
-  onTalukaChanged(talukaChanged) {
-    setState(() {
-      String village = talukaChanged;
-      villages = villageData
-          .map((e) {
-            if (talukaChanged == e.taluka) {
-              village = e.village;
-            }
-            return village;
-          })
-          .toSet()
-          .toList();
-    });
+  onTalukaChanged(talukaChanged) async {
+    selectedTaluka = talukaChanged;
+    if (talukaChanged != null) {
+      setState(() {
+        String village = talukaChanged;
+        villages = villageData
+            .map((e) {
+              if (talukaChanged == e.taluka) {
+                village = e.village;
+              }
+              return village;
+            })
+            .toSet()
+            .toList();
+      });
+      patientList = await adminFirebaseService.getPatientsByKeys(
+        key: "taluka",
+        value: talukaChanged,
+      );
+      print("patient sort by taluka Size : ${patientList.length}");
+    } else {
+      patientList.clear();
+    }
+
+    setState(() {});
   }
 
   @override
@@ -145,9 +182,9 @@ class _GenerateReportState extends State<GenerateReport> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FutureBuilder<Map<String, double>>(
-                future: diseasePercentageCalculateService
-                    .calculatePercentageOfAllDisease(),
+              StreamBuilder<Map<String, double>>(
+                stream: diseasePercentageCalculateService
+                    .calculatePercentageOfSelectedPatients(patientList),
                 // a previously-obtained Future<String> or null
                 builder: (BuildContext context,
                     AsyncSnapshot<Map<String, double>> snapshot) {
@@ -160,7 +197,7 @@ class _GenerateReportState extends State<GenerateReport> {
                         size: 60,
                       ),
                       Text(
-                        "Jalgaon Diseases Report",
+                        "${selectedTaluka != null ? selectedTaluka : ""}${selectedVillage != null ? " [$selectedVillage]" : ""} Diseases Report",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -170,22 +207,24 @@ class _GenerateReportState extends State<GenerateReport> {
                           shrinkWrap: true,
                           itemCount: (snapshot.data?.keys)!.toList().length,
                           itemBuilder: (_, index) {
-                            double? per= snapshot.data?[ (snapshot.data!.keys).toList()[index] ];
+                            double? per = snapshot
+                                .data?[(snapshot.data!.keys).toList()[index]];
                             String dis = (snapshot.data?.keys)!.toList()[index];
                             return Row(
                               children: [
                                 Expanded(
                                   child: Card(
                                     child: Padding(
-                                      padding: Common.allPadding(mHeight: height),
+                                      padding:
+                                          Common.allPadding(mHeight: height),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Expanded(child: Text(
-                                              dis
-                                          )),
-                                          Flexible(child: Text( '${ per?.toStringAsFixed(2) }%')),
+                                          Expanded(child: Text(dis)),
+                                          Flexible(
+                                              child: Text(
+                                                  '${per?.toStringAsFixed(2)}%')),
                                         ],
                                       ),
                                     ),
@@ -228,7 +267,6 @@ class _GenerateReportState extends State<GenerateReport> {
                   );
                 },
               ),
-
             ],
           ),
         )

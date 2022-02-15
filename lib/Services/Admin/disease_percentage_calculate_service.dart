@@ -34,7 +34,8 @@ class DiseasePercentageCalculateService {
     return perDisease;
   }
 
-  Future<Map<String, double>> calculatePercentageOfSelectedPatients(List<Patient> patients) async {
+  Stream<Map<String, double>> calculatePercentageOfSelectedPatients(
+      List<Patient> patients) async* {
     Map<String, double> freqDisease = {};
     Map<String, double> perDisease = {};
     int totalPatients;
@@ -60,6 +61,6 @@ class DiseasePercentageCalculateService {
       perDisease[dis] = (freqDisease[dis]! / totalPatients) * 100;
     }
     print("$perDisease --perDisease");
-    return perDisease;
+    yield perDisease;
   }
 }
