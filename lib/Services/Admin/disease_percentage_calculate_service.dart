@@ -34,11 +34,10 @@ class DiseasePercentageCalculateService {
     return perDisease;
   }
 
-  Future<Map<String, double>> calculatePercentageByVillageAndTaluka() async {
+  Future<Map<String, double>> calculatePercentageOfSelectedPatients(List<Patient> patients) async {
     Map<String, double> freqDisease = {};
     Map<String, double> perDisease = {};
     int totalPatients;
-    List<Patient> patients = await adminFirebaseService.getPatients();
     //getting count of total patients
     totalPatients = patients.length;
     //calculating freq
