@@ -59,6 +59,7 @@ class _SurveyorHomePageState extends State<SurveyorHomePage> {
                     onPressed: () {
                       _villageSelectService.setSelectedVillage(
                           passedVillage: _selectedRadioItem ?? "NA",
+                          passedTaluka: user!.taluka,
                           passedUID: surveyorUID!.uid);
                       setState(() {});
                       Navigator.pop(context);
