@@ -209,6 +209,24 @@ class AdminFirebaseService {
     }
   }
 
+  Future<Response> deletePatient(Patient patient) async {
+    //updating the surveyor details first
+    CollectionReference surveyorCollection = instance!.collection('Patient');
+    String message = "";
+    bool isSuccessful = false;
+    try {
+      String id = patient.id;
+      surveyorCollection.doc(id).delete();
+      message = "Delete Successfully";
+      isSuccessful = true;
+      return Response(isSuccessful: isSuccessful, message: message);
+    } on FirebaseException catch (e) {
+      isSuccessful = false;
+      message = e.message.toString();
+      return Response(isSuccessful: isSuccessful, message: message);
+    }
+  }
+
   //***************General-Methods***********//
 
   Future<String> getAdminEmail() async {

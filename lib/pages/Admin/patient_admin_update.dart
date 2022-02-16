@@ -4,6 +4,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/Services/Admin/pdf_genrate_service.dart';
+import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/common/pdf_model.dart';
 import 'package:medical_servey_app/models/common/villageData.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
@@ -139,6 +140,42 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
           content: dataTableWithGivenColumn!.selectedRecords.isEmpty
               ? 'Please select a Patient'
               : 'Cannot edit multiple at a time',
+          isError: true);
+    }
+  }
+
+  onDeletePressed() async {
+    if (dataTableWithGivenColumn!.selectedRecords.isNotEmpty &&
+        dataTableWithGivenColumn!.selectedRecords.length == 1) {
+      // print(dataTableWithGivenColumn!.selectedRecords);
+      _loading!.on();
+      Response response = await _firebaseService.deletePatient(
+        dataTableWithGivenColumn!.selectedRecords[0],
+      );
+      if (response.isSuccessful) {
+        await Common.showAlert(
+            context: context,
+            title: 'Patient Delete',
+            content: response.message,
+            isError: false);
+        _loading!.off();
+        setState(() {});
+      } else {
+        await Common.showAlert(
+            context: context,
+            title: 'Failed in Delete Patient',
+            content: response.message,
+            isError: true);
+        _loading!.off();
+        setState(() {});
+      }
+    } else {
+      Common.showAlert(
+          context: context,
+          title: 'Patient Delete',
+          content: dataTableWithGivenColumn!.selectedRecords.isEmpty
+              ? 'Please select a Patient'
+              : 'Cannot Delete multiple at a time',
           isError: true);
     }
   }
@@ -285,17 +322,24 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
               ),
             ),
             IconButton(
+              tooltip: "Save PDF",
               onPressed: () async {
                 onPDFSavePressed();
               },
               icon: Icon(Icons.save),
             ),
             IconButton(
+                tooltip: "Edit",
                 onPressed: () async {
                   await onUpdatePressed();
                 },
                 icon: Icon(Icons.edit)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.delete_forever))
+            IconButton(
+                tooltip: "Delete",
+                onPressed: () {
+                  onDeletePressed();
+                },
+                icon: Icon(Icons.delete_forever))
           ],
         ),
         Scrollbar(
