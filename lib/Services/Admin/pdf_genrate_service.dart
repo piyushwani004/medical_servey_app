@@ -1,3 +1,4 @@
+import 'package:medical_servey_app/utils/constants.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
@@ -211,7 +212,10 @@ class PdfInvoiceApi {
 
   // *************************** generate Report PDF **********************//
 
-  static Future<void> generateReportData(PdfModel report) async {
+  static Future<void> generateReportData({
+    required PdfModel report,
+    required Map<String, String> info,
+  }) async {
     final pdf = Document();
 
     pdf.addPage(
@@ -220,7 +224,7 @@ class PdfInvoiceApi {
         margin: EdgeInsets.all(10),
         header: (context) => buildReportTitle(),
         build: (context) => [
-          Divider(),
+          buildReportInfo(info),
           buildReportTable(report),
         ],
       ),
@@ -236,6 +240,27 @@ class PdfInvoiceApi {
             'Report Data',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
+          Divider(),
+        ],
+      );
+
+  static Widget buildReportInfo(Map<String, String> info) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          pw.SizedBox(height: 10),
+          Text(
+            'District :- ${info[SELECTEDDISTRICT]}',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+          ),
+          Text(
+            'Taluka :- ${info[SELECTEDTALUKA]}',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+          ),
+          Text(
+            'Village :- ${info[SELECTEDVILLAGE]}',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+          ),
+          pw.SizedBox(height: 10),
         ],
       );
 
@@ -245,7 +270,13 @@ class PdfInvoiceApi {
       'Disease Percentage',
     ];
     print("pdf : ${pdf.reportLst}");
-    final data = pdf.reportLst!.keys.map((e) => []).toList();
+
+    final data = pdf.reportLst!.map((item) {
+      return [
+        item.diseaseName,
+        "${item.diseasePercentage}%",
+      ];
+    }).toList();
 
     return Table.fromTextArray(
       headers: headers,
@@ -260,12 +291,12 @@ class PdfInvoiceApi {
       defaultColumnWidth: const IntrinsicColumnWidth(flex: 10),
       headerStyle: pw.TextStyle(
         color: PdfColors.white,
-        fontSize: 8,
+        fontSize: 12,
         fontWeight: pw.FontWeight.bold,
       ),
       cellStyle: const pw.TextStyle(
         color: PdfColors.blueGrey900,
-        fontSize: 6,
+        fontSize: 12,
       ),
       rowDecoration: pw.BoxDecoration(
         border: pw.Border(

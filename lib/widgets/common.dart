@@ -15,11 +15,12 @@ class Common {
       {required BuildContext context,
       required String title,
       required String content,
+      Function? onOkPressed,
       required isError}) async {
     Widget submitButton = TextButton(
         child: Text('Continue'),
         onPressed: () {
-          Navigator.of(context).pop(true);
+          onOkPressed != null ? onOkPressed() : Navigator.of(context).pop(true);
         });
 
     Widget cancelButton = TextButton(
@@ -125,8 +126,8 @@ class Common {
               Radius.circular(10),
             ),
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             colors: [blueshGradientOne, blueshGradientTwo]));
   }
 }

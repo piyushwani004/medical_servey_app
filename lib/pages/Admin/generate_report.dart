@@ -4,6 +4,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/Services/Admin/pdf_genrate_service.dart';
+import 'package:medical_servey_app/models/Admin/disease_report.dart';
 import 'package:medical_servey_app/models/common/pdf_model.dart';
 import 'package:medical_servey_app/models/common/villageData.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
@@ -30,7 +31,8 @@ class _GenerateReportState extends State<GenerateReport> {
   AdminFirebaseService adminFirebaseService = AdminFirebaseService();
 
   var width, height;
-  Map<String, double>? reportLst;
+  List<DiseaseReportModel>? reportLst = [];
+  Map<String, String> info = {};
   List<VillageData> villageData = [];
   List<String> villages = [];
   List<String> taluka = [];
@@ -99,7 +101,13 @@ class _GenerateReportState extends State<GenerateReport> {
     final reportData = PdfModel(
       reportLst: this.reportLst,
     );
-    await PdfInvoiceApi.generateReportData(reportData);
+    info[SELECTEDVILLAGE] = selectedVillage ?? "";
+    info[SELECTEDTALUKA] = selectedTaluka ?? "";
+    info[SELECTEDDISTRICT] = DISTRICT;
+    await PdfInvoiceApi.generateReportData(
+      report: reportData,
+      info: info,
+    );
   }
 
   Stream<Map<String, double>> calculatePercentageOfSelectedPatients(
@@ -128,8 +136,17 @@ class _GenerateReportState extends State<GenerateReport> {
     for (String dis in freqDisease.keys) {
       perDisease[dis] = (freqDisease[dis]! / totalPatients) * 100;
     }
-    print("$perDisease --perDisease");
-    this.reportLst = perDisease;
+    print("$perDisease --perDisease MAP");
+    this.reportLst = perDisease.entries
+        .map(
+          (entry) => DiseaseReportModel(
+            diseaseName: entry.key,
+            diseasePercentage: entry.value,
+          ),
+        )
+        .toList();
+    print("${this.reportLst} --report List");
+
     yield perDisease;
   }
 

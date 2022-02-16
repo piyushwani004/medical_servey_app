@@ -5,6 +5,7 @@ import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/common/villageData.dart';
+import 'package:medical_servey_app/routes/routes.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
@@ -72,10 +73,19 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
           // if(_loading != null){
           //   // _loading.off();
           // } // popping loading
+
           Common.showAlert(
               context: context,
               title: 'Surveyor Registration',
               content: response.message,
+              onOkPressed: () {
+                formKeyNewSurveyorForm.currentState!.reset();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  routeSurveyorListForUpdate,
+                  (route) => false,
+                );
+              },
               isError: false);
           // isLoading = false;
 

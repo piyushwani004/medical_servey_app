@@ -2,14 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:medical_servey_app/models/Admin/disease_report.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 
 class PdfModel {
   final List<Patient>? patientLst;
   final List<Surveyor>? surveyorLst;
-  final Map<String, double>? reportLst;
-  
+  final List<DiseaseReportModel>? reportLst;
+
   PdfModel({
     this.patientLst,
     this.surveyorLst,
@@ -19,7 +20,7 @@ class PdfModel {
   PdfModel copyWith({
     List<Patient>? patientLst,
     List<Surveyor>? surveyorLst,
-    Map<String, double>? reportLst,
+    List<DiseaseReportModel>? reportLst,
   }) {
     return PdfModel(
       patientLst: patientLst ?? this.patientLst,
@@ -32,7 +33,7 @@ class PdfModel {
     return {
       'patientLst': patientLst?.map((x) => x.toMap()).toList(),
       'surveyorLst': surveyorLst?.map((x) => x.toMap()).toList(),
-      'reportLst': reportLst,
+      'reportLst': reportLst?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -46,7 +47,10 @@ class PdfModel {
           ? List<Surveyor>.from(
               map['surveyorLst']?.map((x) => Surveyor.fromMap(x)))
           : null,
-      reportLst: Map<String, double>.from(map['reportLst']),
+      reportLst: map['reportLst'] != null
+          ? List<DiseaseReportModel>.from(
+              map['reportLst']?.map((x) => DiseaseReportModel.fromMap(x)))
+          : null,
     );
   }
 
@@ -66,7 +70,7 @@ class PdfModel {
     return other is PdfModel &&
         listEquals(other.patientLst, patientLst) &&
         listEquals(other.surveyorLst, surveyorLst) &&
-        mapEquals(other.reportLst, reportLst);
+        listEquals(other.reportLst, reportLst);
   }
 
   @override
