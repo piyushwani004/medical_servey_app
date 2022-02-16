@@ -63,22 +63,22 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
 
   onSearchBtnPressed() {
     print(_textEditingController.text);
-    String searchText = _textEditingController.text;
+    String searchText = _textEditingController.text.toLowerCase();
     listOfFilteredSurveyor = listOfSurveyor
         ?.where((Surveyor sur) =>
-            sur.firstName.contains(searchText) ||
-            sur.middleName.contains(searchText) ||
-            sur.lastName.contains(searchText) ||
-            sur.email.contains(searchText) ||
-            sur.mobileNumber.contains(searchText) ||
-            sur.address.contains(searchText) ||
-            sur.gender.contains(searchText) ||
-            sur.joiningDate.contains(searchText) ||
-            sur.district.contains(searchText) ||
-            sur.aadhaarNumber.contains(searchText) ||
-            sur.taluka.contains(searchText) ||
+            sur.firstName.toLowerCase().contains(searchText) ||
+            sur.middleName.toLowerCase().contains(searchText) ||
+            sur.lastName.toLowerCase().contains(searchText) ||
+            sur.email.toLowerCase().contains(searchText) ||
+            sur.mobileNumber.toLowerCase().contains(searchText) ||
+            sur.address.toLowerCase().contains(searchText) ||
+            sur.gender.toLowerCase().contains(searchText) ||
+            sur.joiningDate.toLowerCase().contains(searchText) ||
+            sur.district.toLowerCase().contains(searchText) ||
+            sur.aadhaarNumber.toLowerCase().contains(searchText) ||
+            sur.taluka.toLowerCase().contains(searchText) ||
             sur.village.contains(searchText) ||
-            sur.profession.contains(searchText))
+            sur.profession.toLowerCase().contains(searchText))
         .toList();
     setState(() {});
   }
