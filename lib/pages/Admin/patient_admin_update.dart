@@ -41,10 +41,12 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
   final scaffoldState = GlobalKey<ScaffoldState>();
 
   DropdownSearch<String>? villageDropDown;
+  DropdownSearch<String>? talukaDropDown;
   String? villageChanged;
 
   List<VillageData> villageData = [];
-  List<String> villages = [];
+  List<String> villagesLst = [];
+  List<String> talukaLst = [];
   List<String> columnsOfDataTable = [
     'id',
     'Village',
@@ -66,7 +68,7 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     List body = json.decode(data)['Sheet1'];
     setState(() {
       villageData = body.map((e) => VillageData.fromMap(e)).toList();
-      villages = villageData.map((e) => e.village).toSet().toList();
+      talukaLst = villageData.map((e) => e.taluka).toSet().toList();
     });
   }
 
@@ -79,26 +81,37 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
 
   onSearchBtnPressed() {
     print(_textEditingController.text);
-    String searchText = _textEditingController.text;
+    String searchText = _textEditingController.text.toLowerCase();
     listOfFilteredPatient = listOfPatient
         ?.where((Patient patient) =>
-            patient.firstName.contains(searchText) ||
-            patient.middleName.contains(searchText) ||
-            patient.lastName.contains(searchText) ||
-            patient.email.contains(searchText) ||
-            patient.mobileNumber.contains(searchText) ||
-            patient.address.contains(searchText) ||
-            patient.gender.contains(searchText) ||
-            patient.id.contains(searchText) ||
-            patient.profession.contains(searchText))
+            patient.firstName.toLowerCase().contains(searchText) ||
+            patient.middleName.toLowerCase().contains(searchText) ||
+            patient.lastName.toLowerCase().contains(searchText) ||
+            patient.email.toLowerCase().contains(searchText) ||
+            patient.mobileNumber.toLowerCase().contains(searchText) ||
+            patient.address.toLowerCase().contains(searchText) ||
+            patient.gender.toLowerCase().contains(searchText) ||
+            patient.id.toLowerCase().contains(searchText) ||
+            patient.village.toLowerCase().contains(searchText) ||
+            patient.taluka.toLowerCase().contains(searchText) ||
+            patient.profession.toLowerCase().contains(searchText))
         .toList();
     setState(() {});
   }
 
-  onVillageAndTalukaSort(village) {
+  onVillageSort(village) {
     listOfFilteredPatient = listOfPatient
         ?.where(
           (Patient patient) => patient.village.contains(village),
+        )
+        .toList();
+    setState(() {});
+  }
+
+  onTalukaSort(taluka) {
+    listOfFilteredPatient = listOfPatient
+        ?.where(
+          (Patient patient) => patient.taluka.contains(taluka),
         )
         .toList();
     setState(() {});
@@ -136,7 +149,31 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
       listOfFilteredPatient = null;
       setState(() {});
     } else {
-      onVillageAndTalukaSort(villageSave);
+      onVillageSort(villageSave);
+    }
+  }
+
+  onTalukasaved(talukaSave) {
+    print("talukaSave :: $talukaSave");
+    if (talukaSave == null) {
+      listOfFilteredPatient = null;
+      villagesLst.clear();
+      setState(() {});
+    } else {
+      setState(() {
+        String village = talukaSave;
+        villagesLst = villageData
+            .map((e) {
+              if (talukaSave == e.taluka) {
+                village = e.village;
+              }
+              return village;
+            })
+            .toSet()
+            .toList();
+      });
+      onTalukaSort(talukaSave);
+      setState(() {});
     }
   }
 
@@ -162,12 +199,25 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     villageDropDown = DropdownSearch<String>(
       mode: Mode.DIALOG,
       showSearchBox: true,
-      items: villages,
+      items: villagesLst,
       showSelectedItems: true,
       //onSaved: (save) {},
       dropdownSearchDecoration:
           Common.textFormFieldInputDecoration(labelText: "Select Village"),
       onChanged: (saved) => onVillageChanged(saved),
+      showClearButton: true,
+      validator: (v) => v == null ? "required field" : null,
+    );
+
+    talukaDropDown = DropdownSearch<String>(
+      mode: Mode.DIALOG,
+      showSearchBox: true,
+      items: talukaLst,
+      showSelectedItems: true,
+      //onSaved: (save) {},
+      dropdownSearchDecoration:
+          Common.textFormFieldInputDecoration(labelText: "Select Taluka"),
+      onChanged: (saved) => onTalukasaved(saved),
       showClearButton: true,
       validator: (v) => v == null ? "required field" : null,
     );
@@ -220,6 +270,12 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
                   onSearchCrossBtnPressed();
                 },
                 isCrossVisible: listOfFilteredPatient != null,
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: talukaDropDown!,
               ),
             ),
             Flexible(
