@@ -49,7 +49,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     print("surveyorForm $surveyorForm");
     if (formKeyNewSurveyorForm.currentState!.validate()) {
       // //turning loading on
-      // _loading.on(); //invoking login
+      _loading.on(); //invoking login
       surveyorForm['joiningDate'] = selectedDate;
       surveyorForm['age'] = ageDropDown!.selectedItem!;
       surveyorForm['gender'] = genderDropDown!.selectedItem!;
@@ -80,6 +80,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
               content: response.message,
               onOkPressed: () {
                 formKeyNewSurveyorForm.currentState!.reset();
+                _loading.off();
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   routeSurveyorListForUpdate,
@@ -91,7 +92,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
 
         } else {
           //if failed while creating an account
-          // _loading.off(); // popping loading
+          _loading.off(); // popping loading
           Common.showAlert(
               context: context,
               title: 'Failed in Creating Account',
@@ -102,7 +103,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
         print("Firestore Response ::" + response.message.toString());
       } else {
         //if failed while creating an account
-        // _loading.off(); // popping loading
+        _loading.off(); // popping loading
         Common.showAlert(
             context: context,
             title: 'Failed in Creating Account',
