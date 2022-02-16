@@ -218,12 +218,14 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
               ),
             ),
             IconButton(
+              tooltip: "Edit",
               onPressed: () async {
                 await onUpdatePressed();
               },
               icon: Icon(Icons.edit),
             ),
             IconButton(
+              tooltip: "Save PDF",
               onPressed: () async {
                 onPDFSavePressed();
               },
@@ -231,6 +233,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
             ),
             Card(
               child: IconButton(
+                  tooltip: "Add new Surveyor",
                   onPressed: () {
                     onAddSurveyorBtnPressed();
                   },

@@ -232,6 +232,7 @@ class _GenerateReportState extends State<GenerateReport> {
             ),
             Flexible(
               child: IconButton(
+                tooltip: "Save PDF",
                 onPressed: () async {
                   onPDFSavePressed();
                 },
