@@ -20,7 +20,7 @@ class DashboardScreen extends StatelessWidget {
     return SafeArea(
       child: CustomScrollView(
         slivers: [
-          TopSliverAppBar(mHeight:height , text: 'Dashboard'),
+          TopSliverAppBar(mHeight:height , text: 'Medical Survey'),
          CustomScrollViewBody(bodyWidget: body(context))
         ],
 

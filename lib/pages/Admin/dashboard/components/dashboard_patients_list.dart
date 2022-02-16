@@ -39,8 +39,10 @@ class _DashboardPatientsListState extends State<DashboardPatientsList> {
   List<DataColumn> getColumns(List<String> columns) => columns
       .map(
         (String column) => DataColumn(
-          label: Text(column),
-          onSort: onSort,
+          label: Text(
+            column,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
       )
       .toList();
@@ -70,50 +72,6 @@ class _DashboardPatientsListState extends State<DashboardPatientsList> {
       )
       .toList();
 
-  void onSort(int columnIndex, bool ascending) {
-    if (columnIndex == 0) {
-      listOfPatient.sort(
-        (user1, user2) =>
-            compareString(ascending, user1.firstName, user2.firstName),
-      );
-    } else if (columnIndex == 1) {
-      listOfPatient.sort(
-        (user1, user2) =>
-            compareString(ascending, user1.lastName, user2.lastName),
-      );
-    } else if (columnIndex == 2) {
-      listOfPatient.sort(
-        (user1, user2) =>
-            compareString(ascending, '${user1.age}', '${user2.age}'),
-      );
-    } else if (columnIndex == 3) {
-      listOfPatient.sort(
-        (user1, user2) =>
-            compareString(ascending, '${user1.gender}', '${user2.gender}'),
-      );
-    } else if (columnIndex == 4) {
-      listOfPatient.sort(
-        (user1, user2) =>
-            compareString(ascending, '${user1.village}', '${user2.village}'),
-      );
-    } else if (columnIndex == 5) {
-      listOfPatient.sort(
-        (user1, user2) =>
-            compareString(ascending, '${user1.diseases}', '${user2.diseases}'),
-      );
-    } else if (columnIndex == 6) {
-      listOfPatient.sort(
-        (user1, user2) =>
-            compareString(ascending, '${user1.date}', '${user2.date}'),
-      );
-    }
-
-    setState(() {
-      this.sortColumnIndex = columnIndex;
-      this.isAscending = ascending;
-    });
-  }
-
   int compareString(bool ascending, String value1, String value2) =>
       ascending ? value1.compareTo(value2) : value2.compareTo(value1);
 
@@ -132,28 +90,31 @@ class _DashboardPatientsListState extends State<DashboardPatientsList> {
             ),
             Padding(
               padding: EdgeInsets.all(defaultPadding),
-              child: StreamBuilder<List<Patient>>(
-                  stream: getPatientsList(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData && snapshot.data != null) {
-                      return snapshot.hasData
-                          ? ScrollableWidget(
-                              child: DataTable(
-                                sortAscending: isAscending,
-                                sortColumnIndex: sortColumnIndex,
-                                columns: getColumns(columns),
-                                rows: getRows(patients: this.listOfPatient),
-                              ),
-                            )
-                          : Center(
-                              child: CircularProgressIndicator(),
-                            );
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  }),
+              child: Container(
+                height: 250,
+                child: StreamBuilder<List<Patient>>(
+                    stream: getPatientsList(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData && snapshot.data != null) {
+                        return snapshot.hasData
+                            ? ScrollableWidget(
+                                child: DataTable(
+                                  sortAscending: isAscending,
+                                  sortColumnIndex: sortColumnIndex,
+                                  columns: getColumns(columns),
+                                  rows: getRows(patients: this.listOfPatient),
+                                ),
+                              )
+                            : Center(
+                                child: CircularProgressIndicator(),
+                              );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    }),
+              ),
             ),
           ],
         ),
