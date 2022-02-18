@@ -3,7 +3,7 @@ import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/Services/Admin/disease_percentage_calculate_service.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 
-import '../../../../widgets/common.dart';
+import 'common.dart';
 
 class DistrictReport extends StatefulWidget {
   DistrictReport({

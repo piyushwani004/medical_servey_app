@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/widgets/scrollable_widget.dart';
 
-import '../../../../Services/Admin/admin_firebase_service.dart';
-import '../../../../models/surveyor/patient.dart';
+import '../Services/Admin/admin_firebase_service.dart';
+import '../models/surveyor/patient.dart';
 
 class DashboardPatientsList extends StatefulWidget {
   const DashboardPatientsList({

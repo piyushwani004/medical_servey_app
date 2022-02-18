@@ -3,9 +3,9 @@ import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
-import 'components/dashboardCounts.dart';
-import 'components/dashboard_patients_list.dart';
-import 'components/district_report.dart';
+import '../../widgets/dashboardCounts.dart';
+import '../../widgets/dashboard_patients_list.dart';
+import '../../widgets/district_report.dart';
 
 
 
