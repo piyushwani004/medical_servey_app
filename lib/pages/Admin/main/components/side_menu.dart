@@ -51,14 +51,14 @@ class _SideMenuState extends State<SideMenu> {
           ),
           DrawerListTile(
             title: "Patient",
-            svgSrc: "assets/icons/menu_tran.svg",
+            svgSrc: "assets/icons/patient.svg",
             press: () {
               Navigator.pushReplacementNamed(context, routeAdminUpdatePatient);
             },
           ),
           DrawerListTile(
             title: "Surveyor ",
-            svgSrc: "assets/icons/menu_doc.svg",
+            svgSrc: "assets/icons/surveyor.svg",
             press: () {
               Navigator.pushReplacementNamed(
                   context, routeSurveyorListForUpdate);
@@ -66,7 +66,7 @@ class _SideMenuState extends State<SideMenu> {
           ),
           DrawerListTile(
             title: "Disease",
-            svgSrc: "assets/icons/menu_store.svg",
+            svgSrc: "assets/icons/disease.svg",
             press: () {
               Navigator.pushReplacementNamed(context, routeAddDiseases);
             },
@@ -124,7 +124,7 @@ class DrawerListTile extends StatelessWidget {
       leading: SvgPicture.asset(
         svgSrc,
         color: Colors.black,
-        height: 16,
+        height: 25,
       ),
       title: Text(
         title,
