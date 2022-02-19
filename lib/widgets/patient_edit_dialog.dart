@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
@@ -9,9 +9,7 @@ import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 
 import 'DropDownWidget.dart';
-import 'MultiSelect_Dialog.dart';
 import 'common.dart';
-import 'loading.dart';
 
 class PatientEditDialog extends StatefulWidget {
   final Patient patient;
@@ -23,6 +21,7 @@ class PatientEditDialog extends StatefulWidget {
 }
 
 class _PatientEditDialogState extends State<PatientEditDialog> {
+  final _multiKey = GlobalKey<DropdownSearchState<String>>();
   final _formKey = GlobalKey<FormState>();
   AdminFirebaseService _firebaseService = AdminFirebaseService();
 
@@ -30,11 +29,10 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
   String _selectedDate = formatDate(DateTime.now().toString());
   bool _switchValue = false;
 
-  Map<String, String> patientForm = {};
-  List<Disease> _diseaseList = [];
-  List<MultiSelectDialogItem> _items = [];
+  Map<String, dynamic> patientForm = {};
+  List<Disease> _diseaseData = [];
+  List<String> _diseaseList = [];
   List<int> ages = generateN2MList(15, 100);
-  Set? selectedValues;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -47,17 +45,21 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
   ];
 
   var profession = [
-    'Degree pass',
-    'Metric Pass',
-    'None',
+    'No formal education',
+    'Primary education',
+    'Secondary education or high school',
+    'GED',
+    'Vocational qualification',
+    'Diploma',
+    'Bachelors degree',
+    'Masters degree',
+    'Doctorate or higher',
   ];
 
   Future<Response> onPressedSubmit() async {
     Response response;
-    print("selectedValues::::::--- $selectedValues");
-    if (_formKey.currentState!.validate() &&
-        selectedValues != null &&
-        selectedValues!.isNotEmpty) {
+
+    if (_formKey.currentState!.validate()) {
       print(widget.patient.toString() + "\npatient that is selected 61");
       print('$patientForm' + 'Patient form before');
       print('in if of form valid 62');
@@ -75,22 +77,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       print('$patientForm' + 'Patient form after');
 
       print('in if of form saved 69');
-      Patient patientData = Patient(
-        id: patientForm['id'].toString(),
-        firstName: patientForm['firstName']!,
-        middleName: patientForm['middleName']!,
-        lastName: patientForm['lastName'].toString(),
-        profession: patientForm['profession'].toString(),
-        email: patientForm['email'].toString(),
-        mobileNumber: patientForm['mobileNumber'].toString(),
-        address: patientForm['address'].toString(),
-        gender: patientForm['gender'].toString(),
-        date: patientForm['date'].toString(),
-        diseases: selectedValues!.toList(),
-        surveyorUID: patientForm['surveyorUID'].toString(),
-        age: int.parse(patientForm['age'].toString()),
-        village: patientForm['village'].toString(),
-      );
+      Patient patientData = Patient.fromMap(patientForm);
       print('in if of form patient assigned');
 
       print("patientData $patientData");
@@ -141,33 +128,18 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       selectedItem: widget.patient.profession,
     );
     getAllDisease();
-    selectedValues = widget.patient.diseases.toSet();
     super.initState();
   }
 
   getAllDisease() async {
-    _diseaseList = await _firebaseService.getAllDiseases();
-    setState(() {
-      _diseaseList.forEach((element) {
-        _items.add(
-          MultiSelectDialogItem(int.parse(element.id), element.name),
-        );
-      });
-    });
+    _diseaseData = await _firebaseService.getAllDiseases();
+    _diseaseList = _diseaseData.map((e) => e.name).toSet().toList();
+    setState(() {});
   }
 
-  void _showMultiSelect(BuildContext context) async {
-    selectedValues = (await showDialog<Set>(
-      context: context,
-      builder: (BuildContext context) {
-        return MultiSelectDialog(
-          items: _items,
-          initialSelectedValues: widget.patient.diseases.toSet(),
-        );
-      },
-    ));
-
-    print("selectedValues" + selectedValues.toString());
+  onDiseaseSaved(diseaseSave) {
+    print("diseaseSave :: $diseaseSave");
+    patientForm['diseases'] = diseaseSave;
   }
 
   @override
@@ -268,12 +240,6 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       decoration: Common.textFormFieldInputDecoration(labelText: "Disease"),
     );
 
-    final showDiseases = TextButton(
-        onPressed: () {
-          _showMultiSelect(context);
-        },
-        child: Text("Show Diseases"));
-
     final diseaseSwitch = CupertinoSwitch(
       value: _switchValue,
       onChanged: (value) {
@@ -337,10 +303,10 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Flexible(
+                  Expanded(
                     child: Padding(
                       padding: Common.allPadding(mHeight: height),
-                      child: showDiseases,
+                      child: multipleSelectionDropdown(),
                     ),
                   ),
                 ],
@@ -375,5 +341,104 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
             ],
           ),
         ));
+  }
+
+  Widget multipleSelectionDropdown() {
+    return DropdownSearch<String>.multiSelection(
+      key: _multiKey,
+      validator: (List<String>? v) {
+        return v == null || v.isEmpty ? "required field" : null;
+      },
+      dropdownBuilder: (context, selectedItems) {
+        Widget item(String i) => Container(
+              padding: EdgeInsets.only(left: 6, bottom: 3, top: 3, right: 0),
+              margin: EdgeInsets.symmetric(horizontal: 2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).primaryColorLight),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    i,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                  MaterialButton(
+                    height: 20,
+                    shape: const CircleBorder(),
+                    focusColor: Colors.red[200],
+                    hoverColor: Colors.red[200],
+                    padding: EdgeInsets.all(0),
+                    minWidth: 34,
+                    onPressed: () {
+                      _multiKey.currentState?.removeItem(i);
+                    },
+                    child: Icon(
+                      Icons.close_outlined,
+                      size: 20,
+                    ),
+                  )
+                ],
+              ),
+            );
+        return Wrap(
+          children: selectedItems.map((e) => item(e)).toList(),
+        );
+      },
+      popupCustomMultiSelectionWidget: (context, list) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKey.currentState?.closeDropDownSearch();
+                  },
+                  child: const Text('Cancel'),
+                ),
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKey.currentState?.popupDeselectAllItems();
+                  },
+                  child: const Text('None'),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+      dropdownSearchDecoration: Common.textFormFieldInputDecoration(
+        labelText: "Select Diseases",
+      ),
+      mode: Mode.DIALOG,
+      showSelectedItems: true,
+      // onSaved: (villageSave) => onVllageSaved(villageSave),
+      items: _diseaseList,
+      showClearButton: true,
+      onChanged: (onSaved) {
+        onDiseaseSaved(onSaved);
+      },
+      selectedItems: List<String>.from(widget.patient.diseases),
+      showSearchBox: true,
+      popupSelectionWidget: (cnt, String item, bool isSelected) {
+        return isSelected
+            ? Icon(
+                Icons.check_circle,
+                color: Colors.green[500],
+              )
+            : Container();
+      },
+    );
   }
 }

@@ -1,11 +1,19 @@
+import 'dart:convert';
+
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
+import 'package:medical_servey_app/Services/Admin/pdf_genrate_service.dart';
+import 'package:medical_servey_app/models/common/Responce.dart';
+import 'package:medical_servey_app/models/common/pdf_model.dart';
+import 'package:medical_servey_app/models/common/villageData.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
+import 'package:medical_servey_app/utils/constants.dart';
+import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/data_table_pateint_widget.dart';
-import 'package:medical_servey_app/widgets/data_table_surveyor_widget.dart';
 import 'package:medical_servey_app/widgets/loading.dart';
 import 'package:medical_servey_app/widgets/search_field.dart';
 import 'package:medical_servey_app/widgets/patient_edit_dialog.dart';
@@ -32,9 +40,17 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
   final _horizontalScrollController = ScrollController();
   Loading? _loading;
   final scaffoldState = GlobalKey<ScaffoldState>();
+
+  DropdownSearch<String>? villageDropDown;
+  DropdownSearch<String>? talukaDropDown;
+  String? villageChanged;
+
+  List<VillageData> villageData = [];
+  List<String> villagesLst = [];
+  List<String> talukaLst = [];
   List<String> columnsOfDataTable = [
     'id',
-    'By Surveyor',
+    'Village',
     'Email',
     'First-Name',
     'Middle-Name',
@@ -47,6 +63,16 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     'Diseases',
   ];
 
+  Future<void> fetchDataFromJson() async {
+    final assetBundle = DefaultAssetBundle.of(context);
+    final data = await assetBundle.loadString(JSON_PATH);
+    List body = json.decode(data)['Sheet1'];
+    setState(() {
+      villageData = body.map((e) => VillageData.fromMap(e)).toList();
+      talukaLst = villageData.map((e) => e.taluka).toSet().toList();
+    });
+  }
+
   Stream<List<Patient>> getPatientsList() async* {
     List<Patient> listOfPatient = await _firebaseService.getPatients();
     this.listOfPatient = listOfPatient;
@@ -56,18 +82,38 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
 
   onSearchBtnPressed() {
     print(_textEditingController.text);
-    String searchText = _textEditingController.text;
+    String searchText = _textEditingController.text.toLowerCase();
     listOfFilteredPatient = listOfPatient
         ?.where((Patient patient) =>
-    patient.firstName.contains(searchText) ||
-        patient.middleName.contains(searchText) ||
-        patient.lastName.contains(searchText) ||
-        patient.email.contains(searchText) ||
-        patient.mobileNumber.contains(searchText) ||
-        patient.address.contains(searchText) ||
-        patient.gender.contains(searchText) ||
-        patient.id.contains(searchText) ||
-        patient.profession.contains(searchText))
+            patient.firstName.toLowerCase().contains(searchText) ||
+            patient.middleName.toLowerCase().contains(searchText) ||
+            patient.lastName.toLowerCase().contains(searchText) ||
+            patient.email.toLowerCase().contains(searchText) ||
+            patient.mobileNumber.toLowerCase().contains(searchText) ||
+            patient.address.toLowerCase().contains(searchText) ||
+            patient.gender.toLowerCase().contains(searchText) ||
+            patient.id.toLowerCase().contains(searchText) ||
+            patient.village.toLowerCase().contains(searchText) ||
+            patient.taluka.toLowerCase().contains(searchText) ||
+            patient.profession.toLowerCase().contains(searchText))
+        .toList();
+    setState(() {});
+  }
+
+  onVillageSort(village) {
+    listOfFilteredPatient = listOfPatient
+        ?.where(
+          (Patient patient) => patient.village.contains(village),
+        )
+        .toList();
+    setState(() {});
+  }
+
+  onTalukaSort(taluka) {
+    listOfFilteredPatient = listOfPatient
+        ?.where(
+          (Patient patient) => patient.taluka.contains(taluka),
+        )
         .toList();
     setState(() {});
   }
@@ -86,8 +132,6 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
           builder: (context) => PatientEditDialog(
               patient: dataTableWithGivenColumn!.selectedRecords[0]));
 
-
-
       setState(() {});
     } else {
       Common.showAlert(
@@ -100,8 +144,86 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     }
   }
 
+  onDeletePressed() async {
+    if (dataTableWithGivenColumn!.selectedRecords.isNotEmpty &&
+        dataTableWithGivenColumn!.selectedRecords.length == 1) {
+      // print(dataTableWithGivenColumn!.selectedRecords);
+      _loading!.on();
+      Response response = await _firebaseService.deletePatient(
+        dataTableWithGivenColumn!.selectedRecords[0],
+      );
+      if (response.isSuccessful) {
+        await Common.showAlert(
+            context: context,
+            title: 'Patient Delete',
+            content: response.message,
+            isError: false);
+        _loading!.off();
+        setState(() {});
+      } else {
+        await Common.showAlert(
+            context: context,
+            title: 'Failed in Delete Patient',
+            content: response.message,
+            isError: true);
+        _loading!.off();
+        setState(() {});
+      }
+    } else {
+      Common.showAlert(
+          context: context,
+          title: 'Patient Delete',
+          content: dataTableWithGivenColumn!.selectedRecords.isEmpty
+              ? 'Please select a Patient'
+              : 'Cannot Delete multiple at a time',
+          isError: true);
+    }
+  }
+
+  onVillageChanged(villageSave) {
+    print("villageSave :: $villageSave");
+    if (villageSave == null) {
+      listOfFilteredPatient = null;
+      setState(() {});
+    } else {
+      onVillageSort(villageSave);
+    }
+  }
+
+  onTalukasaved(talukaSave) {
+    print("talukaSave :: $talukaSave");
+    if (talukaSave == null) {
+      listOfFilteredPatient = null;
+      villagesLst.clear();
+      setState(() {});
+    } else {
+      setState(() {
+        String village = talukaSave;
+        villagesLst = villageData
+            .map((e) {
+              if (talukaSave == e.taluka) {
+                village = e.village;
+              }
+              return village;
+            })
+            .toSet()
+            .toList();
+      });
+      onTalukaSort(talukaSave);
+      setState(() {});
+    }
+  }
+
+  onPDFSavePressed() async {
+    final patientData = PdfModel(
+      patientLst: this.listOfPatient,
+    );
+    await PdfInvoiceApi.generatePatientData(patientData);
+  }
+
   @override
   void initState() {
+    fetchDataFromJson();
     _loading = Loading(context: context, key: patientListKey);
     super.initState();
   }
@@ -110,8 +232,36 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
+
+    villageDropDown = DropdownSearch<String>(
+      mode: Mode.DIALOG,
+      showSearchBox: true,
+      items: villagesLst,
+      showSelectedItems: true,
+      //onSaved: (save) {},
+      dropdownSearchDecoration:
+          Common.textFormFieldInputDecoration(labelText: "Select Village"),
+      onChanged: (saved) => onVillageChanged(saved),
+      showClearButton: true,
+      validator: (v) => v == null ? "required field" : null,
+    );
+
+    talukaDropDown = DropdownSearch<String>(
+      mode: Mode.DIALOG,
+      showSearchBox: true,
+      items: talukaLst,
+      showSelectedItems: true,
+      //onSaved: (save) {},
+      dropdownSearchDecoration:
+          Common.textFormFieldInputDecoration(labelText: "Select Taluka"),
+      onChanged: (saved) => onTalukasaved(saved),
+      showClearButton: true,
+      validator: (v) => v == null ? "required field" : null,
+    );
+
     return Scaffold(
       key: scaffoldState,
+      backgroundColor: scafoldbBackgroundColor,
       drawer: !Responsive.isDesktop(context) ? SideMenu() : null,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,7 +277,7 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
             flex: 5,
             child: CustomScrollView(
               slivers: [
-                TopSliverAppBar(mHeight: height, text: "Update Patient"),
+                TopSliverAppBar(mHeight: height, text: "Patient List"),
                 CustomScrollViewBody(
                     bodyWidget: Padding(
                         padding: Common.allPadding(mHeight: height),
@@ -147,6 +297,7 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Flexible(
+              flex: 2,
               child: SearchField(
                 controller: _textEditingController,
                 onSearchTap: () {
@@ -158,12 +309,37 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
                 isCrossVisible: listOfFilteredPatient != null,
               ),
             ),
+            Flexible(
+              child: Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: talukaDropDown!,
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: villageDropDown!,
+              ),
+            ),
             IconButton(
+              tooltip: "Save PDF",
+              onPressed: () async {
+                onPDFSavePressed();
+              },
+              icon: Icon(Icons.save),
+            ),
+            IconButton(
+                tooltip: "Edit",
                 onPressed: () async {
                   await onUpdatePressed();
                 },
                 icon: Icon(Icons.edit)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.delete_forever))
+            IconButton(
+                tooltip: "Delete",
+                onPressed: () {
+                  onDeletePressed();
+                },
+                icon: Icon(Icons.delete_forever))
           ],
         ),
         Scrollbar(
@@ -184,7 +360,8 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
                         stream: getPatientsList(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            dataTableWithGivenColumn = DataTableWithGivenColumnForPatient(
+                            dataTableWithGivenColumn =
+                                DataTableWithGivenColumnForPatient(
                               columns: columnsOfDataTable,
                               records: listOfFilteredPatient ?? snapshot.data!,
                             );
@@ -193,8 +370,8 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
                           return snapshot.hasData
                               ? dataTableWithGivenColumn!
                               : Center(
-                            child: CircularProgressIndicator(),
-                          );
+                                  child: CircularProgressIndicator(),
+                                );
                         })),
               ),
             ),

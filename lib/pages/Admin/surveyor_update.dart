@@ -3,7 +3,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
+import 'package:medical_servey_app/Services/Admin/pdf_genrate_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
+import 'package:medical_servey_app/models/common/pdf_model.dart';
+import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
@@ -13,6 +16,7 @@ import 'package:medical_servey_app/widgets/search_field.dart';
 import 'package:medical_servey_app/widgets/surveyor_edit_dialog.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 
+import '../../routes/routes.dart';
 import 'main/components/side_menu.dart';
 
 class SurveyorListForUpdate extends StatefulWidget {
@@ -59,22 +63,22 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
 
   onSearchBtnPressed() {
     print(_textEditingController.text);
-    String searchText = _textEditingController.text;
+    String searchText = _textEditingController.text.toLowerCase();
     listOfFilteredSurveyor = listOfSurveyor
         ?.where((Surveyor sur) =>
-            sur.firstName.contains(searchText) ||
-            sur.middleName.contains(searchText) ||
-            sur.lastName.contains(searchText) ||
-            sur.email.contains(searchText) ||
-            sur.mobileNumber.contains(searchText) ||
-            sur.address.contains(searchText) ||
-            sur.gender.contains(searchText) ||
-            sur.joiningDate.contains(searchText) ||
-            sur.district.contains(searchText) ||
-            sur.aadhaarNumber.contains(searchText) ||
-            sur.taluka.contains(searchText) ||
+            sur.firstName.toLowerCase().contains(searchText) ||
+            sur.middleName.toLowerCase().contains(searchText) ||
+            sur.lastName.toLowerCase().contains(searchText) ||
+            sur.email.toLowerCase().contains(searchText) ||
+            sur.mobileNumber.toLowerCase().contains(searchText) ||
+            sur.address.toLowerCase().contains(searchText) ||
+            sur.gender.toLowerCase().contains(searchText) ||
+            sur.joiningDate.toLowerCase().contains(searchText) ||
+            sur.district.toLowerCase().contains(searchText) ||
+            sur.aadhaarNumber.toLowerCase().contains(searchText) ||
+            sur.taluka.toLowerCase().contains(searchText) ||
             sur.village.contains(searchText) ||
-            sur.profession.contains(searchText))
+            sur.profession.toLowerCase().contains(searchText))
         .toList();
     setState(() {});
   }
@@ -104,32 +108,40 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     }
   }
 
+  onAddSurveyorBtnPressed() {
+    Navigator.pushNamed(context, routeAdminAddSurveyor);
+  }
+
   final FocusNode _focusNode = FocusNode();
+
   void _handleKeyEvent(RawKeyEvent event) {
     var offset = _horizontalScrollController.offset;
     if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
       setState(() {
         if (kReleaseMode) {
-          _horizontalScrollController.animateTo(offset - 200, duration: Duration(milliseconds: 60), curve: Curves.ease);
+          _horizontalScrollController.animateTo(offset - 200,
+              duration: Duration(milliseconds: 60), curve: Curves.ease);
         } else {
           // _horizontalScrollController.animateTo(offset - 200, duration: Duration(milliseconds: 60), curve: Curves.ease);
         }
       });
-    }
-    else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+    } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
       setState(() {
         if (kReleaseMode) {
-          _horizontalScrollController.animateTo(offset + 200, duration: Duration(milliseconds: 30), curve: Curves.ease);
+          _horizontalScrollController.animateTo(offset + 200,
+              duration: Duration(milliseconds: 30), curve: Curves.ease);
         } else {
           //_horizontalScrollController.animateTo(offset + 200, duration: Duration(milliseconds: 30), curve: Curves.ease);
         }
       });
     }
   }
-  onEnterMouse(PointerEnterEvent event){
+
+  onEnterMouse(PointerEnterEvent event) {
     _focusNode.requestFocus();
   }
-  onExitMouse(PointerExitEvent event){
+
+  onExitMouse(PointerExitEvent event) {
     _focusNode.unfocus();
   }
 
@@ -138,10 +150,18 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     _loading = Loading(context: context, key: surveyorListKey);
     super.initState();
   }
+
   @override
   void dispose() {
     _focusNode.dispose();
     super.dispose();
+  }
+
+  onPDFSavePressed() async {
+    final surveyorData = PdfModel(
+      surveyorLst: this.listOfSurveyor,
+    );
+    await PdfInvoiceApi.generateSurveyorData(surveyorData);
   }
 
   @override
@@ -150,6 +170,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       key: scaffoldState,
+      backgroundColor: scafoldbBackgroundColor,
       drawer: !Responsive.isDesktop(context) ? SideMenu() : null,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,11 +218,27 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
               ),
             ),
             IconButton(
-                onPressed: () async {
-                  await onUpdatePressed();
-                },
-                icon: Icon(Icons.edit)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.delete_forever))
+              tooltip: "Edit",
+              onPressed: () async {
+                await onUpdatePressed();
+              },
+              icon: Icon(Icons.edit),
+            ),
+            IconButton(
+              tooltip: "Save PDF",
+              onPressed: () async {
+                onPDFSavePressed();
+              },
+              icon: Icon(Icons.save),
+            ),
+            Card(
+              child: IconButton(
+                  tooltip: "Add new Surveyor",
+                  onPressed: () {
+                    onAddSurveyorBtnPressed();
+                  },
+                  icon: Icon(Icons.add)),
+            ),
           ],
         ),
         Scrollbar(
@@ -219,11 +256,11 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                 child: Card(
                     elevation: 10,
                     child: MouseRegion(
-                      onEnter:onEnterMouse,
+                      onEnter: onEnterMouse,
                       onExit: onExitMouse,
                       child: RawKeyboardListener(
                         autofocus: true,
-                        focusNode:_focusNode ,
+                        focusNode: _focusNode,
                         onKey: _handleKeyEvent,
                         child: StreamBuilder<List<Surveyor>>(
                             stream: getSurveyorsList(),
@@ -232,9 +269,11 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                                 dataTableWithGivenColumn =
                                     DataTableWithGivenColumnForSurveyor(
                                   columns: columnsOfDataTable,
-                                  records: listOfFilteredSurveyor ?? snapshot.data!,
+                                  records:
+                                      listOfFilteredSurveyor ?? snapshot.data!,
                                 );
-                                print(dataTableWithGivenColumn?.selectedRecords);
+                                print(
+                                    dataTableWithGivenColumn?.selectedRecords);
                               }
                               return snapshot.hasData
                                   ? dataTableWithGivenColumn!

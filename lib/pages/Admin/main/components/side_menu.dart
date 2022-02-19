@@ -36,8 +36,8 @@ class _SideMenuState extends State<SideMenu> {
         controller: _scrollController,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text("Admin Name"),
-            accountEmail: Text("Admin Gmail"),
+            accountName: Text("Admin"),
+            accountEmail: Text("Admin@gmail.com"),
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage(LOGO_PATH),
             ),
@@ -51,21 +51,14 @@ class _SideMenuState extends State<SideMenu> {
           ),
           DrawerListTile(
             title: "Patient",
-            svgSrc: "assets/icons/menu_tran.svg",
+            svgSrc: "assets/icons/patient.svg",
             press: () {
               Navigator.pushReplacementNamed(context, routeAdminUpdatePatient);
             },
           ),
           DrawerListTile(
-            title: "Surveyor",
-            svgSrc: "assets/icons/menu_doc.svg",
-            press: () {
-              Navigator.pushReplacementNamed(context, routeAdminAddSurveyor);
-            },
-          ),
-          DrawerListTile(
-            title: "Update Surveyor ",
-            svgSrc: "assets/icons/menu_doc.svg",
+            title: "Surveyor ",
+            svgSrc: "assets/icons/surveyor.svg",
             press: () {
               Navigator.pushReplacementNamed(
                   context, routeSurveyorListForUpdate);
@@ -73,9 +66,16 @@ class _SideMenuState extends State<SideMenu> {
           ),
           DrawerListTile(
             title: "Disease",
-            svgSrc: "assets/icons/menu_store.svg",
+            svgSrc: "assets/icons/disease.svg",
             press: () {
               Navigator.pushReplacementNamed(context, routeAddDiseases);
+            },
+          ),
+          DrawerListTile(
+            title: "Report",
+            svgSrc: "assets/icons/menu_doc.svg",
+            press: () {
+              Navigator.pushReplacementNamed(context, routeGenerateReport);
             },
           ),
           DrawerListTile(
@@ -124,7 +124,7 @@ class DrawerListTile extends StatelessWidget {
       leading: SvgPicture.asset(
         svgSrc,
         color: Colors.black,
-        height: 16,
+        height: 25,
       ),
       title: Text(
         title,

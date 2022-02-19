@@ -70,11 +70,19 @@ class AdminFirebaseService {
     try {
       // await firebaseAuth.createUserWithEmailAndPassword(
       //     email: surveyor.email, password: DEF_SEC_FB);
-      FirebaseAuthService(firebaseAuth)
+      Response res = await FirebaseAuthService(firebaseAuth)
           .signUp(email: surveyor.email, password: DEF_SEC_FB);
-      return Response(isSuccessful: true, message: 'Created Successfully');
+      if (res.isSuccessful) {
+        return Response(isSuccessful: true, message: 'Created Successfully');
+      } else {
+        return Response(isSuccessful: false, message: '${res.message}');
+      }
     } on FirebaseAuthException catch (e) {
+      print("in forebase auth exp ${e.code}");
       return Response(isSuccessful: false, message: e.message.toString());
+    } catch (e) {
+      print("in normal exp");
+      return Response(isSuccessful: false, message: e.toString());
     }
   }
 
@@ -162,7 +170,22 @@ class AdminFirebaseService {
   Future<List<Patient>> getPatients() async {
     List<Patient> _patients = [];
     CollectionReference patientCollection = instance!.collection('Patient');
-    var allSurveyorsSnapshots = await patientCollection.get();
+    var allSurveyorsSnapshots = await patientCollection
+        .orderBy('date', descending: true)
+        .limit(20)
+        .get();
+    _patients.addAll(allSurveyorsSnapshots.docs.map((surveyor) =>
+        Patient.fromMap(surveyor.data() as Map<String, dynamic>)));
+    return _patients;
+  }
+
+  Future<List<Patient>> getPatientsByKeys({
+    required String key,
+    required String value,
+  }) async {
+    List<Patient> _patients = [];
+    var allSurveyorsSnapshots =
+        await collectionPatient.where("$key", isEqualTo: value).get();
     _patients.addAll(allSurveyorsSnapshots.docs.map((surveyor) =>
         Patient.fromMap(surveyor.data() as Map<String, dynamic>)));
     return _patients;
@@ -177,6 +200,24 @@ class AdminFirebaseService {
       String id = patient.id;
       surveyorCollection.doc(id).update(patient.toMap());
       message = "Updated Successfully";
+      isSuccessful = true;
+      return Response(isSuccessful: isSuccessful, message: message);
+    } on FirebaseException catch (e) {
+      isSuccessful = false;
+      message = e.message.toString();
+      return Response(isSuccessful: isSuccessful, message: message);
+    }
+  }
+
+  Future<Response> deletePatient(Patient patient) async {
+    //updating the surveyor details first
+    CollectionReference surveyorCollection = instance!.collection('Patient');
+    String message = "";
+    bool isSuccessful = false;
+    try {
+      String id = patient.id;
+      surveyorCollection.doc(id).delete();
+      message = "Delete Successfully";
       isSuccessful = true;
       return Response(isSuccessful: isSuccessful, message: message);
     } on FirebaseException catch (e) {
@@ -235,5 +276,17 @@ class AdminFirebaseService {
         .get();
     count = qSnap.docs.length;
     return count;
+  }
+
+  Future<int> getCountByGender({
+    required String key,
+    required String value,
+  }) async {
+    List<Patient> _patients = [];
+    var allSurveyorsSnapshots =
+        await collectionPatient.where("$key", isEqualTo: value).get();
+    _patients.addAll(allSurveyorsSnapshots.docs.map((surveyor) =>
+        Patient.fromMap(surveyor.data() as Map<String, dynamic>)));
+    return _patients.length;
   }
 }

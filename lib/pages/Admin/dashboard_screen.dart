@@ -3,11 +3,9 @@ import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
-import '../../../Services/Admin/admin_firebase_service.dart';
-import '../../../models/surveyor/patient.dart';
-import 'components/dashboardCounts.dart';
-import 'components/dashboard_patients_list.dart';
-import 'components/storage_details.dart';
+import '../../widgets/dashboardCounts.dart';
+import '../../widgets/dashboard_patients_list.dart';
+import '../../widgets/district_report.dart';
 
 
 
@@ -22,7 +20,7 @@ class DashboardScreen extends StatelessWidget {
     return SafeArea(
       child: CustomScrollView(
         slivers: [
-          TopSliverAppBar(mHeight:height , text: 'Dashboard'),
+          TopSliverAppBar(mHeight:height , text: 'Medical Survey'),
          CustomScrollViewBody(bodyWidget: body(context))
         ],
 
@@ -47,7 +45,7 @@ class DashboardScreen extends StatelessWidget {
                   DashboardPatientsList(),
                   if (Responsive.isMobile(context))
                     SizedBox(height: defaultPadding),
-                  if (Responsive.isMobile(context)) StarageDetails(),
+                  if (Responsive.isMobile(context)) DistrictReport(),
                 ],
               ),
             ),
@@ -57,7 +55,7 @@ class DashboardScreen extends StatelessWidget {
             if (!Responsive.isMobile(context))
               Expanded(
                 flex: 2,
-                child: StarageDetails(),
+                child: DistrictReport(),
               ),
           ],
         )

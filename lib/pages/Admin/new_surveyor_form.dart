@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-
 import "package:flutter/material.dart";
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/common/villageData.dart';
+import 'package:medical_servey_app/routes/routes.dart';
+import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/image_utils.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
@@ -34,7 +35,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
   final GlobalKey<State> newSurveyorKey = GlobalKey<State>();
 
-  Loading? _loading;
+  late Loading _loading;
   AdminFirebaseService _firebaseService = AdminFirebaseService();
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -48,7 +49,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     print("surveyorForm $surveyorForm");
     if (formKeyNewSurveyorForm.currentState!.validate()) {
       // //turning loading on
-      _loading!.on(); //invoking login
+      _loading.on(); //invoking login
       surveyorForm['joiningDate'] = selectedDate;
       surveyorForm['age'] = ageDropDown!.selectedItem!;
       surveyorForm['gender'] = genderDropDown!.selectedItem!;
@@ -62,25 +63,36 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       //creating account for surveyor
       Response responseForCreatingAcc =
           await _firebaseService.createSurveyorAccount(surveyor);
-      print("Firestore Response for  ::" +
-          responseForCreatingAcc.message.toString());
+      print("Firestore Response for  ::" + responseForCreatingAcc.toString());
 
       //if successfully created then try to push details to fire store
       if (responseForCreatingAcc.isSuccessful) {
         Response response = await _firebaseService.saveNewSurveyor(surveyor);
         if (response.isSuccessful) {
           // if successfully return  a message that process is complete
-          _loading!.off(); // popping loading
+          // if(_loading != null){
+          //   // _loading.off();
+          // } // popping loading
+
           Common.showAlert(
               context: context,
               title: 'Surveyor Registration',
               content: response.message,
+              onOkPressed: () {
+                formKeyNewSurveyorForm.currentState!.reset();
+                _loading.off();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  routeSurveyorListForUpdate,
+                  (route) => false,
+                );
+              },
               isError: false);
           // isLoading = false;
 
         } else {
           //if failed while creating an account
-          _loading!.off(); // popping loading
+          _loading.off(); // popping loading
           Common.showAlert(
               context: context,
               title: 'Failed in Creating Account',
@@ -91,7 +103,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
         print("Firestore Response ::" + response.message.toString());
       } else {
         //if failed while creating an account
-        _loading!.off(); // popping loading
+        _loading.off(); // popping loading
         Common.showAlert(
             context: context,
             title: 'Failed in Creating Account',
@@ -137,7 +149,6 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     setState(() {
       villageData = body.map((e) => VillageData.fromMap(e)).toList();
       taluka = villageData.map((e) => e.taluka).toSet().toList();
-      villages = villageData.map((e) => e.village).toSet().toList();
     });
   }
 
@@ -171,13 +182,26 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       validator: (v) => v == null ? "required field" : null,
     );
 
-    _loading = Loading(context: context, key: newSurveyorKey);
-
     super.initState();
   }
 
   onTalukaSaved(saved) {
     surveyorForm['taluka'] = saved;
+  }
+
+  onTalukaChanged(talukaChanged) {
+    setState(() {
+      String village = talukaChanged;
+      villages = villageData
+          .map((e) {
+            if (talukaChanged == e.taluka) {
+              village = e.village;
+            }
+            return village;
+          })
+          .toSet()
+          .toList();
+    });
   }
 
   onVllageSaved(villageSave) {
@@ -203,7 +227,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
       onSaved: (saved) => onTalukaSaved(saved),
       dropdownSearchDecoration:
           Common.textFormFieldInputDecoration(labelText: "Select Taluka"),
-      onChanged: print,
+      onChanged: (changed) => onTalukaChanged(changed),
       showClearButton: true,
       validator: (v) => v == null ? "required field" : null,
     );
@@ -211,6 +235,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     //
 
     return Scaffold(
+      backgroundColor: scafoldbBackgroundColor,
       drawer: !Responsive.isDesktop(context) ? SideMenu() : null,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,6 +268,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
   }
 
   Widget body({required Map<String, dynamic> surveyorForm, required formKey}) {
+    _loading = Loading(context: context, key: newSurveyorKey);
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
@@ -307,7 +333,9 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
 
     final submitBtn = OutlinedButton(
         onPressed: () {
+          _loading.on();
           onPressedSubmit();
+          _loading.off();
         },
         child: Text('Submit'));
     return FormContainer(
@@ -381,7 +409,7 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
                 child: mobileNo,
               ),
               //
-              taluka.isNotEmpty && villages.isNotEmpty
+              taluka.isNotEmpty
                   ? Responsive(mobile: mobileView(), desktop: desktopView())
                   : CircularProgressIndicator(),
               //

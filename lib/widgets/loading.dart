@@ -11,6 +11,11 @@ class Loading{
   }
 
   void off(){
-    Navigator.of(this.key.currentContext!,rootNavigator: true).pop();
+    if(key.currentState==null){
+      Navigator.of(context,rootNavigator: true).pop();
+    }else{
+      Navigator.of(key.currentState!.context,rootNavigator: true).pop();
+    }
+
   }
 }

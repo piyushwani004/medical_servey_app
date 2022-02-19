@@ -34,7 +34,7 @@ class _DataTableWithGivenColumnForPatientState extends State<DataTableWithGivenC
         break;
       case 1:
         widget.records.sort((Patient r1, Patient r2) =>
-            compareString(ascending, r1.surveyorUID, r2.surveyorUID));
+            compareString(ascending, r1.village, r2.village));
         break;
       case 2:
         widget.records.sort((Patient r1, Patient r2) =>
@@ -89,7 +89,7 @@ class _DataTableWithGivenColumnForPatientState extends State<DataTableWithGivenC
       .map((Patient row) => DataRow(
     cells: [
       DataCell(Text(row.id)),
-      DataCell(Text(row.surveyorUID)),
+      DataCell(Text(row.village)),
       DataCell(Text(row.email)),
       DataCell(Text(row.firstName)),
       DataCell(Text(row.middleName)),

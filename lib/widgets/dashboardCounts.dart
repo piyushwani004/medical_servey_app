@@ -50,7 +50,12 @@ class FileInfoCardGridView extends StatefulWidget {
 class _FileInfoCardGridViewState extends State<FileInfoCardGridView> {
   AdminFirebaseService _adminFirebaseService = AdminFirebaseService();
   List<DashboardCount> _countList = [];
-  int diseasesCount = 0, patientCount = 0, surveyorCount = 0, villageCount = 0;
+  int diseasesCount = 0,
+      patientCount = 0,
+      surveyorCount = 0,
+      villageCount = 0,
+      maleCount = 0,
+      femaleCount = 0;
 
   Future<int> fetchDataFromJson() async {
     final assetBundle = DefaultAssetBundle.of(context);
@@ -65,12 +70,23 @@ class _FileInfoCardGridViewState extends State<FileInfoCardGridView> {
         await _adminFirebaseService.getCount(collectionName: "Diseases");
     patientCount =
         await _adminFirebaseService.getCount(collectionName: "Patient");
+
+    maleCount = await _adminFirebaseService.getCountByGender(
+      key: "gender",
+      value: "Male",
+    );
+    femaleCount = await _adminFirebaseService.getCountByGender(
+      key: "gender",
+      value: "Female",
+    );
+
     surveyorCount =
         await _adminFirebaseService.getCount(collectionName: "Surveyor");
 
     villageCount = await fetchDataFromJson();
 
     print("Counts ::  $diseasesCount   $patientCount   $surveyorCount ");
+    print("Gender Counts ::  $maleCount   $femaleCount ");
 
     setState(() {
       _countList.add(DashboardCount(count: diseasesCount, name: "Diseases"));
@@ -108,23 +124,9 @@ class _FileInfoCardGridViewState extends State<FileInfoCardGridView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: Card(
-                              elevation: 4,
-                              child: Padding(
-                                padding: EdgeInsets.all(defaultPadding * 0.75),
-                                child: Text(
-                                  "${_countList[index].count}",
-                                  // style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      index == 1
+                          ? patientCard(index: index)
+                          : normalCard(index: index),
                       Divider(),
                       Flexible(
                         child: Text(
@@ -144,5 +146,90 @@ class _FileInfoCardGridViewState extends State<FileInfoCardGridView> {
             },
           )
         : CircularProgressIndicator();
+  }
+
+  Widget normalCard({required int index}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          child: Card(
+            elevation: 4,
+            child: Padding(
+              padding: EdgeInsets.all(defaultPadding * 0.75),
+              child: Text(
+                "${_countList[index].count}",
+                // style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget patientCard({required int index}) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Flexible(
+              child: Card(
+                elevation: 4,
+                child: Padding(
+                  padding: EdgeInsets.all(defaultPadding * 0.75),
+                  child: Text(
+                    "$maleCount",
+                    // style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            Flexible(
+              child: Card(
+                elevation: 4,
+                child: Padding(
+                  padding: EdgeInsets.all(defaultPadding * 0.75),
+                  child: Text(
+                    "$femaleCount",
+                    // style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Flexible(
+              child: Card(
+                elevation: 1,
+                child: Padding(
+                  padding: EdgeInsets.all(defaultPadding * 0.7),
+                  child: Text(
+                    "M",
+                    // style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            Flexible(
+              child: Card(
+                elevation: 1,
+                child: Padding(
+                  padding: EdgeInsets.all(defaultPadding * 0.7),
+                  child: Text(
+                    "F",
+                    // style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

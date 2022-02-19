@@ -1,17 +1,24 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
 import 'package:medical_servey_app/models/Admin/disease.dart';
+import 'package:medical_servey_app/models/Admin/surveyor.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
-import 'package:medical_servey_app/widgets/MultiSelect_Dialog.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+
+import '../../models/common/villageData.dart';
+import '../../utils/image_utils.dart';
 
 class AddPatientForm extends StatefulWidget {
   const AddPatientForm({Key? key}) : super(key: key);
@@ -24,18 +31,20 @@ class _AddPatientFormState extends State<AddPatientForm> {
   final formKeyNewSurveyorForm = GlobalKey<FormState>();
   SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
   VillageSelectService _villageSelectService = VillageSelectService();
+  final _multiKey = GlobalKey<DropdownSearchState<String>>();
 
   var width, height;
   String _selectedDate = formatDate(DateTime.now().toString());
   bool _switchValue = false;
   User? user;
 
-  Map<String, String> patientForm = {};
-  List<Disease> _diseaseList = [];
-  List<MultiSelectDialogItem> _items = [];
+  Map<String, dynamic> patientForm = {};
+  List<VillageData> villageData = [];
+  List<Disease> _diseaseData = [];
+  List<String> _diseaseList = [];
   List<int> ages = generateN2MList(15, 100);
-  Set? selectedValues;
   String? selectedVillage;
+  Surveyor? _surveyor;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -48,53 +57,45 @@ class _AddPatientFormState extends State<AddPatientForm> {
   ];
 
   var profession = [
-    'Degree pass',
-    'Metric Pass',
-    'None',
+    'No formal education',
+    'Primary education',
+    'Secondary education or high school',
+    'GED',
+    'Vocational qualification',
+    'Diploma',
+    'Bachelors degree',
+    'Masters degree',
+    'Doctorate or higher',
   ];
 
   fetchSelectedVillage() async {
     User? user = await _firebaseService.getCurrentUser();
+    _surveyor = await _firebaseService.getSurveyorDetails();
     selectedVillage = await _villageSelectService.getSelectedVillageString(
         passedUID: user!.uid);
-    print("selectedVillage $selectedVillage");
-    setState(() {});
+    print("selectedVillage: $selectedVillage");
+    print("_surveyor!.taluka: ${_surveyor!.taluka}");
   }
 
   onPressedSubmit() async {
-    fetchSelectedVillage();
-    if (formKeyNewSurveyorForm.currentState!.validate() &&
-        selectedValues != null &&
-        selectedValues!.isNotEmpty) {
+    await fetchSelectedVillage();
+    if (formKeyNewSurveyorForm.currentState!.validate()) {
       patientForm['id'] = DateTime.now().millisecondsSinceEpoch.toString();
       patientForm['date'] = _selectedDate;
       patientForm['surveyorUID'] = user!.uid.toString();
       patientForm['age'] = ageDropDown!.selectedItem!;
       patientForm['gender'] = genderDropDown!.selectedItem!;
       patientForm['profession'] = professionDropDown!.selectedItem!;
+      patientForm['village'] = selectedVillage;
+      patientForm['taluka'] = _surveyor!.taluka;
+      patientForm['timestamp'] = Timestamp.fromDate(DateTime.now());
       formKeyNewSurveyorForm.currentState!.save();
 
-      Patient patientData = Patient(
-        id: patientForm['id'].toString(),
-        firstName: patientForm['firstName'].toString(),
-        middleName: patientForm['middleName'].toString(),
-        lastName: patientForm['lastName'].toString(),
-        profession: patientForm['profession'].toString(),
-        email: patientForm['email'].toString(),
-        mobileNumber: patientForm['mobileNumber'].toString(),
-        address: patientForm['address'].toString(),
-        gender: patientForm['gender'].toString(),
-        date: patientForm['date'].toString(),
-        diseases: selectedValues!.toList(),
-        surveyorUID: patientForm['surveyorUID'].toString(),
-        otherDisease: patientForm['otherDisease'].toString(),
-        age: int.parse(patientForm['age'].toString()),
-        village: "$selectedVillage",
-      );
+      print("patientForm map: $patientForm");
+      Patient patient = Patient.fromMap(patientForm);
+      print("patientData $patient");
 
-      print("patientData $patientData");
-      Response response =
-          await _firebaseService.savePatient(patient: patientData);
+      Response response = await _firebaseService.savePatient(patient: patient);
       if (response.isSuccessful) {
         Common.showAlert(
             context: context,
@@ -109,8 +110,6 @@ class _AddPatientFormState extends State<AddPatientForm> {
             content: response.message,
             isError: true);
       }
-    } else {
-      showSnackBar(context, "select Diseases..");
     }
   }
 
@@ -138,29 +137,9 @@ class _AddPatientFormState extends State<AddPatientForm> {
   }
 
   getAllDisease() async {
-    _diseaseList = await _firebaseService.getAllDiseases();
-
-    setState(() {
-      _diseaseList.forEach((element) {
-        _items.add(
-          MultiSelectDialogItem(int.parse(element.id), element.name),
-        );
-      });
-    });
-  }
-
-  void _showMultiSelect(BuildContext context) async {
-    selectedValues = (await showDialog<Set>(
-      context: context,
-      builder: (BuildContext context) {
-        return MultiSelectDialog(
-          items: _items,
-          initialSelectedValues: selectedValues ?? [].toSet(),
-        );
-      },
-    ));
-
-    print("selectedValues" + selectedValues.toString());
+    _diseaseData = await _firebaseService.getAllDiseases();
+    _diseaseList = _diseaseData.map((e) => e.name).toSet().toList();
+    setState(() {});
   }
 
   String? otherDiseaseValidator(String? value) {
@@ -170,6 +149,11 @@ class _AddPatientFormState extends State<AddPatientForm> {
     } else {
       return "Other Disease can't be empty";
     }
+  }
+
+  onDiseaseSaved(diseaseSave) {
+    print("diseaseSave :: $diseaseSave");
+    patientForm['diseases'] = diseaseSave;
   }
 
   @override
@@ -203,7 +187,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
     );
   }
 
-  Widget body({required Map<String, String> patientForm, required formKey}) {
+  Widget body({required Map<String, dynamic> patientForm, required formKey}) {
     final fullName = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
@@ -276,12 +260,6 @@ class _AddPatientFormState extends State<AddPatientForm> {
         },
         child: Text('Submit'));
 
-    final showDiseases = TextButton(
-        onPressed: () {
-          _showMultiSelect(context);
-        },
-        child: Text("Show Diseases"));
-
     final diseaseSwitch = CupertinoSwitch(
       value: _switchValue,
       onChanged: (value) {
@@ -347,12 +325,11 @@ class _AddPatientFormState extends State<AddPatientForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Flexible(
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: showDiseases,
-                  ),
-                ),
+                Expanded(
+                    child: Padding(
+                  padding: Common.allPadding(mHeight: height),
+                  child: multipleSelectionDropdown(),
+                )),
               ],
             ),
             Row(
@@ -388,5 +365,103 @@ class _AddPatientFormState extends State<AddPatientForm> {
             ),
           ],
         ));
+  }
+
+  Widget multipleSelectionDropdown() {
+    return DropdownSearch<String>.multiSelection(
+      key: _multiKey,
+      validator: (List<String>? v) {
+        return v == null || v.isEmpty ? "required field" : null;
+      },
+      dropdownBuilder: (context, selectedItems) {
+        Widget item(String i) => Container(
+              padding: EdgeInsets.only(left: 6, bottom: 3, top: 3, right: 0),
+              margin: EdgeInsets.symmetric(horizontal: 2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).primaryColorLight),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    i,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                  MaterialButton(
+                    height: 20,
+                    shape: const CircleBorder(),
+                    focusColor: Colors.red[200],
+                    hoverColor: Colors.red[200],
+                    padding: EdgeInsets.all(0),
+                    minWidth: 34,
+                    onPressed: () {
+                      _multiKey.currentState?.removeItem(i);
+                    },
+                    child: Icon(
+                      Icons.close_outlined,
+                      size: 20,
+                    ),
+                  )
+                ],
+              ),
+            );
+        return Wrap(
+          children: selectedItems.map((e) => item(e)).toList(),
+        );
+      },
+      popupCustomMultiSelectionWidget: (context, list) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKey.currentState?.closeDropDownSearch();
+                  },
+                  child: const Text('Cancel'),
+                ),
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKey.currentState?.popupDeselectAllItems();
+                  },
+                  child: const Text('None'),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+      dropdownSearchDecoration: Common.textFormFieldInputDecoration(
+        labelText: "Select Diseases",
+      ),
+      mode: Mode.DIALOG,
+      showSelectedItems: true,
+      // onSaved: (villageSave) => onVllageSaved(villageSave),
+      items: _diseaseList,
+      showClearButton: true,
+      onChanged: (onSaved) {
+        onDiseaseSaved(onSaved);
+      },
+      showSearchBox: true,
+      popupSelectionWidget: (cnt, String item, bool isSelected) {
+        return isSelected
+            ? Icon(
+                Icons.check_circle,
+                color: Colors.green[500],
+              )
+            : Container();
+      },
+    );
   }
 }

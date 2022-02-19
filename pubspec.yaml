@@ -40,6 +40,8 @@ dependencies:
   dropdown_search: ^2.0.1
   shared_preferences: ^2.0.13
   google_fonts: ^2.2.0
+  pdf: ^3.7.1
+  universal_html: ^2.0.8
 
 dev_dependencies:
   flutter_test:

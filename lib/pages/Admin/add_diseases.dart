@@ -3,6 +3,7 @@ import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/models/Admin/disease.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/pages/Admin/main/components/side_menu.dart';
+import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
@@ -66,7 +67,6 @@ class _AddDiseasesState extends State<AddDiseases> {
     } else {}
   }
 
-
   @override
   void initState() {
     addDiseaseTextFormField = TextFormField(
@@ -86,6 +86,7 @@ class _AddDiseasesState extends State<AddDiseases> {
           suffix: Card(
               elevation: 2,
               child: IconButton(
+                  tooltip: "Add New Disease",
                   onPressed: () async {
                     await onPressedAddDisease();
                   },
@@ -97,7 +98,7 @@ class _AddDiseasesState extends State<AddDiseases> {
             borderSide: BorderSide(color: Colors.blueAccent),
           ),
           contentPadding:
-          EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+              EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
           hintText: "Add Diseases"),
     );
     super.initState();
@@ -108,6 +109,7 @@ class _AddDiseasesState extends State<AddDiseases> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: scafoldbBackgroundColor,
       drawer: !Responsive.isDesktop(context) ? SideMenu() : null,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,11 +138,14 @@ class _AddDiseasesState extends State<AddDiseases> {
     );
   }
 
-
   Widget body(width, height) {
     return Form(
       key: formKeyAddDiseseForm,
-      child: Responsive(desktop: contentsDesktop(), mobile: contentsMobile(),tablet: contentsDesktop(),),
+      child: Responsive(
+        desktop: contentsDesktop(),
+        mobile: contentsMobile(),
+        tablet: contentsDesktop(),
+      ),
     );
   }
 
@@ -158,10 +163,7 @@ class _AddDiseasesState extends State<AddDiseases> {
 
   Widget contentsMobile() {
     return Column(
-      children: <Widget>[
-        addDiseaseTextFormField!,
-        diseaseListViewWithStream()
-      ],
+      children: <Widget>[addDiseaseTextFormField!, diseaseListViewWithStream()],
     );
   }
 
@@ -213,9 +215,12 @@ class _AddDiseasesState extends State<AddDiseases> {
                             ),
                           ),
                           Card(
-                            child: IconButton(onPressed: () {
-                              onEditPressed(snapshot, index);
-                            }, icon: Icon(Icons.edit)),
+                            child: IconButton(
+                                tooltip: "Edit",
+                                onPressed: () {
+                                  onEditPressed(snapshot, index);
+                                },
+                                icon: Icon(Icons.edit)),
                           )
                         ],
                       );
@@ -231,20 +236,20 @@ class _AddDiseasesState extends State<AddDiseases> {
   Future<void> _displayTextInputDialog(
       BuildContext context, Disease disease) async {
     String? updatedDisease;
-    GlobalKey<FormState> formKey = GlobalKey<FormState>() ;
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return showDialog(
         context: context,
         builder: (context) {
-          return StatefulBuilder(
-              builder: (context, setState2) {
+          return StatefulBuilder(builder: (context, setState2) {
             return AlertDialog(
               title: Text('Update Disease'),
               content: Form(
                 key: formKey,
                 child: TextFormField(
-                  validator: (val) => val==null || val==""?'Cant be empty':null,
+                  validator: (val) =>
+                      val == null || val == "" ? 'Cant be empty' : null,
                   initialValue: "${disease.name}",
-                  onSaved: (val){
+                  onSaved: (val) {
                     setState2(() {
                       updatedDisease = val;
                     });
@@ -265,7 +270,7 @@ class _AddDiseasesState extends State<AddDiseases> {
                 ElevatedButton(
                   child: Text('OK'),
                   onPressed: () async {
-                    if(formKey.currentState!.validate()){
+                    if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
                       print("updatedDisease $updatedDisease");
                       Response response = await _firebaseService.updateDisease(
@@ -277,8 +282,8 @@ class _AddDiseasesState extends State<AddDiseases> {
                   },
                 ),
               ],
-            );}
-          );
+            );
+          });
         });
   }
 }

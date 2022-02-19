@@ -19,6 +19,9 @@ const defaultPadding = 16.0;
 const DEF_SEC_FB = '123456789!@#&*()';
 
 const SELECTEDVILLAGE = 'SelectedVillage';
+const SELECTEDTALUKA = 'SelectedTaluka';
+const SELECTEDDISTRICT = 'SelectedDistrict';
+const DISTRICT = 'Jalgaon';
 
 final CollectionReference collectionDisease =
     FirebaseFirestore.instance.collection('Diseases');
