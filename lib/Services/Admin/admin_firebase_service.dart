@@ -277,4 +277,16 @@ class AdminFirebaseService {
     count = qSnap.docs.length;
     return count;
   }
+
+  Future<int> getCountByGender({
+    required String key,
+    required String value,
+  }) async {
+    List<Patient> _patients = [];
+    var allSurveyorsSnapshots =
+        await collectionPatient.where("$key", isEqualTo: value).get();
+    _patients.addAll(allSurveyorsSnapshots.docs.map((surveyor) =>
+        Patient.fromMap(surveyor.data() as Map<String, dynamic>)));
+    return _patients.length;
+  }
 }
