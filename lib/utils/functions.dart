@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 import 'dart:math';
 
 String? emailValidator(String text) {
-  bool validEmail = RegExp(r'^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$').hasMatch(text);
+  bool validEmail = RegExp(
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+      .hasMatch(text);
   if (validEmail) {
     return null;
   } else {
@@ -90,14 +92,12 @@ Future<void> showLoadingDialog(BuildContext context, GlobalKey key) async {
       builder: (BuildContext context) {
         return new WillPopScope(
             onWillPop: () async => false,
-            child: SimpleDialog(
-                key: key,
-                children: <Widget>[
-                  Center(
-                    child: Column(children: [
-                      CircularProgressIndicator(),
-                    ]),
-                  )
-                ]));
+            child: SimpleDialog(key: key, children: <Widget>[
+              Center(
+                child: Column(children: [
+                  CircularProgressIndicator(),
+                ]),
+              )
+            ]));
       });
 }
