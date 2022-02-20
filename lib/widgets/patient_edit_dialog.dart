@@ -73,6 +73,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       patientForm['gender'] = genderDropDown!.selectedItem!;
       patientForm['profession'] = professionDropDown!.selectedItem!;
       patientForm['village'] = widget.patient.village;
+      patientForm['timestamp'] = widget.patient.timestamp;
       _formKey.currentState!.save();
       print('$patientForm' + 'Patient form after');
 
@@ -139,7 +140,8 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
 
   onDiseaseSaved(diseaseSave) {
     print("diseaseSave :: $diseaseSave");
-    patientForm['diseases'] = diseaseSave;
+    patientForm['diseases'] = diseaseSave ?? widget.patient.diseases;
+
   }
 
   @override
@@ -426,7 +428,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       // onSaved: (villageSave) => onVllageSaved(villageSave),
       items: _diseaseList,
       showClearButton: true,
-      onChanged: (onSaved) {
+      onSaved: (onSaved) {
         onDiseaseSaved(onSaved);
       },
       selectedItems: List<String>.from(widget.patient.diseases),

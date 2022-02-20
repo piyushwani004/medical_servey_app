@@ -116,7 +116,7 @@ class Patient {
       address: map['address'] ?? '',
       gender: map['gender'] ?? '',
       date: map['date'] ?? '',
-      diseases: List.from(map['diseases']),
+      diseases: List<String>.from(map['diseases']),
       age: int.parse(map['age'].toString()),
       surveyorUID: map['surveyorUID'] ?? '',
       otherDisease: map['otherDisease'],
