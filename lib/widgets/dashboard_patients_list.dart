@@ -19,6 +19,7 @@ class _DashboardPatientsListState extends State<DashboardPatientsList> {
   AdminFirebaseService _firebaseService = AdminFirebaseService();
 
   final columns = [
+    'Id',
     'First Name',
     'Last Name',
     'Age',
@@ -26,6 +27,8 @@ class _DashboardPatientsListState extends State<DashboardPatientsList> {
     'Village',
     'Diseases',
     'Date',
+    'Aadhaar Number',
+    'Is Member',
   ];
   int? sortColumnIndex;
   bool isAscending = false;
@@ -50,6 +53,7 @@ class _DashboardPatientsListState extends State<DashboardPatientsList> {
   List<DataRow> getRows({required List<Patient> patients}) =>
       patients.map((Patient user) {
         final cells = [
+          '${(patients.indexOf(user) + 1)}',
           user.firstName,
           user.lastName,
           user.age,
@@ -57,6 +61,8 @@ class _DashboardPatientsListState extends State<DashboardPatientsList> {
           user.village,
           user.diseases,
           user.date,
+          user.aadhaarNumber,
+          user.isMember,
         ];
         print("cells $cells");
         return DataRow(
