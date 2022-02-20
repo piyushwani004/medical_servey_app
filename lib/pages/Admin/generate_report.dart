@@ -29,16 +29,21 @@ class _GenerateReportState extends State<GenerateReport> {
   DiseasePercentageCalculateService diseasePercentageCalculateService =
       DiseasePercentageCalculateService();
   AdminFirebaseService adminFirebaseService = AdminFirebaseService();
+  final _multiKeyTaluka = GlobalKey<DropdownSearchState<String>>();
+  final _multiKeyVillage = GlobalKey<DropdownSearchState<String>>();
 
   var width, height;
   List<DiseaseReportModel>? reportLst = [];
   Map<String, String> info = {};
+
   List<VillageData> villageData = [];
   List<String> villages = [];
   List<String> taluka = [];
+
   List<Patient> patientList = [];
-  String? selectedTaluka;
-  String? selectedVillage;
+
+  List<String>? selectedTaluka;
+  List<String>? selectedVillage;
 
   Future<void> fetchDataFromJson() async {
     final assetBundle = DefaultAssetBundle.of(context);
@@ -51,44 +56,61 @@ class _GenerateReportState extends State<GenerateReport> {
   }
 
   onVillageChanged(village) async {
+    patientList.clear();
     print("village $village");
     selectedVillage = village;
-    if (village != null) {
-      patientList = await adminFirebaseService.getPatientsByKeys(
-        key: "village",
-        value: village,
-      );
+    if (selectedVillage != null && selectedVillage!.isNotEmpty) {
+      for (var item in village) {
+        patientList.addAll(
+          await adminFirebaseService.getPatientsByKeys(
+            key: "village",
+            value: item,
+          ),
+        );
+      }
       print("patient sort by village Size : ${patientList.length}");
     } else {
-      if (selectedTaluka != null) {
-        patientList = await adminFirebaseService.getPatientsByKeys(
-          key: "taluka",
-          value: selectedTaluka!,
-        );
+      if (selectedTaluka != null && selectedTaluka!.isNotEmpty) {
+        for (var item in selectedTaluka!) {
+          patientList.addAll(
+            await adminFirebaseService.getPatientsByKeys(
+              key: "taluka",
+              value: item,
+            ),
+          );
+        }
       }
     }
     setState(() {});
   }
 
   onTalukaChanged(talukaChanged) async {
+    patientList.clear();
     selectedTaluka = talukaChanged;
-    if (talukaChanged != null) {
+    if (selectedTaluka != null && selectedTaluka!.isNotEmpty) {
+      villages.clear();
       setState(() {
-        String village = talukaChanged;
-        villages = villageData
-            .map((e) {
-              if (talukaChanged == e.taluka) {
-                village = e.village;
-              }
-              return village;
-            })
-            .toSet()
-            .toList();
+        for (String item in selectedTaluka!) {
+          String village = item;
+          villages.addAll(
+            villageData
+                .map((e) {
+                  if (item == e.taluka) {
+                    village = e.village;
+                  }
+                  return village;
+                })
+                .toSet()
+                .toList(),
+          );
+        }
       });
-      patientList = await adminFirebaseService.getPatientsByKeys(
-        key: "taluka",
-        value: talukaChanged,
-      );
+      for (var item in selectedTaluka!) {
+        patientList.addAll(await adminFirebaseService.getPatientsByKeys(
+          key: "taluka",
+          value: item,
+        ));
+      }
       print("patient sort by taluka Size : ${patientList.length}");
     } else {
       patientList.clear();
@@ -101,8 +123,10 @@ class _GenerateReportState extends State<GenerateReport> {
     final reportData = PdfModel(
       reportLst: this.reportLst,
     );
-    info[SELECTEDVILLAGE] = selectedVillage ?? "";
-    info[SELECTEDTALUKA] = selectedTaluka ?? "";
+
+    info[DATE] = DateTime.now().toString();
+    info[SELECTEDVILLAGE] = selectedVillage.toString();
+    info[SELECTEDTALUKA] = selectedTaluka.toString();
     info[SELECTEDDISTRICT] = DISTRICT;
     await PdfInvoiceApi.generateReportData(
       report: reportData,
@@ -200,34 +224,14 @@ class _GenerateReportState extends State<GenerateReport> {
               flex: 3,
               child: Padding(
                 padding: Common.allPadding(mHeight: height),
-                child: DropdownSearch<String>(
-                  mode: Mode.DIALOG,
-                  showSearchBox: true,
-                  items: taluka,
-                  showSelectedItems: true,
-                  dropdownSearchDecoration: Common.textFormFieldInputDecoration(
-                      labelText: "Select Taluka"),
-                  onChanged: (saved) => onTalukaChanged(saved),
-                  showClearButton: true,
-                  validator: (v) => v == null ? "required field" : null,
-                ),
+                child: multipleSelectionDropdownTaluka(),
               ),
             ),
             Flexible(
               flex: 3,
               child: Padding(
                 padding: Common.allPadding(mHeight: height),
-                child: DropdownSearch<String>(
-                  mode: Mode.DIALOG,
-                  showSearchBox: true,
-                  items: villages,
-                  showSelectedItems: true,
-                  dropdownSearchDecoration: Common.textFormFieldInputDecoration(
-                      labelText: "Select Village"),
-                  onChanged: (saved) => onVillageChanged(saved),
-                  showClearButton: true,
-                  validator: (v) => v == null ? "required field" : null,
-                ),
+                child: multipleSelectionDropdownVillage(),
               ),
             ),
             Flexible(
@@ -264,7 +268,7 @@ class _GenerateReportState extends State<GenerateReport> {
                         size: 60,
                       ),
                       Text(
-                        "${selectedTaluka != null ? selectedTaluka : ""}${selectedVillage != null ? " [$selectedVillage]" : ""} Diseases Report",
+                        "${selectedTaluka != null && selectedTaluka!.isNotEmpty ? selectedTaluka : ""}${selectedVillage != null && selectedVillage!.isNotEmpty ? " [$selectedVillage]" : ""} Diseases Report",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -338,6 +342,196 @@ class _GenerateReportState extends State<GenerateReport> {
           ),
         )
       ],
+    );
+  }
+
+  Widget multipleSelectionDropdownTaluka() {
+    return DropdownSearch<String>.multiSelection(
+      key: _multiKeyTaluka,
+      validator: (List<String>? v) {
+        return v == null || v.isEmpty ? "required field" : null;
+      },
+      dropdownBuilder: (context, selectedItems) {
+        Widget item(String i) => Container(
+              padding: EdgeInsets.only(left: 6, bottom: 3, top: 3, right: 0),
+              margin: EdgeInsets.symmetric(horizontal: 2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).primaryColorLight),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    i,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                  MaterialButton(
+                    height: 20,
+                    shape: const CircleBorder(),
+                    focusColor: Colors.red[200],
+                    hoverColor: Colors.red[200],
+                    padding: EdgeInsets.all(0),
+                    minWidth: 34,
+                    onPressed: () {
+                      _multiKeyTaluka.currentState?.removeItem(i);
+                    },
+                    child: Icon(
+                      Icons.close_outlined,
+                      size: 20,
+                    ),
+                  )
+                ],
+              ),
+            );
+        return Wrap(
+          children: selectedItems.map((e) => item(e)).toList(),
+        );
+      },
+      popupCustomMultiSelectionWidget: (context, list) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKeyTaluka.currentState?.closeDropDownSearch();
+                  },
+                  child: const Text('Cancel'),
+                ),
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKeyTaluka.currentState?.popupDeselectAllItems();
+                  },
+                  child: const Text('None'),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+      dropdownSearchDecoration:
+          Common.textFormFieldInputDecoration(labelText: "Select Taluka"),
+      mode: Mode.DIALOG,
+      showSelectedItems: true,
+      // onSaved: (villageSave) => onVllageSaved(villageSave),
+      items: taluka,
+      showClearButton: true,
+      onChanged: (saved) => onTalukaChanged(saved),
+      showSearchBox: true,
+      popupSelectionWidget: (cnt, String item, bool isSelected) {
+        return isSelected
+            ? Icon(
+                Icons.check_circle,
+                color: Colors.green[500],
+              )
+            : Container();
+      },
+    );
+  }
+
+  Widget multipleSelectionDropdownVillage() {
+    return DropdownSearch<String>.multiSelection(
+      key: _multiKeyVillage,
+      validator: (List<String>? v) {
+        return v == null || v.isEmpty ? "required field" : null;
+      },
+      dropdownBuilder: (context, selectedItems) {
+        Widget item(String i) => Container(
+              padding: EdgeInsets.only(left: 6, bottom: 3, top: 3, right: 0),
+              margin: EdgeInsets.symmetric(horizontal: 2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Theme.of(context).primaryColorLight),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    i,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                  MaterialButton(
+                    height: 20,
+                    shape: const CircleBorder(),
+                    focusColor: Colors.red[200],
+                    hoverColor: Colors.red[200],
+                    padding: EdgeInsets.all(0),
+                    minWidth: 34,
+                    onPressed: () {
+                      _multiKeyVillage.currentState?.removeItem(i);
+                    },
+                    child: Icon(
+                      Icons.close_outlined,
+                      size: 20,
+                    ),
+                  )
+                ],
+              ),
+            );
+        return Wrap(
+          children: selectedItems.map((e) => item(e)).toList(),
+        );
+      },
+      popupCustomMultiSelectionWidget: (context, list) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKeyVillage.currentState?.closeDropDownSearch();
+                  },
+                  child: const Text('Cancel'),
+                ),
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.all(8),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // How should I unselect all items in the list?
+                    _multiKeyVillage.currentState?.popupDeselectAllItems();
+                  },
+                  child: const Text('None'),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+      dropdownSearchDecoration:
+          Common.textFormFieldInputDecoration(labelText: "Select Village"),
+      mode: Mode.DIALOG,
+      showSelectedItems: true,
+      // onSaved: (villageSave) => onVllageSaved(villageSave),
+      items: villages,
+      showClearButton: true,
+      onChanged: (saved) => onVillageChanged(saved),
+      showSearchBox: true,
+      popupSelectionWidget: (cnt, String item, bool isSelected) {
+        return isSelected
+            ? Icon(
+                Icons.check_circle,
+                color: Colors.green[500],
+              )
+            : Container();
+      },
     );
   }
 }

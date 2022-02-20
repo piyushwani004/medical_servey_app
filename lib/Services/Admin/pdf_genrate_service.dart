@@ -249,6 +249,10 @@ class PdfInvoiceApi {
         children: [
           pw.SizedBox(height: 10),
           Text(
+            'Date :- ${info[DATE]}',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+          ),
+          Text(
             'District :- ${info[SELECTEDDISTRICT]}',
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
           ),
