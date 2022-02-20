@@ -61,6 +61,8 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     'Profession',
     'Mobile-Number',
     'Diseases',
+    'Aadhaar Number',
+    'Is Member',
   ];
 
   Future<void> fetchDataFromJson() async {
@@ -95,6 +97,7 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
             patient.id.toLowerCase().contains(searchText) ||
             patient.village.toLowerCase().contains(searchText) ||
             patient.taluka.toLowerCase().contains(searchText) ||
+            patient.aadhaarNumber.toLowerCase().contains(searchText) ||
             patient.profession.toLowerCase().contains(searchText))
         .toList();
     setState(() {});
