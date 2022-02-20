@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 
-
 class DataTableWithGivenColumnForPatient extends StatefulWidget {
   final List<String> columns;
   final List<Patient> records;
@@ -16,7 +15,8 @@ class DataTableWithGivenColumnForPatient extends StatefulWidget {
       _DataTableWithGivenColumnForPatientState();
 }
 
-class _DataTableWithGivenColumnForPatientState extends State<DataTableWithGivenColumnForPatient> {
+class _DataTableWithGivenColumnForPatientState
+    extends State<DataTableWithGivenColumnForPatient> {
   int? sortColumnIndex;
   bool isAscending = false;
   List<Patient>? filteredRecords;
@@ -26,11 +26,11 @@ class _DataTableWithGivenColumnForPatientState extends State<DataTableWithGivenC
 
   void onSort(int columnIndex, bool ascending) {
     switch (columnIndex) {
-    //email
+      //email
       case 0:
         print('email');
-        widget.records.sort((Patient r1, Patient r2) =>
-            compareString(ascending, r1.id, r2.id));
+        widget.records.sort(
+            (Patient r1, Patient r2) => compareString(ascending, r1.id, r2.id));
         break;
       case 1:
         widget.records.sort((Patient r1, Patient r2) =>
@@ -45,8 +45,8 @@ class _DataTableWithGivenColumnForPatientState extends State<DataTableWithGivenC
             compareString(ascending, r1.firstName, r2.firstName));
         break;
       case 4:
-        widget.records.sort((Patient r1, Patient r2) =>
-            compareString(ascending, r1.middleName.toString(), r2.middleName.toString()));
+        widget.records.sort((Patient r1, Patient r2) => compareString(
+            ascending, r1.middleName.toString(), r2.middleName.toString()));
         break;
       case 5:
         widget.records.sort((Patient r1, Patient r2) =>
@@ -78,37 +78,37 @@ class _DataTableWithGivenColumnForPatientState extends State<DataTableWithGivenC
 
   List<DataColumn> getColumns(List<String> columns) => columns
       .map((String column) => DataColumn(
-      onSort: onSort,
-      label: Text(
-        column,
-        style: TextStyle(fontWeight: FontWeight.bold),
-      )))
+          onSort: onSort,
+          label: Text(
+            column,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          )))
       .toList();
 
   List<DataRow> getRows(List<Patient> records) => records
       .map((Patient row) => DataRow(
-    cells: [
-      DataCell(Text(row.id)),
-      DataCell(Text(row.village)),
-      DataCell(Text(row.email)),
-      DataCell(Text(row.firstName)),
-      DataCell(Text(row.middleName)),
-      DataCell(Text(row.lastName)),
-      DataCell(Text(row.age.toString())),
-      DataCell(Text(row.gender)),
-      DataCell(Text(row.address)),
-      DataCell(Text(row.profession)),
-      DataCell(Text(row.mobileNumber)),
-      DataCell(Text(row.diseases.toString())),
-    ],
-    selected: widget.selectedRecords.contains(row),
-    onSelectChanged: (isSelected) => setState(() {
-      final isAdding = isSelected != null && isSelected;
-      isAdding
-          ? widget.selectedRecords.add(row)
-          : widget.selectedRecords.remove(row);
-    }),
-  ))
+            cells: [
+              DataCell(Text((records.indexOf(row) + 1).toString())),
+              DataCell(Text(row.village)),
+              DataCell(Text(row.email)),
+              DataCell(Text(row.firstName)),
+              DataCell(Text(row.middleName)),
+              DataCell(Text(row.lastName)),
+              DataCell(Text(row.age.toString())),
+              DataCell(Text(row.gender)),
+              DataCell(Text(row.address)),
+              DataCell(Text(row.profession)),
+              DataCell(Text(row.mobileNumber)),
+              DataCell(Text(row.diseases.toString())),
+            ],
+            selected: widget.selectedRecords.contains(row),
+            onSelectChanged: (isSelected) => setState(() {
+              final isAdding = isSelected != null && isSelected;
+              isAdding
+                  ? widget.selectedRecords.add(row)
+                  : widget.selectedRecords.remove(row);
+            }),
+          ))
       .toList();
 
   Widget buildDataTable() {
