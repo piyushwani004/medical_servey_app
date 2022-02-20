@@ -21,7 +21,8 @@ class Patient {
   String village;
   String taluka;
   Timestamp timestamp;
-
+  bool isMember;
+  String aadhaarNumber;
   Patient({
     required this.id,
     required this.firstName,
@@ -40,6 +41,8 @@ class Patient {
     required this.village,
     required this.taluka,
     required this.timestamp,
+    required this.isMember,
+    required this.aadhaarNumber,
   });
 
   Patient copyWith({
@@ -60,6 +63,8 @@ class Patient {
     String? village,
     String? taluka,
     Timestamp? timestamp,
+    bool? isMember,
+    String? aadhaarNumber,
   }) {
     return Patient(
       id: id ?? this.id,
@@ -79,6 +84,8 @@ class Patient {
       village: village ?? this.village,
       taluka: taluka ?? this.taluka,
       timestamp: timestamp ?? this.timestamp,
+      isMember: isMember ?? this.isMember,
+      aadhaarNumber: aadhaarNumber ?? this.aadhaarNumber,
     );
   }
 
@@ -101,6 +108,8 @@ class Patient {
       'village': village,
       'taluka': taluka,
       'timestamp': timestamp,
+      'isMember': isMember,
+      'aadhaarNumber': aadhaarNumber,
     };
   }
 
@@ -123,6 +132,8 @@ class Patient {
       village: map['village'] ?? '',
       taluka: map['taluka'] ?? '',
       timestamp: map['timestamp'],
+      isMember: map['isMember'] ?? false,
+      aadhaarNumber: map['aadhaarNumber'] ?? '',
     );
   }
 
@@ -133,7 +144,7 @@ class Patient {
 
   @override
   String toString() {
-    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease, village: $village, taluka: $taluka, timestamp: $timestamp)';
+    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease, village: $village, taluka: $taluka, timestamp: $timestamp, isMember: $isMember, aadhaarNumber: $aadhaarNumber)';
   }
 
   @override
@@ -157,7 +168,9 @@ class Patient {
         other.otherDisease == otherDisease &&
         other.village == village &&
         other.taluka == taluka &&
-        other.timestamp == timestamp;
+        other.timestamp == timestamp &&
+        other.isMember == isMember &&
+        other.aadhaarNumber == aadhaarNumber;
   }
 
   @override
@@ -178,6 +191,8 @@ class Patient {
         otherDisease.hashCode ^
         village.hashCode ^
         taluka.hashCode ^
-        timestamp.hashCode;
+        timestamp.hashCode ^
+        isMember.hashCode ^
+        aadhaarNumber.hashCode;
   }
 }

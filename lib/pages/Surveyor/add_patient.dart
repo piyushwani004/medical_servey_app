@@ -45,6 +45,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
   List<int> ages = generateN2MList(15, 100);
   String? selectedVillage;
   Surveyor? _surveyor;
+  bool isMember = false;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -89,6 +90,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       patientForm['village'] = selectedVillage;
       patientForm['taluka'] = _surveyor!.taluka;
       patientForm['timestamp'] = Timestamp.fromDate(DateTime.now());
+      patientForm['isMember'] = isMember;
       formKeyNewSurveyorForm.currentState!.save();
 
       print("patientForm map: $patientForm");
@@ -111,6 +113,10 @@ class _AddPatientFormState extends State<AddPatientForm> {
             isError: true);
       }
     }
+  }
+  onChangeOfIsMember(bool changedVal){
+    this.isMember = changedVal;
+    setState(() {});
   }
 
   @override
@@ -189,7 +195,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
 
   Widget body({required Map<String, dynamic> patientForm, required formKey}) {
     final fullName = TextFormField(
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.text,
       autofocus: false,
       validator: (name) {
         print("in valid full name");
@@ -223,7 +229,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       decoration: Common.textFormFieldInputDecoration(labelText: "Email"),
     );
     final address = TextFormField(
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.text,
       autofocus: false,
       onSaved: (address) {
         patientForm["address"] = address!;
@@ -253,6 +259,17 @@ class _AddPatientFormState extends State<AddPatientForm> {
       },
       decoration: Common.textFormFieldInputDecoration(labelText: "Disease"),
     );
+    final aadhaarNo = TextFormField(
+      keyboardType: TextInputType.number,
+      validator: (aadhaarNo) => aadhaarNumberValidator(aadhaarNo!),
+      autofocus: false,
+      onSaved: (aadhaarNo) {
+        patientForm["aadhaarNumber"] = aadhaarNo!;
+      },
+      decoration:
+      Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
+    );
+    final isMemberListTile = CheckboxListTile(title: Text("Already a member?"),value: isMember, onChanged: (value) => onChangeOfIsMember(value!) );
 
     final submitBtn = OutlinedButton(
         onPressed: () {
@@ -321,6 +338,14 @@ class _AddPatientFormState extends State<AddPatientForm> {
             Padding(
               padding: Common.allPadding(mHeight: height),
               child: address,
+            ),
+            Padding(
+              padding: Common.allPadding(mHeight: height),
+              child: aadhaarNo,
+            ),
+            Padding(
+              padding: Common.allPadding(mHeight: height),
+              child: isMemberListTile,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
