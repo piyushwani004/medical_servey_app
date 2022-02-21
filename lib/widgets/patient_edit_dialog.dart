@@ -33,6 +33,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
   List<Disease> _diseaseData = [];
   List<String> _diseaseList = [];
   List<int> ages = generateN2MList(15, 100);
+  bool isMember = false;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
@@ -73,6 +74,8 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       patientForm['gender'] = genderDropDown!.selectedItem!;
       patientForm['profession'] = professionDropDown!.selectedItem!;
       patientForm['village'] = widget.patient.village;
+      patientForm['timestamp'] = widget.patient.timestamp;
+      patientForm['isMember'] = isMember;
       _formKey.currentState!.save();
       print('$patientForm' + 'Patient form after');
 
@@ -109,9 +112,16 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
           isSuccessful: false, message: 'Some fields have invalid values.');
     }
   }
+  onChangeOfIsMember(bool changedVal){
+    this.isMember = changedVal;
+    setState(() {});
+  }
 
   @override
   void initState() {
+
+    isMember = widget.patient.isMember;
+
     ageDropDown = DropDownButtonWidget(
       items: ages.map((age) => age.toString()).toList(),
       selectedItem: widget.patient.age.toString(),
@@ -139,7 +149,8 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
 
   onDiseaseSaved(diseaseSave) {
     print("diseaseSave :: $diseaseSave");
-    patientForm['diseases'] = diseaseSave;
+    patientForm['diseases'] = diseaseSave ?? widget.patient.diseases;
+
   }
 
   @override
@@ -210,7 +221,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     );
     final address = TextFormField(
       initialValue: widget.patient.address,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.text,
       autofocus: false,
       onSaved: (address) {
         patientForm["address"] = address!;
@@ -226,17 +237,28 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       onSaved: (mobileNo) {
         patientForm["mobileNumber"] = mobileNo!;
       },
-      // validator: (email) => emailValidator(email!),
       decoration:
           Common.textFormFieldInputDecoration(labelText: "Mobile Number"),
     );
+    final aadhaarNo = TextFormField(
+      initialValue: widget.patient.aadhaarNumber,
+      keyboardType: TextInputType.number,
+      validator: (aadhaarNo) => aadhaarNumberValidator(aadhaarNo!),
+      autofocus: false,
+      onSaved: (aadhaarNo) {
+        patientForm["aadhaarNumber"] = aadhaarNo!;
+      },
+      decoration:
+      Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
+    );
+    final isMemberListTile = CheckboxListTile(title: Text("Already a member?"),value: isMember, onChanged: (value) => onChangeOfIsMember(value!) );
+
     final otherDiseaseInput = TextFormField(
       keyboardType: TextInputType.text,
       autofocus: false,
       onSaved: (othDisease) {
         patientForm["diseases"] = othDisease!;
       },
-      // validator: (email) => emailValidator(email!),
       decoration: Common.textFormFieldInputDecoration(labelText: "Disease"),
     );
 
@@ -299,6 +321,14 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
               Padding(
                 padding: Common.allPadding(mHeight: height),
                 child: address,
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: aadhaarNo,
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: isMemberListTile,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -426,7 +456,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       // onSaved: (villageSave) => onVllageSaved(villageSave),
       items: _diseaseList,
       showClearButton: true,
-      onChanged: (onSaved) {
+      onSaved: (onSaved) {
         onDiseaseSaved(onSaved);
       },
       selectedItems: List<String>.from(widget.patient.diseases),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
@@ -15,6 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _textController = TextEditingController();
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final formKeyEmailPass = GlobalKey<FormState>();
   var width, height;
   Map<String, String> emailPassword = {};
@@ -26,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     if (formKeyEmailPass.currentState!.validate()) {
       _loading?.on();
       formKeyEmailPass.currentState!.save();
-
+          
       Response isSignedIn = await context.read<FirebaseAuthService>().signIn(
           email: emailPassword['email'] ?? '',
           password: emailPassword['password'] ?? '');

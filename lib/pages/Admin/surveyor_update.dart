@@ -5,8 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:medical_servey_app/Services/Admin/admin_firebase_service.dart';
 import 'package:medical_servey_app/Services/Admin/pdf_genrate_service.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
+import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/common/pdf_model.dart';
 import 'package:medical_servey_app/utils/constants.dart';
+import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/utils/responsive.dart';
 import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
 import 'package:medical_servey_app/widgets/common.dart';
@@ -39,6 +41,7 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
   Loading? _loading;
   final scaffoldState = GlobalKey<ScaffoldState>();
   List<String> columnsOfDataTable = [
+    'ID',
     'Email',
     'First-Name',
     'Middle-Name',
@@ -96,6 +99,37 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
           context: context,
           builder: (context) => SurveyorEditDialog(
               surveyor: dataTableWithGivenColumn!.selectedRecords[0]));
+      setState(() {});
+    } else {
+      Common.showAlert(
+          context: context,
+          title: 'Surveyor Edit',
+          content: dataTableWithGivenColumn!.selectedRecords.isEmpty
+              ? 'Please select a Surveyor'
+              : 'Cannot edit multiple at a time',
+          isError: true);
+    }
+  }
+
+  onPressedDelete() async {
+    if (dataTableWithGivenColumn!.selectedRecords.isNotEmpty &&
+        dataTableWithGivenColumn!.selectedRecords.length == 1) {
+      Response response = await _firebaseService.deleteSurveyor(
+        dataTableWithGivenColumn!.selectedRecords[0],
+      );
+      if (response.isSuccessful) {
+        await Common.showAlert(
+            context: context,
+            title: 'Surveyor Delete',
+            content: response.message,
+            isError: false);
+      } else {
+        await Common.showAlert(
+            context: context,
+            title: 'Failed in Delete Patient',
+            content: response.message,
+            isError: true);
+      }
       setState(() {});
     } else {
       Common.showAlert(
@@ -223,6 +257,13 @@ class _SurveyorListForUpdateState extends State<SurveyorListForUpdate> {
                 await onUpdatePressed();
               },
               icon: Icon(Icons.edit),
+            ),
+            IconButton(
+              tooltip: "Delete",
+              onPressed: () async {
+                onPressedDelete();
+              },
+              icon: Icon(Icons.delete),
             ),
             IconButton(
               tooltip: "Save PDF",

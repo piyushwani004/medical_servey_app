@@ -65,6 +65,35 @@ class AdminFirebaseService {
     }
   }
 
+  Future<Response> deleteSurveyor(Surveyor surveyor) async {
+    //updating the surveyor details first
+
+    String message = "";
+    bool isSuccessful = false;
+    String email = surveyor.email;
+    try {
+      final QuerySnapshot searchedUserId = await instance!
+          .collection('Surveyor')
+          .where('email', isEqualTo: email)
+          .limit(1)
+          .get();
+      DocumentSnapshot document = searchedUserId.docs.first;
+      final userDocId = document.id;
+
+      print("deleteSurveyor info::: $userDocId");
+      CollectionReference surveyorCollection = instance!.collection('Surveyor');
+      surveyorCollection.doc(userDocId).delete();
+
+      message = "Delete Successfully";
+      isSuccessful = true;
+      return Response(isSuccessful: isSuccessful, message: message);
+    } on FirebaseException catch (e) {
+      isSuccessful = false;
+      message = e.message.toString();
+      return Response(isSuccessful: isSuccessful, message: message);
+    }
+  }
+
   Future<Response> createSurveyorAccount(Surveyor surveyor) async {
     //creating the surveyor account with random password
     try {

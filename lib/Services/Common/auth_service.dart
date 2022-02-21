@@ -1,5 +1,6 @@
 //provider code
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
@@ -69,6 +70,34 @@ class FirebaseAuthService {
           isSuccessful: true, message: "Successfully sent email to $email");
     } on FirebaseAuthException catch (e) {
       return Response(isSuccessful: false, message: e.message.toString());
+    }
+  }
+
+  Future<Response> deleteUser() async {
+    try {
+      User? firebaseUser = _firebaseAuth.currentUser;
+      firebaseUser!.delete();
+      return Response(isSuccessful: true, message: "Successfully delete user");
+    } on FirebaseAuthException catch (e) {
+      return Response(isSuccessful: false, message: e.message.toString());
+    }
+  }
+
+  Stream<Response> checkValidAccount({required String email}) async* {
+    try {
+      print("checkValidAccount...");
+      FirebaseFirestore _instance = FirebaseFirestore.instance;
+      CollectionReference surveyorCollection = _instance.collection('Surveyor');
+      var collection = surveyorCollection.where("email", isEqualTo: "$email");
+      var querySnapshots = await collection.get();
+      print("querySnapshots: ${querySnapshots.docs.toString()}");
+      if (querySnapshots.size > 0) {
+        yield Response(isSuccessful: true, message: "Valid User");
+      } else {
+        yield Response(isSuccessful: false, message: "Failed");
+      }
+    } catch (e) {
+      yield Response(isSuccessful: false, message: "${e.toString()}");
     }
   }
 }

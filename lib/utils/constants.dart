@@ -18,6 +18,7 @@ const defaultPadding = 16.0;
 
 const DEF_SEC_FB = '123456789!@#&*()';
 
+const DATE = 'Date';
 const SELECTEDVILLAGE = 'SelectedVillage';
 const SELECTEDTALUKA = 'SelectedTaluka';
 const SELECTEDDISTRICT = 'SelectedDistrict';

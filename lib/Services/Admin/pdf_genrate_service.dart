@@ -51,12 +51,14 @@ class PdfInvoiceApi {
       'Diseases',
       'OtherDisease',
       'Age',
-      'Village'
+      'Village',
+      'Aadhaar Number',
+      'is Member',
     ];
 
     final data = pdf.patientLst!.map((item) {
       return [
-        item.id,
+        pdf.patientLst!.indexOf(item) + 1,
         "${item.firstName} ${item.middleName} ${item.lastName}",
         item.profession,
         item.email,
@@ -68,6 +70,8 @@ class PdfInvoiceApi {
         item.otherDisease,
         item.age,
         item.village,
+        item.aadhaarNumber,
+        item.isMember ? 'Yes' : 'No',
       ];
     }).toList();
 
@@ -141,6 +145,7 @@ class PdfInvoiceApi {
 
   static Widget buildSurveyorTable(PdfModel pdf) {
     final headers = [
+      'Id',
       'Name',
       'Profession',
       'Email',
@@ -157,6 +162,7 @@ class PdfInvoiceApi {
 
     final data = pdf.surveyorLst!.map((item) {
       return [
+        pdf.surveyorLst!.indexOf(item) + 1,
         "${item.firstName} ${item.middleName} ${item.lastName}",
         item.profession,
         item.email,
@@ -248,6 +254,10 @@ class PdfInvoiceApi {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           pw.SizedBox(height: 10),
+          Text(
+            'Date :- ${info[DATE]}',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+          ),
           Text(
             'District :- ${info[SELECTEDDISTRICT]}',
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),

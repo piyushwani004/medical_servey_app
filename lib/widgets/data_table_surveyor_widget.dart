@@ -92,6 +92,7 @@ class _DataTableWithGivenColumnForSurveyorState
   List<DataRow> getRows(List<Surveyor> records) => records
       .map((Surveyor row) => DataRow(
             cells: [
+              DataCell(Text((records.indexOf(row) + 1).toString())),
               DataCell(Text(row.email)),
               DataCell(Text(row.firstName)),
               DataCell(Text(row.middleName)),
