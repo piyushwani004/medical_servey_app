@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
 import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
@@ -206,6 +207,7 @@ class _LoginPageState extends State<LoginPage> {
       "$CREATEDBY",
       style: TextStyle(
         fontSize: 12,
+        color: Colors.grey
       ),
     );
 
@@ -232,108 +234,122 @@ class _LoginPageState extends State<LoginPage> {
                 ? 20
                 : 16),
         child: Center(
-          child: Card(
-            elevation: 8,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(25),
-              ),
-            ),
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 200),
-              height: size.height *
-                  (size.height > 770
-                      ? 0.7
-                      : size.height > 670
-                          ? 0.8
-                          : 0.9),
-              width: 500,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Card(
+                elevation: 8,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(25),
+                  ),
                 ),
-              ),
-              child: Form(
-                key: formKeyEmailPass,
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.all(40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          logo,
-                          Text(
-                            "LOG IN",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            width: 30,
-                            child: Divider(
-                              color: kPrimaryColor,
-                              thickness: 2,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 32,
-                          ),
-                          email,
-                          SizedBox(
-                            height: 32,
-                          ),
-                          password,
-                          SizedBox(
-                            height: 24,
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                    height: 24.0,
-                                    width: 24.0,
-                                    child: Theme(
-                                      data: ThemeData(
-                                          unselectedWidgetColor:
-                                              Color(0xff00C8E8) // Your color
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 200),
+                  height: size.height *
+                      (size.height > 770
+                          ? 0.7
+                          : size.height > 670
+                              ? 0.8
+                              : 0.9),
+                  width: 500,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                  ),
+                  child: Form(
+                    key: formKeyEmailPass,
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: EdgeInsets.all(40),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              logo,
+                              Text(
+                                "LOG IN",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey[700],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Container(
+                                width: 30,
+                                child: Divider(
+                                  color: kPrimaryColor,
+                                  thickness: 2,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 32,
+                              ),
+                              email,
+                              SizedBox(
+                                height: 32,
+                              ),
+                              password,
+                              SizedBox(
+                                height: 24,
+                              ),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                        height: 24.0,
+                                        width: 24.0,
+                                        child: Theme(
+                                          data: ThemeData(
+                                              unselectedWidgetColor:
+                                                  Color(0xff00C8E8) // Your color
+                                              ),
+                                          child: Checkbox(
+                                            activeColor: Color(0xff00C8E8),
+                                            value: _isChecked,
+                                            onChanged: (value) =>
+                                                _handleRemeberme(value!),
                                           ),
-                                      child: Checkbox(
-                                        activeColor: Color(0xff00C8E8),
-                                        value: _isChecked,
-                                        onChanged: (value) =>
-                                            _handleRemeberme(value!),
-                                      ),
-                                    )),
-                                SizedBox(width: 10.0),
-                                Text("Remember Me",
-                                    style: TextStyle(
-                                        color: Color(0xff646464),
-                                        fontSize: 12,
-                                        fontFamily: 'Rubic'))
-                              ]),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: forgotLabel),
-                          SizedBox(
-                            height: 10,
+                                        )),
+                                    SizedBox(width: 10.0),
+                                    Text("Remember Me",
+                                        style: TextStyle(
+                                            color: Color(0xff646464),
+                                            fontSize: 12,
+                                            fontFamily: 'Rubic'))
+                                  ]),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: forgotLabel),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              loginButton,
+                              SizedBox(
+                                height: 12,
+                              ),
+
+                            ],
                           ),
-                          loginButton,
-                          SizedBox(
-                            height: 12,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
+              SizedBox(height: size.height*0.01,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(child: createdByText),
+                ],
+              )
+            ],
           ),
         ),
       ),
