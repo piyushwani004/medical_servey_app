@@ -38,6 +38,11 @@ class _LoginPageState extends State<LoginPage> {
           password: emailPassword['password'] ?? '');
 
       if (isSignedIn.isSuccessful) {
+        sharePrefrenceService.setLoginDetails(
+          rememberMe: _isChecked,
+          password: _textControllerPassword.text,
+          email: _textControllerEmail.text,
+        );
         _loading?.off();
         showSnackBar(context, isSignedIn.message);
       } else {
@@ -75,11 +80,6 @@ class _LoginPageState extends State<LoginPage> {
   _handleRemeberme(bool value) {
     print("Handle Rember Me");
     _isChecked = value;
-    sharePrefrenceService.setLoginDetails(
-      rememberMe: value,
-      password: _textControllerPassword.text,
-      email: _textControllerEmail.text,
-    );
     sharePrefrenceService.getLoginDetails();
     setState(() {
       _isChecked = value;
