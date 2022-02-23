@@ -24,6 +24,11 @@ const SELECTEDTALUKA = 'SelectedTaluka';
 const SELECTEDDISTRICT = 'SelectedDistrict';
 const DISTRICT = 'Jalgaon';
 
+const REMEMBER_ME = 'remember_me';
+const EMAIL = 'email';
+const PASSWORD = 'password';
+
+
 const COMPANYNAME = 'Libity Infotech Pvt. Ltd. Jalgaon';
 const CREATEDBY = 'This is a creation by $COMPANYNAME';
 const TEMPLATE = 'This template is made with by';

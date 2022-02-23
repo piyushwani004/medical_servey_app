@@ -67,12 +67,12 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        iconSize: height * 0.05,
+                        iconSize: height * 0.04,
                         icon: Icon(Icons.arrow_back)),
                   ),
                   Center(
                     child: CircleAvatar(
-                      radius: 65.0,
+                      radius: height * 0.08,
                       backgroundImage: AssetImage(LOGO_PATH),
                       backgroundColor: Colors.white,
                     ),
@@ -99,7 +99,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
               ),
             ),
             Expanded(
-              flex: 5,
+              flex: 4,
               child: Container(
                 color: scafoldbBackgroundColor,
                 child: Center(
@@ -374,7 +374,7 @@ class _SurveyorProfieState extends State<SurveyorProfie> {
           ],
         ),
         Positioned(
-            top: MediaQuery.of(context).size.height * 0.33,
+            top: MediaQuery.of(context).size.height * 0.35,
             left: MediaQuery.of(context).size.width * 0.04,
             right: MediaQuery.of(context).size.width * 0.04,
             child: Card(

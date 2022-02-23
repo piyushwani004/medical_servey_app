@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
+import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/functions.dart';
@@ -15,14 +16,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _textControllerEmail = TextEditingController();
+  final TextEditingController _textControllerPassword = TextEditingController();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final formKeyEmailPass = GlobalKey<FormState>();
+  VillageSelectService sharePrefrenceService = VillageSelectService();
   var width, height;
   Map<String, String> emailPassword = {};
   final GlobalKey<State> _keyLoader = GlobalKey<State>();
   Loading? _loading;
   bool _obscureText = true;
+  bool _isChecked = false;
 
   onLoginPressed() async {
     if (formKeyEmailPass.currentState!.validate()) {
@@ -45,11 +49,11 @@ class _LoginPageState extends State<LoginPage> {
 
   onForgotPressed() async {
     bool isEmailValid =
-        emailValidator(_textController.text) == null ? true : false;
+        emailValidator(_textControllerEmail.text) == null ? true : false;
     if (isEmailValid) {
       Response emailSent = await context
           .read<FirebaseAuthService>()
-          .sendPasswordResetEmail(_textController.text);
+          .sendPasswordResetEmail(_textControllerEmail.text);
       if (emailSent.isSuccessful) {
         Common.showAlert(
             context: context,
@@ -68,15 +72,55 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  _handleRemeberme(bool value) {
+    print("Handle Rember Me");
+    _isChecked = value;
+    sharePrefrenceService.setLoginDetails(
+      rememberMe: value,
+      password: _textControllerPassword.text,
+      email: _textControllerEmail.text,
+    );
+    sharePrefrenceService.getLoginDetails();
+    setState(() {
+      _isChecked = value;
+    });
+  }
+
+  _loadUserEmailPassword() async {
+    print("Load Email");
+    try {
+      Map<String, String> map = await sharePrefrenceService.getLoginDetails();
+      String _email = map[EMAIL] ?? "";
+      String _password = map[PASSWORD] ?? "";
+      String val = map[REMEMBER_ME] ?? "";
+      bool _remeberMe = val.parseBool();
+
+      print(_remeberMe);
+      print(_email);
+      print(_password);
+
+      if (_remeberMe) {
+        setState(() {
+          _isChecked = true;
+        });
+        _textControllerEmail.text = _email;
+        _textControllerPassword.text = _password;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     _loading = Loading(context: context, key: _keyLoader);
+    _loadUserEmailPassword();
     super.initState();
   }
 
   @override
   void dispose() {
-    _textController.dispose();
+    _textControllerEmail.dispose();
     super.dispose();
   }
 
@@ -94,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
     final email = TextFormField(
-      controller: _textController,
+      controller: _textControllerEmail,
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       onSaved: (email) {
@@ -115,6 +159,7 @@ class _LoginPageState extends State<LoginPage> {
       },
       validator: (value) => value!.isEmpty ? 'Password cannot be blank' : null,
       autofocus: false,
+      controller: _textControllerPassword,
       obscureText: _obscureText,
       decoration: InputDecoration(
         hintText: 'Password',
@@ -247,6 +292,31 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(
                             height: 24,
                           ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                    height: 24.0,
+                                    width: 24.0,
+                                    child: Theme(
+                                      data: ThemeData(
+                                          unselectedWidgetColor:
+                                              Color(0xff00C8E8) // Your color
+                                          ),
+                                      child: Checkbox(
+                                        activeColor: Color(0xff00C8E8),
+                                        value: _isChecked,
+                                        onChanged: (value) =>
+                                            _handleRemeberme(value!),
+                                      ),
+                                    )),
+                                SizedBox(width: 10.0),
+                                Text("Remember Me",
+                                    style: TextStyle(
+                                        color: Color(0xff646464),
+                                        fontSize: 12,
+                                        fontFamily: 'Rubic'))
+                              ]),
                           Align(
                               alignment: Alignment.centerRight,
                               child: forgotLabel),
