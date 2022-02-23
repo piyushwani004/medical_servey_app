@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
     if (formKeyEmailPass.currentState!.validate()) {
       _loading?.on();
       formKeyEmailPass.currentState!.save();
-          
+
       Response isSignedIn = await context.read<FirebaseAuthService>().signIn(
           email: emailPassword['email'] ?? '',
           password: emailPassword['password'] ?? '');
@@ -113,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
       onSaved: (password) {
         emailPassword["password"] = password!;
       },
+      validator: (value) => value!.isEmpty ? 'Password cannot be blank' : null,
       autofocus: false,
       obscureText: _obscureText,
       decoration: InputDecoration(
@@ -156,17 +157,38 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
 
+    final createdByText = Text(
+      "$CREATEDBY",
+      style: TextStyle(
+        fontSize: 12,
+      ),
+    );
+
+    final templateText = Text(
+      "$TEMPLATE",
+      style: TextStyle(
+        fontSize: 12,
+      ),
+    );
+
+    final companyNameText = Text(
+      "$COMPANYNAME",
+      style: TextStyle(
+        fontSize: 12,
+      ),
+    );
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(234, 242, 255, 1.0),
       body: Padding(
         padding: EdgeInsets.all(size.height > 770
-            ? 64
+            ? 10
             : size.height > 670
-                ? 32
+                ? 20
                 : 16),
         child: Center(
           child: Card(
-            elevation: 4,
+            elevation: 8,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(25),
@@ -181,7 +203,12 @@ class _LoginPageState extends State<LoginPage> {
                           ? 0.8
                           : 0.9),
               width: 500,
-              color: Colors.white,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(25),
+                ),
+              ),
               child: Form(
                 key: formKeyEmailPass,
                 child: Center(

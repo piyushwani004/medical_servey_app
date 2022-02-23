@@ -39,6 +39,7 @@ class _SideMenuState extends State<SideMenu> {
             accountName: Text("Admin"),
             accountEmail: Text("Admin@gmail.com"),
             currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.transparent,
               backgroundImage: AssetImage(LOGO_PATH),
             ),
           ),
