@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-const String TRUST_NAME = "Trust Name";
+const String TRUST_NAME = "Medical Survey";
 const primaryColor = Color(0xFF2697FF);
 const secondaryColor = Color(0xFF2A2D3E);
 const bgColor = Color(0xFF212332);
@@ -23,6 +23,15 @@ const SELECTEDVILLAGE = 'SelectedVillage';
 const SELECTEDTALUKA = 'SelectedTaluka';
 const SELECTEDDISTRICT = 'SelectedDistrict';
 const DISTRICT = 'Jalgaon';
+
+const REMEMBER_ME = 'remember_me';
+const EMAIL = 'email';
+const PASSWORD = 'password';
+
+
+const COMPANYNAME = 'Libity Infotech Pvt. Ltd. Jalgaon';
+const CREATEDBY = 'This is a creation by $COMPANYNAME';
+const TEMPLATE = 'This template is made with by';
 
 final CollectionReference collectionDisease =
     FirebaseFirestore.instance.collection('Diseases');

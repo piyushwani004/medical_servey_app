@@ -32,4 +32,36 @@ class VillageSelectService {
     print("_selectedVillage String: $_selectedVillage");
     return _selectedVillage;
   }
+
+  Future<void> setLoginDetails({
+    required bool rememberMe,
+    required String password,
+    required String email,
+  }) async {
+    try {
+      final SharedPreferences prefs = await _prefs;
+      prefs.setBool(REMEMBER_ME, rememberMe);
+      prefs.setString(EMAIL, email);
+      prefs.setString(PASSWORD, password);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<Map<String, String>> getLoginDetails() async {
+    Map<String, String> map = {};
+    try {
+      final SharedPreferences prefs = await _prefs;
+      bool _getRememberMe = prefs.getBool(REMEMBER_ME) ?? false;
+      String _getEmailID = prefs.getString(EMAIL) ?? "";
+      String _getPassword = prefs.getString(PASSWORD) ?? "";
+      map[REMEMBER_ME] = _getRememberMe.toString();
+      map[EMAIL] = _getEmailID;
+      map[PASSWORD] = _getPassword;
+      print("getLoginDetails String: $map");
+    } catch (e) {
+      print(e);
+    }
+    return map;
+  }
 }

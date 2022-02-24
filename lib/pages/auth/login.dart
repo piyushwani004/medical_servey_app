@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
+import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
 import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/utils/constants.dart';
 import 'package:medical_servey_app/utils/functions.dart';
@@ -15,25 +17,33 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _textControllerEmail = TextEditingController();
+  final TextEditingController _textControllerPassword = TextEditingController();
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final formKeyEmailPass = GlobalKey<FormState>();
+  VillageSelectService sharePrefrenceService = VillageSelectService();
   var width, height;
   Map<String, String> emailPassword = {};
   final GlobalKey<State> _keyLoader = GlobalKey<State>();
   Loading? _loading;
   bool _obscureText = true;
+  bool _isChecked = false;
 
   onLoginPressed() async {
     if (formKeyEmailPass.currentState!.validate()) {
       _loading?.on();
       formKeyEmailPass.currentState!.save();
-          
+
       Response isSignedIn = await context.read<FirebaseAuthService>().signIn(
           email: emailPassword['email'] ?? '',
           password: emailPassword['password'] ?? '');
 
       if (isSignedIn.isSuccessful) {
+        sharePrefrenceService.setLoginDetails(
+          rememberMe: _isChecked,
+          password: _textControllerPassword.text,
+          email: _textControllerEmail.text,
+        );
         _loading?.off();
         showSnackBar(context, isSignedIn.message);
       } else {
@@ -45,11 +55,11 @@ class _LoginPageState extends State<LoginPage> {
 
   onForgotPressed() async {
     bool isEmailValid =
-        emailValidator(_textController.text) == null ? true : false;
+        emailValidator(_textControllerEmail.text) == null ? true : false;
     if (isEmailValid) {
       Response emailSent = await context
           .read<FirebaseAuthService>()
-          .sendPasswordResetEmail(_textController.text);
+          .sendPasswordResetEmail(_textControllerEmail.text);
       if (emailSent.isSuccessful) {
         Common.showAlert(
             context: context,
@@ -68,15 +78,50 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  _handleRemeberme(bool value) {
+    print("Handle Rember Me");
+    _isChecked = value;
+    sharePrefrenceService.getLoginDetails();
+    setState(() {
+      _isChecked = value;
+    });
+  }
+
+  _loadUserEmailPassword() async {
+    print("Load Email");
+    try {
+      Map<String, String> map = await sharePrefrenceService.getLoginDetails();
+      String _email = map[EMAIL] ?? "";
+      String _password = map[PASSWORD] ?? "";
+      String val = map[REMEMBER_ME] ?? "";
+      bool _remeberMe = val.parseBool();
+
+      print(_remeberMe);
+      print(_email);
+      print(_password);
+
+      if (_remeberMe) {
+        setState(() {
+          _isChecked = true;
+        });
+        _textControllerEmail.text = _email;
+        _textControllerPassword.text = _password;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     _loading = Loading(context: context, key: _keyLoader);
+    _loadUserEmailPassword();
     super.initState();
   }
 
   @override
   void dispose() {
-    _textController.dispose();
+    _textControllerEmail.dispose();
     super.dispose();
   }
 
@@ -94,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
     final email = TextFormField(
-      controller: _textController,
+      controller: _textControllerEmail,
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       onSaved: (email) {
@@ -113,7 +158,9 @@ class _LoginPageState extends State<LoginPage> {
       onSaved: (password) {
         emailPassword["password"] = password!;
       },
+      validator: (value) => value!.isEmpty ? 'Password cannot be blank' : null,
       autofocus: false,
+      controller: _textControllerPassword,
       obscureText: _obscureText,
       decoration: InputDecoration(
         hintText: 'Password',
@@ -156,87 +203,153 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
 
+    final createdByText = Text(
+      "$CREATEDBY",
+      style: TextStyle(
+        fontSize: 12,
+        color: Colors.grey
+      ),
+    );
+
+    final templateText = Text(
+      "$TEMPLATE",
+      style: TextStyle(
+        fontSize: 12,
+      ),
+    );
+
+    final companyNameText = Text(
+      "$COMPANYNAME",
+      style: TextStyle(
+        fontSize: 12,
+      ),
+    );
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(234, 242, 255, 1.0),
       body: Padding(
         padding: EdgeInsets.all(size.height > 770
-            ? 64
+            ? 10
             : size.height > 670
-                ? 32
+                ? 20
                 : 16),
         child: Center(
-          child: Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(25),
-              ),
-            ),
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 200),
-              height: size.height *
-                  (size.height > 770
-                      ? 0.7
-                      : size.height > 670
-                          ? 0.8
-                          : 0.9),
-              width: 500,
-              color: Colors.white,
-              child: Form(
-                key: formKeyEmailPass,
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.all(40),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          logo,
-                          Text(
-                            "LOG IN",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.grey[700],
-                            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Card(
+                elevation: 8,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(25),
+                  ),
+                ),
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 200),
+                  height: size.height *
+                      (size.height > 770
+                          ? 0.7
+                          : size.height > 670
+                              ? 0.8
+                              : 0.9),
+                  width: 500,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                  ),
+                  child: Form(
+                    key: formKeyEmailPass,
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: EdgeInsets.all(40),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              logo,
+                              Text(
+                                "LOG IN",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey[700],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              Container(
+                                width: 30,
+                                child: Divider(
+                                  color: kPrimaryColor,
+                                  thickness: 2,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 32,
+                              ),
+                              email,
+                              SizedBox(
+                                height: 32,
+                              ),
+                              password,
+                              SizedBox(
+                                height: 24,
+                              ),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                        height: 24.0,
+                                        width: 24.0,
+                                        child: Theme(
+                                          data: ThemeData(
+                                              unselectedWidgetColor:
+                                                  Color(0xff00C8E8) // Your color
+                                              ),
+                                          child: Checkbox(
+                                            activeColor: Color(0xff00C8E8),
+                                            value: _isChecked,
+                                            onChanged: (value) =>
+                                                _handleRemeberme(value!),
+                                          ),
+                                        )),
+                                    SizedBox(width: 10.0),
+                                    Text("Remember Me",
+                                        style: TextStyle(
+                                            color: Color(0xff646464),
+                                            fontSize: 12,
+                                            fontFamily: 'Rubic'))
+                                  ]),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: forgotLabel),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              loginButton,
+                              SizedBox(
+                                height: 12,
+                              ),
+
+                            ],
                           ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            width: 30,
-                            child: Divider(
-                              color: kPrimaryColor,
-                              thickness: 2,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 32,
-                          ),
-                          email,
-                          SizedBox(
-                            height: 32,
-                          ),
-                          password,
-                          SizedBox(
-                            height: 24,
-                          ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: forgotLabel),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          loginButton,
-                          SizedBox(
-                            height: 12,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
+              SizedBox(height: size.height*0.01,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(child: createdByText),
+                ],
+              )
+            ],
           ),
         ),
       ),
