@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Common/auth_service.dart';
 import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
@@ -205,10 +204,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final createdByText = Text(
       "$CREATEDBY",
-      style: TextStyle(
-        fontSize: 12,
-        color: Colors.grey
-      ),
+      style: TextStyle(fontSize: 12, color: Colors.grey),
     );
 
     final templateText = Text(
@@ -221,8 +217,9 @@ class _LoginPageState extends State<LoginPage> {
     final companyNameText = Text(
       "$COMPANYNAME",
       style: TextStyle(
-        fontSize: 12,
-      ),
+          fontSize: 12,
+          color: Colors.blue,
+          decoration: TextDecoration.underline),
     );
 
     return Scaffold(
@@ -306,8 +303,8 @@ class _LoginPageState extends State<LoginPage> {
                                         width: 24.0,
                                         child: Theme(
                                           data: ThemeData(
-                                              unselectedWidgetColor:
-                                                  Color(0xff00C8E8) // Your color
+                                              unselectedWidgetColor: Color(
+                                                  0xff00C8E8) // Your color
                                               ),
                                           child: Checkbox(
                                             activeColor: Color(0xff00C8E8),
@@ -333,7 +330,6 @@ class _LoginPageState extends State<LoginPage> {
                               SizedBox(
                                 height: 12,
                               ),
-
                             ],
                           ),
                         ),
@@ -342,11 +338,20 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              SizedBox(height: size.height*0.01,),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(child: createdByText),
+                  Flexible(
+                    child: InkWell(
+                        onTap: () {
+                          launchURL();
+                        },
+                        child: companyNameText),
+                  ),
                 ],
               )
             ],

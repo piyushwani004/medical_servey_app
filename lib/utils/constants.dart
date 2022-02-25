@@ -28,9 +28,10 @@ const REMEMBER_ME = 'remember_me';
 const EMAIL = 'email';
 const PASSWORD = 'password';
 
+const url = 'https://libityinfotech.com/';
 
 const COMPANYNAME = 'Libity Infotech Pvt. Ltd. Jalgaon';
-const CREATEDBY = 'This is a creation by $COMPANYNAME';
+const CREATEDBY = 'This is a creation by ';
 const TEMPLATE = 'This template is made with by';
 
 final CollectionReference collectionDisease =

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
 
+import 'package:medical_servey_app/utils/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 String? emailValidator(String text) {
   bool validEmail = RegExp(
           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
@@ -34,8 +37,7 @@ String? mobileNumberValidator(String text) {
 }
 
 String? aadhaarNumberValidator(String text) {
-  bool validPassword =
-      RegExp(r'[0-9]{12}$').hasMatch(text);
+  bool validPassword = RegExp(r'[0-9]{12}$').hasMatch(text);
   if (validPassword) {
     return null;
   } else {
@@ -109,7 +111,15 @@ extension BoolParsing on String {
     } else if (this.toLowerCase() == 'false') {
       return false;
     }
-    
+
     throw '"$this" can not be parsed to boolean.';
+  }
+}
+
+launchURL() async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
