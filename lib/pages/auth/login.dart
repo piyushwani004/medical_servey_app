@@ -224,137 +224,140 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(234, 242, 255, 1.0),
-      body: Padding(
-        padding: EdgeInsets.all(size.height > 770
-            ? 10
-            : size.height > 670
-                ? 20
-                : 16),
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Card(
-                elevation: 8,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(25),
-                  ),
-                ),
-                child: AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
-                  height: size.height *
-                      (size.height > 770
-                          ? 0.7
-                          : size.height > 670
-                              ? 0.8
-                              : 0.9),
-                  width: 500,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(size.height > 770
+              ? 10
+              : size.height > 670
+                  ? 20
+                  : 16),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Card(
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(25),
                     ),
                   ),
-                  child: Form(
-                    key: formKeyEmailPass,
-                    child: Center(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: EdgeInsets.all(40),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              logo,
-                              Text(
-                                "LOG IN",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.grey[700],
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    height: size.height *
+                        (size.height > 770
+                            ? 0.7
+                            : size.height > 670
+                                ? 0.8
+                                : 0.9),
+                    width: 500,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
+                    ),
+                    child: Form(
+                      key: formKeyEmailPass,
+                      child: Center(
+                        child: SingleChildScrollView(
+                          physics: NeverScrollableScrollPhysics(),
+                          child: Padding(
+                            padding: EdgeInsets.all(40),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                logo,
+                                Text(
+                                  "LOG IN",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey[700],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                width: 30,
-                                child: Divider(
-                                  color: kPrimaryColor,
-                                  thickness: 2,
+                                SizedBox(
+                                  height: 8,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 32,
-                              ),
-                              email,
-                              SizedBox(
-                                height: 32,
-                              ),
-                              password,
-                              SizedBox(
-                                height: 24,
-                              ),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                        height: 24.0,
-                                        width: 24.0,
-                                        child: Theme(
-                                          data: ThemeData(
-                                              unselectedWidgetColor: Color(
-                                                  0xff00C8E8) // Your color
-                                              ),
-                                          child: Checkbox(
-                                            activeColor: Color(0xff00C8E8),
-                                            value: _isChecked,
-                                            onChanged: (value) =>
-                                                _handleRemeberme(value!),
-                                          ),
-                                        )),
-                                    SizedBox(width: 10.0),
-                                    Text("Remember Me",
-                                        style: TextStyle(
-                                            color: Color(0xff646464),
-                                            fontSize: 12,
-                                            fontFamily: 'Rubic'))
-                                  ]),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: forgotLabel),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              loginButton,
-                              SizedBox(
-                                height: 12,
-                              ),
-                            ],
+                                Container(
+                                  width: 30,
+                                  child: Divider(
+                                    color: kPrimaryColor,
+                                    thickness: 2,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 32,
+                                ),
+                                email,
+                                SizedBox(
+                                  height: 32,
+                                ),
+                                password,
+                                SizedBox(
+                                  height: 24,
+                                ),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                          height: 24.0,
+                                          width: 24.0,
+                                          child: Theme(
+                                            data: ThemeData(
+                                                unselectedWidgetColor: Color(
+                                                    0xff00C8E8) // Your color
+                                                ),
+                                            child: Checkbox(
+                                              activeColor: Color(0xff00C8E8),
+                                              value: _isChecked,
+                                              onChanged: (value) =>
+                                                  _handleRemeberme(value!),
+                                            ),
+                                          )),
+                                      SizedBox(width: 10.0),
+                                      Text("Remember Me",
+                                          style: TextStyle(
+                                              color: Color(0xff646464),
+                                              fontSize: 12,
+                                              fontFamily: 'Rubic'))
+                                    ]),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: forgotLabel),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                loginButton,
+                                SizedBox(
+                                  height: 12,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(child: createdByText),
-                  Flexible(
-                    child: InkWell(
-                        onTap: () {
-                          launchURL();
-                        },
-                        child: companyNameText),
-                  ),
-                ],
-              )
-            ],
+                SizedBox(
+                  height: size.height * 0.01,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(child: createdByText),
+                    Flexible(
+                      child: InkWell(
+                          onTap: () {
+                            launchURL();
+                          },
+                          child: companyNameText),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
