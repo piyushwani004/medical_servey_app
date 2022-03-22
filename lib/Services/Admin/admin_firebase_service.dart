@@ -194,6 +194,22 @@ class AdminFirebaseService {
     return Response(isSuccessful: isSuccessful, message: message);
   }
 
+  Future<Response> deleteDisease({required Disease disease}) async {
+    String message = "";
+    bool isSuccessful = false;
+    try {
+      String id = disease.id;
+      await collectionDisease.doc(id).delete();
+      message = "Delete Successfully";
+      isSuccessful = true;
+      return Response(isSuccessful: isSuccessful, message: message);
+    } on FirebaseException catch (e) {
+      isSuccessful = false;
+      message = e.message.toString();
+      return Response(isSuccessful: isSuccessful, message: message);
+    }
+  }
+
   //***************Patient-Methods***********//
 
   Future<List<Patient>> getPatients() async {
