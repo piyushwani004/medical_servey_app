@@ -33,6 +33,32 @@ class _AddDiseasesState extends State<AddDiseases> {
     setState(() {});
   }
 
+  Future onDeletePressed(snapshot, index) async {
+    Response responseForDisease = await _firebaseService.deleteDisease(
+      disease: Disease(
+        id: snapshot.data![index].id,
+        name: snapshot.data![index].name,
+      ),
+    );
+
+    if (responseForDisease.isSuccessful) {
+      Common.showAlert(
+          context: context,
+          title: 'Disease Deleted...',
+          content: responseForDisease.message,
+          isError: false);
+      formKeyAddDiseseForm.currentState!.reset();
+      setState(() {});
+    } else {
+      Common.showAlert(
+          context: context,
+          title: 'Failed in Deleting Disease',
+          content: responseForDisease.message,
+          isError: true);
+    }
+    setState(() {});
+  }
+
   Stream<List<Disease>> getAllDisease() async* {
     List<Disease> allDisease = await _firebaseService.getAllDiseases();
     yield allDisease;
@@ -221,7 +247,15 @@ class _AddDiseasesState extends State<AddDiseases> {
                                   onEditPressed(snapshot, index);
                                 },
                                 icon: Icon(Icons.edit)),
-                          )
+                          ),
+                          Card(
+                            child: IconButton(
+                                tooltip: "Delete",
+                                onPressed: () {
+                                  onDeletePressed(snapshot, index);
+                                },
+                                icon: Icon(Icons.delete)),
+                          ),
                         ],
                       );
                     },
