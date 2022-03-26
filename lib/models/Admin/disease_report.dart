@@ -3,10 +3,12 @@ import 'dart:convert';
 class DiseaseReportModel {
   String diseaseName;
   double diseasePercentage;
-  
+  int patientCount;
+
   DiseaseReportModel({
     required this.diseaseName,
     required this.diseasePercentage,
+    required this.patientCount,
   });
 
   DiseaseReportModel copyWith({
@@ -16,6 +18,7 @@ class DiseaseReportModel {
     return DiseaseReportModel(
       diseaseName: diseaseName ?? this.diseaseName,
       diseasePercentage: diseasePercentage ?? this.diseasePercentage,
+      patientCount: patientCount,
     );
   }
 
@@ -23,6 +26,7 @@ class DiseaseReportModel {
     return {
       'diseaseName': diseaseName,
       'diseasePercentage': diseasePercentage,
+      'patientCount': patientCount,
     };
   }
 
@@ -30,6 +34,7 @@ class DiseaseReportModel {
     return DiseaseReportModel(
       diseaseName: map['diseaseName'] ?? '',
       diseasePercentage: map['diseasePercentage']?.toDouble() ?? 0.0,
+      patientCount: int.parse(map['patientCount']),
     );
   }
 

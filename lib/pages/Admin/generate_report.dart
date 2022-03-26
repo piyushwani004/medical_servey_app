@@ -134,10 +134,11 @@ class _GenerateReportState extends State<GenerateReport> {
     );
   }
 
-  Stream<Map<String, double>> calculatePercentageOfSelectedPatients(
+  Stream<List<DiseaseReportModel>> calculatePercentageOfSelectedPatients(
       List<Patient> patients) async* {
+    List<DiseaseReportModel> result = [];
     Map<String, double> freqDisease = {};
-    Map<String, double> perDisease = {};
+
     int totalPatients;
     //getting count of total patients
     totalPatients = patients.length;
@@ -156,22 +157,22 @@ class _GenerateReportState extends State<GenerateReport> {
     }
     print("$freqDisease --freqDisease");
 
-    //calculating percentage
-    for (String dis in freqDisease.keys) {
-      perDisease[dis] = (freqDisease[dis]! / totalPatients) * 100;
-    }
-    print("$perDisease --perDisease MAP");
-    this.reportLst = perDisease.entries
+    this.reportLst = freqDisease.entries
         .map(
           (entry) => DiseaseReportModel(
             diseaseName: entry.key,
-            diseasePercentage: entry.value,
+            diseasePercentage: (entry.value / totalPatients) * 100,
+            patientCount: int.parse(
+              entry.value.toString(),
+            ),
           ),
         )
         .toList();
-    print("${this.reportLst} --report List");
+    result = this.reportLst!;
 
-    yield perDisease;
+    print("$result --report List");
+
+    yield result;
   }
 
   @override
@@ -254,11 +255,11 @@ class _GenerateReportState extends State<GenerateReport> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              StreamBuilder<Map<String, double>>(
+              StreamBuilder<List<DiseaseReportModel>>(
                 stream: calculatePercentageOfSelectedPatients(patientList),
                 // a previously-obtained Future<String> or null
                 builder: (BuildContext context,
-                    AsyncSnapshot<Map<String, double>> snapshot) {
+                    AsyncSnapshot<List<DiseaseReportModel>> snapshot) {
                   List<Widget> children;
                   if (snapshot.hasData) {
                     children = <Widget>[
@@ -276,11 +277,12 @@ class _GenerateReportState extends State<GenerateReport> {
                       ),
                       ListView.builder(
                           shrinkWrap: true,
-                          itemCount: (snapshot.data?.keys)!.toList().length,
+                          itemCount: snapshot.data!.length,
                           itemBuilder: (_, index) {
-                            double? per = snapshot
-                                .data?[(snapshot.data!.keys).toList()[index]];
-                            String dis = (snapshot.data?.keys)!.toList()[index];
+                            double? per =
+                                snapshot.data![index].diseasePercentage;
+                            String dis = snapshot.data![index].diseaseName;
+                            int patCnt = snapshot.data![index].patientCount;
                             return Row(
                               children: [
                                 Expanded(
@@ -293,9 +295,12 @@ class _GenerateReportState extends State<GenerateReport> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(child: Text(dis)),
+                                          Expanded(
+                                              child: Text(patCnt.toString() +
+                                                  " patients")),
                                           Flexible(
                                               child: Text(
-                                                  '${per?.toStringAsFixed(2)}%')),
+                                                  '${per.toStringAsFixed(2)}%')),
                                         ],
                                       ),
                                     ),
