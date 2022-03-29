@@ -277,6 +277,7 @@ class PdfInvoiceApi {
   static Widget buildReportTable(PdfModel pdf) {
     final headers = [
       'Disease Name',
+      'Patient Count',
       'Disease Percentage',
     ];
     print("pdf : ${pdf.reportLst}");
@@ -284,6 +285,7 @@ class PdfInvoiceApi {
     final data = pdf.reportLst!.map((item) {
       return [
         item.diseaseName,
+        item.patientCount,
         "${item.diseasePercentage}%",
       ];
     }).toList();
