@@ -40,7 +40,7 @@ class PdfInvoiceApi {
 
   static Widget buildPatientTable(PdfModel pdf) {
     final headers = [
-      'Id',
+      'Sr No.',
       'Name',
       'Profession',
       'Email',
@@ -54,6 +54,7 @@ class PdfInvoiceApi {
       'Village',
       'Aadhaar Number',
       'is Member',
+      'boot No./ ward no.',
     ];
 
     final data = pdf.patientLst!.map((item) {
@@ -72,6 +73,7 @@ class PdfInvoiceApi {
         item.village,
         item.aadhaarNumber,
         item.isMember ? 'Yes' : 'No',
+        item.bootNo,
       ];
     }).toList();
 
@@ -145,7 +147,7 @@ class PdfInvoiceApi {
 
   static Widget buildSurveyorTable(PdfModel pdf) {
     final headers = [
-      'Id',
+      'Sr No.',
       'Name',
       'Profession',
       'Email',

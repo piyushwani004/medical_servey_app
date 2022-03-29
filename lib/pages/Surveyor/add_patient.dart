@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +16,6 @@ import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
 import '../../models/common/villageData.dart';
-import '../../utils/image_utils.dart';
 
 class AddPatientForm extends StatefulWidget {
   const AddPatientForm({Key? key}) : super(key: key);
@@ -114,7 +111,8 @@ class _AddPatientFormState extends State<AddPatientForm> {
       }
     }
   }
-  onChangeOfIsMember(bool changedVal){
+
+  onChangeOfIsMember(bool changedVal) {
     this.isMember = changedVal;
     setState(() {});
   }
@@ -267,9 +265,23 @@ class _AddPatientFormState extends State<AddPatientForm> {
         patientForm["aadhaarNumber"] = aadhaarNo!;
       },
       decoration:
-      Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
+          Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
     );
-    final isMemberListTile = CheckboxListTile(title: Text("Already a member?"),value: isMember, onChanged: (value) => onChangeOfIsMember(value!) );
+
+    final bootNo = TextFormField(
+      keyboardType: TextInputType.text,
+      autofocus: false,
+      onSaved: (bootNo) {
+        patientForm["bootNo"] = bootNo!;
+      },
+      decoration:
+          Common.textFormFieldInputDecoration(labelText: "Boot No./Ward No"),
+    );
+
+    final isMemberListTile = CheckboxListTile(
+        title: Text("Already a member?"),
+        value: isMember,
+        onChanged: (value) => onChangeOfIsMember(value!));
 
     final submitBtn = OutlinedButton(
         onPressed: () {
@@ -342,6 +354,10 @@ class _AddPatientFormState extends State<AddPatientForm> {
             Padding(
               padding: Common.allPadding(mHeight: height),
               child: aadhaarNo,
+            ),
+            Padding(
+              padding: Common.allPadding(mHeight: height),
+              child: bootNo,
             ),
             Padding(
               padding: Common.allPadding(mHeight: height),

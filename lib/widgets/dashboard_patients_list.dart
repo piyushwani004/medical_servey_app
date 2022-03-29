@@ -19,7 +19,7 @@ class _DashboardPatientsListState extends State<DashboardPatientsList> {
   AdminFirebaseService _firebaseService = AdminFirebaseService();
 
   final columns = [
-    'Id',
+    'Sr No.',
     'First Name',
     'Last Name',
     'Age',

@@ -23,6 +23,8 @@ class Patient {
   Timestamp timestamp;
   bool isMember;
   String aadhaarNumber;
+  String? bootNo;
+
   Patient({
     required this.id,
     required this.firstName,
@@ -43,6 +45,7 @@ class Patient {
     required this.timestamp,
     required this.isMember,
     required this.aadhaarNumber,
+    required this.bootNo,
   });
 
   Patient copyWith({
@@ -65,6 +68,7 @@ class Patient {
     Timestamp? timestamp,
     bool? isMember,
     String? aadhaarNumber,
+    String? bootNo,
   }) {
     return Patient(
       id: id ?? this.id,
@@ -86,6 +90,7 @@ class Patient {
       timestamp: timestamp ?? this.timestamp,
       isMember: isMember ?? this.isMember,
       aadhaarNumber: aadhaarNumber ?? this.aadhaarNumber,
+      bootNo: bootNo ?? this.bootNo,
     );
   }
 
@@ -110,6 +115,7 @@ class Patient {
       'timestamp': timestamp,
       'isMember': isMember,
       'aadhaarNumber': aadhaarNumber,
+      'bootNo': bootNo,
     };
   }
 
@@ -134,6 +140,7 @@ class Patient {
       timestamp: map['timestamp'],
       isMember: map['isMember'] ?? false,
       aadhaarNumber: map['aadhaarNumber'] ?? '',
+      bootNo: map['bootNo'] ?? '',
     );
   }
 
@@ -144,7 +151,7 @@ class Patient {
 
   @override
   String toString() {
-    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease, village: $village, taluka: $taluka, timestamp: $timestamp, isMember: $isMember, aadhaarNumber: $aadhaarNumber)';
+    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease, village: $village, taluka: $taluka, timestamp: $timestamp, isMember: $isMember, aadhaarNumber: $aadhaarNumber,  bootNo: $bootNo )';
   }
 
   @override
@@ -170,6 +177,7 @@ class Patient {
         other.taluka == taluka &&
         other.timestamp == timestamp &&
         other.isMember == isMember &&
+        other.bootNo == bootNo &&
         other.aadhaarNumber == aadhaarNumber;
   }
 
@@ -193,6 +201,7 @@ class Patient {
         taluka.hashCode ^
         timestamp.hashCode ^
         isMember.hashCode ^
-        aadhaarNumber.hashCode;
+        aadhaarNumber.hashCode ^
+        bootNo.hashCode;
   }
 }
