@@ -76,6 +76,10 @@ class _DataTableWithGivenColumnForPatientState
         widget.records.sort((Patient r1, Patient r2) => compareString(
             ascending, r1.isMember.toString(), r2.isMember.toString()));
         break;
+      case 14:
+        widget.records.sort((Patient r1, Patient r2) => compareString(
+            ascending, r1.bootNo.toString(), r2.bootNo.toString()));
+        break;
     }
 
     setState(() {
@@ -110,6 +114,7 @@ class _DataTableWithGivenColumnForPatientState
               DataCell(Text(row.diseases.toString())),
               DataCell(Text(row.aadhaarNumber.toString())),
               DataCell(Text(row.isMember ? 'Yes' : 'No')),
+              DataCell(Text(row.bootNo.toString())),
             ],
             selected: widget.selectedRecords.contains(row),
             onSelectChanged: (isSelected) => setState(() {

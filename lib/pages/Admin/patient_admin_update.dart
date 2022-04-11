@@ -49,7 +49,7 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
   List<String> villagesLst = [];
   List<String> talukaLst = [];
   List<String> columnsOfDataTable = [
-    'id',
+    'Sr No.',
     'Village',
     'Email',
     'First-Name',
@@ -63,6 +63,7 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     'Diseases',
     'Aadhaar Number',
     'Is Member',
+    'Boot No./ ward no.',
   ];
 
   Future<void> fetchDataFromJson() async {

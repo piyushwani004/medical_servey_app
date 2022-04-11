@@ -61,15 +61,15 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     Response response;
 
     if (_formKey.currentState!.validate()) {
-      print(widget.patient.toString() + "\npatient that is selected 61");
-      print('$patientForm' + 'Patient form before');
-      print('in if of form valid 62');
+      // print(widget.patient.toString() + "\npatient that is selected 61");
+      // print('$patientForm' + 'Patient form before');
+      // print('in if of form valid 62');
       patientForm['id'] = widget.patient.id;
-      print(widget.patient.id);
+      // print(widget.patient.id);
       patientForm['date'] = _selectedDate;
-      print(_selectedDate);
+      // print(_selectedDate);
       patientForm['surveyorUID'] = widget.patient.surveyorUID;
-      print(_selectedDate);
+      // print(_selectedDate);
       patientForm['age'] = ageDropDown!.selectedItem!;
       patientForm['gender'] = genderDropDown!.selectedItem!;
       patientForm['profession'] = professionDropDown!.selectedItem!;
@@ -77,15 +77,15 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       patientForm['timestamp'] = widget.patient.timestamp;
       patientForm['isMember'] = isMember;
       _formKey.currentState!.save();
-      print('$patientForm' + 'Patient form after');
+      // print('$patientForm' + 'Patient form after');
 
-      print('in if of form saved 69');
+      // print('in if of form saved 69');
       Patient patientData = Patient.fromMap(patientForm);
-      print('in if of form patient assigned');
+      // print('in if of form patient assigned');
 
       print("patientData $patientData");
       response = await _firebaseService.updatePatient(patientData);
-      print('in if of form after fetching from firebase 95');
+      // print('in if of form after fetching from firebase 95');
       if (response.isSuccessful) {
         await Common.showAlert(
             context: context,
@@ -112,14 +112,14 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
           isSuccessful: false, message: 'Some fields have invalid values.');
     }
   }
-  onChangeOfIsMember(bool changedVal){
+
+  onChangeOfIsMember(bool changedVal) {
     this.isMember = changedVal;
     setState(() {});
   }
 
   @override
   void initState() {
-
     isMember = widget.patient.isMember;
 
     ageDropDown = DropDownButtonWidget(
@@ -150,7 +150,6 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
   onDiseaseSaved(diseaseSave) {
     print("diseaseSave :: $diseaseSave");
     patientForm['diseases'] = diseaseSave ?? widget.patient.diseases;
-
   }
 
   @override
@@ -249,9 +248,24 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
         patientForm["aadhaarNumber"] = aadhaarNo!;
       },
       decoration:
-      Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
+          Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
     );
-    final isMemberListTile = CheckboxListTile(title: Text("Already a member?"),value: isMember, onChanged: (value) => onChangeOfIsMember(value!) );
+
+    final bootNo = TextFormField(
+      initialValue: widget.patient.bootNo,
+      keyboardType: TextInputType.text,
+      autofocus: false,
+      onSaved: (bootNo) {
+        patientForm["bootNo"] = bootNo!;
+      },
+      decoration:
+          Common.textFormFieldInputDecoration(labelText: "Boot No./Ward No"),
+    );
+
+    final isMemberListTile = CheckboxListTile(
+        title: Text("Already a member?"),
+        value: isMember,
+        onChanged: (value) => onChangeOfIsMember(value!));
 
     final otherDiseaseInput = TextFormField(
       keyboardType: TextInputType.text,
@@ -325,6 +339,10 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
               Padding(
                 padding: Common.allPadding(mHeight: height),
                 child: aadhaarNo,
+              ),
+              Padding(
+                padding: Common.allPadding(mHeight: height),
+                child: bootNo,
               ),
               Padding(
                 padding: Common.allPadding(mHeight: height),
