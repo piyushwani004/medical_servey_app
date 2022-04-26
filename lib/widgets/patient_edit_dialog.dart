@@ -34,10 +34,13 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
   List<String> _diseaseList = [];
   List<int> ages = generateN2MList(15, 100);
   bool isMember = false;
+  bool isKids = false;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? professionDropDown;
+  DropDownButtonWidget? bloodGroupsDropDown;
+  DropDownButtonWidget? kidsCountDropDown;
 
   var genders = [
     'Male',
@@ -55,6 +58,31 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     'Bachelors degree',
     'Masters degree',
     'Doctorate or higher',
+  ];
+
+  var bloodGroups = [
+    'A+',
+    'A-',
+    'B+',
+    'B-',
+    'AB+',
+    'AB-',
+    'O+',
+    'O-',
+  ];
+
+  var kidsCount = [
+    '0',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
   ];
 
   Future<Response> onPressedSubmit() async {
@@ -76,6 +104,9 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       patientForm['village'] = widget.patient.village;
       patientForm['timestamp'] = widget.patient.timestamp;
       patientForm['isMember'] = isMember;
+      patientForm['bloodGroup'] = bloodGroupsDropDown!.selectedItem!;
+      patientForm['isKids'] = isKids;
+      patientForm['kidsCount'] = kidsCountDropDown!.selectedItem ?? 0;
       _formKey.currentState!.save();
       // print('$patientForm' + 'Patient form after');
 
@@ -118,9 +149,18 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
     setState(() {});
   }
 
+  onChangeOfIsKids(bool changedVal) {
+    this.isKids = changedVal;
+    if (!changedVal) {
+      kidsCountDropDown!.selectedItem = null;
+    }
+    setState(() {});
+  }
+
   @override
   void initState() {
     isMember = widget.patient.isMember;
+    isKids = widget.patient.isKids ?? false;
 
     ageDropDown = DropDownButtonWidget(
       items: ages.map((age) => age.toString()).toList(),
@@ -137,6 +177,18 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       name: 'Profession',
       selectedItem: widget.patient.profession,
     );
+
+    bloodGroupsDropDown = DropDownButtonWidget(
+      items: bloodGroups,
+      name: 'Blood Groups',
+      selectedItem: widget.patient.bloodGroup,
+    );
+    kidsCountDropDown = DropDownButtonWidget(
+      items: kidsCount,
+      name: 'Kids Count',
+      selectedItem: widget.patient.kidsCount.toString(),
+    );
+
     getAllDisease();
     super.initState();
   }
@@ -285,6 +337,13 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
       },
     );
 
+    final kidsSwitch = CupertinoSwitch(
+      value: isKids,
+      onChanged: (value) {
+        onChangeOfIsKids(value);
+      },
+    );
+
     return Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -344,6 +403,43 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
                 padding: Common.allPadding(mHeight: height),
                 child: bootNo,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Padding(
+                      padding: Common.allPadding(mHeight: height),
+                      child: bloodGroupsDropDown!,
+                    ),
+                  ),
+                ],
+              ),
+              //kids Switch section
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Flexible(
+                    flex: isKids ? 2 : 3,
+                    child: Text("Do you have kids ?"),
+                  ),
+                  Flexible(
+                    flex: isKids ? 2 : 3,
+                    child: Padding(
+                      padding: Common.allPadding(mHeight: height),
+                      child: kidsSwitch,
+                    ),
+                  ),
+                  Flexible(
+                    flex: 5,
+                    child: Padding(
+                      padding: Common.allPadding(mHeight: height),
+                      child: Visibility(
+                          visible: isKids, child: kidsCountDropDown!),
+                    ),
+                  )
+                ],
+              ),
+              //end kids switch section
               Padding(
                 padding: Common.allPadding(mHeight: height),
                 child: isMemberListTile,

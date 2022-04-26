@@ -43,15 +43,43 @@ class _AddPatientFormState extends State<AddPatientForm> {
   String? selectedVillage;
   Surveyor? _surveyor;
   bool isMember = false;
+  bool isKids = false;
 
   DropDownButtonWidget? ageDropDown;
   DropDownButtonWidget? genderDropDown;
   DropDownButtonWidget? professionDropDown;
+  DropDownButtonWidget? bloodGroupsDropDown;
+  DropDownButtonWidget? kidsCountDropDown;
 
   var genders = [
     'Male',
     'Female',
     'Intersex',
+  ];
+
+  var bloodGroups = [
+    'A+',
+    'A-',
+    'B+',
+    'B-',
+    'AB+',
+    'AB-',
+    'O+',
+    'O-',
+  ];
+
+  var kidsCount = [
+    '0',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
   ];
 
   var profession = [
@@ -88,6 +116,9 @@ class _AddPatientFormState extends State<AddPatientForm> {
       patientForm['taluka'] = _surveyor!.taluka;
       patientForm['timestamp'] = Timestamp.fromDate(DateTime.now());
       patientForm['isMember'] = isMember;
+      patientForm['bloodGroup'] = bloodGroupsDropDown!.selectedItem!;
+      patientForm['isKids'] = isKids;
+      patientForm['kidsCount'] = kidsCountDropDown!.selectedItem ?? 0;
       formKeyNewSurveyorForm.currentState!.save();
 
       print("patientForm map: $patientForm");
@@ -117,6 +148,14 @@ class _AddPatientFormState extends State<AddPatientForm> {
     setState(() {});
   }
 
+  onChangeOfIsKids(bool changedVal) {
+    this.isKids = changedVal;
+    if (!changedVal) {
+      kidsCountDropDown!.selectedItem = null;
+    }
+    setState(() {});
+  }
+
   @override
   void initState() {
     ageDropDown = DropDownButtonWidget(
@@ -130,6 +169,14 @@ class _AddPatientFormState extends State<AddPatientForm> {
     professionDropDown = DropDownButtonWidget(
       items: profession,
       name: 'Profession',
+    );
+    bloodGroupsDropDown = DropDownButtonWidget(
+      items: bloodGroups,
+      name: 'Blood Groups',
+    );
+    kidsCountDropDown = DropDownButtonWidget(
+      items: kidsCount,
+      name: 'Kids Count',
     );
     getCurrentUser();
     getAllDisease();
@@ -279,9 +326,10 @@ class _AddPatientFormState extends State<AddPatientForm> {
     );
 
     final isMemberListTile = CheckboxListTile(
-        title: Text("Already a member?"),
-        value: isMember,
-        onChanged: (value) => onChangeOfIsMember(value!));
+      title: Text("Already a member?"),
+      value: isMember,
+      onChanged: (value) => onChangeOfIsMember(value!),
+    );
 
     final submitBtn = OutlinedButton(
         onPressed: () {
@@ -295,6 +343,13 @@ class _AddPatientFormState extends State<AddPatientForm> {
         setState(() {
           _switchValue = value;
         });
+      },
+    );
+
+    final kidsSwitch = CupertinoSwitch(
+      value: isKids,
+      onChanged: (value) {
+        onChangeOfIsKids(value);
       },
     );
 
@@ -359,6 +414,44 @@ class _AddPatientFormState extends State<AddPatientForm> {
               padding: Common.allPadding(mHeight: height),
               child: bootNo,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: bloodGroupsDropDown!,
+                  ),
+                ),
+              ],
+            ),
+            //kids Switch section
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Flexible(
+                  flex: isKids ? 2 : 3,
+                  child: Text("Do you have kids ?"),
+                ),
+                Flexible(
+                  flex: isKids ? 2 : 3,
+                  child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child: kidsSwitch,
+                  ),
+                ),
+                Flexible(
+                  flex: 5,
+                  child: Padding(
+                    padding: Common.allPadding(mHeight: height),
+                    child:
+                        Visibility(visible: isKids, child: kidsCountDropDown!),
+                  ),
+                )
+              ],
+            ),
+            //end kids switch section
+
             Padding(
               padding: Common.allPadding(mHeight: height),
               child: isMemberListTile,

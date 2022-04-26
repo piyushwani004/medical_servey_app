@@ -55,6 +55,8 @@ class PdfInvoiceApi {
       'Aadhaar Number',
       'is Member',
       'boot No./ ward no.',
+      'Blood Group',
+      'Kids Count',
     ];
 
     final data = pdf.patientLst!.map((item) {
@@ -74,6 +76,8 @@ class PdfInvoiceApi {
         item.aadhaarNumber,
         item.isMember ? 'Yes' : 'No',
         item.bootNo,
+        item.bloodGroup,
+        item.kidsCount,
       ];
     }).toList();
 
@@ -90,12 +94,12 @@ class PdfInvoiceApi {
       defaultColumnWidth: const IntrinsicColumnWidth(flex: 10),
       headerStyle: pw.TextStyle(
         color: PdfColors.white,
-        fontSize: 8,
+        fontSize: 6,
         fontWeight: pw.FontWeight.bold,
       ),
       cellStyle: const pw.TextStyle(
         color: PdfColors.blueGrey900,
-        fontSize: 6,
+        fontSize: 4,
       ),
       rowDecoration: pw.BoxDecoration(
         border: pw.Border(
@@ -281,14 +285,16 @@ class PdfInvoiceApi {
       'Disease Name',
       'Patient Count',
       'Disease Percentage',
+      'Patients Information',
     ];
     print("pdf : ${pdf.reportLst}");
 
     final data = pdf.reportLst!.map((item) {
       return [
         item.diseaseName,
-        item.patientCount,
-        "${item.diseasePercentage}%",
+        item.patientCount.length,
+        "${item.diseasePercentage.toStringAsFixed(2)}%",
+        "${item.patientCount.map((e) => e.firstName + " " + e.lastName + " => " + e.village + "\n").toString().replaceAll(RegExp(r"\p{P}", unicode: true), "")}",
       ];
     }).toList();
 

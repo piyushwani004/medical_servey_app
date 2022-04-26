@@ -64,6 +64,8 @@ class _PatientListForUpdateState extends State<PatientUpdateAdminForUpdate> {
     'Aadhaar Number',
     'Is Member',
     'Boot No./ ward no.',
+    'Blood Group',
+    'Kids Count',
   ];
 
   Future<void> fetchDataFromJson() async {

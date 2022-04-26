@@ -54,7 +54,8 @@ class SurveyorFirebaseService {
     QuerySnapshot querySnapshot =
         await collectionPatient.where('surveyorUID', isEqualTo: uid).get();
     _patientList.addAll(querySnapshot.docs.map(
-        (patient) => Patient.fromMap(patient.data() as Map<String, dynamic>)));
+      (patient) => Patient.fromMap(patient.data() as Map<String, dynamic>),
+    ));
     print("_patientList: $_patientList");
     return _patientList;
   }

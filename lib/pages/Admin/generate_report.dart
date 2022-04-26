@@ -137,7 +137,7 @@ class _GenerateReportState extends State<GenerateReport> {
   Stream<List<DiseaseReportModel>> calculatePercentageOfSelectedPatients(
       List<Patient> patients) async* {
     List<DiseaseReportModel> result = [];
-    Map<String, double> freqDisease = {};
+    Map<String, List<Patient>> freqDisease = {};
 
     int totalPatients;
     //getting count of total patients
@@ -147,10 +147,11 @@ class _GenerateReportState extends State<GenerateReport> {
       for (String dis in pat.diseases) {
         //if freq has disease name increase its count
         if ((freqDisease.keys.toList()).contains(dis)) {
-          freqDisease[dis] = (freqDisease[dis]! + 1);
+          freqDisease[dis]?.add(pat);
         } else {
           ////if freq don't have disease name init its count to 1
-          freqDisease[dis] = 1;
+          freqDisease[dis] = <Patient>[];
+          freqDisease[dis]?.add(pat);
         }
       }
       // listOfDisease.addAll(pat.diseases);
@@ -161,17 +162,13 @@ class _GenerateReportState extends State<GenerateReport> {
         .map(
           (entry) => DiseaseReportModel(
             diseaseName: entry.key,
-            diseasePercentage: (entry.value / totalPatients) * 100,
-            patientCount: int.parse(
-              entry.value.toString(),
-            ),
+            diseasePercentage: (entry.value.length / totalPatients) * 100,
+            patientCount: entry.value
           ),
         )
         .toList();
     result = this.reportLst!;
-
     print("$result --report List");
-
     yield result;
   }
 
@@ -282,7 +279,7 @@ class _GenerateReportState extends State<GenerateReport> {
                             double? per =
                                 snapshot.data![index].diseasePercentage;
                             String dis = snapshot.data![index].diseaseName;
-                            int patCnt = snapshot.data![index].patientCount;
+                            List<Patient> patCnt = snapshot.data![index].patientCount;
                             return Row(
                               children: [
                                 Expanded(
@@ -296,7 +293,7 @@ class _GenerateReportState extends State<GenerateReport> {
                                         children: [
                                           Expanded(child: Text(dis)),
                                           Expanded(
-                                              child: Text(patCnt.toString() +
+                                              child: Text(patCnt.length.toString() +
                                                   " patients")),
                                           Flexible(
                                               child: Text(

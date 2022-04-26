@@ -1,10 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
+import 'package:medical_servey_app/models/surveyor/patient.dart';
+
 class DiseaseReportModel {
   String diseaseName;
   double diseasePercentage;
-  int patientCount;
-
+  List<Patient> patientCount;
   DiseaseReportModel({
     required this.diseaseName,
     required this.diseasePercentage,
@@ -14,11 +17,12 @@ class DiseaseReportModel {
   DiseaseReportModel copyWith({
     String? diseaseName,
     double? diseasePercentage,
+    List<Patient>? patientCount,
   }) {
     return DiseaseReportModel(
       diseaseName: diseaseName ?? this.diseaseName,
       diseasePercentage: diseasePercentage ?? this.diseasePercentage,
-      patientCount: patientCount,
+      patientCount: patientCount ?? this.patientCount,
     );
   }
 
@@ -26,7 +30,7 @@ class DiseaseReportModel {
     return {
       'diseaseName': diseaseName,
       'diseasePercentage': diseasePercentage,
-      'patientCount': patientCount,
+      'patientCount': patientCount.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -34,7 +38,8 @@ class DiseaseReportModel {
     return DiseaseReportModel(
       diseaseName: map['diseaseName'] ?? '',
       diseasePercentage: map['diseasePercentage']?.toDouble() ?? 0.0,
-      patientCount: int.parse(map['patientCount']),
+      patientCount: List<Patient>.from(
+          map['patientCount']?.map((x) => Patient.fromMap(x))),
     );
   }
 
@@ -45,7 +50,7 @@ class DiseaseReportModel {
 
   @override
   String toString() =>
-      'DiseaseReportModel(diseaseName: $diseaseName, diseasePercentage: $diseasePercentage)';
+      'DiseaseReportModel(diseaseName: $diseaseName, diseasePercentage: $diseasePercentage, patientCount: $patientCount)';
 
   @override
   bool operator ==(Object other) {
@@ -53,9 +58,11 @@ class DiseaseReportModel {
 
     return other is DiseaseReportModel &&
         other.diseaseName == diseaseName &&
-        other.diseasePercentage == diseasePercentage;
+        other.diseasePercentage == diseasePercentage &&
+        listEquals(other.patientCount, patientCount);
   }
 
   @override
-  int get hashCode => diseaseName.hashCode ^ diseasePercentage.hashCode;
+  int get hashCode =>
+      diseaseName.hashCode ^ diseasePercentage.hashCode ^ patientCount.hashCode;
 }

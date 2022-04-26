@@ -217,7 +217,7 @@ class AdminFirebaseService {
     CollectionReference patientCollection = instance!.collection('Patient');
     var allSurveyorsSnapshots = await patientCollection
         .orderBy('date', descending: true)
-        .limit(20)
+        .limit(10)
         .get();
     _patients.addAll(allSurveyorsSnapshots.docs.map((surveyor) =>
         Patient.fromMap(surveyor.data() as Map<String, dynamic>)));
