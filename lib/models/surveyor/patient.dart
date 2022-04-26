@@ -24,7 +24,9 @@ class Patient {
   bool isMember;
   String aadhaarNumber;
   String? bootNo;
-
+  bool? isKids;
+  int? kidsCount;
+  String? bloodGroup;
   Patient({
     required this.id,
     required this.firstName,
@@ -45,7 +47,10 @@ class Patient {
     required this.timestamp,
     required this.isMember,
     required this.aadhaarNumber,
-    required this.bootNo,
+    this.bootNo,
+    this.isKids,
+    this.kidsCount,
+    this.bloodGroup,
   });
 
   Patient copyWith({
@@ -69,6 +74,9 @@ class Patient {
     bool? isMember,
     String? aadhaarNumber,
     String? bootNo,
+    bool? isKids,
+    int? kidsCount,
+    String? bloodGroup,
   }) {
     return Patient(
       id: id ?? this.id,
@@ -91,6 +99,9 @@ class Patient {
       isMember: isMember ?? this.isMember,
       aadhaarNumber: aadhaarNumber ?? this.aadhaarNumber,
       bootNo: bootNo ?? this.bootNo,
+      isKids: isKids ?? this.isKids,
+      kidsCount: kidsCount ?? this.kidsCount,
+      bloodGroup: bloodGroup ?? this.bloodGroup,
     );
   }
 
@@ -116,6 +127,9 @@ class Patient {
       'isMember': isMember,
       'aadhaarNumber': aadhaarNumber,
       'bootNo': bootNo,
+      'isKids': isKids,
+      'kidsCount': kidsCount,
+      'bloodGroup': bloodGroup,
     };
   }
 
@@ -141,6 +155,11 @@ class Patient {
       isMember: map['isMember'] ?? false,
       aadhaarNumber: map['aadhaarNumber'] ?? '',
       bootNo: map['bootNo'] ?? '',
+      isKids: map['isKids'] ?? false,
+      kidsCount: int.parse(
+        map['kidsCount'].toString().isEmpty ? "0" : map['kidsCount'].toString(),
+      ),
+      bloodGroup: map['bloodGroup'] ?? '',
     );
   }
 
@@ -151,7 +170,7 @@ class Patient {
 
   @override
   String toString() {
-    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease, village: $village, taluka: $taluka, timestamp: $timestamp, isMember: $isMember, aadhaarNumber: $aadhaarNumber,  bootNo: $bootNo )';
+    return 'Patient(id: $id, firstName: $firstName, middleName: $middleName, lastName: $lastName, profession: $profession, email: $email, mobileNumber: $mobileNumber, address: $address, gender: $gender, date: $date, diseases: $diseases, age: $age, surveyorUID: $surveyorUID, otherDisease: $otherDisease, village: $village, taluka: $taluka, timestamp: $timestamp, isMember: $isMember, aadhaarNumber: $aadhaarNumber, bootNo: $bootNo, isKids: $isKids, kidsCount: $kidsCount, bloodGroup: $bloodGroup)';
   }
 
   @override
@@ -177,8 +196,11 @@ class Patient {
         other.taluka == taluka &&
         other.timestamp == timestamp &&
         other.isMember == isMember &&
+        other.aadhaarNumber == aadhaarNumber &&
         other.bootNo == bootNo &&
-        other.aadhaarNumber == aadhaarNumber;
+        other.isKids == isKids &&
+        other.kidsCount == kidsCount &&
+        other.bloodGroup == bloodGroup;
   }
 
   @override
@@ -202,6 +224,9 @@ class Patient {
         timestamp.hashCode ^
         isMember.hashCode ^
         aadhaarNumber.hashCode ^
-        bootNo.hashCode;
+        bootNo.hashCode ^
+        isKids.hashCode ^
+        kidsCount.hashCode ^
+        bloodGroup.hashCode;
   }
 }

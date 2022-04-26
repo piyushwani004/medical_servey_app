@@ -33,9 +33,11 @@ class _PatientListState extends State<PatientList> {
         slivers: [
           TopSliverAppBar(mHeight: height, text: "Patients List"),
           CustomScrollViewBody(
-              bodyWidget: Padding(
-                  padding: const EdgeInsets.all(0.0),
-                  child: fetchAllPatients()))
+            bodyWidget: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: fetchAllPatients(),
+            ),
+          )
         ],
       ),
     );
