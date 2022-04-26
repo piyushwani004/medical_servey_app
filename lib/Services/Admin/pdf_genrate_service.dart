@@ -285,14 +285,16 @@ class PdfInvoiceApi {
       'Disease Name',
       'Patient Count',
       'Disease Percentage',
+      'Patients Information',
     ];
     print("pdf : ${pdf.reportLst}");
 
     final data = pdf.reportLst!.map((item) {
       return [
         item.diseaseName,
-        item.patientCount,
-        "${item.diseasePercentage}%",
+        item.patientCount.length,
+        "${item.diseasePercentage.toStringAsFixed(2)}%",
+        "${item.patientCount.map((e) => e.firstName + " " + e.lastName + " => " + e.village + "\n").toString().replaceAll(RegExp(r"\p{P}", unicode: true), "")}",
       ];
     }).toList();
 
