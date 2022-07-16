@@ -81,17 +81,17 @@ class _AddPatientFormState extends State<AddPatientForm> {
     // print("index::: $index");
     setState(
       () {
-        for (int i = 0; i < users.length; i++) {
-          if (users[i].patient.id == _user.id) {
-            print("index in IF :: $i");
-            users.removeAt(i);
-          }
-        }
+        // for (int i = 0; i < users.length; i++) {
+        //   if (users[i].patient == _user) {
+        //     print("index in IF :: $i");
+        //     users.removeAt(i);
+        //   }
+        // }
 
-        // var find = users.firstWhere(
-        //   (it) => it.patient.id == _user.id,
-        // );
-        // if (find != null) users.removeAt(users.indexOf(find));
+        var find = users.firstWhere(
+          (it) => it.patient.id == _user.id,
+        );
+        if (find != null) users.removeAt(users.indexOf(find));
 
         // users.removeWhere((item) {
         //   if (item.patient.id == _user.id) {
@@ -144,7 +144,12 @@ class _AddPatientFormState extends State<AddPatientForm> {
         taluka: _surveyor!.taluka,
         village: selectedVillage.toString(),
         diseaseList: _diseaseList,
-        onDelete: () => onDelete(_patient),
+        onDelete: (index) {
+          print("object $index");
+          setState(() {
+            users.remove(index);
+          });
+        },
       ));
     });
   }

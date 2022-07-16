@@ -7,8 +7,6 @@ import 'package:medical_servey_app/utils/functions.dart';
 import 'package:medical_servey_app/widgets/DropDownWidget.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 
-typedef OnDelete();
-
 class UserForm extends StatefulWidget {
   final Patient patient;
   final String surveyorID;
@@ -16,7 +14,7 @@ class UserForm extends StatefulWidget {
   final String taluka;
   final List<String> diseaseList;
   var state = _UserFormState();
-  final OnDelete onDelete;
+  final Function(UserForm) onDelete;
 
   UserForm({
     Key? key,
@@ -318,7 +316,9 @@ class _UserFormState extends State<UserForm>
                 actions: <Widget>[
                   IconButton(
                     icon: Icon(Icons.delete),
-                    onPressed: widget.onDelete,
+                    onPressed: () {
+                      widget.onDelete(widget);
+                    },
                   )
                 ],
               ),
