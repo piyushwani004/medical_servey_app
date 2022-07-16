@@ -1,190 +1,123 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
 import 'package:medical_servey_app/models/Admin/disease.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
-import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
-import 'package:medical_servey_app/utils/functions.dart';
-import 'package:medical_servey_app/widgets/CustomScrollViewBody.dart';
-import 'package:medical_servey_app/widgets/DropDownWidget.dart';
-import 'package:medical_servey_app/widgets/common.dart';
-import 'package:medical_servey_app/widgets/top_sliver_app_bar.dart';
-import 'package:dropdown_search/dropdown_search.dart';
-
-import '../../models/common/villageData.dart';
+import 'package:medical_servey_app/pages/Surveyor/AddPatients/empty_state.dart';
+import 'package:medical_servey_app/pages/Surveyor/AddPatients/form.dart';
 
 class AddPatientForm extends StatefulWidget {
-  const AddPatientForm({Key? key}) : super(key: key);
-
   @override
   _AddPatientFormState createState() => _AddPatientFormState();
 }
 
 class _AddPatientFormState extends State<AddPatientForm> {
-  final formKeyNewSurveyorForm = GlobalKey<FormState>();
-  SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
-  VillageSelectService _villageSelectService = VillageSelectService();
-  final _multiKey = GlobalKey<DropdownSearchState<String>>();
-
-  var width, height;
-  String _selectedDate = formatDate(DateTime.now().toString());
-  bool _switchValue = false;
-  User? user;
-
-  Map<String, dynamic> patientForm = {};
-  List<VillageData> villageData = [];
+  List<UserForm> users = List.empty(growable: true);
   List<Disease> _diseaseData = [];
   List<String> _diseaseList = [];
-  List<int> ages = generateN2MList(15, 100);
   String? selectedVillage;
   Surveyor? _surveyor;
-  bool isMember = false;
-  bool isKids = false;
+  User? user;
+  SurveyorFirebaseService _firebaseService = SurveyorFirebaseService();
+  VillageSelectService _villageSelectService = VillageSelectService();
 
-  DropDownButtonWidget? ageDropDown;
-  DropDownButtonWidget? genderDropDown;
-  DropDownButtonWidget? professionDropDown;
-  DropDownButtonWidget? bloodGroupsDropDown;
-  DropDownButtonWidget? kidsCountDropDown;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: .0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text('Add Patients'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Save'),
+            textColor: Colors.white,
+            onPressed: onSave,
+          )
+        ],
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF30C1FF),
+              Color(0xFF2AA7DC),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: users.length <= 0
+            ? Center(
+                child: EmptyState(
+                  title: 'Oops',
+                  message: 'Add Patient by tapping add button below',
+                ),
+              )
+            : ListView.builder(
+                addAutomaticKeepAlives: true,
+                itemCount: users.length,
+                itemBuilder: (_, i) => users[i],
+              ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: onAddForm,
+        foregroundColor: Colors.white,
+      ),
+    );
+  }
 
-  var genders = [
-    'Male',
-    'Female',
-    'Intersex',
-  ];
+  ///on form Patient deleted
+  void onDelete(Patient _user) {
+    // print("_user::; ${_user.id}");
+    // int index = users.indexWhere((element) => element.patient.id == _user.id);
+    // print("index id ::: ${users.elementAt(index).patient.id}");
+    // print("index::: $index");
+    setState(
+      () {
+        for (int i = 0; i < users.length; i++) {
+          if (users[i].patient.id == _user.id) {
+            print("index in IF :: $i");
+            users.removeAt(i);
+          }
+        }
 
-  var bloodGroups = [
-    'A+',
-    'A-',
-    'B+',
-    'B-',
-    'AB+',
-    'AB-',
-    'O+',
-    'O-',
-  ];
+        // var find = users.firstWhere(
+        //   (it) => it.patient.id == _user.id,
+        // );
+        // if (find != null) users.removeAt(users.indexOf(find));
 
-  var kidsCount = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-  ];
-
-  var profession = [
-    'No formal education',
-    'Primary education',
-    'Secondary education or high school',
-    'GED',
-    'Vocational qualification',
-    'Diploma',
-    'Bachelors degree',
-    'Masters degree',
-    'Doctorate or higher',
-  ];
+        // users.removeWhere((item) {
+        //   if (item.patient.id == _user.id) {
+        //     print("OnDelete user ${_user.id}");
+        //     print("OnDelete item ${item.patient.id}}");
+        //     print("OnDelete inside if");
+        //     return true;
+        //   }
+        //   return false;
+        // });
+      },
+    );
+  }
 
   fetchSelectedVillage() async {
-    User? user = await _firebaseService.getCurrentUser();
     _surveyor = await _firebaseService.getSurveyorDetails();
     selectedVillage = await _villageSelectService.getSelectedVillageString(
         passedUID: user!.uid);
     print("selectedVillage: $selectedVillage");
     print("_surveyor!.taluka: ${_surveyor!.taluka}");
-  }
-
-  onPressedSubmit() async {
-    await fetchSelectedVillage();
-    if (formKeyNewSurveyorForm.currentState!.validate()) {
-      patientForm['id'] = DateTime.now().millisecondsSinceEpoch.toString();
-      patientForm['date'] = _selectedDate;
-      patientForm['surveyorUID'] = user!.uid.toString();
-      patientForm['age'] = ageDropDown!.selectedItem!;
-      patientForm['gender'] = genderDropDown!.selectedItem!;
-      patientForm['profession'] = professionDropDown!.selectedItem!;
-      patientForm['village'] = selectedVillage;
-      patientForm['taluka'] = _surveyor!.taluka;
-      patientForm['timestamp'] = Timestamp.fromDate(DateTime.now());
-      patientForm['isMember'] = isMember;
-      patientForm['bloodGroup'] = bloodGroupsDropDown!.selectedItem!;
-      patientForm['isKids'] = isKids;
-      patientForm['kidsCount'] = kidsCountDropDown!.selectedItem ?? 0;
-      formKeyNewSurveyorForm.currentState!.save();
-
-      print("patientForm map: $patientForm");
-      Patient patient = Patient.fromMap(patientForm);
-      print("patientData $patient");
-
-      Response response = await _firebaseService.savePatient(patient: patient);
-      if (response.isSuccessful) {
-        Common.showAlert(
-            context: context,
-            title: 'Patient Registration',
-            content: response.message,
-            isError: false);
-        formKeyNewSurveyorForm.currentState!.reset();
-      } else {
-        Common.showAlert(
-            context: context,
-            title: 'Failed in Adding Patient',
-            content: response.message,
-            isError: true);
-      }
-    }
-  }
-
-  onChangeOfIsMember(bool changedVal) {
-    this.isMember = changedVal;
     setState(() {});
-  }
-
-  onChangeOfIsKids(bool changedVal) {
-    this.isKids = changedVal;
-    if (!changedVal) {
-      kidsCountDropDown!.selectedItem = null;
-    }
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    ageDropDown = DropDownButtonWidget(
-      items: ages.map((age) => age.toString()).toList(),
-      name: 'Age',
-    );
-    genderDropDown = DropDownButtonWidget(
-      items: genders,
-      name: 'Gender',
-    );
-    professionDropDown = DropDownButtonWidget(
-      items: profession,
-      name: 'Profession',
-    );
-    bloodGroupsDropDown = DropDownButtonWidget(
-      items: bloodGroups,
-      name: 'Blood Groups',
-    );
-    kidsCountDropDown = DropDownButtonWidget(
-      items: kidsCount,
-      name: 'Kids Count',
-    );
-    getCurrentUser();
-    getAllDisease();
-    super.initState();
   }
 
   getCurrentUser() async {
     user = await _firebaseService.getCurrentUser();
+    setState(() {});
   }
 
   getAllDisease() async {
@@ -193,409 +126,38 @@ class _AddPatientFormState extends State<AddPatientForm> {
     setState(() {});
   }
 
-  String? otherDiseaseValidator(String? value) {
-    if (_switchValue && value != null && value.isNotEmpty) {
-      value = value.trim();
-      return null;
-    } else {
-      return "Other Disease can't be empty";
+  //on add form
+  void onAddForm() async {
+    if (user == null ||
+        selectedVillage == null ||
+        _diseaseList.isEmpty ||
+        _surveyor == null) {
+      await getCurrentUser();
+      await fetchSelectedVillage();
+      await getAllDisease();
     }
+    setState(() {
+      var _patient = Patient.empty();
+      users.add(UserForm(
+        patient: _patient,
+        surveyorID: user!.uid.toString(),
+        taluka: _surveyor!.taluka,
+        village: selectedVillage.toString(),
+        diseaseList: _diseaseList,
+        onDelete: () => onDelete(_patient),
+      ));
+    });
   }
 
-  onDiseaseSaved(diseaseSave) {
-    print("diseaseSave :: $diseaseSave");
-    patientForm['diseases'] = diseaseSave;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              // It takes 5/6 part of the screen
-              flex: 5,
-              child: CustomScrollView(
-                slivers: [
-                  TopSliverAppBar(mHeight: height, text: "New Patient Form"),
-                  CustomScrollViewBody(
-                      bodyWidget: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: body(
-                        patientForm: patientForm,
-                        formKey: formKeyNewSurveyorForm),
-                  ))
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget body({required Map<String, dynamic> patientForm, required formKey}) {
-    final fullName = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      validator: (name) {
-        print("in valid full name");
-        String fullName = name!.trim();
-        // print();
-        if (fullName.split(" ").length == 3) {
-          return null;
-        } else {
-          return "*Enter a valid Name";
-        }
-      },
-      onSaved: (name) {
-        String fullName = name!.trim();
-        List<String> splitName = fullName.split(" ");
-        patientForm["firstName"] = splitName[0];
-        patientForm["middleName"] = splitName[1];
-        patientForm["lastName"] = splitName[2];
-      },
-      // validator: (email) => emailValidator(email!),
-      decoration: Common.textFormFieldInputDecoration(labelText: "Full Name"),
-    );
-
-    final email = TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      autofocus: false,
-      validator: (email) => emailValidator(email!),
-      onSaved: (email) {
-        patientForm["email"] = email!;
-      },
-      // validator: (email) => emailValidator(email!),
-      decoration: Common.textFormFieldInputDecoration(labelText: "Email"),
-    );
-    final address = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      onSaved: (address) {
-        patientForm["address"] = address!;
-      },
-      // validator: (email) => emailValidator(email!),
-      decoration: Common.textFormFieldInputDecoration(labelText: "Address"),
-    );
-    final mobileNo = TextFormField(
-      keyboardType: TextInputType.number,
-      autofocus: false,
-      validator: (mobileNo) => mobileNumberValidator(mobileNo!),
-      onSaved: (mobileNo) {
-        patientForm["mobileNumber"] = mobileNo!;
-      },
-      // validator: (email) => emailValidator(email!),
-      decoration:
-          Common.textFormFieldInputDecoration(labelText: "Mobile Number"),
-    );
-    final otherDiseaseInput = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      onSaved: (othDisease) {
-        patientForm["otherDisease"] = othDisease!;
-      },
-      validator: (otherDisease) {
-        return otherDiseaseValidator(otherDisease);
-      },
-      decoration: Common.textFormFieldInputDecoration(labelText: "Disease"),
-    );
-    final aadhaarNo = TextFormField(
-      keyboardType: TextInputType.number,
-      validator: (aadhaarNo) => aadhaarNumberValidator(aadhaarNo!),
-      autofocus: false,
-      onSaved: (aadhaarNo) {
-        patientForm["aadhaarNumber"] = aadhaarNo!;
-      },
-      decoration:
-          Common.textFormFieldInputDecoration(labelText: "Aadhaar Number"),
-    );
-
-    final bootNo = TextFormField(
-      keyboardType: TextInputType.text,
-      autofocus: false,
-      onSaved: (bootNo) {
-        patientForm["bootNo"] = bootNo!;
-      },
-      decoration:
-          Common.textFormFieldInputDecoration(labelText: "Boot No./Ward No"),
-    );
-
-    final isMemberListTile = CheckboxListTile(
-      title: Text("Already a member?"),
-      value: isMember,
-      onChanged: (value) => onChangeOfIsMember(value!),
-    );
-
-    final submitBtn = OutlinedButton(
-        onPressed: () {
-          onPressedSubmit();
-        },
-        child: Text('Submit'));
-
-    final diseaseSwitch = CupertinoSwitch(
-      value: _switchValue,
-      onChanged: (value) {
-        setState(() {
-          _switchValue = value;
-        });
-      },
-    );
-
-    final kidsSwitch = CupertinoSwitch(
-      value: isKids,
-      onChanged: (value) {
-        onChangeOfIsKids(value);
-      },
-    );
-
-    return Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: height * 0.02,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: fullName,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                    child: Padding(
-                  padding: Common.allPadding(mHeight: height),
-                  child: ageDropDown!,
-                )),
-                SizedBox(
-                  width: width * 0.01,
-                ),
-                Expanded(
-                    child: Padding(
-                  padding: Common.allPadding(mHeight: height),
-                  child: genderDropDown!,
-                )),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: professionDropDown!,
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: mobileNo,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: email,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: address,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: aadhaarNo,
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: bootNo,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: bloodGroupsDropDown!,
-                  ),
-                ),
-              ],
-            ),
-            //kids Switch section
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Flexible(
-                  flex: isKids ? 2 : 3,
-                  child: Text("Do you have kids ?"),
-                ),
-                Flexible(
-                  flex: isKids ? 2 : 3,
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: kidsSwitch,
-                  ),
-                ),
-                Flexible(
-                  flex: 5,
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child:
-                        Visibility(visible: isKids, child: kidsCountDropDown!),
-                  ),
-                )
-              ],
-            ),
-            //end kids switch section
-
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: isMemberListTile,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                    child: Padding(
-                  padding: Common.allPadding(mHeight: height),
-                  child: multipleSelectionDropdown(),
-                )),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Flexible(
-                  flex: _switchValue ? 2 : 3,
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: Text("Others"),
-                  ),
-                ),
-                Flexible(
-                  flex: _switchValue ? 2 : 3,
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: diseaseSwitch,
-                  ),
-                ),
-                Flexible(
-                  flex: 5,
-                  child: Padding(
-                    padding: Common.allPadding(mHeight: height),
-                    child: Visibility(
-                        visible: _switchValue, child: otherDiseaseInput),
-                  ),
-                )
-              ],
-            ),
-            Padding(
-              padding: Common.allPadding(mHeight: height),
-              child: submitBtn,
-            ),
-          ],
-        ));
-  }
-
-  Widget multipleSelectionDropdown() {
-    return DropdownSearch<String>.multiSelection(
-      key: _multiKey,
-      validator: (List<String>? v) {
-        return v == null || v.isEmpty ? "required field" : null;
-      },
-      dropdownBuilder: (context, selectedItems) {
-        Widget item(String i) => Container(
-              padding: EdgeInsets.only(left: 6, bottom: 3, top: 3, right: 0),
-              margin: EdgeInsets.symmetric(horizontal: 2),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).primaryColorLight),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    i,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                  MaterialButton(
-                    height: 20,
-                    shape: const CircleBorder(),
-                    focusColor: Colors.red[200],
-                    hoverColor: Colors.red[200],
-                    padding: EdgeInsets.all(0),
-                    minWidth: 34,
-                    onPressed: () {
-                      _multiKey.currentState?.removeItem(i);
-                    },
-                    child: Icon(
-                      Icons.close_outlined,
-                      size: 20,
-                    ),
-                  )
-                ],
-              ),
-            );
-        return Wrap(
-          children: selectedItems.map((e) => item(e)).toList(),
-        );
-      },
-      popupCustomMultiSelectionWidget: (context, list) {
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Flexible(
-              child: Padding(
-                padding: EdgeInsets.all(8),
-                child: OutlinedButton(
-                  onPressed: () {
-                    // How should I unselect all items in the list?
-                    _multiKey.currentState?.closeDropDownSearch();
-                  },
-                  child: const Text('Cancel'),
-                ),
-              ),
-            ),
-            Flexible(
-              child: Padding(
-                padding: EdgeInsets.all(8),
-                child: OutlinedButton(
-                  onPressed: () {
-                    // How should I unselect all items in the list?
-                    _multiKey.currentState?.popupDeselectAllItems();
-                  },
-                  child: const Text('None'),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-      dropdownSearchDecoration: Common.textFormFieldInputDecoration(
-        labelText: "Select Diseases",
-      ),
-      mode: Mode.DIALOG,
-      showSelectedItems: true,
-      // onSaved: (villageSave) => onVllageSaved(villageSave),
-      items: _diseaseList,
-      showClearButton: true,
-      onChanged: (onSaved) {
-        onDiseaseSaved(onSaved);
-      },
-      showSearchBox: true,
-      popupSelectionWidget: (cnt, String item, bool isSelected) {
-        return isSelected
-            ? Icon(
-                Icons.check_circle,
-                color: Colors.green[500],
-              )
-            : Container();
-      },
-    );
+  //on save forms
+  void onSave() {
+    if (users.length > 0) {
+      var allValid = true;
+      users.forEach((form) => allValid = allValid && form.isValid());
+      if (allValid) {
+        var data = users.map((it) => it.patient).toList();
+        print("Save Patients Final... ${data.length}");
+      }
+    }
   }
 }

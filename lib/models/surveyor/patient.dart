@@ -27,6 +27,7 @@ class Patient {
   bool? isKids;
   int? kidsCount;
   String? bloodGroup;
+
   Patient({
     required this.id,
     required this.firstName,
@@ -52,6 +53,32 @@ class Patient {
     this.kidsCount,
     this.bloodGroup,
   });
+
+  Patient.empty({
+    this.id = '',
+    this.firstName = '',
+    this.middleName = '',
+    this.lastName = '',
+    this.profession = '',
+    this.email = '',
+    this.mobileNumber = '',
+    this.address = '',
+    this.gender = '',
+    this.date = '',
+    this.diseases = const [],
+    this.age = 0,
+    this.surveyorUID = '',
+    this.otherDisease,
+    this.village = '',
+    this.taluka = '',
+    Timestamp? timestamp,
+    this.isMember = false,
+    this.aadhaarNumber = '',
+    this.bootNo,
+    this.isKids,
+    this.kidsCount,
+    this.bloodGroup,
+  }) : this.timestamp = timestamp ?? Timestamp.now();
 
   Patient copyWith({
     String? id,

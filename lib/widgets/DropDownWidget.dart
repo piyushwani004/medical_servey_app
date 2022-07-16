@@ -4,12 +4,14 @@ class DropDownButtonWidget extends StatefulWidget {
   String? selectedItem;
   final String name;
   final List<String> items;
-  DropDownButtonWidget({
-    Key? key,
-    required this.items,
-    required this.name,
-    this.selectedItem
-  }) : super(key: key);
+  final Function? onSave;
+  DropDownButtonWidget(
+      {Key? key,
+      required this.items,
+      required this.name,
+      this.onSave,
+      this.selectedItem})
+      : super(key: key);
 
   @override
   DropDownButtonWidgetState createState() => DropDownButtonWidgetState();
@@ -36,6 +38,11 @@ class DropDownButtonWidgetState extends State<DropDownButtonWidget> {
         setState(() {
           widget.selectedItem = newValue!;
         });
+      },
+      onSaved: (save) {
+        if (widget.onSave != null) {
+          widget.onSave!(save);
+        }
       },
       items: items!.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(

@@ -69,18 +69,21 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
-          title: 'Medical Survey',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            fontFamily: GoogleFonts.rubik().fontFamily,
-          ),
-          debugShowCheckedModeBanner: false,
-          onGenerateRoute: Routes.generateRoute,
-          home: adminEmail != null
-              ? AuthenticationWrapper(
-                  adminEmail: adminEmail!,
-                )
-              : Center(child: CircularProgressIndicator())),
+        title: 'Medical Survey',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          fontFamily: GoogleFonts.rubik().fontFamily,
+        ),
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: Routes.generateRoute,
+        home: adminEmail != null
+            ? AuthenticationWrapper(
+                adminEmail: adminEmail!,
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
+      ),
     );
   }
 }
