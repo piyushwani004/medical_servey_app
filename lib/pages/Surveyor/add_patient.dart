@@ -146,9 +146,21 @@ class _AddPatientFormState extends State<AddPatientForm> {
         diseaseList: _diseaseList,
         onDelete: (index) {
           print("object $index");
-          setState(() {
-            users.remove(index);
-          });
+            List<UserForm> temp = [];
+            for(UserForm form in users){
+              if(form == index){
+                print(form.state.ageDropDown?.selectedItem.toString());
+                // form.state.deactivate();
+                users.remove(index);
+                form.state.dispose();
+                continue;
+              }
+              temp.add(form);
+            }
+            print(temp.length);
+            users = temp;
+
+            setState((){});
         },
       ));
     });
