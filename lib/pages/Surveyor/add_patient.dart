@@ -71,7 +71,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: onAddForm,
+        onPressed: onAddFormValidation,
         foregroundColor: Colors.white,
       ),
     );
@@ -128,6 +128,18 @@ class _AddPatientFormState extends State<AddPatientForm> {
     _diseaseData = await _firebaseService.getAllDiseases();
     _diseaseList = _diseaseData.map((e) => e.name).toSet().toList();
     setState(() {});
+  }
+
+  void onAddFormValidation() async {
+    if (users.length == 0) {
+      onAddForm();
+    } else {
+      var allValid = true;
+      users.forEach((form) => allValid = allValid && form.isValid());
+      if (allValid) {
+        onAddForm();
+      }
+    }
   }
 
   //on add form
