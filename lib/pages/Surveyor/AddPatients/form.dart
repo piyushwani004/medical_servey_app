@@ -8,6 +8,7 @@ import 'package:medical_servey_app/widgets/DropDownWidget.dart';
 import 'package:medical_servey_app/widgets/common.dart';
 
 class UserForm extends StatefulWidget {
+  final int patientId;
   final Patient patient;
   final String surveyorID;
   final String village;
@@ -18,6 +19,7 @@ class UserForm extends StatefulWidget {
 
   UserForm({
     Key? key,
+    required this.patientId,
     required this.patient,
     required this.surveyorID,
     required this.village,
@@ -100,6 +102,7 @@ class _UserFormState extends State<UserForm>
 
   onChangeOfIsMember(bool changedVal) {
     this.isMember = changedVal;
+    setState(() {});
   }
 
   onChangeOfIsKids(bool changedVal) {
@@ -310,7 +313,7 @@ class _UserFormState extends State<UserForm>
               AppBar(
                 leading: Icon(Icons.verified_user),
                 elevation: 0,
-                title: Text('Patient Details'),
+                title: Text('Patient ${widget.patientId + 1}'),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 centerTitle: true,
                 actions: <Widget>[

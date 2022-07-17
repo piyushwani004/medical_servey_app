@@ -449,7 +449,7 @@ class _PatientEditDialogState extends State<PatientEditDialog> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: Common.allPadding(mHeight: height),
+                      padding: EdgeInsets.all(0),
                       child: multipleSelectionDropdown(),
                     ),
                   ),

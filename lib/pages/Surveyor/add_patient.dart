@@ -4,9 +4,13 @@ import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.d
 import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
 import 'package:medical_servey_app/models/Admin/disease.dart';
 import 'package:medical_servey_app/models/Admin/surveyor.dart';
+import 'package:medical_servey_app/models/common/Responce.dart';
 import 'package:medical_servey_app/models/surveyor/patient.dart';
 import 'package:medical_servey_app/pages/Surveyor/AddPatients/empty_state.dart';
 import 'package:medical_servey_app/pages/Surveyor/AddPatients/form.dart';
+import 'package:medical_servey_app/routes/routes.dart';
+import 'package:medical_servey_app/widgets/alertdialog.dart';
+import 'package:medical_servey_app/widgets/common.dart';
 
 class AddPatientForm extends StatefulWidget {
   @override
@@ -139,6 +143,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
     setState(() {
       var _patient = Patient.empty();
       users.add(UserForm(
+        patientId: users.length,
         patient: _patient,
         surveyorID: user!.uid.toString(),
         taluka: _surveyor!.taluka,
@@ -160,9 +165,39 @@ class _AddPatientFormState extends State<AddPatientForm> {
       var allValid = true;
       users.forEach((form) => allValid = allValid && form.isValid());
       if (allValid) {
-        var data = users.map((it) => it.patient).toList();
-        print("Save Patients Final... ${data.length}");
+        var patientData = users.map((it) => it.patient).toList();
+        print("Save Patients Final... ${patientData.length}");
+        _showDialog(context: context, data: patientData);
       }
     }
+  }
+
+  _showDialog({required BuildContext context, required List<Patient> data}) {
+    VoidCallback continueCallBack = () async {
+      for (Patient patient in data) {
+        Response response =
+            await _firebaseService.savePatient(patient: patient);
+        if (!response.isSuccessful) {
+          Common.showAlert(
+              context: context,
+              title: 'Failed in Adding Patient',
+              content: response.message,
+              isError: true);
+          break;
+        }
+      }
+      Navigator.of(context).pop();
+      Navigator.pushNamedAndRemoveUntil(
+          context, routeHome, (Route<dynamic> route) => false);
+    };
+    BlurryDialog alert = BlurryDialog("Confirmation",
+        "Are you sure you want to upload Patients?", continueCallBack);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
