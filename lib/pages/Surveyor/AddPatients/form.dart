@@ -313,16 +313,16 @@ class _UserFormState extends State<UserForm>
               AppBar(
                 leading: Icon(Icons.verified_user),
                 elevation: 0,
-                title: Text('Patient ${widget.patientId + 1}'),
+                title: Text('Family Member ${widget.patientId + 1}'),
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 centerTitle: true,
                 actions: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      widget.onDelete(widget);
-                    },
-                  )
+                  // IconButton(
+                  //   icon: Icon(Icons.delete),
+                  //   onPressed: () {
+                  //     widget.onDelete(widget);
+                  //   },
+                  // )
                 ],
               ),
               Padding(

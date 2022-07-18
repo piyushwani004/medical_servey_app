@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:medical_servey_app/Services/Surveyor/surveyor_firebase_service.dart';
 import 'package:medical_servey_app/Services/Surveyor/village_select_service.dart';
 import 'package:medical_servey_app/models/Admin/disease.dart';
@@ -69,43 +70,35 @@ class _AddPatientFormState extends State<AddPatientForm> {
                 itemBuilder: (_, i) => users[i],
               ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: onAddFormValidation,
-        foregroundColor: Colors.white,
-      ),
+      floatingActionButton: SpeedDial(
+          icon: Icons.person_add,
+          backgroundColor: Colors.blueAccent,
+          children: [
+            SpeedDialChild(
+              child: const Icon(Icons.plus_one_rounded),
+              label: 'Add',
+              backgroundColor: Colors.blue,
+              onTap: () {
+                onAddForm();
+              },
+            ),
+            SpeedDialChild(
+              child: const Icon(Icons.exposure_minus_1_rounded),
+              label: 'Remove',
+              backgroundColor: Colors.blue,
+              onTap: () {
+                onDelete();
+              },
+            ),
+          ]),
     );
   }
 
   ///on form Patient deleted
-  void onDelete(Patient _user) {
-    // print("_user::; ${_user.id}");
-    // int index = users.indexWhere((element) => element.patient.id == _user.id);
-    // print("index id ::: ${users.elementAt(index).patient.id}");
-    // print("index::: $index");
+  onDelete() {
     setState(
       () {
-        // for (int i = 0; i < users.length; i++) {
-        //   if (users[i].patient == _user) {
-        //     print("index in IF :: $i");
-        //     users.removeAt(i);
-        //   }
-        // }
-
-        var find = users.firstWhere(
-          (it) => it.patient.id == _user.id,
-        );
-        if (find != null) users.removeAt(users.indexOf(find));
-
-        // users.removeWhere((item) {
-        //   if (item.patient.id == _user.id) {
-        //     print("OnDelete user ${_user.id}");
-        //     print("OnDelete item ${item.patient.id}}");
-        //     print("OnDelete inside if");
-        //     return true;
-        //   }
-        //   return false;
-        // });
+        users.removeAt(users.length - 1);
       },
     );
   }
@@ -130,18 +123,6 @@ class _AddPatientFormState extends State<AddPatientForm> {
     setState(() {});
   }
 
-  void onAddFormValidation() async {
-    if (users.length == 0) {
-      onAddForm();
-    } else {
-      var allValid = true;
-      users.forEach((form) => allValid = allValid && form.isValid());
-      if (allValid) {
-        onAddForm();
-      }
-    }
-  }
-
   //on add form
   void onAddForm() async {
     if (user == null ||
@@ -162,7 +143,7 @@ class _AddPatientFormState extends State<AddPatientForm> {
         village: selectedVillage.toString(),
         diseaseList: _diseaseList,
         onDelete: (index) {
-          print("object $index");
+          print("index $index");
           setState(() {
             users.remove(index);
           });
