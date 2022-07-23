@@ -225,6 +225,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(234, 242, 255, 1.0),
       body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: Padding(
           padding: EdgeInsets.all(size.height > 770
               ? 10
@@ -247,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
                     duration: Duration(milliseconds: 200),
                     height: size.height *
                         (size.height > 770
-                            ? 0.7
+                            ? 0.9
                             : size.height > 670
                                 ? 0.8
                                 : 0.9),
@@ -262,7 +263,6 @@ class _LoginPageState extends State<LoginPage> {
                       key: formKeyEmailPass,
                       child: Center(
                         child: SingleChildScrollView(
-                          physics: NeverScrollableScrollPhysics(),
                           child: Padding(
                             padding: EdgeInsets.all(40),
                             child: Column(

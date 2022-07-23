@@ -162,14 +162,17 @@ class _NewSurveyorFormState extends State<NewSurveyorForm> {
     ageDropDown = DropDownButtonWidget(
       items: ageList.map((age) => age.toString()).toList(),
       name: 'Age',
+      onSave: (save) {},
     );
     genderDropDown = DropDownButtonWidget(
       items: genders,
       name: 'Gender',
+      onSave: (save) {},
     );
     qualificationDropDown = DropDownButtonWidget(
       items: qualifications,
       name: 'Qualification',
+      onSave: (save) {},
     );
 
     districtDropDown = DropdownSearch<String>(
