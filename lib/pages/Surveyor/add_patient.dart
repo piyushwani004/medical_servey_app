@@ -159,7 +159,8 @@ class _AddPatientFormState extends State<AddPatientForm> {
       users.forEach((form) => allValid = allValid && form.isValid());
       if (allValid) {
         var patientData = users.map((it) => it.patient).toList();
-        print("Save Patients Final... ${patientData.length}");
+        print("Save Patients Final... ${patientData.toString()}");
+        //print("Save Patients Final... ${patientData.length}");
         _showDialog(context: context, data: patientData);
       }
     }

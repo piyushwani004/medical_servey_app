@@ -24,8 +24,8 @@ class Patient {
   bool isMember;
   String aadhaarNumber;
   String? bootNo;
-  bool? isKids;
-  int? kidsCount;
+  bool? isKids = false;
+  int? kidsCount = 0;
   String? bloodGroup;
 
   Patient({
@@ -75,8 +75,8 @@ class Patient {
     this.isMember = false,
     this.aadhaarNumber = '',
     this.bootNo,
-    this.isKids,
-    this.kidsCount,
+    this.isKids = false,
+    this.kidsCount = 0,
     this.bloodGroup,
   }) : this.timestamp = timestamp ?? Timestamp.now();
 
@@ -184,7 +184,7 @@ class Patient {
       bootNo: map['bootNo'] ?? '',
       isKids: map['isKids'] ?? false,
       kidsCount: int.parse(
-        map['kidsCount'].toString().isEmpty ? "0" : map['kidsCount'].toString(),
+        map['kidsCount'].toString().isEmpty && map['kidsCount'].toString() == null  ? "0" : map['kidsCount'].toString(),
       ),
       bloodGroup: map['bloodGroup'] ?? '',
     );

@@ -146,6 +146,7 @@ class _UserFormState extends State<UserForm>
     );
     kidsCountDropDown = DropDownButtonWidget(
       items: kidsCount,
+      selectedItem: kidsCount.first,
       name: 'Kids Count',
       onSave: (save) {
         widget.patient.kidsCount = int.parse(save);
